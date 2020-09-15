@@ -1,8 +1,10 @@
 /**************************************************
-Template p5 project
-Pippin Barr
+WEEK 02 - ACTIVITY: Dran an alien
 
-Here is a description of this template p5 project.
+Angel Cella Cenerini
+Template by CART253Course
+
+Drawing an alien entity through notions from Week02's lessons
 **************************************************/
 
 // setup()
