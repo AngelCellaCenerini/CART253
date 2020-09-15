@@ -10,6 +10,7 @@ Drawing an alien entity through notions from Week02's lessons
 // setup()
 //
 // Description of setup() goes here.
+createCanvas(640 x 480);
 function setup() {
 
 }
