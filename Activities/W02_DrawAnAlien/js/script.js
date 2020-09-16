@@ -94,11 +94,12 @@ point(260,30);
 //Drawing the creature: white alien cat
 
 //Drawing the body
+//Lower part of body
 noStroke();
 fill(255,255,255);
 ellipse(300, 190, 85, 90);
 
-
+// Middle - flowing pink rings
 noFill();
 
 strokeWeight(8);
@@ -108,7 +109,7 @@ ellipse(290,230,50,55);
 stroke(255,215,238);
 ellipse(270,260,50,60);
 
-
+//Upper part body
 noStroke();
 fill(255,255,255);
 ellipse(240,280,85,75);
