@@ -118,6 +118,21 @@ ellipse(240,280,85,75);
 
 //Drawing the head
 
+//The shadow
+noStroke();
+fill(250,227,241);
+circle(218,268,50,50);
+circle(212,280,30,30);
+circle(220,280,25,25);
+
+//The actual cat head
+fill(255,255,255);
+circle(210,260,55,55);
+//The ears
+triangle(200,282,150,278,190,250);
+triangle(188,245,195,205,220,234);
+circle(204,276,30,30);
+circle(210,276,25,25);
 
 }
 
