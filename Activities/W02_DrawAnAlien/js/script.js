@@ -93,7 +93,19 @@ point(260,30);
 
 //Drawing the creature: white alien cat
 
-//Drawing the body
+//Drawing the body//
+
+//Tail
+noFill();
+strokeWeight(4);
+stroke(255,215,238);
+ellipse(260,140,40,30);
+
+stroke(236,140,195);
+ellipse(280,145,24,22);
+
+//
+
 //Lower part of body
 noStroke();
 fill(255,255,255);
