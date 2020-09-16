@@ -7,9 +7,10 @@ Template by CART253Course
 Drawing an alien entity through notions from Week02's lessons
 **************************************************/
 
-// setup()
-//
-// Description of setup() goes here.
+// Setting up:
+//    setting uo canavs (500x500)
+//    space sky background
+//    alien cat-creature
 
 
 function setup() {
