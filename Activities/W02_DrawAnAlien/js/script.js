@@ -98,6 +98,25 @@ point(260,30);
 noStroke();
 fill(255,255,255);
 ellipse(300, 190, 85, 90);
+//Left leg lower body
+//Pink lineart
+fill(250,227,241);
+ellipse(287, 188, 69, 66);
+//Left paw in lower body
+ellipse(340,196,18,28);
+//Actual leg
+fill(255,255,255);
+ellipse(290, 185, 75, 70);
+
+//Pink shadow
+fill(250,227,241);
+ellipse(304,200,21,58);
+ellipse(305,200,23,50);
+//Pink shadow right lower paw
+
+//Paw
+fill(255,255,255);
+ellipse(305,195,20,65);
 
 // Middle - flowing pink rings
 noFill();
@@ -114,9 +133,23 @@ noStroke();
 fill(255,255,255);
 ellipse(240,280,85,75);
 
+//Paws
+//Pink lineart/shadow
+fill(250,227,241);
+ellipse(231,319,28,18);
+ellipse(260,303,17,40);
+
+//Actual white paws
+fill(255,255,255);
+ellipse(230,320,28,20);
+ellipse(263,307,21,60);
+ellipse(342,195,20,30);
+//Shoulder
+ellipse(248,259,50,35);
+ellipse(250,264,50,32);
 
 
-//Drawing the head
+//Drawing the white head
 
 //The shadow
 noStroke();
