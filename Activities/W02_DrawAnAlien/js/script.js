@@ -98,6 +98,7 @@ point(260,30);
 noStroke();
 fill(255,255,255);
 ellipse(300, 190, 85, 90);
+
 //Left leg lower body
 //Pink lineart
 fill(250,227,241);
@@ -108,15 +109,18 @@ ellipse(340,196,18,28);
 fill(255,255,255);
 ellipse(290, 185, 75, 70);
 
-//Pink shadow
+//Pink shadow lower legs
 fill(250,227,241);
 ellipse(304,200,21,58);
 ellipse(305,200,23,50);
-//Pink shadow right lower paw
 
 //Paw
 fill(255,255,255);
 ellipse(305,195,20,65);
+//Pink paw fingertips left lower leg
+fill(255,200,225);
+ellipse(305,216,9,14);
+
 
 // Middle - flowing pink rings
 noFill();
@@ -144,9 +148,16 @@ fill(255,255,255);
 ellipse(230,320,28,20);
 ellipse(263,307,21,60);
 ellipse(342,195,20,30);
+//Pink paw fingertips right lower leg
+fill(255,200,225);
+ellipse(342,199,12,14);
+
 //Shoulder
+fill(255,255,255);
 ellipse(248,259,50,35);
 ellipse(250,264,50,32);
+
+
 
 
 //Drawing the white head
@@ -154,9 +165,9 @@ ellipse(250,264,50,32);
 //The shadow
 noStroke();
 fill(250,227,241);
-circle(218,268,50,50);
-circle(212,280,30,30);
-circle(220,280,25,25);
+circle(215,265,50,50);
+circle(209,278,30,30);
+circle(217,278,25,25);
 
 //The actual cat head
 fill(255,255,255);
@@ -166,6 +177,22 @@ triangle(200,282,150,278,190,250);
 triangle(188,245,195,205,220,234);
 circle(204,276,30,30);
 circle(210,276,25,25);
+
+//The pink eyes
+stroke(255,200,225);
+point(220,252);
+point(204,275);
+//White shine in eyes
+strokeWeight(1.8);
+stroke(255,255,255);
+point(220,250);
+point(204,273);
+
+//Ears details
+strokeWeight(1.2);
+stroke(255,200,225);
+line(168,272,180,267);
+line(198,237, 197,220);
 
 }
 
