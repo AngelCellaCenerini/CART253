@@ -95,7 +95,18 @@ point(260,30);
 
 //Drawing the body//
 
-//Tail
+//Tail - two pink rings
+//Pink shine
+noFill();
+strokeWeight(4);
+stroke(255,215,238,170);
+ellipse(260,140,45,35);
+
+stroke(236,140,195,100);
+ellipse(280,145,29,27);
+
+
+//Pink rings
 noFill();
 strokeWeight(4);
 stroke(255,215,238);
@@ -136,13 +147,24 @@ ellipse(305,216,9,14);
 
 // Middle - flowing pink rings
 noFill();
+//Pink shine darker ring
+strokeWeight(8);
+stroke(236,140,195,80);
+ellipse(290,230,60,65);
 
+//Two pink rings
+//Ring1 - darker
 strokeWeight(8);
 stroke(236,140,195);
 ellipse(290,230,50,55);
 
+//Pink shine brighter ring
+stroke(255,215,238,100);
+ellipse(270,260,60,70);
+//Ring2 -brighter
 stroke(255,215,238);
 ellipse(270,260,50,60);
+
 
 //Upper part body
 noStroke();
