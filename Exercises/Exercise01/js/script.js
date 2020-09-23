@@ -6,7 +6,11 @@ Exercise 01 - I like to move it move it!
 **************************************************/
 
 // setup()
-// Introducing customized variables as JavaScript object - named after their represented subject
+// Introducing customized variables, mostly as JavaScript object - named after their represented subject
+let background = {
+  shade: 0;
+}
+
 let moon = {
 x: 350,
 y: 500,
@@ -40,14 +44,16 @@ function setup() {
 //
 // Description of draw() goes here.
 function draw() {
-  background (0);
 
+  //Background; sky starts blues at bottom, becomes orange-ish at top with mapping
+
+  background (sky.shade);
 
   //Risisng,growing Moon -> Sun
   fill(moon.fill);
   moon.fill=map(mouseY,height,0, 0, 255);
   moon.y += moon.speed;
-  moon.y = constrain(moon.y,140,500);
+  moon.y = constrain(moon.y,140,370);
   moon.size += moon.growth;
   moon.size= constrain(moon.size,120,180);
   ellipse(moon.x,moon.y,moon.size);
