@@ -7,9 +7,7 @@ Exercise 01 - I like to move it move it!
 
 // setup()
 // Introducing customized variables, mostly as JavaScript object - named after their represented subject
-let background = {
-  shade: 0;
-}
+//let background = {shade: 0;}
 
 let moon = {
 x: 350,
@@ -32,6 +30,9 @@ x:30,
 y:450,
 fill:70,
 }
+
+//let sheep = {}
+
 //
 function setup() {
 
@@ -46,14 +47,15 @@ function setup() {
 function draw() {
 
   //Background; sky starts blues at bottom, becomes orange-ish at top with mapping
-
-  background (sky.shade);
+  background(42,50,95);
+  //background (sky.shade);
 
   //Risisng,growing Moon -> Sun
   fill(moon.fill);
   moon.fill=map(mouseY,height,0, 0, 255);
+  moon.fill=constrain(moon.fill,170,255);
   moon.y += moon.speed;
-  moon.y = constrain(moon.y,140,370);
+  moon.y = constrain(moon.y,140,400);
   moon.size += moon.growth;
   moon.size= constrain(moon.size,120,180);
   ellipse(moon.x,moon.y,moon.size);
@@ -124,6 +126,26 @@ function draw() {
   ellipse(65,270,50,50);
   // ENDS STILL BACKGROUND
 
+  //Inserting sheep; movable with mouse
+  //Sheep Body
+  fill(239,212,158);
+  ellipse(260,230,60,50);
+  ellipse(270,240,50,30);
+  ellipse(265,255,50,40);
+  ellipse(240,250,90,50);
+  ellipse(240,270,40,30);
+  ellipse(220,267,25,20);
+  ellipse(230,230,40,30);
+  //Sheep Head
+  fill(10);
+  ellipse(225,238,28,35);
+  //Sheep ears
+  ellipse(202,230,19,8);
+  ellipse(250,230,19,8);
+  //Sheep legs
+  ellipse(233,270,8,25);
+  ellipse(291,252,8,25);
+  ellipse(198,260,8,25);
 
 
 }
