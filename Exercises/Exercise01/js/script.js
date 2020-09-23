@@ -6,20 +6,47 @@ Exercise 01 - I like to move it move it!
 **************************************************/
 
 // setup()
+// Introducing customized variables as JavaScript object - named after their represented subject
+let moon = {
+x: 350,
+y: 500,
+size: 120,
+speed: -0.3,
+growth: 0.05,
+fill: 255
+
+
+}
 //
-// Setting up canvas; drawing night sky background
 function setup() {
 
   createCanvas(500,500);
+
+
+}
+
+// draw()
+//
+// Description of draw() goes here.
+function draw() {
   background (0);
 
+  //Risisng,growing Moon -> Sun
+  fill(moon.fill);
+  moon.fill=map(mouseY,height,0, 0, 255);
+  moon.y += moon.speed;
+  moon.y = constrain(moon.y,140,500);
+  moon.size += moon.growth;
+  moon.size= constrain(moon.size,120,180);
+  ellipse(moon.x,moon.y,moon.size);
+
+  // STILL BACKGROUND - this part does not contain variables; it is just still shapes creating purple-ish clouds and glowing stars
   //Drawing white, glowing stars
   //Stars' glow
   stroke(255,255,255,60);
   strokeWeight (17);
   point(180,100);
   point(30,450);
-
   strokeWeight(11);
   point(480,290);
   point(100,60);
@@ -30,7 +57,6 @@ function setup() {
   strokeWeight (10);
   point(180,100);
   point(30,450);
-
   strokeWeight(6);
   point(480,290);
   point(100,60);
@@ -41,10 +67,10 @@ function setup() {
   noStroke();
   //Cloud01- darkest purple; the furthest
   fill(50,52,125);
-  ellipse(230,155,15,20);
-  ellipse(220,160,10,10);
-  ellipse(250,150,10,10);
-  ellipse(235,160,25,15);
+  ellipse(220,155,15,20);
+  ellipse(210,160,10,10);
+  ellipse(240,150,10,10);
+  ellipse(225,160,25,15);
   //Cloud02-darker purple
   fill(78,82,145);
   ellipse(80,250,80,15);
@@ -57,9 +83,6 @@ function setup() {
   ellipse(425,320,100,130);
   ellipse(340,340,160,50);
   ellipse(320,350,80,60);
-
-
-
   //Cloud04 - lightest purple
   fill(137,150,203);
   ellipse(400,400,280,70);
@@ -74,14 +97,8 @@ function setup() {
   ellipse(40,250,30,50);
   ellipse(65,285,60,40);
   ellipse(65,270,50,50);
+  // ENDS STILL BACKGROUND
 
-
-}
-
-// draw()
-//
-// Description of draw() goes here.
-function draw() {
 
 
 }
