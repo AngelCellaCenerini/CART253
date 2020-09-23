@@ -7,7 +7,11 @@ Exercise 01 - I like to move it move it!
 
 // setup()
 // Introducing customized variables, mostly as JavaScript object - named after their represented subject
-//let background = {shade: 0;}
+let bg = {
+  red: 42,
+  green: 50,
+  blue: 95
+}
 
 let moon = {
 x: 350,
@@ -47,13 +51,15 @@ function setup() {
 function draw() {
 
   //Background; sky starts blues at bottom, becomes orange-ish at top with mapping
-  background(42,50,95);
-  //background (sky.shade);
+  bg.red=map(mouseY,height,0,42,245);
+  bg.green=map(mouseY,height,0,50,173);
+  bg.blue=map(mouseY,height,0,95,117);
+  background(bg.red,bg.green,bg.blue);
 
-  //Risisng,growing Moon -> Sun
+  //Risisng,growing Moon; becomes Sun(brighter/bigger) with mapping;
   fill(moon.fill);
-  moon.fill=map(mouseY,height,0, 0, 255);
-  moon.fill=constrain(moon.fill,170,255);
+  moon.fill=map(mouseY,height,0, 0, 500);
+  moon.fill=constrain(moon.fill,200,255);
   moon.y += moon.speed;
   moon.y = constrain(moon.y,140,400);
   moon.size += moon.growth;
@@ -76,11 +82,11 @@ function draw() {
   //Flickering Stars
   //FS1
   fill(star1.fill);
-  star1.fill= random(80,255);
+  star1.fill= random(150,255);
   ellipse(180,100,12);
   //FS2
   fill(star2.fill);
-  star2.fill= random(70,200);
+  star2.fill= random(150,255);
   ellipse(30,450,12);
   //Still stars
   stroke(255,255,255,160);
