@@ -7,8 +7,9 @@ Exercise 01 - I like to move it move it!
 
 // setup()
 //
-// Description of setup() goes here.
+// Setting up canvas; drawing night sky background
 function setup() {
+  createCanvas(500,500);
 
 }
 
