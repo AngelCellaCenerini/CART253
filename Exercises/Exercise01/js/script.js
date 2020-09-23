@@ -7,12 +7,14 @@ Exercise 01 - I like to move it move it!
 
 // setup()
 // Introducing customized variables, mostly as JavaScript object - named after their represented subject
+//Background
 let bg = {
   red: 42,
   green: 50,
   blue: 95
 }
 
+//Moon/Sun
 let moon = {
 x: 350,
 y: 500,
