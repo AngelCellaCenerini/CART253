@@ -14,8 +14,19 @@ size: 120,
 speed: -0.3,
 growth: 0.05,
 fill: 255
+}
 
+//Flickering stars
+let star1 = {
+x:180,
+y:100,
+fill:80,
+}
 
+let star2 = {
+x:30,
+y:450,
+fill:70,
 }
 //
 function setup() {
@@ -31,6 +42,7 @@ function setup() {
 function draw() {
   background (0);
 
+
   //Risisng,growing Moon -> Sun
   fill(moon.fill);
   moon.fill=map(mouseY,height,0, 0, 255);
@@ -40,7 +52,7 @@ function draw() {
   moon.size= constrain(moon.size,120,180);
   ellipse(moon.x,moon.y,moon.size);
 
-  // STILL BACKGROUND - this part does not contain variables; it is just still shapes creating purple-ish clouds and glowing stars
+  // STILL BACKGROUND - this part includes variables only in the two flickering stars; the rest is just still shapes creating purple-ish clouds and glowing stars
   //Drawing white, glowing stars
   //Stars' glow
   stroke(255,255,255,60);
@@ -53,10 +65,17 @@ function draw() {
   point(440,70);
   point(140,300);
   //Actual stars
+  //Flickering Stars
+  //FS1
+  fill(star1.fill);
+  star1.fill= random(80,255);
+  ellipse(180,100,12);
+  //FS2
+  fill(star2.fill);
+  star2.fill= random(70,200);
+  ellipse(30,450,12);
+  //Still stars
   stroke(255,255,255,160);
-  strokeWeight (10);
-  point(180,100);
-  point(30,450);
   strokeWeight(6);
   point(480,290);
   point(100,60);
