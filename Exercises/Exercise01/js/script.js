@@ -7,6 +7,7 @@ Exercise 01 - I like to move it move it!
 COUNTING SHEEP(S)
 You have until dawn to play ;)
 Don't blink! It might be morning when you re-open your eyes
+
 **************************************************/
 
 // setup()
@@ -82,7 +83,7 @@ function draw() {
   point(440,70);
   point(140,300);
   //Actual stars
-  //Flickering Stars
+  //Flickering Stars via random values
   //Flickering Star 1
   fill(star1.fill);
   star1.fill= random(150,255);
