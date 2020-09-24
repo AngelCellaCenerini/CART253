@@ -6,7 +6,7 @@ Exercise 01 - I like to move it move it!
 **************************************************/
 
 // setup()
-// Introducing customized variables, mostly as JavaScript object - named after their represented subject
+// Declaring (+assignment) customized variables as JavaScript objects - named after represented subject
 //Background
 let bg = {
   red: 42,
@@ -37,9 +37,6 @@ y:450,
 fill:70,
 }
 
-//let sheep = {}
-
-//
 function setup() {
 
   createCanvas(500,500);
@@ -49,16 +46,16 @@ function setup() {
 
 // draw()
 //
-// Description of draw() goes here.
+// Designing movable/interactive picture;
 function draw() {
 
-  //Background; sky starts blues at bottom, becomes orange-ish at top with mapping
+  //Background; sky starts blue at bottom, becomes orange-ish at top with mapping (night > dawn)
   bg.red=map(mouseY,height,0,42,245);
   bg.green=map(mouseY,height,0,50,173);
   bg.blue=map(mouseY,height,0,95,117);
   background(bg.red,bg.green,bg.blue);
 
-  //Risisng,growing Moon; becomes Sun(brighter/bigger) with mapping;
+  //Risisng,growing Moon; becomes Sun(brighter/bigger) with mapping; stops at top right corner via constrain
   fill(moon.fill);
   moon.fill=map(mouseY,height,0, 0, 500);
   moon.fill=constrain(moon.fill,200,255);
@@ -68,7 +65,7 @@ function draw() {
   moon.size= constrain(moon.size,120,180);
   ellipse(moon.x,moon.y,moon.size);
 
-  // STILL BACKGROUND - this part includes variables only in the two flickering stars; the rest is just still shapes creating purple-ish clouds and glowing stars
+  // STILL BACKGROUND - this part includes variables only for the two flickering stars; the rest is just still shapes creating purple-ish clouds and glowing stars
   //Drawing white, glowing stars
   //Stars' glow
   stroke(255,255,255,60);
@@ -82,11 +79,11 @@ function draw() {
   point(140,300);
   //Actual stars
   //Flickering Stars
-  //FS1
+  //Flickering Star 1
   fill(star1.fill);
   star1.fill= random(150,255);
   ellipse(180,100,12);
-  //FS2
+  //Flickering Star 2
   fill(star2.fill);
   star2.fill= random(150,255);
   ellipse(30,450,12);
@@ -134,26 +131,25 @@ function draw() {
   ellipse(65,270,50,50);
   // ENDS STILL BACKGROUND
 
-  //Inserting sheep; movable with mouse
-  //Sheep Body
+  //Inserting sheep - following mouse's coordinates
+  //Sheep Body - creamy/beige
   fill(239,212,158);
-  ellipse(260,230,60,50);
-  ellipse(270,240,50,30);
-  ellipse(265,255,50,40);
-  ellipse(240,250,90,50);
-  ellipse(240,270,40,30);
-  ellipse(220,267,25,20);
-  ellipse(230,230,40,30);
-  //Sheep Head
+  ellipse(mouseX-5,mouseY-48,60,50);
+  ellipse(mouseX+5,mouseY-38,50,30);
+  ellipse(mouseX,mouseY-23,50,40);
+  ellipse(mouseX-25,mouseY-28,90,50);
+  ellipse(mouseX-25,mouseY-8,40,30);
+  ellipse(mouseX-45,mouseY-11,25,20);
+  ellipse(mouseX-35,mouseY-48,40,30);
+  //Sheep Head - black (no details)
   fill(10);
-  ellipse(225,238,28,35);
-  //Sheep ears
-  ellipse(202,230,19,8);
-  ellipse(250,230,19,8);
-  //Sheep legs
-  ellipse(233,270,8,25);
-  ellipse(291,252,8,25);
-  ellipse(198,260,8,25);
-
+  ellipse(mouseX-40,mouseY-40,28,35);
+  //Sheep ears - black (detached from head)
+  ellipse(mouseX-63,mouseY-48,19,8);
+  ellipse(mouseX-15,mouseY-48,19,8);
+  //Sheep legs - black
+  ellipse(mouseX-30,mouseY-7,9,25);
+  ellipse(mouseX+26,mouseY-26,8,25);
+  ellipse(mouseX-67,mouseY-18,8,25);
 
 }
