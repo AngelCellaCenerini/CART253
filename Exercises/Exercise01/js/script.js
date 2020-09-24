@@ -3,6 +3,10 @@ Exercise 01 - Template p5 project by CART253 Course
 Angel Cella Cenerini
 
 Exercise 01 - I like to move it move it!
+
+COUNTING SHEEP(S)
+You have until dawn to play ;)
+Don't blink! It might be morning when you re-open your eyes
 **************************************************/
 
 // setup()
