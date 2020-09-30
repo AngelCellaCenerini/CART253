@@ -44,6 +44,7 @@ function draw() {
   imgSpeed= 3;
   imgX+=imgSpeed;
   image(img,imgX,imgY);
+  //
 // if(mouseIsPressed){
 //   background(255,0,0);
 // }
