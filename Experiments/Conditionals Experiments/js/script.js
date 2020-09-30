@@ -24,6 +24,13 @@ createCanvas(500,500);
 // Description of draw() goes here.
 function draw() {
   background(130);
+if(mouseIsPressed){
+  background(255,0,0);
+}
+else{
+  fill(0,0,255);
+}
+
   push();
   noStroke();
   fill(240,30,289);
