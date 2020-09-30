@@ -5,12 +5,14 @@ Angel Cella Cenerini
 Here is a description of this template p5 project.
 **************************************************/
 //Declaring variables vua JS object
+let displayCircle=false;
 let circle ={
 x: 0,
 y: 250,
 size: 140,
 speed: 2
 }
+
 
 // setup()
 //
@@ -29,6 +31,12 @@ if(mouseIsPressed){
 }
 else{
   fill(0,0,255);
+}
+if(displayCircle){
+  ellipse(200,100,100,100);
+}
+if(mouseIsPressed){
+  displayCircle=true;
 }
 
   push();
