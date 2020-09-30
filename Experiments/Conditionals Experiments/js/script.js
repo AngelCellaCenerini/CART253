@@ -6,23 +6,27 @@ Here is a description of this template p5 project.
 **************************************************/
 //Declaring variables vua JS object
 //let displayCircle=false;
-let circle = {
-x: 250,
-y: 250,
-size: 140,
-vx: 0,
-vy:0,
-ax:0,
-ay:0,
-acceleration: 0.1,
-maxSpeed:5
-}
+// let circle = {
+// x: 250,
+// y: 250,
+// size: 140,
+// vx: 0,
+// vy:0,
+// ax:0,
+// ay:0,
+// acceleration: 0.1,
+// maxSpeed:5
+// }
+let img;
 
 // let caterpillar = {
 //   x:100,
 //   y:250,
 //   segmentSize: 50
 // }
+function preload(){
+img= loadImage("assets/images/clown.png");
+}
 // setup()
 //
 // Description of setup() goes here.
@@ -35,6 +39,11 @@ createCanvas(500,500);
 // Description of draw() goes here.
 function draw() {
   background(0);
+  imgX=20;
+  imgY= 200;
+  imgSpeed= 3;
+  imgX+=imgSpeed;
+  image(img,imgX,imgY);
 // if(mouseIsPressed){
 //   background(255,0,0);
 // }
@@ -50,26 +59,26 @@ function draw() {
 
 
   // noStroke();
-fill(255,255,255);
-if(mouseX<circle.x){
-  circle.ax=-circle.acceleration;
-}
-else {
-  circle.ax= circle.acceleration;
-}
-if(mouseY<circle.y){
-  circle.ay=-circle.acceleration;
-}
-else {
-  circle.ay= circle.acceleration;
-}
-circle.vx= circle.vx+circle.ax;
-circle.vx=constrain(circle.vx,-circle.maxSpeed,circle.maxSpeed);
-circle.vy=circle.vy+circle.ay;
-  circle.x = circle.x + circle.vx;
-  circle.y= circle.y+circle.vy;
-
-  ellipse(circle.x, circle.y, circle.size);
+// fill(255,255,255);
+// if(mouseX<circle.x){
+//   circle.ax=-circle.acceleration;
+// }
+// else {
+//   circle.ax= circle.acceleration;
+// }
+// if(mouseY<circle.y){
+//   circle.ay=-circle.acceleration;
+// }
+// else {
+//   circle.ay= circle.acceleration;
+// }
+// circle.vx= circle.vx+circle.ax;
+// circle.vx=constrain(circle.vx,-circle.maxSpeed,circle.maxSpeed);
+// circle.vy=circle.vy+circle.ay;
+//   circle.x = circle.x + circle.vx;
+//   circle.y= circle.y+circle.vy;
+//
+//   ellipse(circle.x, circle.y, circle.size);
   // if(circle.x>width/2){
   //   circle.speed = -circle.speed;
   // }
