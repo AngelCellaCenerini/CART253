@@ -31,9 +31,17 @@ function draw() {
   if(circle.x>width/2){
     circle.speed = -circle.speed;
   }
-  else {
-    circle.speed= circle.speed;
+  if (circle.x < 0){
+    circle.speed= -circle.speed;
   }
+  if(mouseY<height/2){
+    fill(255);
+  }
+  else {
+    fill(0);
+  }
+
+
   ellipse(circle.x,circle.y,circle.size);
   pop();
 }
