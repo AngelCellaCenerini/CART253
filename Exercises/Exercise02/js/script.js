@@ -105,7 +105,7 @@ function draw() {
 background(0);
 
 //Setting up flashy ligths as background - aka the anxiety of the student XD
-for(let i=0; i<15;i++){
+for(let i=0; i<20;i++){
   let x1 = random(0,width);
   let y1 = random (0,height);
   let x2 = random(0,width);
