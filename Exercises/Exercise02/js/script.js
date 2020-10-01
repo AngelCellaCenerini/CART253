@@ -7,7 +7,7 @@ Exercise 02: Dodge-em!
 BEST STUDENT!
 Try being the best student during COVID-19!
 Dodge Bad Internet Connection,
-      Procastination,
+      Procrastination,
       Staying Up Until 4:00AM and
       Forgetting Assignments!
 **************************************************/
@@ -30,7 +30,7 @@ let imgFa ={
   vy: 0,
   speed: 7
 };
-// Procastination (p)
+// Procrastination (p)
 let imgP={
   x: 300,
   y: 0,
@@ -67,7 +67,7 @@ function preload(){
   bic = loadImage("assets/images/Internet.png");
   //Forgetting Assignments (fa)
   fa = loadImage("assets/images/Late.png");
-  //Procastination (p)
+  //Procrastination (p)
   p = loadImage("assets/images/Procastination.png");
   // Staying Up at 4:00AM (su)
   su = loadImage("assets/images/4AM.png");
@@ -89,7 +89,7 @@ function setup() {
   //Forgetting Assignments (fa) icon
   imgFa.x = random(0,width);
   imgFa.vy = imgFa.speed;
-  //Procastination (p) icon
+  //Procrastination (p) icon
   imgP.x = random(0,width);
   imgP.vy = imgP.speed;
   //Staying up Until 4AM (su) icon
@@ -141,7 +141,7 @@ fill(user.fill.r,user.fill.g,user.fill.b);
 let distance1 = dist(user.x,user.y,imgBic.x,imgBic.y);
 //Forgetting Assignments
 let distance2 = dist(user.x,user.y,imgFa.x,imgFa.y);
-//Procastination (p)
+//Procrastination (p)
 let distance3 = dist(user.x,user.y,imgP.x,imgP.y);
 //Staying up Until 4AM (su)
 let distance4 = dist(user.x,user.y,imgSu.x,imgSu.y);
@@ -176,7 +176,7 @@ if(imgFa.y>height){
 
 image(fa,imgFa.x,imgFa.y,imgFa.size);
 
-//Procastination (p) icon
+//Procrastination (p) icon
 imgP.x += imgP.vx;
 imgP.y += imgP.vy;
 
