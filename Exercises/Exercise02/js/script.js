@@ -29,7 +29,14 @@ let imgFa ={
   vy: 0,
   speed: 5
 }
-// Procastination
+// Procastination (p)
+let imgP={
+  x: 300,
+  y: 300,
+  vx: 0,
+  vy: 0,
+  speed: 5
+}
 // Staying Up at 4:00AM
 //preload()
 function preload(){
@@ -38,6 +45,8 @@ function preload(){
   bic = loadImage("assets/images/Internet.png");
   //Forgetting Assignments (fa)
   fa = loadImage("assets/images/Late.png");
+  // Procastination (p)
+  p = loadImage("assets/images/Procastination.png");
 }
 // setup()
 // Declaring (+assignment) customized variables as JavaScript objects - named after represented subject;
@@ -61,5 +70,7 @@ image(bic,imgBic.x,imgBic.y);
 //Forgetting Assignments (fa) icon
 image(fa,imgFa.x,imgFa.y);
 
+//Procastination (p) icon
+image(p,imgP.x,imgP.y);
 
 }
