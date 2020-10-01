@@ -12,7 +12,7 @@ Dodge Bad Internet Connection,
       Forgetting Assignments!
 **************************************************/
 
-// Inserting images - .png files are objects user has to avoid
+// Inserting images variables - .png files are objects user has to avoid
 // Bad Internet Connection (bic)
 let imgBic ={
   x: 200,
@@ -21,7 +21,7 @@ let imgBic ={
   height: 100,
   vx: 0,
   vy: 0,
-  speed: 1
+  speed: 0.1
 }
 // Forgetting Assignments (fa)
 let imgFa ={
@@ -31,7 +31,7 @@ let imgFa ={
   height: 100,
   vx: 0,
   vy: 0,
-  speed: 1
+  speed: 0.1
 }
 // Procastination (p)
 let imgP={
@@ -41,7 +41,7 @@ let imgP={
   height: 100,
   vx: 0,
   vy: 0,
-  speed: 1
+  speed: 0.1
 }
 // Staying up Until 4:00AM (su)
 let imgSu={
@@ -51,9 +51,19 @@ let imgSu={
   height: 100,
   vx: 0,
   vy: 0,
-  speed: 1
+  speed: 0.1
 }
+//
 
+//Inserting User variables - user will follow mouse's movements
+let user={
+  size:80,
+  fill:{
+    r:255,
+    b:255,
+    g:255
+  }
+}
 
 // preload()
 function preload(){
@@ -71,7 +81,6 @@ function preload(){
 
 
 // setup()
-// Declaring (+assignment) customized variables as JavaScript objects - named after represented subject;
 // Description of setup() goes here.
 
 function setup() {
@@ -85,29 +94,63 @@ function setup() {
 // Description of draw() goes here.
 function draw() {
   background(0);
+  noStroke();
 
 // Bad Internet Connection(bic) icon
 imgBic.x = random(0,width);
 imgBic.y += imgBic.vy;
 imgBic.vy += imgBic.speed;
+
+if(imgBic.y>height){
+  imgBic.y = 0;
+  imgBic.x = random(0,width);
+}
+
+if(bic){
+
+}
+
 image(bic,imgBic.x,imgBic.y,imgBic.width,imgBic.height);
 
 //Forgetting Assignments (fa) icon
 imgFa.x = random(0,width);
 imgFa.y += imgFa.vy;
 imgFa.vy += imgFa.speed;
+
+if(imgFa.y>height){
+  imgFa.y = 0;
+  imgFa.x = random(0,width);
+}
+
 image(fa,imgFa.x,imgFa.y,imgFa.width,imgFa.height);
 
 //Procastination (p) icon
 imgP.x = random(0,width);
 imgP.y += imgP.vy;
 imgP.vy += imgP.speed;
+
+if(imgP.y>height){
+  imgP.y = 0;
+  imgP.x = random(0,width);
+}
+
 image(p,imgP.x,imgP.y,imgP.width,imgP.height);
 
 //Staying up Until 4AM (su) icon
 imgSu.x = random(0,width);
 imgSu.y += imgSu.vy;
 imgSu.vy += imgSu.speed;
+
+if(imgSu.y>height){
+  imgSu.y = 0;
+  imgSu.x = random(0,width);
+}
+
 image(su,imgSu.x,imgSu.y,imgSu.width,imgSu.height);
+
+//User (white circle), following mouse's movements; if the mouse touches on of the Obstacles, it turns red-simulation is over.
+circle(user.fill);
+circle(mouseX,mouseY,user.size);
+
 
 }
