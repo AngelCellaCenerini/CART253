@@ -12,46 +12,38 @@ Dodge Bad Internet Connection,
       Forgetting Assignments!
 **************************************************/
 
-// Inserting images variables - .png files are objects user has to avoid
+// Inserting images variables - .png files are objects/obstacles user has to avoid
 // Bad Internet Connection (bic)
 let imgBic ={
   x: 200,
   y:0,
-  width: 100,
-  height: 100,
   vx: 0,
   vy: 0,
-  speed: 0.1
+  speed: 5
 }
 // Forgetting Assignments (fa)
 let imgFa ={
   x: 100,
   y: 0,
-  width: 100,
-  height: 100,
   vx: 0,
   vy: 0,
-  speed: 0.1
+  speed: 5
 }
 // Procastination (p)
 let imgP={
   x: 300,
   y: 0,
-  width: 100,
-  height: 100,
   vx: 0,
   vy: 0,
-  speed: 0.1
+  speed: 5
 }
 // Staying up Until 4:00AM (su)
 let imgSu={
   x: 50,
   y: 0,
-  width: 100,
-  height: 100,
   vx: 0,
   vy: 0,
-  speed: 0.1
+  speed: 5
 }
 //
 
@@ -59,9 +51,9 @@ let imgSu={
 let user={
   size:80,
   fill:{
-    r:255,
-    b:255,
-    g:255
+    r:222,
+    g:250,
+    b:137
   }
 }
 
@@ -86,6 +78,20 @@ function preload(){
 function setup() {
   // Canvas occupies entirely space available on web page
   createCanvas(windowWidth, windowHeight);
+  noCursor();
+  // Objects user has to dodge (icons)
+  // Bad Internet Connection(bic) icon
+  imgBic.x = random(0,width);
+  imgBic.vy = imgBic.speed;
+  //Forgetting Assignments (fa) icon
+  imgFa.x = random(0,width);
+  imgFa.vy = imgFa.speed;
+  //Procastination (p) icon
+  imgP.x = random(0,width);
+  imgP.vy = imgP.speed;
+  //Staying up Until 4AM (su) icon
+  imgSu.x = random(0,width);
+  imgSu.vy = imgSu.speed;
 
 }
 
@@ -93,64 +99,79 @@ function setup() {
 //
 // Description of draw() goes here.
 function draw() {
-  background(0);
-  noStroke();
+background(0);
+noStroke();
 
+//User(white circle) movements follow the mouse's coordinations
+user.x=mouseX;
+user.y=mouseY;
+
+//Catching the obstacles
+//Bad Internet Connection(bic)
+let d1 = dist(user.x,user.y,imgBic.x,imgBic.y);
+//Forgetting Assignments
+let d2 = dist(user.x,user.y,imgFa.x,imgFa.y);
+//Procastination (p)
+let d3 = dist(user.x,user.y,imgP.x,imgP.y);
+//Staying up Until 4AM (su)
+let d4 = dist(user.x,user.y,imgSu.x,imgSu.y);
+
+if(d1 < user.x){
+    noLoop();
+}
+// if(d < user.size/2+imgBic.width/2 || d<user.size/2+imgFa.width/2 || d<user.size/2+imgP.width/2 || d<user.size/2+imgSu.width/2){
+//     noLoop();
+// }
+
+
+// Obstacles movements
 // Bad Internet Connection(bic) icon
-imgBic.x = random(0,width);
+imgBic.x += imgBic.vx;
 imgBic.y += imgBic.vy;
-imgBic.vy += imgBic.speed;
 
 if(imgBic.y>height){
   imgBic.y = 0;
   imgBic.x = random(0,width);
 }
 
-if(bic){
-
-}
-
-image(bic,imgBic.x,imgBic.y,imgBic.width,imgBic.height);
+image(bic,imgBic.x,imgBic.y);
 
 //Forgetting Assignments (fa) icon
-imgFa.x = random(0,width);
+imgFa.x += imgFa.vx;
 imgFa.y += imgFa.vy;
-imgFa.vy += imgFa.speed;
 
 if(imgFa.y>height){
   imgFa.y = 0;
   imgFa.x = random(0,width);
 }
 
-image(fa,imgFa.x,imgFa.y,imgFa.width,imgFa.height);
+image(fa,imgFa.x,imgFa.y);
 
 //Procastination (p) icon
-imgP.x = random(0,width);
+imgP.x += imgP.vx;
 imgP.y += imgP.vy;
-imgP.vy += imgP.speed;
 
 if(imgP.y>height){
   imgP.y = 0;
   imgP.x = random(0,width);
 }
 
-image(p,imgP.x,imgP.y,imgP.width,imgP.height);
+image(p,imgP.x,imgP.y);
 
 //Staying up Until 4AM (su) icon
-imgSu.x = random(0,width);
+imgSu.x += imgSu.vx;
 imgSu.y += imgSu.vy;
-imgSu.vy += imgSu.speed;
 
 if(imgSu.y>height){
   imgSu.y = 0;
   imgSu.x = random(0,width);
 }
 
-image(su,imgSu.x,imgSu.y,imgSu.width,imgSu.height);
+image(su,imgSu.x,imgSu.y);
 
-//User (white circle), following mouse's movements; if the mouse touches on of the Obstacles, it turns red-simulation is over.
-circle(user.fill);
-circle(mouseX,mouseY,user.size);
+//User (white circle)
+fill(user.fill.r,user.fill.g,user.fill.b);
+circle(user.x,user.y,user.size);
 
 
 }
