@@ -17,6 +17,8 @@ Dodge Bad Internet Connection,
 let imgBic ={
   x: 0,
   y:250,
+  width: 100,
+  height: 100,
   vx: 0,
   vy: 0,
   speed: 5
@@ -25,6 +27,8 @@ let imgBic ={
 let imgFa ={
   x: 100,
   y: 350,
+  width: 100,
+  height: 100,
   vx: 0,
   vy: 0,
   speed: 5
@@ -33,6 +37,8 @@ let imgFa ={
 let imgP={
   x: 300,
   y: 300,
+  width: 100,
+  height: 100,
   vx: 0,
   vy: 0,
   speed: 5
@@ -41,6 +47,8 @@ let imgP={
 let imgSu={
   x: 50,
   y: 400,
+  width: 100,
+  height: 100,
   vx: 0,
   vy: 0,
   speed: 5
@@ -79,15 +87,15 @@ function draw() {
   background(0);
 
 // Bad Internet Connection(bic) icon
-image(bic,imgBic.x,imgBic.y);
+image(bic,imgBic.x,imgBic.y,imgBic.width,imgBic.height);
 
 //Forgetting Assignments (fa) icon
-image(fa,imgFa.x,imgFa.y);
+image(fa,imgFa.x,imgFa.y,imgFa.width,imgFa.height);
 
 //Procastination (p) icon
-image(p,imgP.x,imgP.y);
+image(p,imgP.x,imgP.y,imgP.width,imgP.height);
 
 //Staying up Until 4AM (su) icon
-image(su,imgSu.x,imgSu.y);
+image(su,imgSu.x,imgSu.y,imgSu.width,imgSu.height);
 
 }
