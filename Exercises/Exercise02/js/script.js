@@ -37,17 +37,31 @@ let imgP={
   vy: 0,
   speed: 5
 }
-// Staying Up at 4:00AM
-//preload()
+// Staying up Until 4:00AM (su)
+let imgSu={
+  x: 50,
+  y: 400,
+  vx: 0,
+  vy: 0,
+  speed: 5
+}
+
+
+// preload()
 function preload(){
 
   //Bad Internet Connection (bic)
   bic = loadImage("assets/images/Internet.png");
   //Forgetting Assignments (fa)
   fa = loadImage("assets/images/Late.png");
-  // Procastination (p)
+  //Procastination (p)
   p = loadImage("assets/images/Procastination.png");
+  // Staying Up at 4:00AM (su)
+  su = loadImage("assets/images/4AM.png");
+
 }
+
+
 // setup()
 // Declaring (+assignment) customized variables as JavaScript objects - named after represented subject;
 // Description of setup() goes here.
@@ -72,5 +86,8 @@ image(fa,imgFa.x,imgFa.y);
 
 //Procastination (p) icon
 image(p,imgP.x,imgP.y);
+
+//Staying up Until 4AM (su) icon
+image(su,imgSu.x,imgSu.y);
 
 }
