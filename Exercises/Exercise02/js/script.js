@@ -126,7 +126,7 @@ let d4 = dist(imgFa.x,imgFa.y,imgP.x,imgP.y);
 let d5 = dist(imgFa.x,imgFa.y,imgSu.x,imgSu.y);
 let d6 = dist(imgP.x,imgP.y,imgSu.x,imgSu.y);
 
-//User (white circle)
+//User (white circle) - separatring property to make color change work
 fill(user.fill.r,user.fill.g,user.fill.b);
 
 
