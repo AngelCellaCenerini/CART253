@@ -107,8 +107,52 @@ function setup() {
 function draw() {
 background(0);
 
+//Avoiding overlapping between icons
+let d1 = dist(imgBic.x,imgBic.y,imgFa.x,imgFa.y);
+while(d1<imgBic.size/2+imgFa.size/2){
+    imgBic.x=random(0,width);
+    imgBic.y= random(0,height);
+    d1= dist(imgBic.x,imgBic.y,imgFa.x,imgFa.y);
+}
+
+let d2 = dist(imgBic.x,imgBic.y,imgP.x,imgP.y);
+while(d2<imgBic.size/2+imgP.size/2){
+    imgBic.x=random(0,width);
+    imgBic.y= random(0,height);
+    d2= dist(imgBic.x,imgBic.y,imgP.x,imgP.y);
+}
+
+let d3 = dist(imgBic.x,imgBic.y,imgSu.x,imgSu.y);
+while(d3<imgBic.size/2+imgSu.size/2){
+    imgBic.x=random(0,width);
+    imgBic.y= random(0,height);
+    d3= dist(imgBic.x,imgBic.y,imgSu.x,imgSu.y);
+}
+
+let d4 = dist(imgFa.x,imgFa.y,imgP.x,imgP.y);
+while(d4<imgFa.size/2+imgP.size/2){
+    imgFa.x=random(0,width);
+    imgFa.y= random(0,height);
+    d4= dist(imgFa.x,imgFa.y,imgP.x,imgP.y);
+}
+
+let d5 = dist(imgFa.x,imgFa.y,imgSu.x,imgSu.y);
+while(d5<imgFa.size/2+imgSu.size/2){
+    imgFa.x=random(0,width);
+    imgFa.y= random(0,height);
+    d5= dist(imgFa.x,imgFa.y,imgSu.x,imgSu.y);
+}
+
+let d6 = dist(imgP.x,imgP.y,imgSu.x,imgSu.y);
+while(d6<imgP.size/2+imgSu.size/2){
+    imgP.x=random(0,width);
+    imgP.y= random(0,height);
+    d6= dist(imgP.x,imgP.y,imgSu.x,imgSu.y);
+}
+//
+
 //Setting up flashy ligths as background - aka the anxiety of the student XD
-for(let i=0; i<20;i++){
+for(let i=0; i<10;i++){
   let x1 = random(0,width);
   let y1 = random (0,height);
   let x2 = random(0,width);
@@ -120,20 +164,6 @@ for(let i=0; i<20;i++){
 
 
 noStroke();
-
-// Distance between obstacles - avoiding sovrapposition
-let d1 = dist(imgBic.x,imgBic.y,imgFa.x,imgFa.y);
-d1>imgBic.size/2+imgFa.size/2;
-let d2 = dist(imgBic.x,imgBic.y,imgP.x,imgP.y);
-d2>imgBic.size/2+imgP.size/2;
-let d3 = dist(imgBic.x,imgBic.y,imgSu.x,imgSu.y);
-d3>imgBic.size/2+imgSu.size/2;
-let d4 = dist(imgFa.x,imgFa.y,imgP.x,imgP.y);
-d4>imgFa.size/2+imgP.size/2;
-let d5 = dist(imgFa.x,imgFa.y,imgSu.x,imgSu.y);
-d5>imgFa.size/2+imgSu.size/2;
-let d6 = dist(imgP.x,imgP.y,imgSu.x,imgSu.y);
-d6>imgP.size/2+imgSu.size/2;
 
 //User (white circle) - separatring property to make color change work
 fill(user.fill.r,user.fill.g,user.fill.b);
