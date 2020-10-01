@@ -21,9 +21,23 @@ let imgBic ={
   vy: 0,
   speed: 5
 }
+// Forgetting Assignments (fa)
+let imgFa ={
+  x: 100,
+  y: 350,
+  vx: 0,
+  vy: 0,
+  speed: 5
+}
+// Procastination
+// Staying Up at 4:00AM
 //preload()
 function preload(){
+
+  //Bad Internet Connection (bic)
   bic = loadImage("assets/images/Internet.png");
+  //Forgetting Assignments (fa)
+  fa = loadImage("assets/images/Late.png");
 }
 // setup()
 // Declaring (+assignment) customized variables as JavaScript objects - named after represented subject;
@@ -43,5 +57,9 @@ function draw() {
 
 // Bad Internet Connection(bic) icon
 image(bic,imgBic.x,imgBic.y);
+
+//Forgetting Assignments (fa) icon
+image(fa,imgFa.x,imgFa.y);
+
 
 }
