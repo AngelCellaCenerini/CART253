@@ -12,6 +12,19 @@ Dodge Bad Internet Connection,
       Forgetting Assignments!
 **************************************************/
 
+// Inserting images - .png files are objects user has to avoid
+// Bad Internet Connection (bic)
+let imgBic ={
+  x: 0,
+  y:250,
+  vx: 0,
+  vy: 0,
+  speed: 5
+}
+//preload()
+function preload(){
+  bic = loadImage("assets/images/Internet.png");
+}
 // setup()
 // Declaring (+assignment) customized variables as JavaScript objects - named after represented subject;
 // Description of setup() goes here.
@@ -27,5 +40,8 @@ function setup() {
 // Description of draw() goes here.
 function draw() {
   background(0);
+
+// Bad Internet Connection(bic) icon
+image(bic,imgBic.x,imgBic.y);
 
 }
