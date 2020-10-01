@@ -16,34 +16,38 @@ Dodge Bad Internet Connection,
 let imgBic ={
   x: 200,
   y:0,
+  size: 120,
   vx: 0,
   vy: 0,
   speed: 6
-}
+};
 // Forgetting Assignments (fa)
 let imgFa ={
   x: 100,
   y: 0,
+  size:130,
   vx: 0,
   vy: 0,
   speed: 7
-}
+};
 // Procastination (p)
 let imgP={
   x: 300,
   y: 0,
+  size: 140,
   vx: 0,
   vy: 0,
   speed: 6
-}
+};
 // Staying up Until 4:00AM (su)
 let imgSu={
   x: 50,
   y: 0,
+  size: 150,
   vx: 0,
   vy: 0,
   speed: 7
-}
+};
 //
 
 //Inserting User variables - user will follow mouse's movements
@@ -114,26 +118,33 @@ for(let i=0; i<15;i++){
 
 noStroke();
 
-//User(white circle) movements follow the mouse's coordinations
-user.x=mouseX;
-user.y=mouseY;
+// Distance between obstacles
+let d1 = dist(imgBic.x,imgBic.y,imgFa.x,imgFa.y);
+let d2 = dist(imgBic.x,imgBic.y,imgP.x,imgP.y);
+let d3 = dist(imgBic.x,imgBic.y,imgSu.x,imgSu.y);
+let d4 = dist(imgFa.x,imgFa.y,imgP.x,imgP.y);
+let d5 = dist(imgFa.x,imgFa.y,imgSu.x,imgSu.y);
+let d6 = dist(imgP.x,imgP.y,imgSu.x,imgSu.y);
 
-//Catching the obstacles
+//User (white circle)
+fill(user.fill.r,user.fill.g,user.fill.b);
+
+
+//Catching the obstacles - When user touches obstacles, white circle turns red
 //Bad Internet Connection(bic)
-let d1 = dist(user.x,user.y,imgBic.x,imgBic.y);
+let distance1 = dist(user.x,user.y,imgBic.x,imgBic.y);
 //Forgetting Assignments
-let d2 = dist(user.x,user.y,imgFa.x,imgFa.y);
+let distance2 = dist(user.x,user.y,imgFa.x,imgFa.y);
 //Procastination (p)
-let d3 = dist(user.x,user.y,imgP.x,imgP.y);
+let distance3 = dist(user.x,user.y,imgP.x,imgP.y);
 //Staying up Until 4AM (su)
-let d4 = dist(user.x,user.y,imgSu.x,imgSu.y);
+let distance4 = dist(user.x,user.y,imgSu.x,imgSu.y);
 
-if(d1 < user.x/2+imgBic){
+
+if(distance1 < user.size/2+imgBic.size/3 || distance2<user.size/2+imgFa.size/3 || distance3<user.size/2+imgP.size/3 || distance4<user.size/2+imgSu.size/3){
     noLoop();
+    fill(255,0,0);
 }
-// if(d < user.size/2+imgBic.width/2 || d<user.size/2+imgFa.width/2 || d<user.size/2+imgP.width/2 || d<user.size/2+imgSu.width/2){
-//     noLoop();
-// }
 
 
 // Obstacles movements
@@ -146,7 +157,7 @@ if(imgBic.y>height){
   imgBic.x = random(0,width);
 }
 
-image(bic,imgBic.x,imgBic.y);
+image(bic,imgBic.x,imgBic.y,imgBic.size);
 
 //Forgetting Assignments (fa) icon
 imgFa.x += imgFa.vx;
@@ -157,7 +168,7 @@ if(imgFa.y>height){
   imgFa.x = random(0,width);
 }
 
-image(fa,imgFa.x,imgFa.y);
+image(fa,imgFa.x,imgFa.y,imgFa.size);
 
 //Procastination (p) icon
 imgP.x += imgP.vx;
@@ -168,7 +179,7 @@ if(imgP.y>height){
   imgP.x = random(0,width);
 }
 
-image(p,imgP.x,imgP.y);
+image(p,imgP.x,imgP.y,imgP.size);
 
 //Staying up Until 4AM (su) icon
 imgSu.x += imgSu.vx;
@@ -179,10 +190,14 @@ if(imgSu.y>height){
   imgSu.x = random(0,width);
 }
 
-image(su,imgSu.x,imgSu.y);
+image(su,imgSu.x,imgSu.y,imgSu.size);
+//
+
+//User(white circle) movements follow the mouse's coordinations
+user.x=mouseX;
+user.y=mouseY;
 
 //User (white circle)
-fill(user.fill.r,user.fill.g,user.fill.b);
 circle(user.x,user.y,user.size);
 
 
