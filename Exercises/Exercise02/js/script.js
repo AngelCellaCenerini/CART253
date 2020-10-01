@@ -11,7 +11,6 @@ Dodge Bad Internet Connection,
       Staying Up Until 4:00AM and
       Forgetting Assignments!
 **************************************************/
-
 // Inserting images variables - .png files are objects/obstacles user has to avoid
 // Bad Internet Connection (bic)
 let imgBic ={
@@ -100,6 +99,19 @@ function setup() {
 // Description of draw() goes here.
 function draw() {
 background(0);
+
+//Setting up flashy ligths as background - aka the anxiety of the student XD
+for(let i=0; i<15;i++){
+  let x1 = random(0,width);
+  let y1 = random (0,height);
+  let x2 = random(0,width);
+  let y2 = random (0,height);
+  stroke(255);
+  line(x1,y1,x2,y2);
+}
+
+
+
 noStroke();
 
 //User(white circle) movements follow the mouse's coordinations
@@ -116,7 +128,7 @@ let d3 = dist(user.x,user.y,imgP.x,imgP.y);
 //Staying up Until 4AM (su)
 let d4 = dist(user.x,user.y,imgSu.x,imgSu.y);
 
-if(d1 < user.x){
+if(d1 < user.x/2+imgBic){
     noLoop();
 }
 // if(d < user.size/2+imgBic.width/2 || d<user.size/2+imgFa.width/2 || d<user.size/2+imgP.width/2 || d<user.size/2+imgSu.width/2){
