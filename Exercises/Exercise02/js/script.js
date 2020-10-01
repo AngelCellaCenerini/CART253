@@ -147,7 +147,7 @@ let distance3 = dist(user.x,user.y,imgP.x,imgP.y);
 let distance4 = dist(user.x,user.y,imgSu.x,imgSu.y);
 
 
-if(distance1 < user.size/2+imgBic.size/3 || distance2<user.size/2+imgFa.size/3 || distance3<user.size/2+imgP.size/3 || distance4<user.size/2+imgSu.size/3){
+if(distance1 < user.size/2+imgBic.size/2 || distance2<user.size/2+imgFa.size/2 || distance3<user.size/2+imgP.size/2 || distance4<user.size/2+imgSu.size/2){
     noLoop();
     fill(255,0,0);
 }
