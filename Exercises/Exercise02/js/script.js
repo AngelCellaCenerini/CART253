@@ -18,7 +18,7 @@ let imgBic ={
   y:0,
   vx: 0,
   vy: 0,
-  speed: 5
+  speed: 6
 }
 // Forgetting Assignments (fa)
 let imgFa ={
@@ -26,7 +26,7 @@ let imgFa ={
   y: 0,
   vx: 0,
   vy: 0,
-  speed: 5
+  speed: 7
 }
 // Procastination (p)
 let imgP={
@@ -34,7 +34,7 @@ let imgP={
   y: 0,
   vx: 0,
   vy: 0,
-  speed: 5
+  speed: 6
 }
 // Staying up Until 4:00AM (su)
 let imgSu={
@@ -42,7 +42,7 @@ let imgSu={
   y: 0,
   vx: 0,
   vy: 0,
-  speed: 5
+  speed: 7
 }
 //
 
