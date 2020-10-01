@@ -82,6 +82,9 @@ function setup() {
   // Canvas occupies entirely space available on web page
   createCanvas(windowWidth, windowHeight);
   noCursor();
+
+  imageMode(CENTER);
+
   // Objects user has to dodge (icons)
   // Bad Internet Connection(bic) icon
   imgBic.x = random(0,width);
