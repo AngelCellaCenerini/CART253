@@ -118,13 +118,19 @@ for(let i=0; i<20;i++){
 
 noStroke();
 
-// Distance between obstacles
+// Distance between obstacles - avoiding sovrapposition
 let d1 = dist(imgBic.x,imgBic.y,imgFa.x,imgFa.y);
+d1>imgBic.size/2+imgFa.size/2;
 let d2 = dist(imgBic.x,imgBic.y,imgP.x,imgP.y);
+d2>imgBic.size/2+imgP.size/2;
 let d3 = dist(imgBic.x,imgBic.y,imgSu.x,imgSu.y);
+d3>imgBic.size/2+imgSu.size/2;
 let d4 = dist(imgFa.x,imgFa.y,imgP.x,imgP.y);
+d4>imgFa.size/2+imgP.size/2;
 let d5 = dist(imgFa.x,imgFa.y,imgSu.x,imgSu.y);
+d5>imgFa.size/2+imgSu.size/2;
 let d6 = dist(imgP.x,imgP.y,imgSu.x,imgSu.y);
+d6>imgP.size/2+imgSu.size/2;
 
 //User (white circle) - separatring property to make color change work
 fill(user.fill.r,user.fill.g,user.fill.b);
