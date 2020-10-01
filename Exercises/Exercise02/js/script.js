@@ -11,7 +11,7 @@ Dodge Bad Internet Connection,
       Staying Up Until 4:00AM and
       Forgetting Assignments!
 **************************************************/
-// Inserting images variables - .png files are objects/obstacles user has to avoid
+// Inserting images variables - .png files are obstacles user has to avoid
 // Bad Internet Connection (bic)
 let imgBic ={
   x: 200,
@@ -85,7 +85,7 @@ function setup() {
 
   imageMode(CENTER);
 
-  // Objects user has to dodge (icons)
+  // Objects user has to dodge (icons): Movements
   // Bad Internet Connection(bic) icon
   imgBic.x = random(0,width);
   imgBic.vy = imgBic.speed;
@@ -165,7 +165,7 @@ for(let i=0; i<10;i++){
 
 noStroke();
 
-//User (white circle) - separatring property to make color change work
+//User (white circle) - separatring property from circle to make color change work
 fill(user.fill.r,user.fill.g,user.fill.b);
 
 
