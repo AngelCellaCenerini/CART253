@@ -9,7 +9,8 @@ You have until dawn to play ;)
 Don't blink! It might be morning when you re-open your eyes
 
 **************************************************/
-//Declaring images variables
+//Declaring Font
+let myFont;
 
 //Background - "Scenario" as to not interfere with JavaScript
 let imgScenario = {
@@ -27,8 +28,11 @@ let imgBranch = {
 let imgClouds = {
   x: 400,
   y: 900,
-  vx: 1,
-  vy: 0
+  width: 702,
+  height: 450,
+  vx: 0,
+  vy: 0,
+  speed: -1
 }
 //User (parrot)
 let imgUser = {
@@ -89,21 +93,32 @@ let imgBadEnding2 = {
 }
 
 //Declaring States
-let state = `simulation` //Title, simulation, happy ending, bad ending 1, bad ending 2
+let state = `title` //Title, simulation, happy ending, bad ending 1, bad ending 2
+//let state = `simulation`
 
 function preload(){
 
-scenario = loadImage("assets/images/scenario.jpg");
-branch = loadImage("assets/images/branch.png");
-clouds = loadImage("assets/images/clouds.png");
-user = loadImage("assets/images/user.png");
-mp1 = loadImage("assets/images/mp1.png");
-mp2 = loadImage("assets/images/mp2.png");
-fp1 = loadImage("assets/images/fp1.png");
-fp2 = loadImage("assets/images/fp2.png");
-he = loadImage("assets/images/he.jpg");
-be1 = loadImage("assets/images/be1.png");
-be2 = loadImage("assets/images/be2.png");
+icons();
+customedFont();
+
+
+function customedFont(){
+  myFont = loadFont('assets/boldeRough.otf');
+}
+
+function icons(){
+  scenario = loadImage("assets/images/scenario.jpg");
+  branch = loadImage("assets/images/branch.png");
+  clouds = loadImage("assets/images/clouds.png");
+  user = loadImage("assets/images/user.png");
+  mp1 = loadImage("assets/images/mp1.png");
+  mp2 = loadImage("assets/images/mp2.png");
+  fp1 = loadImage("assets/images/fp1.png");
+  fp2 = loadImage("assets/images/fp2.png");
+  he = loadImage("assets/images/he.jpg");
+  be1 = loadImage("assets/images/be1.png");
+  be2 = loadImage("assets/images/be2.png");
+}
 
 }
 // setup()
@@ -169,13 +184,14 @@ function setRandomMovements(){
 //
 // Designing movable/interactive picture;
 function draw() {
-  background(255);
+  background(30);
 
   if(state === `title`){
-
+    title();
+    instructions();
   }
   else if(state === `simulation`){
-      simulation();
+    simulation();
   }
   else if(state === `happy ending`){
 
@@ -188,7 +204,22 @@ function draw() {
   }
 
 
+function title(){
+  fill(143,30,30);
+  textAlign(CENTER,CENTER);
+  textSize(130);
+  textFont(myFont);
+  text(`SURVIVAL OF THE FITTEST`,width/2,height/2);
+}
 
+function instructions(){
+  textFill = random(50,255);
+  fill(textFill);
+  textAlign(CENTER,CENTER);
+  textSize(40);
+  textFont(myFont);
+  text(`Press any key to challenge Mother Nature`,width/2,2*height/3);
+}
 
 function simulation(){
   movements();
@@ -199,6 +230,10 @@ function simulation(){
 }
 
 function movements(){
+  //Clouds setRandomMovements
+  imgClouds.vx = imgClouds.speed;
+  imgClouds.x = imgClouds.x + imgClouds.vx;
+
   //Parrots movements;
   imgMp1.x = imgMp1.x + imgMp1.vx;
   imgMp1.y = imgMp1.y + imgMp1.vy;
@@ -211,6 +246,7 @@ function movements(){
 
   imgFp2.x = imgFp2.x + imgFp2.vx;
   imgFp2.y = imgFp2.y + imgFp2.vy;
+
 }
 
 function checkEnding1(){
@@ -243,11 +279,14 @@ function checkEnding3(){
 }
 
 function display(){
+  //Displaying Clouds
+  image(clouds,imgClouds.x,imgClouds.y,imgClouds.width,imgClouds.height);
   //Displaying parrots
   image(mp1,imgMp1.x,imgMp1.y,imgMp1.size);
   image(mp2,imgMp2.x,imgMp2.y,imgMp2.size);
   image(fp1,imgFp1.x,imgFp1.y,imgFp1.size);
   image(fp2,imgFp2.x,imgFp2.y,imgFp2.size);
+
 
   // User displayment - movements dictated by mouse
   image(user,mouseX,mouseY,imgUser.size);
