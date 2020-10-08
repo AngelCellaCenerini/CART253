@@ -80,6 +80,8 @@ let imgFp2 = {
 let imgHappyEnding = {
   x: 0,
   y: 0,
+  width:1000,
+  height: 700
 }
 //Bad Ending 1
 let imgBadEnding1 = {
@@ -93,7 +95,7 @@ let imgBadEnding2 = {
 }
 
 //Declaring States
-let state = `title`; //Title, simulation, happy ending, bad ending 1, bad ending 2
+let state = `simulation`; //Title, simulation, happy ending, bad ending 1, bad ending 2
 
 
 function preload(){
@@ -194,7 +196,7 @@ function draw() {
     simulation();
   }
   else if(state === `happy ending`){
-
+    happyEnding();
   }
   else if(state === `bad ending 1`){
 
@@ -229,6 +231,17 @@ function simulation(){
   checkEnding2();
   checkEnding3();
   display();
+}
+
+function happyEnding(){
+image(he,imgHappyEnding.x,imgHappyEnding.y,imgHappyEnding.width,imgHappyEnding.height);
+
+fill(250,250,250,);
+textAlign(RIGHT,RIGHT);
+textSize(40);
+textFont(myFont);
+text(`Congratulations.
+      You shall now create your own legacy`,3*width/4,height/5);
 }
 
 function movements(){
@@ -281,6 +294,8 @@ function checkEnding3(){
 }
 
 function display(){
+  //Backgorund - clear sky
+  image(scenario,imgScenario.x,imgScenario.y,1550,750);
   //Displaying Clouds
   image(clouds,imgClouds.x,imgClouds.y,imgClouds.width,imgClouds.height);
   //Displaying parrots
