@@ -147,16 +147,16 @@ function centerBackgrounds(){
 
 function setRandomMovements(){
   //Objects (parrots) appearing in random positions
-  imgMp1.x = random(0,width);
+  imgMp1.x = random(2*width/3,width);
   imgMp1.y = random(0,height);
 
-  imgMp2.x = random(0,width);
-  imgMp2.y = random(0,height);
+  imgMp2.x = random(0,width/3);
+  imgMp2.y = random(2*height/3,height);
 
   imgFp1.x = random(0,width);
-  imgFp1.y = random(0,height);
+  imgFp1.y = random(2*height/3,height);
 
-  imgFp2.x = random(0,width);
+  imgFp2.x = random(2*width/3,width);
   imgFp2.y = random(0,height);
 
   //Objects (parrots) moving in random directions (both vertically and horizontally)
@@ -294,7 +294,7 @@ function checkEnding1(){
   let d1 = dist(imgUser.x,imgUser.y,imgFp1.x,imgFp1.y);
   let d2 = dist(imgUser.x,imgUser.y,imgFp2.x,imgFp2.y);
 
-  if (d1 < imgUser.size/2 + imgFp1.size/2 || d2 < imgUser.size/2 + imgFp2.size/2){
+  if (d1 < imgUser.size/3 + imgFp1.size/3 || d2 < imgUser.size/3 + imgFp2.size/3){
     state = `happy ending`;
   }
 
@@ -315,7 +315,7 @@ function checkEnding3(){
   let d3 = dist(imgUser.x,imgUser.y,imgMp1.x,imgMp1.y);
   let d4 = dist(imgUser.x,imgUser.y,imgMp2.x,imgMp2.y);
 
-  if(d3<imgUser.size/2 + imgMp1.size/2 || d4<imgUser.size/2 + imgMp2.size/2){
+  if(d3<imgUser.size/3 + imgMp1.size/3 || d4<imgUser.size/3 + imgMp2.size/3){
      state = `bad ending 2`;
   }
 
