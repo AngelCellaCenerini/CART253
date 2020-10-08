@@ -88,7 +88,8 @@ let imgBadEnding2 = {
   y: 0,
 }
 
-
+//Declaring States
+let state = `simulation` //Title, simulation, happy ending, bad ending 1, bad ending 2
 
 function preload(){
 
@@ -170,7 +171,22 @@ function setRandomMovements(){
 function draw() {
   background(255);
 
-  simulation();
+  if(state === `title`){
+
+  }
+  else if(state === `simulation`){
+      simulation();
+  }
+  else if(state === `happy ending`){
+
+  }
+  else if(state === `bad ending 1`){
+
+  }
+  else if(state === `bad ending 2`){
+
+  }
+
 
 
 
