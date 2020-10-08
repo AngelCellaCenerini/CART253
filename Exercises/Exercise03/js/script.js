@@ -92,14 +92,14 @@ let imgBadEnding1 = {
 }
 //Bad Ending 2 (BE2)
 let imgBadEnding2 = {
-  x: 0,
-  y: 0,
-  width: 400,
-  height: 400
+  x: 800,
+  y: 500,
+  width: 350,
+  height: 350
 }
 
 //Declaring States
-let state = `bad ending 1`; //Title, simulation, happy ending, bad ending 1, bad ending 2
+let state = `bad ending 2`; //Title, simulation, happy ending, bad ending 1, bad ending 2
 
 
 function preload(){
@@ -245,10 +245,10 @@ text(`Congratulations.
 }
 
 function badEnding1(){
-  background(255);
+  background(200);
   image(be1,imgBadEnding1.x, imgBadEnding1.y, imgBadEnding1.width,imgBadEnding1.height);
 
-  fill(0,0,0,);
+  fill(143,30,30);
   textAlign(CENTER,CENTER);
   textSize(45);
   textFont(myFont);
@@ -261,19 +261,19 @@ function badEnding1(){
 }
 
 function badEnding2(){
-  background(255);
+  background(200);
   image(be2,imgBadEnding2.x, imgBadEnding2.y, imgBadEnding2.width,imgBadEnding2.height);
 
-  fill(0,0,0,);
+  fill(143,30,30);
   textAlign(CENTER,CENTER);
   textSize(45);
   textFont(myFont);
-  text(`Yikes! Looks like you caught another male parrot!`,width/2,height/3);
+  text(`Yikes! Looks like you caught another male parrot!`,width/2,height/5);
 
   textSize(30);
   text(`This rival was stronger and defeated you in front of the whole flock.
         The females were not impressed and will likely forever remember you as weak.
-        You will most probably die alone.`,width/2,height/2);
+        You will most probably die alone.`,width/2,height/3);
 
 
 }
