@@ -43,7 +43,7 @@ let imgMp1 = {
   size: 300,
   vx: 0,
   vy: 0,
-  speed: 3
+  speed: 5
 }
 //Male parrot 2 (MP2)
 let imgMp2 = {
@@ -52,7 +52,7 @@ let imgMp2 = {
   size: 300,
   vx: 0,
   vy: 0,
-  speed: 3
+  speed: 5
 }
 //Female parrot (FP1)
 let imgFp1 = {
@@ -61,7 +61,7 @@ let imgFp1 = {
   size: 420,
   vx: 0,
   vy: 0,
-  speed: 3
+  speed: 5
 }
 //Female parrot (FP2)
 let imgFp2 = {
@@ -70,7 +70,7 @@ let imgFp2 = {
   size: 420,
   vx: 0,
   vy: 0,
-  speed: 3
+  speed: 5
 }
 //Happy Ending
 let imgHappyEnding = {
@@ -135,6 +135,10 @@ function setup() {
   imgFp1.vx = random(-imgFp1.speed,imgFp1.speed);
   imgFp2.vx = random(-imgFp2.speed,imgFp2.speed);
 
+  imgMp1.vy = random(-imgMp1.speed,imgMp1.speed);
+  imgMp2.vy = random(-imgMp2.speed,imgMp2.speed);
+  imgFp1.vy = random(-imgFp1.speed,imgFp1.speed);
+  imgFp2.vy = random(-imgFp2.speed,imgFp2.speed);
 
 }
 
@@ -145,17 +149,17 @@ function draw() {
   background(255);
 
   //Parrots movements;
-  imgMp1.x =+ imgMp1.vx;
-  imgMp1.y =+ imgMp1.vy;
+  imgMp1.x = imgMp1.x + imgMp1.vx;
+  imgMp1.y = imgMp1.y + imgMp1.vy;
 
-  imgMp2.x =+ imgMp2.vx;
-  imgMp2.y =+ imgMp2.vy;
+  imgMp2.x = imgMp2.x + imgMp2.vx;
+  imgMp2.y = imgMp2.y + imgMp2.vy;
 
-  imgFp1.x =+ imgFp1.vx;
-  imgFp1.y =+ imgFp1.vy;
+  imgFp1.x = imgFp1.x + imgFp1.vx;
+  imgFp1.y = imgFp1.y + imgFp1.vy;
 
-  imgFp2.x =+ imgFp2.vx;
-  imgFp2.y =+ imgFp2.vy;
+  imgFp2.x = imgFp2.x + imgFp2.vx;
+  imgFp2.y = imgFp2.y + imgFp2.vy;
 
   image(mp1,imgMp1.x,imgMp1.y,imgMp1.size);
   image(mp2,imgMp2.x,imgMp2.y,imgMp2.size);
