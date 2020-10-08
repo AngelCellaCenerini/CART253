@@ -94,7 +94,23 @@ let badEnding2 = {
 
 function setup() {
   createCanvas(windowWidth, windowHeight);
+  noCursor();
 
+  imageMode(CENTER);
+
+  //Centering different Backgrounds
+
+  scenario.x= windowWidth/2
+  scenario.y= windowHeigth/2
+
+  happyEnding.x= windowWidth/2
+  happyEnding.y= windowHeigth/2
+
+  badEnding1.x= windowWidth/2
+  badEnding1.y= windowHeigth/2
+
+  badEnding2.x= windowWidth/2
+  badEnding2.y= windowHeigth/2
 
 
 }
