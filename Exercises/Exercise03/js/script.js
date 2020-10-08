@@ -304,7 +304,7 @@ function checkEnding1(){
   let distance2 = dist(user.x,user.y,imgFp2.x,imgFp2.y);
 
   if(distance1<user.size/2 + imgFp1.size/2 || distance2<user.size/2 + imgFp2.size/2){
-  //Happy Ending
+    state = `happy ending`;
   }
 
 }
