@@ -112,6 +112,13 @@ function setup() {
   imgBadEnding2.x= windowWidth/2
   imgBadEnding2.y= windowHeigth/2
 
+  //Objects (parrots) moving in random directions
+  imgUser.vx = random(-imgUser.speed,imgUser.speed);
+  imgMp1.vx = random(-imgMp1.speed,imgMp1.speed);
+  imgMp2.vx = random(-imgMp2.speed,imgMp2.speed);
+  imgFp1.vx = random(-imgFp1.speed,imgFp1.speed);
+  imgFp2.vx = random(-imgFp2.speed,imgFp2.speed);
+
 
 }
 
