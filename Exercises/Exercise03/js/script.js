@@ -34,13 +34,13 @@ let imgClouds = {
 let imgUser = {
   x: 0,
   y: 0,
-  size: 800,
+  size: 300,
 }
 //Male parrot 1 (MP1)
 let imgMp1 = {
   x: 500,
   y: 500,
-  size: 800,
+  size: 300,
   vx: 0,
   vy: 0,
   speed: 3
@@ -49,7 +49,7 @@ let imgMp1 = {
 let imgMp2 = {
   x: 200,
   y: 600,
-  size: 800,
+  size: 300,
   vx: 0,
   vy: 0,
   speed: 3
@@ -58,7 +58,7 @@ let imgMp2 = {
 let imgFp1 = {
   x: 800,
   y: 700,
-  size: 900,
+  size: 420,
   vx: 0,
   vy: 0,
   speed: 3
@@ -67,7 +67,7 @@ let imgFp1 = {
 let imgFp2 = {
   x: 600,
   y: 900,
-  size: 900,
+  size: 420,
   vx: 0,
   vy: 0,
   speed: 3
@@ -90,7 +90,7 @@ let imgBadEnding2 = {
 
 
 
-preload(){
+function preload(){
 
 scenario = loadImage("assets/images/scenario.jpg");
 branch = loadImage("assets/images/branch.png");
@@ -100,7 +100,7 @@ mp1 = loadImage("assets/images/mp1.png");
 mp2 = loadImage("assets/images/mp2.png");
 fp1 = loadImage("assets/images/fp1.png");
 fp2 = loadImage("assets/images/fp2.png");
-he = loadImage("assets/images/he.png");
+he = loadImage("assets/images/he.jpg");
 be1 = loadImage("assets/images/be1.png");
 be2 = loadImage("assets/images/be2.png");
 
@@ -117,17 +117,17 @@ function setup() {
 
   //Centering different Backgrounds
 
-  imgScenario.x= windowWidth/2
-  imgScenario.y= windowHeigth/2
+  imgScenario.x= windowWidth/2;
+  imgScenario.y= windowHeight/2;
 
-  happyEnding.x= windowWidth/2
-  happyEnding.y= windowHeigth/2
+  imgHappyEnding.x= windowWidth/2;
+  imgHappyEnding.y= windowHeight/2;
 
-  imgBadEnding1.x= windowWidth/2
-  imgBadEnding1.y= windowHeigth/2
+  imgBadEnding1.x= windowWidth/2;
+  imgBadEnding1.y= windowHeight/2;
 
-  imgBadEnding2.x= windowWidth/2
-  imgBadEnding2.y= windowHeigth/2
+  imgBadEnding2.x= windowWidth/2;
+  imgBadEnding2.y= windowHeight/2;
 
   //Objects (parrots) moving in random directions
   imgMp1.vx = random(-imgMp1.speed,imgMp1.speed);
