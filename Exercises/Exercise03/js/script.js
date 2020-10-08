@@ -144,13 +144,15 @@ function setup() {
 
   //Objects (parrots) moving in random directions
   imgMp1.vx = random(-imgMp1.speed,imgMp1.speed);
-  imgMp2.vx = random(-imgMp2.speed,imgMp2.speed);
-  imgFp1.vx = random(-imgFp1.speed,imgFp1.speed);
-  imgFp2.vx = random(-imgFp2.speed,imgFp2.speed);
-
   imgMp1.vy = random(-imgMp1.speed,imgMp1.speed);
+
+  imgMp2.vx = random(-imgMp2.speed,imgMp2.speed);
   imgMp2.vy = random(-imgMp2.speed,imgMp2.speed);
+
+  imgFp1.vx = random(-imgFp1.speed,imgFp1.speed);
   imgFp1.vy = random(-imgFp1.speed,imgFp1.speed);
+
+  imgFp2.vx = random(-imgFp2.speed,imgFp2.speed);
   imgFp2.vy = random(-imgFp2.speed,imgFp2.speed);
 
 }
