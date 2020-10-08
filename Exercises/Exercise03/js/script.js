@@ -34,13 +34,13 @@ let imgClouds = {
 let imgUser = {
   x: 0,
   y: 0,
-  size: 300,
+  size: 320,
 }
 //Male parrot 1 (MP1)
 let imgMp1 = {
   x: 500,
   y: 500,
-  size: 300,
+  size: 280,
   vx: 0,
   vy: 0,
   speed: 5
@@ -49,7 +49,7 @@ let imgMp1 = {
 let imgMp2 = {
   x: 200,
   y: 600,
-  size: 300,
+  size: 280,
   vx: 0,
   vy: 0,
   speed: 5
@@ -142,7 +142,7 @@ function setup() {
   imgFp2.x = random(0,width);
   imgFp2.y = random(0,height);
 
-  //Objects (parrots) moving in random directions
+  //Objects (parrots) moving in random directions (both vertically and horizontally)
   imgMp1.vx = random(-imgMp1.speed,imgMp1.speed);
   imgMp1.vy = random(-imgMp1.speed,imgMp1.speed);
 
@@ -176,11 +176,35 @@ function draw() {
   imgFp2.x = imgFp2.x + imgFp2.vx;
   imgFp2.y = imgFp2.y + imgFp2.vy;
 
+
+  //Checking  User catching female parrot
+  let distance1 = dist(user.x,user.y,imgFp1.x,imgFp1.y);
+  let distance2 = dist(user.x,user.y,imgFp2.x,imgFp2.y);
+
+  if(distance1<user.size/2 + imgFp1.size/2 || distance2<user.size/2 + imgFp2.size/2){
+  //Happy Ending
+  }
+
+  //Checking all parrots moving off screen - Bad Ending 1
+  if(imgMp1.x<0 || imgMp1.x>width || imgMp1.y<0 || imgMp1.y>height || imgMp2.x<0 || imgMp2.x>width || imgMp2.y<0 || imgMp2.y>height || imgFp1.x<0 || imgFp1.x>width || imgFp1.y<0 || imgFp1.y>height || imgMp2.x<0 || imgMp2.x>width || imgMp2.y<0 || imgMp2.y>height) {
+    //Bad Ending 1
+  }
+  //Checking  User catching male parrot - Bad Ending 2
+  let distance3 = dist(user.x,user.y,imgMp1.x,imgMp1.y);
+  let distance4 = dist(user.x,user.y,imgMp2.x,imgMp2.y);
+
+  if(distance3<user.size/2 + imgMp1.size/2 || distance4<user.size/2 + imgMp2.size/2){
+  //Bad Ending 2
+  }
+
+
+  //Displaying parrots
   image(mp1,imgMp1.x,imgMp1.y,imgMp1.size);
   image(mp2,imgMp2.x,imgMp2.y,imgMp2.size);
   image(fp1,imgFp1.x,imgFp1.y,imgFp1.size);
   image(fp2,imgFp2.x,imgFp2.y,imgFp2.size);
 
+  // User displayment - movements dictated by mouse
   image(user,mouseX,mouseY,imgUser.size);
 
 }
