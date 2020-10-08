@@ -17,13 +17,6 @@ let imgScenario = {
   x: 0,
   y: 0,
 }
-//Branch (in Scenario)
-let imgBranch = {
-   x: 800,
-   y: 800,
-   vx: 0,
-   vy: 3
-}
 //Clouds (in Scenario)
 let imgClouds = {
   x: 1000,
@@ -99,7 +92,7 @@ let imgBadEnding2 = {
 }
 
 //Declaring States
-let state = `simulation`; //Title, simulation, happy ending, bad ending 1, bad ending 2
+let state = `title`; //Title, simulation, happy ending, bad ending 1, bad ending 2
 
 
 function preload(){
@@ -114,7 +107,6 @@ function customedFont(){
 
 function icons(){
   scenario = loadImage("assets/images/scenario.jpg");
-  branch = loadImage("assets/images/branch.png");
   clouds = loadImage("assets/images/clouds.png");
   user = loadImage("assets/images/user.png");
   mp1 = loadImage("assets/images/mp1.png");
@@ -190,7 +182,7 @@ function draw() {
 
   if(state === `title`){
     title();
-    instructions();
+    start();
   }
   else if(state === `simulation`){
     simulation();
@@ -200,12 +192,12 @@ function draw() {
   }
   else if(state === `bad ending 1`){
     badEnding1();
-
   }
   else if(state === `bad ending 2`){
     badEnding2();
   }
 
+}
 
 function title(){
   push();
@@ -218,12 +210,12 @@ function title(){
 }
 
 
-function instructions(){
+function start(){
   fill(250,250,250,);
   textAlign(CENTER,CENTER);
   textSize(40);
   textFont(myFont);
-  text(`Press any key to challenge Mother Nature`,width/2,2*height/3);
+  text(`Click to challenge Mother Nature`,width/2,2*height/3);
 }
 
 function simulation(){
@@ -301,10 +293,10 @@ function movements(){
 
 function checkEnding1(){
   //Checking  User catching female parrot
-  let distance1 = dist(user.x,user.y,imgFp1.x,imgFp1.y);
-  let distance2 = dist(user.x,user.y,imgFp2.x,imgFp2.y);
+  let d1 = dist(imgUser.x,imgUser.y,imgFp1.x,imgFp1.y);
+  let d2 = dist(imgUser.x,imgUser.y,imgFp2.x,imgFp2.y);
 
-  if(distance1<user.size/2 + imgFp1.size/2 || distance2<user.size/2 + imgFp2.size/2){
+  if (d1 < imgUser.size/2 + imgFp1.size/2 || d2 < imgUser.size/2 + imgFp2.size/2){
     state = `happy ending`;
   }
 
@@ -319,10 +311,10 @@ function checkEnding2(){
 
 function checkEnding3(){
   //Checking  User catching male parrot - Bad Ending 2
-  let distance3 = dist(user.x,user.y,imgMp1.x,imgMp1.y);
-  let distance4 = dist(user.x,user.y,imgMp2.x,imgMp2.y);
+  let d3 = dist(imgUser.x,imgUser.y,imgMp1.x,imgMp1.y);
+  let d4 = dist(imgUser.x,imgUser.y,imgMp2.x,imgMp2.y);
 
-  if(distance3<user.size/2 + imgMp1.size/2 || distance4<user.size/2 + imgMp2.size/2){
+  if(d3<imgUser.size/2 + imgMp1.size/2 || d4<imgUser.size/2 + imgMp2.size/2){
      state = `bad ending 2`;
   }
 
@@ -344,10 +336,8 @@ function display(){
   image(user,mouseX,mouseY,imgUser.size);
 }
 
-function keyIsPressed() {
+function mousePressed() {
   if (state === `title`){
      state = `simulation`;
-      }
-}
-
+  }
 }
