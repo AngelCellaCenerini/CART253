@@ -85,8 +85,10 @@ let imgHappyEnding = {
 }
 //Bad Ending 1
 let imgBadEnding1 = {
-  x: 0,
-  y: 0,
+  x: 800,
+  y: 550,
+  width: 450,
+  height: 450
 }
 //Bad Ending 2 (BE2)
 let imgBadEnding2 = {
@@ -95,7 +97,7 @@ let imgBadEnding2 = {
 }
 
 //Declaring States
-let state = `simulation`; //Title, simulation, happy ending, bad ending 1, bad ending 2
+let state = `bad ending 1`; //Title, simulation, happy ending, bad ending 1, bad ending 2
 
 
 function preload(){
@@ -144,11 +146,6 @@ function centerBackgrounds(){
   imgHappyEnding.x= windowWidth/2;
   imgHappyEnding.y= windowHeight/2;
 
-  imgBadEnding1.x= windowWidth/2;
-  imgBadEnding1.y= windowHeight/2;
-
-  imgBadEnding2.x= windowWidth/2;
-  imgBadEnding2.y= windowHeight/2;
 }
 
 
@@ -199,6 +196,7 @@ function draw() {
     happyEnding();
   }
   else if(state === `bad ending 1`){
+    badEnding1();
 
   }
   else if(state === `bad ending 2`){
@@ -242,6 +240,21 @@ textSize(40);
 textFont(myFont);
 text(`Congratulations.
       You shall now create your own legacy`,3*width/4,height/5);
+}
+
+function badEnding1(){
+  background(255);
+  image(be1,imgBadEnding1.x, imgBadEnding1.y, imgBadEnding1.width,imgBadEnding1.height);
+
+  fill(0,00,00,);
+  textAlign(CENTER,CENTER);
+  textSize(45);
+  textFont(myFont);
+  text(`You were not swift enough.
+
+        You will never have the chance to find a mate
+        and pass on your genes to the next generation`,width/2,height/3);
+
 }
 
 function movements(){
