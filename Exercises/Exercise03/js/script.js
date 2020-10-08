@@ -12,32 +12,32 @@ Don't blink! It might be morning when you re-open your eyes
 //Declaring images variables
 
 //Background - "Scenario" as to not interfere with JavaScript
-let scenario = {
+let imgScenario = {
   x: 0,
   y: 0,
 }
 //Branch (in Scenario)
-let branch = {
+let imgBranch = {
    x: 800,
    y: 800,
    vx: 0,
    vy: 3
 }
 //Clouds (in Scenario)
-let clouds = {
+let imgClouds = {
   x: 400,
   y: 900,
   vx: 1,
   vy: 0
 }
 //User (parrot)
-let user = {
+let imgUser = {
   x: 0,
   y: 0,
   size: 800,
 }
 //Male parrot 1 (MP1)
-let mp1 = {
+let imgMp1 = {
   x: 500,
   y: 500,
   size: 800,
@@ -46,7 +46,7 @@ let mp1 = {
   speed: 3
 }
 //Male parrot 2 (MP2)
-let mp2 = {
+let imgMp2 = {
   x: 200,
   y: 600,
   size: 800,
@@ -55,7 +55,7 @@ let mp2 = {
   speed: 3
 }
 //Female parrot (FP1)
-let fp1 = {
+let imgFp1 = {
   x: 800,
   y: 700,
   size: 900,
@@ -64,7 +64,7 @@ let fp1 = {
   speed: 3
 }
 //Female parrot (FP2)
-let fp2 = {
+let imgFp2 = {
   x: 600,
   y: 900,
   size: 900,
@@ -73,17 +73,17 @@ let fp2 = {
   speed: 3
 }
 //Happy Ending
-let happyEnding = {
+let imgHappyEnding = {
   x: 0,
   y: 0,
 }
 //Bad Ending 1
-let badEnding1 = {
+let imgBadEnding1 = {
   x: 0,
   y: 0,
 }
 //Bad Ending 2 (BE2)
-let badEnding2 = {
+let imgBadEnding2 = {
   x: 0,
   y: 0,
 }
@@ -100,17 +100,17 @@ function setup() {
 
   //Centering different Backgrounds
 
-  scenario.x= windowWidth/2
-  scenario.y= windowHeigth/2
+  imgScenario.x= windowWidth/2
+  imgScenario.y= windowHeigth/2
 
   happyEnding.x= windowWidth/2
   happyEnding.y= windowHeigth/2
 
-  badEnding1.x= windowWidth/2
-  badEnding1.y= windowHeigth/2
+  imgBadEnding1.x= windowWidth/2
+  imgBadEnding1.y= windowHeigth/2
 
-  badEnding2.x= windowWidth/2
-  badEnding2.y= windowHeigth/2
+  imgBadEnding2.x= windowWidth/2
+  imgBadEnding2.y= windowHeigth/2
 
 
 }
@@ -120,6 +120,8 @@ function setup() {
 // Designing movable/interactive picture;
 function draw() {
   background(0);
+
+
 
 
 }
