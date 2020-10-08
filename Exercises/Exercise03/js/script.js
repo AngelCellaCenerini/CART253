@@ -87,8 +87,8 @@ let imgHappyEnding = {
 let imgBadEnding1 = {
   x: 800,
   y: 550,
-  width: 450,
-  height: 450
+  width: 400,
+  height: 400
 }
 //Bad Ending 2 (BE2)
 let imgBadEnding2 = {
