@@ -126,7 +126,7 @@ function setup() {
 //
 // Designing movable/interactive picture;
 function draw() {
-  background(0);
+  background(255);
 
 
 
