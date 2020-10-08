@@ -113,7 +113,7 @@ function setup() {
   createCanvas(windowWidth, windowHeight);
   noCursor();
   imageMode(CENTER);
-  
+
   centerBackgorunds();
   setRandomMovements();
 
@@ -169,16 +169,17 @@ function centerBackgrounds(){
 function draw() {
   background(255);
 
+  simulation();
+
+
+
+function simulation(){
   movements();
   checkEnding1();
   checkEnding2();
   checkEnding3();
   display();
-
-
-
-
-
+}
 
 function movements(){
   //Parrots movements;
