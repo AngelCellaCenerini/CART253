@@ -88,6 +88,23 @@ let imgBadEnding2 = {
   y: 0,
 }
 
+
+
+preload(){
+
+scenario = loadImage("assets/images/scenario.jpg");
+branch = loadImage("assets/images/branch.png");
+clouds = loadImage("assets/images/clouds.png");
+user = loadImage("assets/images/user.png");
+mp1 = loadImage("assets/images/mp1.png");
+mp2 = loadImage("assets/images/mp2.png");
+fp1 = loadImage("assets/images/fp1.png");
+fp2 = loadImage("assets/images/fp2.png");
+he = loadImage("assets/images/he.png");
+be1 = loadImage("assets/images/be1.png");
+be2 = loadImage("assets/images/be2.png");
+
+}
 // setup()
 // Declaring (+assignment) customized variables as JavaScript objects - named after represented subject
 
@@ -113,7 +130,6 @@ function setup() {
   imgBadEnding2.y= windowHeigth/2
 
   //Objects (parrots) moving in random directions
-  imgUser.vx = random(-imgUser.speed,imgUser.speed);
   imgMp1.vx = random(-imgMp1.speed,imgMp1.speed);
   imgMp2.vx = random(-imgMp2.speed,imgMp2.speed);
   imgFp1.vx = random(-imgFp1.speed,imgFp1.speed);
@@ -128,7 +144,24 @@ function setup() {
 function draw() {
   background(255);
 
+  //Parrots movements;
+  imgMp1.x =+ imgMp1.vx;
+  imgMp1.y =+ imgMp1.vy;
 
+  imgMp2.x =+ imgMp2.vx;
+  imgMp2.y =+ imgMp2.vy;
 
+  imgFp1.x =+ imgFp1.vx;
+  imgFp1.y =+ imgFp1.vy;
+
+  imgFp2.x =+ imgFp2.vx;
+  imgFp2.y =+ imgFp2.vy;
+
+  image(mp1,imgMp1.x,imgMp1.y,imgMp1.size);
+  image(mp2,imgMp2.x,imgMp2.y,imgMp2.size);
+  image(fp1,imgFp1.x,imgFp1.y,imgFp1.size);
+  image(fp2,imgFp2.x,imgFp2.y,imgFp2.size);
+
+  image(user,mouseX,mouseY,imgUser.size);
 
 }
