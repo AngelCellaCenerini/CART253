@@ -94,6 +94,8 @@ let imgBadEnding1 = {
 let imgBadEnding2 = {
   x: 0,
   y: 0,
+  width: 400,
+  height: 400
 }
 
 //Declaring States
@@ -200,7 +202,7 @@ function draw() {
 
   }
   else if(state === `bad ending 2`){
-
+    badEnding2();
   }
 
 
@@ -246,14 +248,33 @@ function badEnding1(){
   background(255);
   image(be1,imgBadEnding1.x, imgBadEnding1.y, imgBadEnding1.width,imgBadEnding1.height);
 
-  fill(0,00,00,);
+  fill(0,0,0,);
   textAlign(CENTER,CENTER);
   textSize(45);
   textFont(myFont);
-  text(`You were not swift enough.
+  text(`You were not swift enough.`,width/2,height/3);
 
-        You will never have the chance to find a mate
-        and pass on your genes to the next generation`,width/2,height/3);
+  textSize(30);
+  text(`You lost your chance, and now you will never experience the love of a mate
+        and pass your genes onto the next generation`,width/2,height/2);
+
+}
+
+function badEnding2(){
+  background(255);
+  image(be2,imgBadEnding2.x, imgBadEnding2.y, imgBadEnding2.width,imgBadEnding2.height);
+
+  fill(0,0,0,);
+  textAlign(CENTER,CENTER);
+  textSize(45);
+  textFont(myFont);
+  text(`Yikes! Looks like you caught another male parrot!`,width/2,height/3);
+
+  textSize(30);
+  text(`This rival was stronger and defeated you in front of the whole flock.
+        The females were not impressed and will likely forever remember you as weak.
+        You will most probably die alone.`,width/2,height/2);
+
 
 }
 
