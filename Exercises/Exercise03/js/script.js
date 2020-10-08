@@ -114,7 +114,7 @@ function setup() {
   noCursor();
   imageMode(CENTER);
 
-  centerBackgorunds();
+  centerBackgrounds();
   setRandomMovements();
 
 
@@ -134,7 +134,7 @@ function centerBackgrounds(){
 }
 
 
-
+function setRandomMovements(){
   //Objects (parrots) appearing in random positions
   imgMp1.x = random(0,width);
   imgMp1.y = random(0,height);
@@ -160,6 +160,7 @@ function centerBackgrounds(){
 
   imgFp2.vx = random(-imgFp2.speed,imgFp2.speed);
   imgFp2.vy = random(-imgFp2.speed,imgFp2.speed);
+}
 
 }
 
