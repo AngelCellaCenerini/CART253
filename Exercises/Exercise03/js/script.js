@@ -26,55 +26,55 @@ let imgBranch = {
 }
 //Clouds (in Scenario)
 let imgClouds = {
-  x: 400,
-  y: 900,
-  width: 702,
-  height: 450,
+  x: 1000,
+  y: 200,
+  width: 468,
+  height: 300,
   vx: 0,
   vy: 0,
-  speed: -1
+  speed: -0.2
 }
 //User (parrot)
 let imgUser = {
   x: 0,
   y: 0,
-  size: 320,
+  size: 200,
 }
 //Male parrot 1 (MP1)
 let imgMp1 = {
   x: 500,
   y: 500,
-  size: 280,
+  size: 200,
   vx: 0,
   vy: 0,
-  speed: 5
+  speed: 4
 }
 //Male parrot 2 (MP2)
 let imgMp2 = {
   x: 200,
   y: 600,
-  size: 280,
+  size: 200,
   vx: 0,
   vy: 0,
-  speed: 5
+  speed: 4
 }
 //Female parrot (FP1)
 let imgFp1 = {
   x: 800,
   y: 700,
-  size: 420,
+  size: 280,
   vx: 0,
   vy: 0,
-  speed: 5
+  speed: 4
 }
 //Female parrot (FP2)
 let imgFp2 = {
   x: 600,
   y: 900,
-  size: 420,
+  size: 250,
   vx: 0,
   vy: 0,
-  speed: 5
+  speed: 4
 }
 //Happy Ending
 let imgHappyEnding = {
@@ -99,7 +99,7 @@ let imgBadEnding2 = {
 }
 
 //Declaring States
-let state = `bad ending 2`; //Title, simulation, happy ending, bad ending 1, bad ending 2
+let state = `simulation`; //Title, simulation, happy ending, bad ending 1, bad ending 2
 
 
 function preload(){
@@ -134,6 +134,7 @@ function icons(){
 function setup() {
   createCanvas(windowWidth, windowHeight);
   noCursor();
+  //imageMode(CENTER);
   imageMode(CENTER);
 
   centerBackgrounds();
@@ -142,11 +143,11 @@ function setup() {
 
 function centerBackgrounds(){
   //Centering different Backgrounds
-  imgScenario.x= windowWidth/2;
-  imgScenario.y= windowHeight/2;
+  imgScenario.x= width/2;
+  imgScenario.y= height/2;
 
-  imgHappyEnding.x= windowWidth/2;
-  imgHappyEnding.y= windowHeight/2;
+  imgHappyEnding.x= width/2;
+  imgHappyEnding.y= height/2;
 
 }
 
@@ -311,7 +312,7 @@ function checkEnding1(){
 
 function checkEnding2(){
   //Checking all parrots moving off screen - Bad Ending 1
-  if(imgMp1.x<0 || imgMp1.x>width || imgMp1.y<0 || imgMp1.y>height || imgMp2.x<0 || imgMp2.x>width || imgMp2.y<0 || imgMp2.y>height || imgFp1.x<0 || imgFp1.x>width || imgFp1.y<0 || imgFp1.y>height || imgMp2.x<0 || imgMp2.x>width || imgMp2.y<0 || imgMp2.y>height) {
+  if(imgMp1.x<0 || imgMp1.x>width && imgMp2.x<0 || imgMp2.x>width && imgFp1.x<0 || imgFp1.x>width && imgMp2.x<0 || imgMp2.x>width) {
      state = `bad ending 1`;
   }
 }
