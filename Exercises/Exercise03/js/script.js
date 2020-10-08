@@ -163,6 +163,18 @@ function setup() {
 function draw() {
   background(255);
 
+  movements();
+  checkEnding1();
+  checkEnding2();
+  checkEnding3();
+  display();
+
+
+
+
+
+
+function movements(){
   //Parrots movements;
   imgMp1.x = imgMp1.x + imgMp1.vx;
   imgMp1.y = imgMp1.y + imgMp1.vy;
@@ -175,8 +187,9 @@ function draw() {
 
   imgFp2.x = imgFp2.x + imgFp2.vx;
   imgFp2.y = imgFp2.y + imgFp2.vy;
+}
 
-
+function checkEnding1(){
   //Checking  User catching female parrot
   let distance1 = dist(user.x,user.y,imgFp1.x,imgFp1.y);
   let distance2 = dist(user.x,user.y,imgFp2.x,imgFp2.y);
@@ -185,10 +198,16 @@ function draw() {
   //Happy Ending
   }
 
+}
+
+function checkEnding2(){
   //Checking all parrots moving off screen - Bad Ending 1
   if(imgMp1.x<0 || imgMp1.x>width || imgMp1.y<0 || imgMp1.y>height || imgMp2.x<0 || imgMp2.x>width || imgMp2.y<0 || imgMp2.y>height || imgFp1.x<0 || imgFp1.x>width || imgFp1.y<0 || imgFp1.y>height || imgMp2.x<0 || imgMp2.x>width || imgMp2.y<0 || imgMp2.y>height) {
     //Bad Ending 1
   }
+}
+
+function checkEnding3(){
   //Checking  User catching male parrot - Bad Ending 2
   let distance3 = dist(user.x,user.y,imgMp1.x,imgMp1.y);
   let distance4 = dist(user.x,user.y,imgMp2.x,imgMp2.y);
@@ -197,7 +216,9 @@ function draw() {
   //Bad Ending 2
   }
 
+}
 
+function display(){
   //Displaying parrots
   image(mp1,imgMp1.x,imgMp1.y,imgMp1.size);
   image(mp2,imgMp2.x,imgMp2.y,imgMp2.size);
@@ -206,5 +227,6 @@ function draw() {
 
   // User displayment - movements dictated by mouse
   image(user,mouseX,mouseY,imgUser.size);
+}
 
 }
