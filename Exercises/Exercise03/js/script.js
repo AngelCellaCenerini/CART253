@@ -4,9 +4,10 @@ Angel Cella Cenerini
 
 Exercise 03 - Love, actually
 
-COUNTING SHEEP(S)
-You have until dawn to play ;)
-Don't blink! It might be morning when you re-open your eyes
+SURVIVAL OF THE FITTEST
+Find a mate, you lovebird!
+Careful not to catch another male rival!
+Remember! Females are slightly larger than males.
 
 **************************************************/
 //Declaring Font
@@ -97,8 +98,9 @@ let state = `title`; //Title, simulation, happy ending, bad ending 1, bad ending
 
 function preload(){
 
-icons();
 customedFont();
+icons();
+
 }
 
 function customedFont(){
@@ -120,18 +122,15 @@ function icons(){
 
 
 // setup()
-// Declaring (+assignment) customized variables as JavaScript objects - named after represented subject
-
+// Setting up Canvas
 
 function setup() {
   createCanvas(windowWidth, windowHeight);
   noCursor();
-  //imageMode(CENTER);
+  textAlign(CENTER, CENTER);
   imageMode(CENTER);
-  imgUser.x = mouseX;
-  imgUser.y = mouseY;
   centerBackgrounds();
-  setRandomMovements();
+  setRandomPositions();
 }
 
 function centerBackgrounds(){
@@ -145,7 +144,7 @@ function centerBackgrounds(){
 }
 
 
-function setRandomMovements(){
+function setRandomPositions(){
   //Objects (parrots) appearing in random positions
   imgMp1.x = random(2*width/3,width);
   imgMp1.y = random(0,height);
@@ -182,6 +181,7 @@ function draw() {
 
   if(state === `title`){
     title();
+    instructions();
     start();
   }
   else if(state === `simulation`){
@@ -202,21 +202,29 @@ function draw() {
 function title(){
   push();
   fill(143,30,30);
-  textAlign(CENTER,CENTER);
   textSize(130);
   textFont(myFont);
-  text(`SURVIVAL OF THE FITTEST`,width/2,height/2);
+  text(`SURVIVAL OF THE FITTEST`,width/2,height/3);
   pop();
 }
 
-
-function start(){
+function instructions(){
   fill(250,250,250,);
-  textAlign(CENTER,CENTER);
   textSize(40);
   textFont(myFont);
-  text(`Click to challenge Mother Nature`,width/2,2*height/3);
+  text(`Find a mate, you lovebird!`,width/2,height/2);
+  textSize(25);
+  text(`Careful not to catch another male rival!
+        Remember! Females are slightly larger than males.`,width/2,3*height/5);
 }
+
+function start(){
+  fill(143,30,30);
+  textSize(20);
+  textFont(myFont);
+  text(`Click to challenge Mother Nature`,width/2,4*height/5);
+}
+
 
 function simulation(){
   movements();
@@ -228,13 +236,14 @@ function simulation(){
 
 function happyEnding(){
 image(he,imgHappyEnding.x,imgHappyEnding.y,imgHappyEnding.width,imgHappyEnding.height);
-
+push();
 fill(250,250,250,);
 textAlign(RIGHT,RIGHT);
 textSize(40);
 textFont(myFont);
 text(`Congratulations.
-      You shall now create your own legacy`,3*width/4,height/5);
+      You shall now create your own legacy.`,3*width/4,height/5);
+pop();
 }
 
 function badEnding1(){
@@ -242,14 +251,13 @@ function badEnding1(){
   image(be1,imgBadEnding1.x, imgBadEnding1.y, imgBadEnding1.width,imgBadEnding1.height);
 
   fill(143,30,30);
-  textAlign(CENTER,CENTER);
   textSize(45);
   textFont(myFont);
   text(`You were not swift enough.`,width/2,height/3);
 
   textSize(30);
   text(`You lost your chance, and now you will never experience the love of a mate
-        and pass your genes onto the next generation`,width/2,height/2);
+        and pass your genes onto the next generation.`,width/2,height/2);
 
 }
 
@@ -258,7 +266,6 @@ function badEnding2(){
   image(be2,imgBadEnding2.x, imgBadEnding2.y, imgBadEnding2.width,imgBadEnding2.height);
 
   fill(143,30,30);
-  textAlign(CENTER,CENTER);
   textSize(45);
   textFont(myFont);
   text(`Yikes! Looks like you caught another male parrot!`,width/2,height/5);
@@ -272,7 +279,8 @@ function badEnding2(){
 
 function movements(){
   //Clouds setRandomMovements
-
+  imgClouds.vx = imgClouds.speed;
+  imgClouds.x = imgClouds.x + imgClouds.vx;
 
   //Parrots movements;
   imgMp1.x = imgMp1.x + imgMp1.vx;
@@ -325,8 +333,6 @@ function display(){
   //Backgorund - clear sky
   image(scenario,imgScenario.x,imgScenario.y,1550,750);
   //Displaying Clouds
-  imgClouds.vx = imgClouds.speed;
-  imgClouds.x = imgClouds.x + imgClouds.vx;
   image(clouds,imgClouds.x,imgClouds.y,imgClouds.width,imgClouds.height);
   //Displaying parrots
   image(mp1,imgMp1.x,imgMp1.y,imgMp1.size);
