@@ -312,7 +312,7 @@ function checkEnding1(){
 function checkEnding2(){
   //Checking all parrots moving off screen - Bad Ending 1
   if(imgMp1.x<0 || imgMp1.x>width || imgMp1.y<0 || imgMp1.y>height || imgMp2.x<0 || imgMp2.x>width || imgMp2.y<0 || imgMp2.y>height || imgFp1.x<0 || imgFp1.x>width || imgFp1.y<0 || imgFp1.y>height || imgMp2.x<0 || imgMp2.x>width || imgMp2.y<0 || imgMp2.y>height) {
-    //Bad Ending 1
+     state = `bad ending 1`;
   }
 }
 
