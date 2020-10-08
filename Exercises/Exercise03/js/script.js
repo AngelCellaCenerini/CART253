@@ -322,7 +322,7 @@ function checkEnding3(){
   let distance4 = dist(user.x,user.y,imgMp2.x,imgMp2.y);
 
   if(distance3<user.size/2 + imgMp1.size/2 || distance4<user.size/2 + imgMp2.size/2){
-  //Bad Ending 2
+     state = `bad ending 2`;
   }
 
 }
