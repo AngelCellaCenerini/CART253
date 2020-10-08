@@ -99,7 +99,7 @@ function preload(){
 
 icons();
 customedFont();
-
+}
 
 function customedFont(){
   myFont = loadFont('assets/boldeRough.otf');
@@ -118,7 +118,7 @@ function icons(){
   be2 = loadImage("assets/images/be2.png");
 }
 
-}
+
 // setup()
 // Declaring (+assignment) customized variables as JavaScript objects - named after represented subject
 
@@ -128,10 +128,11 @@ function setup() {
   noCursor();
   //imageMode(CENTER);
   imageMode(CENTER);
-
+  imgUser.x = mouseX;
+  imgUser.y = mouseY;
   centerBackgrounds();
   setRandomMovements();
-
+}
 
 function centerBackgrounds(){
   //Centering different Backgrounds
@@ -172,7 +173,6 @@ function setRandomMovements(){
   imgFp2.vy = random(-imgFp2.speed,imgFp2.speed);
 }
 
-}
 
 // draw()
 //
@@ -268,13 +268,11 @@ function badEnding2(){
         The females were not impressed and will likely forever remember you as weak.
         You will most probably die alone.`,width/2,height/3);
 
-
 }
 
 function movements(){
   //Clouds setRandomMovements
-  imgClouds.vx = imgClouds.speed;
-  imgClouds.x = imgClouds.x + imgClouds.vx;
+
 
   //Parrots movements;
   imgMp1.x = imgMp1.x + imgMp1.vx;
@@ -304,7 +302,10 @@ function checkEnding1(){
 
 function checkEnding2(){
   //Checking all parrots moving off screen - Bad Ending 1
-  if(imgMp1.x<0 || imgMp1.x>width && imgMp2.x<0 || imgMp2.x>width && imgFp1.x<0 || imgFp1.x>width && imgMp2.x<0 || imgMp2.x>width) {
+  if ((imgMp1.x<0 || imgMp1.x>width) && (imgMp2.x<0 || imgMp2.x>width) && (imgFp1.x<0 || imgFp1.x>width) && (imgMp2.x<0 || imgMp2.x>width)) {
+     state = `bad ending 1`;
+  }
+  if ((imgMp1.y<0 || imgMp1.y>height) && (imgMp2.y<0 || imgMp2.y>height) && (imgFp1.y<0 || imgFp1.y>height) && (imgMp2.y<0 || imgMp2.y>height)) {
      state = `bad ending 1`;
   }
 }
@@ -324,6 +325,8 @@ function display(){
   //Backgorund - clear sky
   image(scenario,imgScenario.x,imgScenario.y,1550,750);
   //Displaying Clouds
+  imgClouds.vx = imgClouds.speed;
+  imgClouds.x = imgClouds.x + imgClouds.vx;
   image(clouds,imgClouds.x,imgClouds.y,imgClouds.width,imgClouds.height);
   //Displaying parrots
   image(mp1,imgMp1.x,imgMp1.y,imgMp1.size);
@@ -333,6 +336,8 @@ function display(){
 
 
   // User displayment - movements dictated by mouse
+  imgUser.x = mouseX;
+  imgUser.y = mouseY;
   image(user,mouseX,mouseY,imgUser.size);
 }
 
