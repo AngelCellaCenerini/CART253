@@ -93,8 +93,8 @@ let imgBadEnding2 = {
 }
 
 //Declaring States
-let state = `title` //Title, simulation, happy ending, bad ending 1, bad ending 2
-//let state = `simulation`
+let state = `title`; //Title, simulation, happy ending, bad ending 1, bad ending 2
+
 
 function preload(){
 
@@ -205,16 +205,18 @@ function draw() {
 
 
 function title(){
+  push();
   fill(143,30,30);
   textAlign(CENTER,CENTER);
   textSize(130);
   textFont(myFont);
   text(`SURVIVAL OF THE FITTEST`,width/2,height/2);
+  pop();
 }
 
+
 function instructions(){
-  textFill = random(50,255);
-  fill(textFill);
+  fill(250,250,250,);
   textAlign(CENTER,CENTER);
   textSize(40);
   textFont(myFont);
@@ -290,6 +292,12 @@ function display(){
 
   // User displayment - movements dictated by mouse
   image(user,mouseX,mouseY,imgUser.size);
+}
+
+function keyIsPressed() {
+  if (state === `title`){
+     state = `simulation`;
+      }
 }
 
 }
