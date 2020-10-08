@@ -112,11 +112,14 @@ be2 = loadImage("assets/images/be2.png");
 function setup() {
   createCanvas(windowWidth, windowHeight);
   noCursor();
-
   imageMode(CENTER);
+  
+  centerBackgorunds();
+  setRandomMovements();
 
+
+function centerBackgrounds(){
   //Centering different Backgrounds
-
   imgScenario.x= windowWidth/2;
   imgScenario.y= windowHeight/2;
 
@@ -128,6 +131,9 @@ function setup() {
 
   imgBadEnding2.x= windowWidth/2;
   imgBadEnding2.y= windowHeight/2;
+}
+
+
 
   //Objects (parrots) appearing in random positions
   imgMp1.x = random(0,width);
