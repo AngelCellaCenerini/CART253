@@ -166,35 +166,41 @@ let imgStreetEnding = {
 
 function preload(){
 
-myFontTitle = loadFont('assets/CatFont.otf');
-myFontBody = loadFont('assets/AnonymousPro-Regular.otf');
-
-cursor = loadImage("assets/images/cursor.png");
-title = loadImage("assets/images/title.jpg");
-cat1 = loadImage("assets/images/cat1.png");
-cat2 = loadImage("assets/images/cat2.png");
-cat3 = loadImage("assets/images/cat3.png");
-cat4 = loadImage("assets/images/cat4.png");
-cat = loadImage("assets/images/cat.png");
-//cryingCat = loadImage("assets/images/title.png");
-openedDoor = loadImage("assets/images/openedDoor.png");
-door1 = loadImage("assets/images/door1.png");
-door2 = loadImage("assets/images/door2.png");
-door3 = loadImage("assets/images/door3.png");
-kittens = loadImage("assets/images/kittens.jpg");
-hoarder1 = loadImage("assets/images/horder1.png");
-hoarder2 = loadImage("assets/images/horder2.png");
-hoarder3 = loadImage("assets/images/horder3.png");
-hoarder4 = loadImage("assets/images/horder4.png");
-hoarder5 = loadImage("assets/images/horder5.png");
-petShop = loadImage("assets/images/petShop.jpg");
-simpleToy = loadImage("assets/images/simpleToy.png");
-expensiveToy = loadImage("assets/images/expensiveToy.png");
-streetEnding = loadImage("assets/imagesstreetEnding.jpg");
-happyEnding = loadImage("assets/images/happyEnding.jpg");
+loadingFonts();
+loadingImages();
 
 }
 
+function loadingFonts(){
+  myFontTitle = loadFont('assets/CatFont.otf');
+  myFontBody = loadFont('assets/AnonymousPro-Regular.otf');
+}
+
+function loadingImages() {
+  cursor = loadImage("assets/images/cursor.png");
+  title = loadImage("assets/images/title.jpg");
+  cat1 = loadImage("assets/images/cat1.png");
+  cat2 = loadImage("assets/images/cat2.png");
+  cat3 = loadImage("assets/images/cat3.png");
+  cat4 = loadImage("assets/images/cat4.png");
+  cat = loadImage("assets/images/cat.png");
+  //cryingCat = loadImage("assets/images/title.png");
+  openedDoor = loadImage("assets/images/openedDoor.png");
+  door1 = loadImage("assets/images/door1.png");
+  door2 = loadImage("assets/images/door2.png");
+  door3 = loadImage("assets/images/door3.png");
+  kittens = loadImage("assets/images/kittens.jpg");
+  hoarder1 = loadImage("assets/images/horder1.png");
+  hoarder2 = loadImage("assets/images/horder2.png");
+  hoarder3 = loadImage("assets/images/horder3.png");
+  hoarder4 = loadImage("assets/images/horder4.png");
+  hoarder5 = loadImage("assets/images/horder5.png");
+  petShop = loadImage("assets/images/petShop.jpg");
+  simpleToy = loadImage("assets/images/simpleToy.png");
+  expensiveToy = loadImage("assets/images/expensiveToy.png");
+  streetEnding = loadImage("assets/imagesstreetEnding.jpg");
+  happyEnding = loadImage("assets/images/happyEnding.jpg");
+}
 
 // setup()
 //
