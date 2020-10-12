@@ -198,7 +198,7 @@ function loadingImages() {
   petShop = loadImage("assets/images/petShop.jpg");
   simpleToy = loadImage("assets/images/simpleToy.png");
   expensiveToy = loadImage("assets/images/expensiveToy.png");
-  streetEnding = loadImage("assets/imagesstreetEnding.jpg");
+  streetEnding = loadImage("assets/images/streetEnding.jpg");
   happyEnding = loadImage("assets/images/happyEnding.jpg");
 }
 
@@ -206,7 +206,30 @@ function loadingImages() {
 //
 // Description of setup() goes here.
 function setup() {
+
   createCanvas(windowWidth, windowHeight);
+  noCursor();
+  imageMode(CENTER);
+  centeringJpgsFiles();
+}
+
+// .jpgs files all function as backgrounds for a specific "state"; all need to be centered
+function centeringJpgsFiles(){
+
+  imgTitle.x = width/2;
+  imgTitle.y = height/2;
+
+  imgKittens.x = width/2;
+  imgKittens.y = height/2;
+
+  imgPetShop.x = width/2;
+  imgPetShop.y = height/2;
+
+  imgStreetEnding.x = width/2;
+  imgStreetEnding.y = height/2;
+
+  imgHappyEnding.x = width/2;
+  imgHappyEnding.y = height/2;
 
 }
 
