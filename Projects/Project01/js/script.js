@@ -1,8 +1,9 @@
 /**************************************************
-Template p5 project
-Pippin Barr
+Template p5 by CART253 course
+Angel Cella Cenerini
 
-Here is a description of this template p5 project.
+Project 01: Simulation
+CAT OWNER SIMULATOR
 **************************************************/
 
 // setup()
