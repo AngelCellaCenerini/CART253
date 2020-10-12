@@ -12,8 +12,9 @@ CAT OWNER SIMULATOR
 //Declaring Font
 let myFontTitle;
 let myFontBody;
+
 //Declaring image files
-//Cursor > User
+//Cursor (User)
 let imgCursor = {
   x: 0,
   y: 0,
@@ -164,6 +165,9 @@ let imgStreetEnding = {
 
 
 function preload(){
+
+myFontTitle = loadFont('assets/CatFont.otf');
+myFontBody = loadFont('assets/AnonymousPro-Regular.otf');
 
 cursor = loadImage("assets/images/cursor.png");
 title = loadImage("assets/images/title.jpg");
