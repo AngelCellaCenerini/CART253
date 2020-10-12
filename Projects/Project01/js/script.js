@@ -163,6 +163,8 @@ let imgStreetEnding = {
 
 }
 
+//Declaring state
+let "state" === `title`; // Title, Menu, Level01, Level02, level03, level04; all exept `Title` contain both a good and a bad ending.
 
 function preload(){
 
@@ -184,7 +186,7 @@ function loadingImages() {
   cat3 = loadImage("assets/images/cat3.png");
   cat4 = loadImage("assets/images/cat4.png");
   cat = loadImage("assets/images/cat.png");
-  //cryingCat = loadImage("assets/images/title.png");
+  //cryingCat = loadImage("assets/images/cryingCat.png");
   openedDoor = loadImage("assets/images/openedDoor.png");
   door1 = loadImage("assets/images/door1.png");
   door2 = loadImage("assets/images/door2.png");
@@ -238,4 +240,30 @@ function centeringJpgsFiles(){
 // Description of draw() goes here.
 function draw() {
 background(0);
+
+if(state === `title`){
+  title1();
+  title2();
+  instructions();
+  start();
+}
+else if(state === `menu`){
+
+}
+else if(state === `level01`){
+
+}
+else if(state === `level02`){
+
+}
+else if(state === `level03`){
+
+}
+else if(state === `level04`){
+
+}
+else if(state === `happyEnding`){
+
+}
+
 }
