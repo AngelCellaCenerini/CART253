@@ -159,7 +159,7 @@ let imgHappyEnding = {
 }
 
 function preload(){
-  
+
   loadingFonts();
   loadingImages();
 }
@@ -201,7 +201,24 @@ function setup() {
   createCanvas(windowWidth, windowHeight);
   imageMode(CENTER);
   noCursor();
+  centeringBackgroundImages();
 
+}
+
+
+function centeringBackgroundImages(){
+  //Centering .jpg files to canvas, for they function as backgrounds for the different states.
+  imgIntro.x = width/2;
+  imgIntro.y = height/2;
+
+  imgKittens.x = width/2;
+  imgKittens.y = height/2;
+
+  imgPetShop.x = width/2;
+  imgPetShop.y = height/2;
+
+  imgStreetEnding.x = width/2;
+  imgStreetEnding.y = height/2;
 }
 
 // draw()
