@@ -289,3 +289,10 @@ else if(state === `happyEnding`){
 }
 
 }
+
+function title(){
+  fill(0);
+  textFont(myFontTitle);
+  textSize(200);
+  text(`CAT OWNER`);
+}
