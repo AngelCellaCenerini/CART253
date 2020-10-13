@@ -241,7 +241,8 @@ function draw() {
     start();
   }
   else if (state === `happyEnding`){
-    finalEnding();
+    finalEndingBackground();
+    finalEndingText();
   }
 
 
@@ -282,7 +283,7 @@ function start(){
   pop();
 }
 
-function finalEnding(){
+function finalEndingBackground(){
 
   // Blue-indigo background
   push();
@@ -294,7 +295,14 @@ function finalEnding(){
   imgHappyEnding.x = 2*width/3;
   imgHappyEnding.y = 3*height/5;
   image(happyEnding, imgHappyEnding.x, imgHappyEnding.y);
-  //Red, rectangular text box, with rounded corners
+  pop();
+
+}
+
+function finalEndingText(){
+
+  push();
+  //Red, rectangular text box, woth
   noStroke();
   fill(234, 105, 72);
   rect.width = 700;
