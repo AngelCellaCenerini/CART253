@@ -29,6 +29,8 @@ let imgCursor = {
 let imgIntro = {
   x: 0,
   y: 0,
+  width: 500,
+  height: 400
 }
 
 //Menu- Choosing cats
@@ -158,6 +160,9 @@ let imgHappyEnding = {
   y: 0
 }
 
+//Declaring States; *b+g = bad + good outcome;
+let state = `title`; //Title, Menu(b+g), Level01(b+g), Level02(b+g), Level03(b+g), Level04(b+g), Happy Ending
+
 function preload(){
 
   loadingFonts();
@@ -201,15 +206,15 @@ function setup() {
   createCanvas(windowWidth, windowHeight);
   imageMode(CENTER);
   noCursor();
-  centeringBackgroundImages();
+  positioningBackgroundImages();
 
 }
 
 
-function centeringBackgroundImages(){
+function positioningBackgroundImages(){
   //Centering .jpg files to canvas, for they function as backgrounds for the different states.
   imgIntro.x = width/2;
-  imgIntro.y = height/2;
+  imgIntro.y = 2*height/3;
 
   imgKittens.x = width/2;
   imgKittens.y = height/2;
@@ -228,9 +233,45 @@ function draw() {
 
   background(bg.r, bg.g, bg.b);
 
+  if (state === `title`){
+    title();
+    details();
+    start();
+  }
+
   //Cursor (User)
   imgCursor.x = mouseX;
   imgCursor.y = mouseY;
   image(cursor, imgCursor.x,imgCursor.y, imgCursor.size);
 
+}
+
+//Title screen - black cat, cream background, black text
+function title(){
+  push();
+  image(intro, imgIntro.x, imgIntro.y, imgIntro.width,imgIntro.height);
+  textFont(myFontTitle);
+  fill(20);
+  textSize(150);
+  textAlign(CENTER, CENTER);
+  text(`CAt oWNER`, width/2, height/5);
+  pop();
+}
+
+function details(){
+  push();
+  textFont(myFontBody);
+  textSize(50);
+  textAlign(CENTER, CENTER);
+  text(`SIMULATOR`, width/2, 3*height/8);
+  pop();
+}
+
+function start(){
+  push();
+  textFont(myFontBody);
+  textSize(18);
+  textAlign(CENTER, CENTER);
+  text(`Press SPACEBAR to start`, width/2, 14*height/15);
+  pop();
 }
