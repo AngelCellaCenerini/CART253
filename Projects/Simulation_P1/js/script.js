@@ -160,8 +160,8 @@ let imgHappyEnding = {
   y: 0
 }
 
-//Declaring States; *b+g = bad + good outcome;
-let state = `title`; //Title, Menu(b+g), Level01(b+g), Level02(b+g), Level03(b+g), Level04(b+g), Happy Ending
+//Declaring States; *(b+g) = bad + good outcome;
+let state = `happyEnding`; //Title, Menu(b+g), Level01(b+g), Level02(b+g), Level03(b+g), Level04(b+g), Happy Ending
 
 function preload(){
 
@@ -197,7 +197,7 @@ function loadingImages(){
   simpleToy = loadImage('assets/images/simpleToy.png');
   expensiveToy = loadImage('assets/images/expensiveToy.png');
   streetEnding = loadImage('assets/images/streetEnding.jpg');
-  happyEnding = loadImage('assets/images/happyEnding.png');
+  happyEnding = loadImage('assets/images/happyEnding.jpg');
 }
 // setup()
 //
@@ -207,6 +207,7 @@ function setup() {
   imageMode(CENTER);
   noCursor();
   positioningBackgroundImages();
+  textFont(myFontBody);
 
 }
 
@@ -224,6 +225,7 @@ function positioningBackgroundImages(){
 
   imgStreetEnding.x = width/2;
   imgStreetEnding.y = height/2;
+
 }
 
 // draw()
@@ -238,6 +240,10 @@ function draw() {
     details();
     start();
   }
+  else if (state === `happyEnding`){
+    finalEnding();
+  }
+
 
   //Cursor (User)
   imgCursor.x = mouseX;
@@ -254,13 +260,13 @@ function title(){
   fill(20);
   textSize(150);
   textAlign(CENTER, CENTER);
-  text(`CAt oWNER`, width/2, height/5);
+  text(`CAt oWnER`, width/2, height/5);
   pop();
 }
 
 function details(){
-  push();
-  textFont(myFontBody);
+
+  push()
   textSize(50);
   textAlign(CENTER, CENTER);
   text(`SIMULATOR`, width/2, 3*height/8);
@@ -268,10 +274,44 @@ function details(){
 }
 
 function start(){
+
   push();
-  textFont(myFontBody);
   textSize(18);
   textAlign(CENTER, CENTER);
   text(`Press SPACEBAR to start`, width/2, 14*height/15);
   pop();
+}
+
+function finalEnding(){
+
+  // Blue-indigo background
+  push();
+  bg.r = 132;
+  bg.g = 148;
+  bg.b = 217;
+  background(bg.r, bg.g, bg.b);
+  // Holding purring cat icon
+  imgHappyEnding.x = 2*width/3;
+  imgHappyEnding.y = 3*height/5;
+  image(happyEnding, imgHappyEnding.x, imgHappyEnding.y);
+  //Red, rectangular text box, with rounded corners
+  noStroke();
+  fill(234, 105, 72);
+  rect.width = 700;
+  rect.height = 265;
+  rect.radius = 15;
+  rect(width/40, height/20,rect.width,rect.height, rect.radius, rect.radius, rect.radius, rect.radius);
+  // (Almost) white text - three different sizes
+  fill(250, 248, 236);
+  textSize(50);
+  text(`You did it!`, width/20, height/7);
+  textAlign(LEFT, CENTER);
+  textSize(25);
+  text(`  You have proved yourself worthy of
+  your cat's company! From here on, there
+  will be only cuddly and purry moments!`, width/28, height/4);
+  textSize(17);
+  text(`(Not really, but this is the chosen ending for the simulation)`, width/20, 6*height/17);
+  pop();
+
 }
