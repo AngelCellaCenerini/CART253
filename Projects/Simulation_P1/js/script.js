@@ -165,7 +165,7 @@ let imgHappyEnding = {
 }
 
 //Declaring States; *(b+g) = bad + good outcome;
-let state = `outside01`; //Title, Menu(b+g), Level01(b+g), Level02(b+g), Level03(b+g), Level04(b+g), Happy Ending
+let state = `outside02`; //Title, Menu(b+g), Level01(b+g), Level02(b+g), Level03(b+g), Level04(b+g), Happy Ending
 
 function preload(){
 
@@ -309,6 +309,12 @@ function draw() {
     hoarder();
 
 }
+
+  else if (state === `outside02`){
+    outside02TextBox();
+    outside02Text();
+
+  }
 
 // Level03
  else if (state === `petShop`){
@@ -476,7 +482,7 @@ function outside01Text(){
   Now, your kitty needs supplies; you head to the pet store.
 
 
-  On the way there, you see someone waving you over...`, 2*width/8, height/2);
+  On the way there, you see someone waving you over...`, width/4, height/2);
   pop();
 }
 
@@ -561,6 +567,36 @@ function hoarder(){
     feline charms and are now a fanatical catlady, shunned by society.`, width/2, height/2);
   pop();
 
+}
+
+function outside02TextBox(){
+  // Outside02
+  // Indigo Text Box
+  push();
+  stroke(255);
+  strokeWeight(3);
+  rectMode(CENTER);
+  fill(134, 138, 187);
+  rect.width = 815;
+  rect.height = 200;
+  rect.radius = 15;
+  rect(width/2, height/2, rect.width, rect.height, rect.radius, rect.radius);
+  pop();
+}
+
+function outside02Text(){
+  // Outside02
+  // (Almost) White Text
+  push();
+  noStroke();
+  textAlign(LEFT,CENTER);
+  fill(260, 268, 246);
+  text(`    Turning your back to kittens is heartbreaking, but you survived it.
+    And now, you're stronger because of it.
+    ...or something.
+
+    You resume your walk.`, 2*width/9, height/2);
+  pop();
 }
 
 function petShopGraphics(){
@@ -650,7 +686,7 @@ function streetEndingText(){
   text(` Goodness me! You kept vainly spending all of your money on expensive toys,
  never understanding that cats care more about the wrapping rather than the
  objects themselves.
- But hey, now there's plenty of bags and cardboards for your pet to enjoy. `, 2*width/8, height/10);
+ But hey, now there's plenty of bags and cardboards for your pet to enjoy. `, width/4, height/10);
  pop();
 }
 
