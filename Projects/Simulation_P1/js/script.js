@@ -165,7 +165,7 @@ let imgHappyEnding = {
 }
 
 //Declaring States; *(b+g) = bad + good outcome;
-let state = `streetEnding`; //Title, Menu(b+g), Level01(b+g), Level02(b+g), Level03(b+g), Level04(b+g), Happy Ending
+let state = `outside01`; //Title, Menu(b+g), Level01(b+g), Level02(b+g), Level03(b+g), Level04(b+g), Happy Ending
 
 function preload(){
 
@@ -212,6 +212,7 @@ function setup() {
   noCursor();
   positioningBackgroundImages();
   textFont(myFontBody);
+  textSize(20);
 
   //Cat icons (level02) randomly appearing on screen
   imgHoarder1.x = random(0,width);
@@ -287,6 +288,14 @@ function draw() {
   }
   // Menu's Bad Ending
   else if (state === `cryingCat`);
+
+  // Level 01
+
+  else if (state === `outside01`){
+    outside01TextBox();
+    outside01Text();
+
+  }
 
  // Level 02
   else if (state === `kittens`){
@@ -431,7 +440,6 @@ function menuText(){
   noStroke();
   textAlign(CENTER,CENTER);
   fill(260, 268, 246);
-  textSize(20);
   text(`First off, choose your kitty!`, width/2, height/7);
   //Options
   text(`Fluffy Embrace`, width/9, 4*height/5);
@@ -440,6 +448,36 @@ function menuText(){
   text(`The type doesn't matter,
   a cat is a cat`, 7*width/8, 4*height/5);
     pop();
+}
+
+function outside01TextBox(){
+  // Outside01
+  // Indigo Text Box
+  push();
+  stroke(255);
+  strokeWeight(3);
+  rectMode(CENTER);
+  fill(134, 138, 187);
+  rect.width = 800;
+  rect.height = 200;
+  rect.radius = 15;
+  rect(width/2, height/2, rect.width, rect.height, rect.radius, rect.radius);
+  pop();
+}
+
+function outside01Text(){
+  // Outside01
+  // (Almost) White Text
+  push();
+  noStroke();
+  textAlign(LEFT,CENTER);
+  fill(260, 268, 246);
+  text(`  Good job!
+  Now, your kitty needs supplies; you head to the pet store.
+
+
+  On the way there, you see someone waving you over...`, 2*width/8, height/2);
+  pop();
 }
 
 function kittensBackground(){
@@ -466,7 +504,6 @@ function kittensText(){
   noStroke();
   textAlign(LEFT,CENTER);
   fill(260, 268, 246);
-  textSize(20);
   text(`    Oh, this lady is giving away kittens for free! Not exactly what you were looking for, but maybe a furry friend could
     be just what your own pet needs?
 
@@ -493,7 +530,6 @@ function kittensOptions(){
   noStroke();
   textAlign(LEFT,CENTER);
   fill(260, 268, 246);
-  textSize(20);
   text(`More kitties, more cuddles`, width/20, 2*height/5);
   text(`Hmm..I'd rather focus on
 the cat I already have`, width/20, 3*height/5);
@@ -520,7 +556,6 @@ function hoarder(){
   //(Almost)white text
   textAlign(CENTER,CENTER);
   fill(260, 268, 246);
-  textSize(20);
   text(`Yikes! It seems that one kitten was just the beginning
     of a spiraling hoarding disorder! You could not resist the
     feline charms and are now a fanatical catlady, shunned by society.`, width/2, height/2);
@@ -589,8 +624,9 @@ function streetEndingBackground(){
 
 function streeEndingTextBox(){
   // Level03 - Bad Ending
-  //Indigo Text Boxes
+  //Blue Text Boxes
   //Caption
+  push();
   stroke(255);
   strokeWeight(2);
   rectMode(CENTER);
@@ -599,6 +635,7 @@ function streeEndingTextBox(){
   rect.height = 108;
   rect.radius = 15;
   rect(width/2, height/10, rect.width, rect.height, rect.radius, rect.radius);
+  pop();
 }
 
 function streetEndingText(){
@@ -614,6 +651,7 @@ function streetEndingText(){
  never understanding that cats care more about the wrapping rather than the
  objects themselves.
  But hey, now there's plenty of bags and cardboards for your pet to enjoy. `, 2*width/8, height/10);
+ pop();
 }
 
 function finalEndingBackground(){
