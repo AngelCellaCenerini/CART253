@@ -103,31 +103,31 @@ let imgKittens = {
 let imgHoarder1 = {
   x: 0,
   y: 0,
-  size: 150
+  speed: 6
 }
 
 let imgHoarder2 = {
   x: 0,
   y: 0,
-  size: 150
+  speed: 10
 }
 
 let imgHoarder3 = {
   x: 0,
   y: 0,
-  size: 150
+  speed: 10
 }
 
 let imgHoarder4 = {
   x: 0,
   y: 0,
-  size: 150
+  speed: 10
 }
 
 let imgHoarder5 = {
   x: 0,
   y: 0,
-  size: 150
+  speed: 10
 }
 
 //Level04 - Petshop
@@ -161,21 +161,21 @@ let imgHappyEnding = {
 }
 
 //Declaring States; *(b+g) = bad + good outcome;
-let state = `happyEnding`; //Title, Menu(b+g), Level01(b+g), Level02(b+g), Level03(b+g), Level04(b+g), Happy Ending
+let state = `hoarderEnding`; //Title, Menu(b+g), Level01(b+g), Level02(b+g), Level03(b+g), Level04(b+g), Happy Ending
 
 function preload(){
 
-  loadingFonts();
-  loadingImages();
+  costumedFonts();
+  imageFiles();
 }
 
 
-function loadingFonts(){
+function costumedFonts(){
   myFontTitle = loadFont('assets/CatFont.otf');
   myFontBody = loadFont('assets/AnonymousPro-Regular.otf');
 }
 
-function loadingImages(){
+function imageFiles(){
   cursor = loadImage('assets/images/cursor.png');
   intro = loadImage('assets/images/intro.jpg');
   cat1 = loadImage('assets/images/cat1.png');
@@ -209,6 +209,38 @@ function setup() {
   positioningBackgroundImages();
   textFont(myFontBody);
 
+  //Cat icons (level02) randomly appearing on screen
+  imgHoarder1.x = random(0,width);
+  imgHoarder1.y = random(0,height);
+
+  imgHoarder2.x = random(0,width);
+  imgHoarder2.y = random(0,height);
+
+  imgHoarder3.x = random(0,width);
+  imgHoarder3.y = random(0,height);
+
+  imgHoarder4.x = random(0,width);
+  imgHoarder4.y = random(0,height);
+
+  imgHoarder5.x = random(0,width);
+  imgHoarder5.y = random(0,height);
+
+  //Cat icons (level02) moving in random directions (both vertically and horizontally) with varying speed
+  imgHoarder1.vx = random(-imgHoarder1.speed,imgHoarder1.speed);
+  imgHoarder1.vy = random(-imgHoarder1.speed,imgHoarder1.speed);
+
+  imgHoarder2.vx = random(-imgHoarder2.speed,imgHoarder2.speed);
+  imgHoarder2.vy = random(-imgHoarder2.speed,imgHoarder2.speed);
+
+  imgHoarder3.vx = random(-imgHoarder3.speed,imgHoarder3.speed);
+  imgHoarder3.vy = random(-imgHoarder3.speed,imgHoarder3.speed);
+
+  imgHoarder4.vx = random(-imgHoarder4.speed,imgHoarder4.speed);
+  imgHoarder4.vy = random(-imgHoarder4.speed,imgHoarder4.speed);
+
+  imgHoarder5.vx = random(-imgHoarder5.speed,imgHoarder5.speed);
+  imgHoarder5.vy = random(-imgHoarder5.speed,imgHoarder5.speed);
+
 }
 
 
@@ -240,10 +272,31 @@ function draw() {
     details();
     start();
   }
+  else if (state === `hoarderEnding`){
+  hoarder();
+
+}
+
   else if (state === `happyEnding`){
     finalEndingBackground();
     finalEndingText();
   }
+
+  //Cat icons (Level02) movements;
+    imgHoarder1.x = imgHoarder1.x + imgHoarder1.vx;
+    imgHoarder1.y = imgHoarder1.y + imgHoarder1.vy;
+
+    imgHoarder2.x = imgHoarder2.x + imgHoarder2.vx;
+    imgHoarder2.y = imgHoarder2.y + imgHoarder2.vy;
+
+    imgHoarder3.x = imgHoarder3.x + imgHoarder3.vx;
+    imgHoarder3.y = imgHoarder3.y + imgHoarder3.vy;
+
+    imgHoarder4.x = imgHoarder4.x + imgHoarder4.vx;
+    imgHoarder4.y = imgHoarder4.y + imgHoarder4.vy;
+
+    imgHoarder5.x = imgHoarder5.x + imgHoarder5.vx;
+    imgHoarder5.y = imgHoarder5.y + imgHoarder5.vy;
 
 
   //Cursor (User)
@@ -281,6 +334,38 @@ function start(){
   textAlign(CENTER, CENTER);
   text(`Press SPACEBAR to start`, width/2, 14*height/15);
   pop();
+}
+
+function hoarder(){
+  //Hoerder ending - Level02 Bad Ending
+  bg.r = 0;
+  bg.g = 0;
+  bg.b = 0;
+  background(bg.r, bg.g, bg.b);
+  //Repeated cat icons moving acroos screen
+  for(i = 0;i<2;i++){
+    imgHoarder1.x = random(0,width);
+    imgHoarder1.y = random(0,height);
+    image(hoarder1, imgHoarder1.x, imgHoarder1.y);
+  }
+  //Text box (rounded corners)
+  push();
+  noStroke();
+  fill(215, 177, 236);
+  rectMode(CENTER);
+  rect.width = 900;
+  rect.height = 150;
+  rect.radius = 15;
+  rect(width/2, height/2,rect.width,rect.height, rect.radius, rect.radius, rect.radius, rect.radius);
+  //(Almost)white text
+  textAlign(CENTER,CENTER);
+  fill(250, 248, 236);
+  textSize(20);
+  text(`Yikes! It seems that one kitten was just the beginning
+    of a spiraling hoarder disorder! You could not resist the
+    feline charms and are now a fanatical catlady, shunned by society.`, width/2, height/2);
+  pop();
+
 }
 
 function finalEndingBackground(){
