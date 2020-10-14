@@ -12,9 +12,9 @@ let myFontBody;
 
 //Backround
 let bg = {
-  r: 250,
-  g: 248,
-  b: 236
+  r: 0,
+  g: 0,
+  b: 0
 }
 
 //Declaring image files
@@ -37,25 +37,29 @@ let imgIntro = {
 let imgCat1 = {
   x: 0,
   y: 0,
-  size: 550
+  width: 400,
+  height: 400
 }
 
 let imgCat2 = {
   x: 0,
   y: 0,
-  size: 550
+  width: 400,
+  height: 400
 }
 
 let imgCat3 = {
   x: 0,
   y: 0,
-  size: 550
+  width: 400,
+  height: 400
 }
 
 let imgCat4 = {
   x: 0,
   y: 0,
-  size: 550
+  width: 400,
+  height: 400
 }
 
 //Level01 - Call miniminiminigame
@@ -161,7 +165,7 @@ let imgHappyEnding = {
 }
 
 //Declaring States; *(b+g) = bad + good outcome;
-let state = `kittens`; //Title, Menu(b+g), Level01(b+g), Level02(b+g), Level03(b+g), Level04(b+g), Happy Ending
+let state = `menu`; //Title, Menu(b+g), Level01(b+g), Level02(b+g), Level03(b+g), Level04(b+g), Happy Ending
 
 function preload(){
 
@@ -272,7 +276,15 @@ function draw() {
     details();
     start();
   }
-  else if(state === `kittens`){
+
+  else if (state === `menu`){
+  catOptions();
+  menuTextBoxes();
+  menuText();
+
+  }
+
+  else if (state === `kittens`){
     kittensBackground();
     kittensText();
     kittensOptions();
@@ -315,6 +327,10 @@ function draw() {
 //Title screen - black cat, cream background, black text
 function title(){
   push();
+  bg.r = 250;
+  bg.g = 248;
+  bg.b = 236;
+  background(bg.r, bg.g, bg.b);
   image(intro, imgIntro.x, imgIntro.y, imgIntro.width,imgIntro.height);
   textFont(myFontTitle);
   fill(20);
@@ -342,14 +358,71 @@ function start(){
   pop();
 }
 
+function catOptions(){
+  //"Menu" - Cat options
+  //Cat icons
+    imgCat1.x = width/8;
+    imgCat1.y = height/2;
+    imgCat2.x = 3*width/8;
+    imgCat2.y = height/2;
+    imgCat3.x = 5*width/8;
+    imgCat3.y = height/2;
+    imgCat4.x = 7*width/8;
+    imgCat4.y = height/2;
+
+  image(cat1, imgCat1.x, imgCat1.y, imgCat1.width, imgCat1.height);
+  image(cat2, imgCat2.x, imgCat2.y, imgCat2.width, imgCat2.height);
+  image(cat3, imgCat3.x, imgCat3.y, imgCat3.width, imgCat3.height);
+  image(cat4, imgCat4.x, imgCat4.y, imgCat4.width, imgCat4.height);
+}
+
+function menuTextBoxes(){
+  //"Menu" - Cat options
+  //Indigo text boxes
+  push();
+  //Caption
+  stroke(255);
+  strokeWeight(3);
+  rectMode(CENTER);
+  fill(134, 138, 187);
+  rect.width = 1400;
+  rect.height = 80;
+  rect.radius = 15;
+  rect(width/2,height/7, rect.width, rect.height, rect.radius, rect.radius);
+  //Options
+  rect.width = 300;
+  rect.height = 80;
+  rect.radius = 15;
+  rect(width/9,4*height/5, rect.width, rect.height, rect.radius, rect.radius);
+  rect(4*width/11,4*height/5, rect.width, rect.height, rect.radius, rect.radius);
+  rect(5*width/8,4*height/5, rect.width, rect.height, rect.radius, rect.radius);
+  rect(7*width/8,4*height/5, rect.width, rect.height, rect.radius, rect.radius);
+  pop();
+}
+
+function menuText(){
+  //"Menu" - Cat options
+  // (Almost)white text
+  //Caption
+  push();
+  noStroke();
+  textAlign(CENTER,CENTER);
+  fill(260, 268, 246);
+  textSize(20);
+  text(`First off, choose your kitty!`, width/2, height/7);
+  //Options
+  text(`Fluffy Embrace`, width/9, 4*height/5);
+  text(`Black Beauty`, 4*width/11, 4*height/5);
+  text(`Speckled Love`, 5*width/8, 4*height/5);
+  text(`The type doesn't matter,
+  a cat is a cat`, 7*width/8, 4*height/5);
+    pop();
+}
+
 function kittensBackground(){
   // Kittens - level02
   push();
   // Background
-  bg.r = 0;
-  bg.g = 0;
-  bg.b = 0;
-  background(bg.r, bg.g, bg.b);
   image(kittens, imgKittens.x, imgKittens.y);
   pop();
 }
@@ -371,7 +444,7 @@ function kittensText(){
   textAlign(LEFT,CENTER);
   fill(260, 268, 246);
   textSize(20);
-  text(`      Oh, this lady is giving away kittens for free! Not exactly what you were looking for, but maybe a furry friend could
+  text(`    Oh, this lady is giving away kittens for free! Not exactly what you were looking for, but maybe a furry friend could
     be just what your own pet needs?
 
     What will you do?`, width/30, height/7);
@@ -406,10 +479,6 @@ the cat I already have`, width/20, 3*height/5);
 
 function hoarder(){
   //Hoerder ending - Level02 Bad Ending
-  bg.r = 0;
-  bg.g = 0;
-  bg.b = 0;
-  background(bg.r, bg.g, bg.b);
   //Repeated cat icons moving acroos screen
   for(i = 0;i<2;i++){
     imgHoarder1.x = random(0,width);
