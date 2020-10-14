@@ -164,8 +164,21 @@ let imgHappyEnding = {
   y: 0
 }
 
+// Declaring Choice buttons in Level 02
+let choice01 = {
+width: 400,
+height: 80,
+radius: 15
+}
+
+let choice02 = {
+  width: 400,
+  height: 80,
+  radius: 15
+}
+
 //Declaring States; *(b+g) = bad + good outcome;
-let state = `outside02`; //Title, Menu(b+g), Level01(b+g), Level02(b+g), Level03(b+g), Level04(b+g), Happy Ending
+let state = `kittens`; //Title, Menu(b+g), Level01(b+g), Level02(b+g), Level03(b+g), Level04(b+g), Happy Ending
 
 function preload(){
 
@@ -355,6 +368,33 @@ function draw() {
     imgHoarder5.y = imgHoarder5.y + imgHoarder5.vy;
 
 
+    // //Check Bad Ending 01 - User choosing Cat 1, 2 or 3 in Menu
+    // let d1 = dist(imgCursor.x, imgCursor.y, imgCat1.x, imgCat1.y);
+    // let d2 = dist(imgCursor.x, imgCursor.y, imgCat2.x, imgCat2.y);
+    // let d3 = dist(imgCursor.x, imgCursor.y, imgCat3.x, imgCat3.y);
+    // if ((d1 < imgCursor.size/2 + imgCat1.width/2 || d1 < imgCursor.size/2 + imgCat1.height/2) || (d2 < imgCursor.size/2 + imgCat2.width/2 || d1 < imgCursor.size/2 + imgCat2.height/2) || (d3 < imgCursor.size/2 + imgCat3.width/2 || d1 < imgCursor.size/2 + imgCat3.height/2)){
+    //   state = `cryingCat`;
+    // }
+    //
+    // //Check "Right" Answer - User choosing Cat 4 in Menu
+    // let d4 = dist(imgCursor.x, imgCursor.y, imgCat4.x, imgCat4.y);
+    // if (d4 < imgCursor.size/2 + imgCat4.width/2 || d4 < imgCursor.size/2 + imgCat4.height/2){
+    //   //state = `door`;
+    // }
+    //
+    // //Check Bad Ending 02 - User choosing to get kitten(s) in Level02
+    // let d5 = dist(imgCursor.x, imgCursor.y, choice01.x, choice01.y);
+    // if (d5 < imgCursor.size/2 + choice01.width/2 || d5 < imgCursor.size/2 + choice01.height/2){
+    //   state = `outside02`;
+    // }
+    // //Check "Right" Answer - User choosing not to get kitten(s) in Level02
+    // let d6 = dist(imgCursor.x, imgCursor.y, choice02.x, choice02.y);
+    // if (d6 < imgCursor.size/2 + choice02.width/2 || d6 < imgCursor.size/2 + choice02.height/2){
+    //   state = `hoarder`;
+    // }
+
+
+
   //Cursor (User)
   imgCursor.x = mouseX;
   imgCursor.y = mouseY;
@@ -497,7 +537,7 @@ function kittensBackground(){
 function kittensText(){
 
   push();
-  // Indigo text box
+  // Indigo Text Box
   stroke(255);
   strokeWeight(3);
   rectMode(CENTER);
@@ -527,11 +567,8 @@ function kittensOptions(){
   strokeWeight(3);
   rectMode(CENTER);
   fill(134, 138, 187);
-  rect.width = 400;
-  rect.height = 80;
-  rect.radius = 15;
-  rect(width/6, 2*height/5, rect.width, rect.height, rect.radius, rect.radius);
-  rect(width/6, 3*height/5, rect.width, rect.height, rect.radius, rect.radius);
+  rect(width/6, 2*height/5, choice01.width,  choice01.height,  choice01.radius,  choice01.radius);
+  rect(width/6, 3*height/5, choice02.width,  choice02.height,  choice02.radius, choice02.radius);
   //Texts
   noStroke();
   textAlign(LEFT,CENTER);
