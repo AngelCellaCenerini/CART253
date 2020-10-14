@@ -161,7 +161,7 @@ let imgHappyEnding = {
 }
 
 //Declaring States; *(b+g) = bad + good outcome;
-let state = `hoarderEnding`; //Title, Menu(b+g), Level01(b+g), Level02(b+g), Level03(b+g), Level04(b+g), Happy Ending
+let state = `kittens`; //Title, Menu(b+g), Level01(b+g), Level02(b+g), Level03(b+g), Level04(b+g), Happy Ending
 
 function preload(){
 
@@ -272,6 +272,12 @@ function draw() {
     details();
     start();
   }
+  else if(state === `kittens`){
+    kittensBackground();
+    kittensText();
+    kittensOptions();
+
+  }
   else if (state === `hoarderEnding`){
   hoarder();
 
@@ -320,7 +326,7 @@ function title(){
 
 function details(){
 
-  push()
+  push();
   textSize(50);
   textAlign(CENTER, CENTER);
   text(`SIMULATOR`, width/2, 3*height/8);
@@ -336,6 +342,68 @@ function start(){
   pop();
 }
 
+function kittensBackground(){
+  // Kittens - level02
+  push();
+  // Background
+  bg.r = 0;
+  bg.g = 0;
+  bg.b = 0;
+  background(bg.r, bg.g, bg.b);
+  image(kittens, imgKittens.x, imgKittens.y);
+  pop();
+}
+
+function kittensText(){
+
+  push();
+  // Indigo text box
+  stroke(255);
+  strokeWeight(3);
+  rectMode(CENTER);
+  fill(134, 138, 187);
+  rect.width = 1400;
+  rect.height = 150;
+  rect.radius = 15;
+  rect(width/2,height/7, rect.width, rect.height, rect.radius, rect.radius);
+  // (Almost)white text
+  noStroke();
+  textAlign(LEFT,CENTER);
+  fill(260, 268, 246);
+  textSize(20);
+  text(`      Oh, this lady is giving away kittens for free! Not exactly what you were looking for, but maybe a furry friend could
+    be just what your own pet needs?
+
+    What will you do?`, width/30, height/7);
+
+    pop();
+}
+
+function kittensOptions(){
+  push();
+  //Avilable choises:
+  //Affermative/Negative
+  //Text boxes
+  stroke(255);
+  strokeWeight(3);
+  rectMode(CENTER);
+  fill(134, 138, 187);
+  rect.width = 400;
+  rect.height = 80;
+  rect.radius = 15;
+  rect(width/6, 2*height/5, rect.width, rect.height, rect.radius, rect.radius);
+  rect(width/6, 3*height/5, rect.width, rect.height, rect.radius, rect.radius);
+  //Texts
+  noStroke();
+  textAlign(LEFT,CENTER);
+  fill(260, 268, 246);
+  textSize(20);
+  text(`More kitties, more cuddles`, width/20, 2*height/5);
+  text(`Hmm..I'd rather focus on
+the cat I already have`, width/20, 3*height/5);
+  pop();
+}
+
 function hoarder(){
   //Hoerder ending - Level02 Bad Ending
   bg.r = 0;
@@ -348,7 +416,7 @@ function hoarder(){
     imgHoarder1.y = random(0,height);
     image(hoarder1, imgHoarder1.x, imgHoarder1.y);
   }
-  //Text box (rounded corners)
+  //Lilac text box (rounded corners)
   push();
   noStroke();
   fill(215, 177, 236);
@@ -359,10 +427,10 @@ function hoarder(){
   rect(width/2, height/2,rect.width,rect.height, rect.radius, rect.radius, rect.radius, rect.radius);
   //(Almost)white text
   textAlign(CENTER,CENTER);
-  fill(250, 248, 236);
+  fill(260, 268, 246);
   textSize(20);
   text(`Yikes! It seems that one kitten was just the beginning
-    of a spiraling hoarder disorder! You could not resist the
+    of a spiraling hoarding disorder! You could not resist the
     feline charms and are now a fanatical catlady, shunned by society.`, width/2, height/2);
   pop();
 
