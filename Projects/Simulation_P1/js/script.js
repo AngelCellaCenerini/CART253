@@ -310,7 +310,11 @@ function draw() {
  }
  // Level03 - Bad ending
  else if (state === `streetEnding`){
-   image(streetEnding, imgStreetEnding.x, imgStreetEnding.y);
+
+   streetEndingBackground();
+   streeEndingTextBox();
+   streetEndingText();
+
  }
 
  // Happy Ending!
@@ -575,6 +579,41 @@ function petShopText(){
   text(`This one will do!`, width/3, 7*height/11);
   text(`My cat would  l o v e  this!`, 2*width/3, 7*height/11);
     pop();
+}
+
+function streetEndingBackground(){
+  // Level 03
+  // Background
+  image(streetEnding, imgStreetEnding.x, imgStreetEnding.y);
+}
+
+function streeEndingTextBox(){
+  // Level03 - Bad Ending
+  //Indigo Text Boxes
+  //Caption
+  stroke(255);
+  strokeWeight(2);
+  rectMode(CENTER);
+  fill(74, 112, 149);
+  rect.width = 850;
+  rect.height = 108;
+  rect.radius = 15;
+  rect(width/2, height/10, rect.width, rect.height, rect.radius, rect.radius);
+}
+
+function streetEndingText(){
+  // Level03 - Bad Ending
+  //(Almost) White Text
+  //Caption
+  push();
+  noStroke();
+  textAlign(LEFT,CENTER);
+  fill(260, 268, 246);
+  textSize(18);
+  text(` Goodness me! You kept vainly spending all of your money on expensive toys,
+ never understanding that cats care more about the wrapping rather than the
+ objects themselves.
+ But hey, now there's plenty of bags and cardboards for your pet to enjoy. `, 2*width/8, height/10);
 }
 
 function finalEndingBackground(){
