@@ -165,7 +165,7 @@ let imgHappyEnding = {
 }
 
 //Declaring States; *(b+g) = bad + good outcome;
-let state = `menu`; //Title, Menu(b+g), Level01(b+g), Level02(b+g), Level03(b+g), Level04(b+g), Happy Ending
+let state = `streetEnding`; //Title, Menu(b+g), Level01(b+g), Level02(b+g), Level03(b+g), Level04(b+g), Happy Ending
 
 function preload(){
 
@@ -271,30 +271,49 @@ function draw() {
 
   background(bg.r, bg.g, bg.b);
 
+  //Title
   if (state === `title`){
     title();
     details();
     start();
   }
 
+  //Menu
   else if (state === `menu`){
   catOptions();
   menuTextBoxes();
   menuText();
 
   }
+  // Menu's Bad Ending
+  else if (state === `cryingCat`);
 
+ // Level 02
   else if (state === `kittens`){
     kittensBackground();
     kittensText();
     kittensOptions();
 
   }
+  // Level02 - Bad Ending
   else if (state === `hoarderEnding`){
-  hoarder();
+    hoarder();
 
 }
 
+// Level03
+ else if (state === `petShop`){
+   petShopGraphics();
+   petShopTextBoxes();
+   petShopText();
+
+ }
+ // Level03 - Bad ending
+ else if (state === `streetEnding`){
+   image(streetEnding, imgStreetEnding.x, imgStreetEnding.y);
+ }
+
+ // Happy Ending!
   else if (state === `happyEnding`){
     finalEndingBackground();
     finalEndingText();
@@ -503,6 +522,59 @@ function hoarder(){
     feline charms and are now a fanatical catlady, shunned by society.`, width/2, height/2);
   pop();
 
+}
+
+function petShopGraphics(){
+  // Level03
+  // PetShop Background
+  image(petShop, imgPetShop.x, imgPetShop.y);
+  // Toy Options
+  imgSimpleToy.x = width/3;
+  imgSimpleToy.y = 2*height/5;
+  imgExpensiveToy.x = 2*width/3;
+  imgExpensiveToy.y = 2*height/5;
+
+  image(simpleToy, imgSimpleToy.x, imgSimpleToy.y);
+  image(expensiveToy, imgExpensiveToy.x, imgExpensiveToy.y);
+}
+
+function petShopTextBoxes(){
+  // Level03
+  //Indigo Text Boxes
+  //Caption
+  stroke(255);
+  strokeWeight(3);
+  rectMode(CENTER);
+  fill(134, 138, 187);
+  rect.width = 850;
+  rect.height = 110;
+  rect.radius = 15;
+  rect(width/2, height/9, rect.width, rect.height, rect.radius, rect.radius);
+  //Options
+  rect.width = 305;
+  rect.height = 50;
+  rect.radius = 15;
+  rect(width/3, 7*height/11, rect.width, rect.height, rect.radius, rect.radius);
+  rect(2*width/3, 7*height/11, rect.width, rect.height, rect.radius, rect.radius);
+}
+
+function petShopText(){
+  // Level03
+  //(Almost) White Text
+  //Caption
+  push();
+  noStroke();
+  textAlign(LEFT,CENTER);
+  fill(260, 268, 246);
+  textSize(18);
+  text(`  You get to the pet store and pick up all the necessities.
+ When choosing a toy for your pet, however, you are presented with two options;
+ the most obvious difference between them is the price range. What to buy?`, 2*width/9, height/9);
+  //Options
+  textAlign(CENTER, CENTER);
+  text(`This one will do!`, width/3, 7*height/11);
+  text(`My cat would  l o v e  this!`, 2*width/3, 7*height/11);
+    pop();
 }
 
 function finalEndingBackground(){
