@@ -58,6 +58,12 @@ let imgCat4 = {
   size: 400
 }
 
+//Menu - Bad Ending
+let imgCryingCat = {
+  x: 0,
+  y: 0,
+}
+
 //Level01 - Call miniminiminigame
 let imgCat = {
   x: 0,
@@ -180,7 +186,7 @@ let choice02 = {
 
 
 //Declaring States; *(b+g) = bad + good outcome;
-let state = `kittens`; //Title, Menu(b+g), Level01(b+g), Level02(b+g), Level03(b+g), Level04(b+g), Happy Ending
+let state = `doors`; //Title, Menu(b+g), Level01(b+g), Level02(b+g), Level03(b+g), Level04(b+g), Happy Ending
 
 function preload(){
 
@@ -201,6 +207,7 @@ function imageFiles(){
   cat2 = loadImage('assets/images/cat2.png');
   cat3 = loadImage('assets/images/cat3.png');
   cat4 = loadImage('assets/images/cat4.png');
+  cryingCat = loadImage('assets/images/cryingCat.png');
   cat = loadImage('assets/images/cat.png');
   openedDoor = loadImage('assets/images/openedDoor.png');
   door1 = loadImage('assets/images/door1.png');
@@ -308,7 +315,22 @@ function draw() {
   }
 
   // Level 01
+  else if (state === `doors`){
+  imgDoor1.x = width/4;
+  imgDoor1.y = height/2;
+  imgDoor2.x = width/2;
+  imgDoor2.y = height/2;
+  imgDoor3.x = 3*width/4;
+  imgDoor3.y = height/2;
 
+  image(door1, imgDoor1.x, imgDoor1.y, imgDoor1.width, imgDoor1.height);
+  image(door2, imgDoor2.x, imgDoor2.y, imgDoor2.width, imgDoor2.height);
+  image(door3, imgDoor3.x, imgDoor3.y, imgDoor3.width, imgDoor3.height);
+  }
+
+
+
+  // Level01 - Level02 transition
   else if (state === `outside01`){
     outside01TextBox();
     outside01Text();
@@ -884,17 +906,17 @@ state = `title`;
 }
 }
 
-function mouseClicked(){
-  if (state === `title`){
-     state = `menu`;
-  }
-  if (state === `outside01`){
-     state = `kittens`;
-  }
-  else if (state === `outside02`){
-     state = `petShop`;
-  }
-  else if (state === `lastTextPanel`){
-    state = `happyEnding`;
-  }
-}
+// function mouseClicked(){
+//   if (state === `title`){
+//      state = `menu`;
+//   }
+//   if (state === `outside01`){
+//      state = `kittens`;
+//   }
+//   else if (state === `outside02`){
+//      state = `petShop`;
+//   }
+//   else if (state === `lastTextPanel`){
+//     state = `happyEnding`;
+//   }
+// }
