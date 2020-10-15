@@ -589,9 +589,9 @@ function kittensOptions(){
   noStroke();
   textAlign(LEFT,CENTER);
   fill(260, 268, 246);
-  text(`More kitties, more cuddles`, width/16, 2*height/5);
+  text(`More kitties, more cuddles.`, width/16, 2*height/5);
   text(`Hmm..I'd rather focus on the cat
-I already have`, width/15, 3*height/5);
+I already have.`, width/15, 3*height/5);
   pop();
 }
 
@@ -779,7 +779,7 @@ function finalEndingText(){
   your cat's company! From here on, there
   will be only cuddly and purry moments!`, width/28, height/4);
   textSize(17);
-  text(`(Not really, but this is the chosen ending for the simulation)`, width/20, 6*height/17);
+  text(`(Not really, but this is the chosen ending for the simulation.)`, width/20, 6*height/17);
   pop();
 
 }
