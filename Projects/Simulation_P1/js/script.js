@@ -184,7 +184,7 @@ let choice02 = {
 
 
 //Declaring States; *(b+g) = bad + good outcome;
-let state = `petShop`; //Title, Menu(b+g), Level01(b+g), Level02(b+g), Level03(b+g), Level04(b+g), Happy Ending
+let state = `kittens`; //Title, Menu(b+g), Level01(b+g), Level02(b+g), Level03(b+g), Level04(b+g), Happy Ending
 
 function preload(){
 
@@ -326,6 +326,7 @@ function draw() {
   // Level02 - Bad Ending
   else if (state === `hoarderEnding`){
     hoarder();
+    returnToTitleScreen();
 
 }
   // Level02- Good outcome
@@ -429,6 +430,21 @@ function draw() {
   imgCursor.y = mouseY;
   image(cursor, imgCursor.x,imgCursor.y, imgCursor.size);
 
+}
+
+//Return to Title Screen(State) Option
+function returnToTitleScreen(){
+  keyPressed();
+  //Option to return to menu by pressing "ESC" key
+  // (Almost)white text
+  //Direction
+  push();
+  noStroke();
+  textAlign(CENTER,CENTER);
+  textSize(15);
+  fill(260, 268, 246);
+  text(`Click ESC to return to Title Screen.`, width/2, 4*height/5);
+  pop();
 }
 
 //Title screen - black cat, cream background, black text
@@ -830,4 +846,10 @@ function finalEndingText(){
   text(`(Not really, but this is the chosen ending for the simulation.)`, width/20, 6*height/17);
   pop();
 
+}
+
+function keyPressed() {
+if (keyCode === ESCAPE) {
+state = `title`;
+}
 }
