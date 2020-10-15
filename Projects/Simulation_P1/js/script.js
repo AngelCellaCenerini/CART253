@@ -343,103 +343,27 @@ function draw() {
   }
   // Menu's Bad Ending
   else if (state === `cryingCat`){
-
     cryingCatIcon();
     cryingCatTextBox();
     cryingCatText();
     returnToTitleScreen();
+
   }
 
   // Level 01
   else if (state === `doors`){
   doorsIcons();
 
-  //level01 - doors
-  //Opened Door 1
-  if (displayOpenedDoor1){
-    push();
-    noStroke();
-    fill(0);
-    rectMode(CENTER);
-    openedDoor1.x = width/4;
-    openedDoor1.y = 4*height/7;
-    rect(openedDoor1.x, openedDoor1.y, openedDoor1.width, openedDoor1.height);
-    pop();
-  }
+  openingDoor1();
+  door1ClosingAutomatically(); //User "opens" up to 3 doors, which will automatically close after 2 seconds
 
-  //Checking if User 'opens' Door1 - timer resets here
-  d9 = dist(imgCursor.x, imgCursor.y, imgDoor1.x, imgDoor1.y);
+  openingDoor2();
+  door2ClosingAutomatically();
 
-  if( mouseIsPressed && (d9 < imgCursor.size/2 + imgDoor1.width/2 || d9 < imgCursor.size/2 + imgDoor1.height/2) && (state === `doors`)){
-    displayOpenedDoor1 = true;
-    timerDoor1Closing = 2;
-  }
-  //Door1 "closing" on its own after 2 seconds
-  if(frameCount % 60 === 0 && timerDoor1Closing > 0){
-    timerDoor1Closing --;
-  }
-  if(timerDoor1Closing === 0){
-    displayOpenedDoor1 = false;
-  }
+  openingDoor3();
+  door3ClosingAutomatically();
 
-  //level01 - doors
-  //Opened Door 2
-  if (displayOpenedDoor2){
-    push();
-    noStroke();
-    fill(0);
-    rectMode(CENTER);
-    openedDoor2.x = width/2;
-    openedDoor2.y = 4*height/7;
-    rect(openedDoor2.x, openedDoor2.y, openedDoor2.width, openedDoor2.height);
-    pop();
-  }
-  //Checking if User 'opens' Door2 - timer resets here
-  d10 = dist(imgCursor.x, imgCursor.y, imgDoor2.x, imgDoor2.y);
-
-  if( mouseIsPressed && (d10 < imgCursor.size/2 + imgDoor2.width/2 || d10 < imgCursor.size/2 + imgDoor2.height/2) && (state === `doors`)){
-    displayOpenedDoor2 = true;
-    timerDoor2Closing = 2;
-  }
-  //Door2 "closing" on its own after 2 seconds
-  if(frameCount % 60 === 0 && timerDoor2Closing > 0){
-    timerDoor2Closing --;
-  }
-  if(timerDoor2Closing === 0){
-    displayOpenedDoor2 = false;
-  }
-
-  //level01 - doors
-  //Opened Door 3
-  if (displayOpenedDoor3){
-    push();
-    noStroke();
-    fill(0);
-    rectMode(CENTER);
-    openedDoor3.x = 3*width/4;
-    openedDoor3.y = 4*height/7;
-    rect(openedDoor3.x, openedDoor3.y, openedDoor3.width, openedDoor3.height);
-    pop();
-  }
-
-  //Checking if User 'opens' Door3 - timer resets here
-  d11 = dist(imgCursor.x, imgCursor.y, imgDoor3.x, imgDoor3.y);
-
-  if( mouseIsPressed && (d11 < imgCursor.size/2 + imgDoor3.width/2 || d11 < imgCursor.size/2 + imgDoor3.height/2) && (state === `doors`)){
-    displayOpenedDoor3 = true;
-    timerDoor3Closing = 2;
-  }
-  //Door2 "closing" on its own after 2 seconds
-  if(frameCount % 60 === 0 && timerDoor3Closing > 0){
-    timerDoor3Closing --;
-  }
-  if(timerDoor3Closing === 0){
-    displayOpenedDoor3 = false;
-  }
-
-  }
-
-
+}
 
   // Level01 - Level02 transition
   else if (state === `outside01`){
@@ -743,6 +667,105 @@ function doorsIcons(){
   image(door2, imgDoor2.x, imgDoor2.y, imgDoor2.width, imgDoor2.height);
   image(door3, imgDoor3.x, imgDoor3.y, imgDoor3.width, imgDoor3.height);
 }
+
+function openingDoor1(){
+    //level01 - doors
+    //Opened Door 1 (Balck rectangle illusion)
+    if (displayOpenedDoor1){
+      push();
+      noStroke();
+      fill(0);
+      rectMode(CENTER);
+      openedDoor1.x = width/4;
+      openedDoor1.y = 4*height/7;
+      rect(openedDoor1.x, openedDoor1.y, openedDoor1.width, openedDoor1.height);
+      pop();
+    }
+
+    //Checking if User 'opens' Door1 - timer resets here
+    d9 = dist(imgCursor.x, imgCursor.y, imgDoor1.x, imgDoor1.y);
+
+    if( mouseIsPressed && (d9 < imgCursor.size/2 + imgDoor1.width/2 || d9 < imgCursor.size/2 + imgDoor1.height/2) && (state === `doors`)){
+      displayOpenedDoor1 = true;
+      timerDoor1Closing = 2;
+    }
+}
+
+function door1ClosingAutomatically(){
+  //Door1 "closing" on its own after 2 seconds
+  if(frameCount % 60 === 0 && timerDoor1Closing > 0){
+    timerDoor1Closing --;
+  }
+  if(timerDoor1Closing === 0){
+    displayOpenedDoor1 = false;
+  }
+}
+
+function openingDoor2(){
+  //level01 - doors
+  //Opened Door 2 (Balck rectangle illusion)
+  if (displayOpenedDoor2){
+    push();
+    noStroke();
+    fill(0);
+    rectMode(CENTER);
+    openedDoor2.x = width/2;
+    openedDoor2.y = 4*height/7;
+    rect(openedDoor2.x, openedDoor2.y, openedDoor2.width, openedDoor2.height);
+    pop();
+  }
+  //Checking if User 'opens' Door2 - timer resets here
+  d10 = dist(imgCursor.x, imgCursor.y, imgDoor2.x, imgDoor2.y);
+
+  if( mouseIsPressed && (d10 < imgCursor.size/2 + imgDoor2.width/2 || d10 < imgCursor.size/2 + imgDoor2.height/2) && (state === `doors`)){
+    displayOpenedDoor2 = true;
+    timerDoor2Closing = 2;
+  }
+}
+
+function door2ClosingAutomatically(){
+  //Door2 "closing" on its own after 2 seconds
+  if(frameCount % 60 === 0 && timerDoor2Closing > 0){
+    timerDoor2Closing --;
+  }
+  if(timerDoor2Closing === 0){
+    displayOpenedDoor2 = false;
+  }
+}
+
+function openingDoor3(){
+  //level01 - doors
+  //Opened Door 3 (Balck rectangle illusion)
+  if (displayOpenedDoor3){
+    push();
+    noStroke();
+    fill(0);
+    rectMode(CENTER);
+    openedDoor3.x = 3*width/4;
+    openedDoor3.y = 4*height/7;
+    rect(openedDoor3.x, openedDoor3.y, openedDoor3.width, openedDoor3.height);
+    pop();
+  }
+
+  //Checking if User 'opens' Door3 - timer resets here
+  d11 = dist(imgCursor.x, imgCursor.y, imgDoor3.x, imgDoor3.y);
+
+  if( mouseIsPressed && (d11 < imgCursor.size/2 + imgDoor3.width/2 || d11 < imgCursor.size/2 + imgDoor3.height/2) && (state === `doors`)){
+    displayOpenedDoor3 = true;
+    timerDoor3Closing = 2;
+  }
+}
+
+function door3ClosingAutomatically(){
+  //Door3 "closing" on its own after 2 seconds
+  if(frameCount % 60 === 0 && timerDoor3Closing > 0){
+    timerDoor3Closing --;
+  }
+  if(timerDoor3Closing === 0){
+    displayOpenedDoor3 = false;
+  }
+
+  }
 
 function outside01TextBox(){
   // Outside01
