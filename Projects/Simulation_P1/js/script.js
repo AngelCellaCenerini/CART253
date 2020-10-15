@@ -306,7 +306,9 @@ function draw() {
 
   }
   // Menu's Bad Ending
-  else if (state === `cryingCat`);
+  else if (state === `cryingCat`){
+    returnToTitleScreen();
+  }
 
   // Level 01
 
@@ -349,6 +351,7 @@ function draw() {
    streetEndingBackground();
    streeEndingTextBox();
    streetEndingText();
+   returnToTitleScreen();
 
  }
  //Level03 - Good outcome
@@ -443,7 +446,7 @@ function returnToTitleScreen(){
   textAlign(CENTER,CENTER);
   textSize(15);
   fill(260, 268, 246);
-  text(`Click ESC to return to Title Screen.`, width/2, 4*height/5);
+  text(`Click ESC to return to Title Screen.`, width/2, 6*height/7);
   pop();
 }
 
