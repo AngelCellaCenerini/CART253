@@ -210,7 +210,7 @@ let displayOpenedDoor1 = false;
 
 
 //Declaring States; *(b+g) = bad + good outcome;
-let state = `kittens`; //Title, Menu(b+g), Level01(b+g), Level02(b+g), Level03(b+g), Level04(b+g), Happy Ending
+let state = `title`; //Title, Menu(b+g), Level01(b+g), Level02(b+g), Level03(b+g), Level04(b+g), Happy Ending
 
 function preload(){
 
@@ -363,7 +363,7 @@ function draw() {
   //Checking if User 'opens' imgDoor1
   d9 = dist(imgCursor.x, imgCursor.y, imgDoor1.x, imgDoor1.y);
 
-  if( mouseIsPressed && (d9 < imgCursor.size/2 + imgDoor1.width/2 || d9 < imgCursor.size/2 + imgDoor1.height/2)){
+  if( mouseIsPressed && (d9 < imgCursor.size/2 + imgDoor1.width/2 || d9 < imgCursor.size/2 + imgDoor1.height/2) && (state === `doors`)){
     displayOpenedDoor1 = true;
     timer = 3;
   }
@@ -480,23 +480,23 @@ function draw() {
 
     //Check Bad Ending 01 - User choosing Cat 1, 2 or 3 in Menu
     let d1 = dist(imgCursor.x, imgCursor.y, imgCat1.x, imgCat1.y);
-    if ((d1 < imgCursor.size/2 + imgCat1.size/2) && (mouseIsPressed)){
+    if ((d1 < imgCursor.size/2 + imgCat1.size/2) && (mouseIsPressed) && (state === `menu`)){
       state = `cryingCat`;
     }
 
     let d2 = dist(imgCursor.x, imgCursor.y, imgCat2.x, imgCat2.y);
-    if ((d2 < imgCursor.size/2 + imgCat2.size/2) && (mouseIsPressed)){
+    if ((d2 < imgCursor.size/2 + imgCat2.size/2) && (mouseIsPressed) && (state === `menu`)){
       state = `cryingCat`;
     }
 
     let d3 = dist(imgCursor.x, imgCursor.y, imgCat3.x, imgCat3.y);
-    if ((d3 < imgCursor.size/2 + imgCat3.size/2) && (mouseIsPressed)){
+    if ((d3 < imgCursor.size/2 + imgCat3.size/2) && (mouseIsPressed) && (state === `menu`)){
       state = `cryingCat`;
     }
 
     //Check "Right" Answer - User choosing Cat 4 in Menu
     let d4 = dist(imgCursor.x, imgCursor.y, imgCat4.x, imgCat4.y);
-    if ((d4 < imgCursor.size/2 + imgCat4.size/2) && (mouseIsPressed)){
+    if ((d4 < imgCursor.size/2 + imgCat4.size/2) && (mouseIsPressed) && (state === `menu`)){
       state = `doors`;
     }
 
@@ -504,7 +504,7 @@ function draw() {
     let d5 = dist(imgCursor.x, imgCursor.y, choice01.x, choice01.y);
     let d6 = dist(imgCursor.x, imgCursor.y, choice02.x, choice02.y);
     //Check Bad Ending 02 - User choosing to get kitten(s) in Level02
-    if ((d5 < imgCursor.size/2 + choice01.width/2 || d5 < imgCursor.size/2 + choice01.height/2) && (mouseIsPressed)){
+    if ((d5 < imgCursor.size/2 + choice01.width/2 || d5 < imgCursor.size/2 + choice01.height/2) && (mouseIsPressed) && (state === `kittens`)){
       state = `hoarderEnding`;
     }
     //Check "Right" Answer - User choosing not to get kitten(s) in Level02
@@ -515,11 +515,11 @@ function draw() {
     let d8 = dist(imgCursor.x, imgCursor.y, imgSimpleToy.x, imgSimpleToy.y);
     let d7 = dist(imgCursor.x, imgCursor.y, imgExpensiveToy.x, imgExpensiveToy.y);
     //Check Bad Ending 02 - User choosing to get kitten(s) in Level02
-    if ((d7 < imgCursor.size/2 + imgExpensiveToy.size/2) && (mouseIsPressed)){
+    if ((d7 < imgCursor.size/2 + imgExpensiveToy.size/2) && (mouseIsPressed) && (state === `petShop`)){
       state = `streetEnding`;
     }
     //Check "Right" Answer - User choosing cheaper toy in Level03
-    if((d8 < imgCursor.size/2 + imgSimpleToy.size/2) && (mouseIsPressed)){
+    if((d8 < imgCursor.size/2 + imgSimpleToy.size/2) && (mouseIsPressed) && (state === `petShop`)){
       state = `lastTextPanel`;
     }
 
