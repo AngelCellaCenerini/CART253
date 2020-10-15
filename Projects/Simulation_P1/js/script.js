@@ -186,7 +186,7 @@ let choice02 = {
 
 
 //Declaring States; *(b+g) = bad + good outcome;
-let state = `doors`; //Title, Menu(b+g), Level01(b+g), Level02(b+g), Level03(b+g), Level04(b+g), Happy Ending
+let state = `cryingCat`; //Title, Menu(b+g), Level01(b+g), Level02(b+g), Level03(b+g), Level04(b+g), Happy Ending
 
 function preload(){
 
@@ -311,6 +311,10 @@ function draw() {
   }
   // Menu's Bad Ending
   else if (state === `cryingCat`){
+
+    cryingCatIcon();
+    cryingCatTextBox();
+    cryingCatText();
     returnToTitleScreen();
   }
 
@@ -587,6 +591,39 @@ function menuText(){
   text(`The type doesn't matter,
   a cat is a cat`, 7*width/8, 4*height/5);
     pop();
+}
+
+function cryingCatIcon(){
+  imgCryingCat.x = 3*width/4;
+  imgCryingCat.y = 4*height/5;
+  image(cryingCat, imgCryingCat.x, imgCryingCat.y);
+}
+
+function cryingCatTextBox(){
+  // Menu - Bad Ending
+  // Indigo Text Box
+  push();
+  stroke(255);
+  strokeWeight(3);
+  rectMode(CENTER);
+  fill(134, 138, 187);
+  rect.width = 750;
+  rect.height = 150;
+  rect.radius = 15;
+  rect(width/2, height/4, rect.width, rect.height, rect.radius, rect.radius);
+  pop();
+}
+
+function cryingCatText(){
+  // Menu - Bad Ending
+  // (Almost) White Text
+  push();
+  noStroke();
+  textAlign(LEFT,CENTER);
+  fill(260, 268, 246);
+  text(`    How could you? :(
+    All cats are beautiful, you are not allowed a preference.`, width/4, height/4);
+  pop();
 }
 
 function outside01TextBox(){
