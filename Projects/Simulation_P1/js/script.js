@@ -184,7 +184,7 @@ let choice02 = {
 
 
 //Declaring States; *(b+g) = bad + good outcome;
-let state = `kittens`; //Title, Menu(b+g), Level01(b+g), Level02(b+g), Level03(b+g), Level04(b+g), Happy Ending
+let state = `petShop`; //Title, Menu(b+g), Level01(b+g), Level02(b+g), Level03(b+g), Level04(b+g), Happy Ending
 
 function preload(){
 
@@ -399,6 +399,18 @@ function draw() {
     else if ((d6 < imgCursor.size/2 + choice02.width/2 || d6 < imgCursor.size/2 + choice02.height/2) && (mouseIsPressed)){
         state = `outside02`;
       }
+    //Check Two Possible Outcomes - Level03
+    let d8 = dist(imgCursor.x, imgCursor.y, imgSimpleToy.x, imgSimpleToy.y);
+    let d7 = dist(imgCursor.x, imgCursor.y, imgExpensiveToy.x, imgExpensiveToy.y);
+    //Check Bad Ending 02 - User choosing to get kitten(s) in Level02
+    if ((d7 < imgCursor.size/2 + imgExpensiveToy.size/2) && (mouseIsPressed)){
+      state = `streetEnding`;
+    }
+    // //Check "Right" Answer - User choosing cheaper toy in Level03
+    // if((d8 < imgCursor.size/2 + imgSimpleToy.size/2) && (mouseIsPressed)){
+    //   state = `lastTextPanel`;
+    // }
+
 
 
 
@@ -721,9 +733,9 @@ function streeEndingTextBox(){
   rectMode(CENTER);
   fill(74, 112, 149);
   rect.width = 850;
-  rect.height = 108;
+  rect.height = 110;
   rect.radius = 15;
-  rect(width/2, height/10, rect.width, rect.height, rect.radius, rect.radius);
+  rect(width/2, 2*height/19, rect.width, rect.height, rect.radius, rect.radius);
   pop();
 }
 
