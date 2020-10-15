@@ -93,7 +93,21 @@ let imgDoor3 = {
   height: 350
 }
 
-let openedDoor = {
+let openedDoor1 = {
+  x: 0,
+  y: 0,
+  width: 204,
+  height: 407
+}
+
+let openedDoor2 = {
+  x: 0,
+  y: 0,
+  width: 204,
+  height: 407
+}
+
+let openedDoor3 = {
   x: 0,
   y: 0,
   width: 204,
@@ -182,6 +196,10 @@ let choice02 = {
   height: 80,
   radius: 15
 }
+
+let timer = 3;
+
+let displayOpenedDoor1 = false;
 
 
 
@@ -319,32 +337,48 @@ function draw() {
 
   // Level 01
   else if (state === `doors`){
-  imgDoor1.x = width/4;
-  imgDoor1.y = height/2;
-  imgDoor2.x = width/2;
-  imgDoor2.y = height/2;
-  imgDoor3.x = 3*width/4;
-  imgDoor3.y = height/2;
+  doorsIcons();
 
-  image(door1, imgDoor1.x, imgDoor1.y, imgDoor1.width, imgDoor1.height);
-  image(door2, imgDoor2.x, imgDoor2.y, imgDoor2.width, imgDoor2.height);
-  image(door3, imgDoor3.x, imgDoor3.y, imgDoor3.width, imgDoor3.height);
+  //level01 - doors
+  //Opened Door 1
+  if (displayOpenedDoor1){
+    //level01 - doors
+    //Opened Door 1
+    push();
+    noStroke();
+    fill(0);
+    rectMode(CENTER);
+    openedDoor1.x = width/4;
+    openedDoor1.y = 4*height/7;
+    rect(openedDoor1.x, openedDoor1.y, openedDoor1.width, openedDoor1.height);
+    pop();
+  }
+  //Checking if User is "opening" imgDoor1
+  d9 = dist(imgCursor.x, imgCursor.y, imgDoor1.x, imgDoor1.y);
 
+  if( mouseIsPressed && (d9 < imgCursor.size/2 + imgDoor1.width/2 || d9 < imgCursor.size/2 + imgDoor1.height/2)){
+    displayOpenedDoor1 = true;
+  }
+
+  //level01 - doors
+  //Opened Door 2
   push();
   noStroke();
   fill(0);
   rectMode(CENTER);
-  openedDoor.x = width/4;
-  openedDoor.y = 4*height/7;
-  rect(openedDoor.x, openedDoor.y, openedDoor.width, openedDoor.height);
-
-  openedDoor.x = 3*width/4;
-  openedDoor.y = 4*height/7;
-  rect(openedDoor.x, openedDoor.y, openedDoor.width, openedDoor.height);
-
-  openedDoor.x = width/2;
-  openedDoor.y = 4*height/7;
-  rect(openedDoor.x, openedDoor.y, openedDoor.width, openedDoor.height);
+  openedDoor2.x = 3*width/4;
+  openedDoor2.y = 4*height/7;
+  rect(openedDoor2.x, openedDoor2.y, openedDoor2.width, openedDoor2.height);
+  pop();
+  //level01 - doors
+  //Opened Door 3
+  push();
+  noStroke();
+  fill(0);
+  rectMode(CENTER);
+  openedDoor3.x = width/2;
+  openedDoor3.y = 4*height/7;
+  rect(openedDoor3.x, openedDoor3.y, openedDoor3.width, openedDoor3.height);
   pop();
 
   }
@@ -641,6 +675,21 @@ function cryingCatText(){
   text(`    How could you? :(
     All cats are beautiful, you are not allowed a preference.`, width/4, height/4);
   pop();
+}
+
+function doorsIcons(){
+  //Level 01 - Doors
+  //Door icons
+  imgDoor1.x = width/4;
+  imgDoor1.y = height/2;
+  imgDoor2.x = width/2;
+  imgDoor2.y = height/2;
+  imgDoor3.x = 3*width/4;
+  imgDoor3.y = height/2;
+
+  image(door1, imgDoor1.x, imgDoor1.y, imgDoor1.width, imgDoor1.height);
+  image(door2, imgDoor2.x, imgDoor2.y, imgDoor2.width, imgDoor2.height);
+  image(door3, imgDoor3.x, imgDoor3.y, imgDoor3.width, imgDoor3.height);
 }
 
 function outside01TextBox(){
