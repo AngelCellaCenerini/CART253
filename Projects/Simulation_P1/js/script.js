@@ -71,14 +71,15 @@ let imgCryingCat = {
   y: 0,
 }
 
-//Level01 - Call miniminiminigame
+// Level02 - Doors minigame
+//Level02 - Small Decorative Icon
 let imgCat = {
   x: 0,
   y: 0,
   size: 550
 }
 
-//Level02 - Doors minigame
+//Level02 - Doors Icons
 let imgDoor1 = {
   x: 0,
   y: 0,
@@ -120,6 +121,19 @@ let openedDoor3 = {
   width: 204,
   height: 407
 }
+
+// Level01 ends after Countdown
+let timerLevel01 = 15;
+
+// Door remain closed without User's input
+let displayOpenedDoor1 = false;
+let displayOpenedDoor2 = false;
+let displayOpenedDoor3 = false;
+
+// Declaring Countdown before door closes automatically -level01
+let timerDoor1Closing = 2;
+let timerDoor2Closing = 2;
+let timerDoor3Closing = 2;
 
 //Level03 - Street
 let imgKittens = {
@@ -203,19 +217,6 @@ let choice02 = {
   height: 80,
   radius: 15
 }
-
-// Door remain closed without User's input
-let displayOpenedDoor1 = false;
-let displayOpenedDoor2 = false;
-let displayOpenedDoor3 = false;
-
-// Declaring Countdown before door in level01 close automatically
-let timerDoor1Closing = 2;
-let timerDoor2Closing = 2;
-let timerDoor3Closing = 2;
-
-
-
 
 
 //Declaring States; *(b+g) = bad + good outcome;
@@ -352,6 +353,7 @@ function draw() {
 
   // Level 01
   else if (state === `doors`){
+  level01Countdown(); //15 seconds
   doorsIcons();
 
   openingDoor1();
@@ -422,8 +424,6 @@ function draw() {
     finalEndingText();
 
   }
-
-
 
 
   //Cat icons (Level02) movements;
@@ -651,6 +651,16 @@ function cryingCatText(){
   text(`    How could you? :(
     All cats are beautiful, you are not allowed a preference.`, width/4, height/4);
   pop();
+}
+
+function level01Countdown(){
+  // Countdown for Level01; 15 seconds
+  if ((frameCount % 60 === 0) && (timerLevel01 > 0) && (state === `doors`)){
+    timerLevel01 --;
+  }
+  if (timerLevel01 === 0){
+    state = `outside01`;
+  }
 }
 
 function doorsIcons(){
