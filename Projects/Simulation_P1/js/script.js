@@ -72,13 +72,6 @@ let imgCat = {
 }
 
 //Level02 - Doors minigame
-let imgOpenedDoor = {
-  x: 0,
-  y: 0,
-  width: 400,
-  height: 500
-}
-
 let imgDoor1 = {
   x: 0,
   y: 0,
@@ -186,7 +179,7 @@ let choice02 = {
 
 
 //Declaring States; *(b+g) = bad + good outcome;
-let state = `menu`; //Title, Menu(b+g), Level01(b+g), Level02(b+g), Level03(b+g), Level04(b+g), Happy Ending
+let state = `doors`; //Title, Menu(b+g), Level01(b+g), Level02(b+g), Level03(b+g), Level04(b+g), Happy Ending
 
 function preload(){
 
@@ -209,7 +202,6 @@ function imageFiles(){
   cat4 = loadImage('assets/images/cat4.png');
   cryingCat = loadImage('assets/images/cryingCat.png');
   cat = loadImage('assets/images/cat.png');
-  openedDoor = loadImage('assets/images/openedDoor.png');
   door1 = loadImage('assets/images/door1.png');
   door2 = loadImage('assets/images/door2.png');
   door3 = loadImage('assets/images/door3.png');
