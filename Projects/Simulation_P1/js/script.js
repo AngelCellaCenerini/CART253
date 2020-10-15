@@ -37,29 +37,25 @@ let imgIntro = {
 let imgCat1 = {
   x: 0,
   y: 0,
-  width: 400,
-  height: 400
+  size: 400
 }
 
 let imgCat2 = {
   x: 0,
   y: 0,
-  width: 400,
-  height: 400
+  size: 400
 }
 
 let imgCat3 = {
   x: 0,
   y: 0,
-  width: 400,
-  height: 400
+  size: 400
 }
 
 let imgCat4 = {
   x: 0,
   y: 0,
-  width: 400,
-  height: 400
+  size: 400
 }
 
 //Level01 - Call miniminiminigame
@@ -184,7 +180,7 @@ let choice02 = {
 
 
 //Declaring States; *(b+g) = bad + good outcome;
-let state = `kittens`; //Title, Menu(b+g), Level01(b+g), Level02(b+g), Level03(b+g), Level04(b+g), Happy Ending
+let state = `menu`; //Title, Menu(b+g), Level01(b+g), Level02(b+g), Level03(b+g), Level04(b+g), Happy Ending
 
 function preload(){
 
@@ -295,14 +291,15 @@ function draw() {
   if (state === `title`){
     title();
     details();
-    start();
+    start()
+
   }
 
   //Menu
   else if (state === `menu`){
-  catOptions();
-  menuTextBoxes();
-  menuText();
+    catOptions();
+    menuTextBoxes();
+    menuText();
 
   }
   // Menu's Bad Ending
@@ -368,6 +365,13 @@ function draw() {
 
   }
 
+ function doubleClicked(){
+   if (state === `title`){
+      state = `menu`;
+   }
+ }
+
+
   //Cat icons (Level02) movements;
     imgHoarder1.x = imgHoarder1.x + imgHoarder1.vx;
     imgHoarder1.y = imgHoarder1.y + imgHoarder1.vy;
@@ -385,20 +389,28 @@ function draw() {
     imgHoarder5.y = imgHoarder5.y + imgHoarder5.vy;
 
 
-    // //Check Bad Ending 01 - User choosing Cat 1, 2 or 3 in Menu
-    // let d1 = dist(imgCursor.x, imgCursor.y, imgCat1.x, imgCat1.y);
-    // let d2 = dist(imgCursor.x, imgCursor.y, imgCat2.x, imgCat2.y);
-    // let d3 = dist(imgCursor.x, imgCursor.y, imgCat3.x, imgCat3.y);
-    // if ((d1 < imgCursor.size/2 + imgCat1.width/2 || d1 < imgCursor.size/2 + imgCat1.height/2) || (d2 < imgCursor.size/2 + imgCat2.width/2 || d1 < imgCursor.size/2 + imgCat2.height/2) || (d3 < imgCursor.size/2 + imgCat3.width/2 || d1 < imgCursor.size/2 + imgCat3.height/2)){
-    //   state = `cryingCat`;
-    // }
-    //
-    // //Check "Right" Answer - User choosing Cat 4 in Menu
-    // let d4 = dist(imgCursor.x, imgCursor.y, imgCat4.x, imgCat4.y);
-    // if (d4 < imgCursor.size/2 + imgCat4.width/2 || d4 < imgCursor.size/2 + imgCat4.height/2){
-    //   //state = `door`;
-    // }
-    //
+    //Check Bad Ending 01 - User choosing Cat 1, 2 or 3 in Menu
+    let d1 = dist(imgCursor.x, imgCursor.y, imgCat1.x, imgCat1.y);
+    if ((d1 < imgCursor.size/2 + imgCat1.size/2) && (mouseIsPressed)){
+      state = `cryingCat`;
+    }
+
+    let d2 = dist(imgCursor.x, imgCursor.y, imgCat2.x, imgCat2.y);
+    if ((d2 < imgCursor.size/2 + imgCat2.size/2) && (mouseIsPressed)){
+      state = `cryingCat`;
+    }
+
+    let d3 = dist(imgCursor.x, imgCursor.y, imgCat3.x, imgCat3.y);
+    if ((d3 < imgCursor.size/2 + imgCat3.size/2) && (mouseIsPressed)){
+      state = `cryingCat`;
+    }
+
+    //Check "Right" Answer - User choosing Cat 4 in Menu
+    let d4 = dist(imgCursor.x, imgCursor.y, imgCat4.x, imgCat4.y);
+    if ((d4 < imgCursor.size/2 + imgCat4.size/2) && (mouseIsPressed)){
+      //state = `door`;
+    }
+
     //Check Two Possible Outcomes - Level02
     let d5 = dist(imgCursor.x, imgCursor.y, choice01.x, choice01.y);
     let d6 = dist(imgCursor.x, imgCursor.y, choice02.x, choice02.y);
@@ -446,7 +458,7 @@ function returnToTitleScreen(){
   textAlign(CENTER,CENTER);
   textSize(15);
   fill(260, 268, 246);
-  text(`Click ESC to return to Title Screen.`, width/2, 6*height/7);
+  text(`Press ESC to return to Title Screen.`, width/2, 6*height/7);
   pop();
 }
 
@@ -480,8 +492,11 @@ function start(){
   push();
   textSize(18);
   textAlign(CENTER, CENTER);
-  text(`Press SPACEBAR to start`, width/2, 14*height/15);
+  text(`Press ENTER to start`, width/2, 14*height/15);
+  keyTyped();
   pop();
+
+
 }
 
 function catOptions(){
@@ -851,8 +866,13 @@ function finalEndingText(){
 
 }
 
+
+
+
+// Checking if User presses ESC key
 function keyPressed() {
-if (keyCode === ESCAPE) {
+if (keyCode === 27) {
 state = `title`;
 }
+
 }
