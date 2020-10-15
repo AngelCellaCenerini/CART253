@@ -220,7 +220,7 @@ let choice02 = {
 
 
 //Declaring States; *(b+g) = bad + good outcome;
-let state = `menuGoodEnding`; //Title, Menu(b+g), Level01(b+g), Level02(b+g), Level03(b+g), Level04(b+g), Happy Ending
+let state = `menu`; //Title, Menu(b+g), Level01(b+g), Level02(b+g), Level03(b+g), Level04(b+g), Happy Ending
 
 function preload(){
 
@@ -355,7 +355,6 @@ function draw() {
     menuGoodEndingTextBox();
     menuGoodEndingText();
     clickToContinueText();
-    clickToContinue01();
 
 }
 
@@ -380,7 +379,6 @@ function draw() {
     outside01TextBox();
     outside01Text();
     clickToContinueText();
-    clickToContinue02();
 
 }
 
@@ -402,7 +400,6 @@ function draw() {
     outside02TextBox();
     outside02Text();
     clickToContinueText();
-    clickToContinue03();
 
   }
 
@@ -427,7 +424,6 @@ function draw() {
    lastTextPanelTextBox();
    lastTextPanelText();
    clickToContinueText();
-   clickToContinue04();
 
  }
 
@@ -475,7 +471,7 @@ function draw() {
     //Check "Right" Answer - User choosing Cat 4 in Menu
     let d4 = dist(imgCursor.x, imgCursor.y, imgCat4.x, imgCat4.y);
     if ((d4 < imgCursor.size/2 + imgCat4.size/2) && (mouseIsPressed) && (state === `menu`)){
-      state = `doors`;
+      state = `menuGoodEnding`;
     }
 
     //Check Two Possible Outcomes - Level02
@@ -536,7 +532,7 @@ function clickToContinueText(){
   textAlign(RIGHT, RIGHT);
   fill(260, 268, 246);
   textSize(15);
-  text(`Click to continue >`, 6*width/7, 6*height/7);
+  text(`Double Click to continue >`, 6*width/7, 6*height/7);
   pop();
 }
 
@@ -546,23 +542,6 @@ function clickToContinue01(){
   }
 }
 
-function clickToContinue02(){
-  if (mouseIsPressed && state === `outside01`){
-    state = `kittens`;
-  }
-}
-
-function clickToContinue03(){
-  if (mouseIsPressed && state === `outside02`){
-    state = `petShop`;
-  }
-}
-
-function clickToContinue04(){
-  if (mouseIsPressed && state === `lastTextPanel`){
-    state = `happyEnding`;
-  }
-}
 
 //Title screen - black cat, cream background, black text
 function title(){
@@ -1134,13 +1113,7 @@ function finalEndingBackground(){
 function finalEndingText(){
 
   push();
-  //Red, rectangular text box, woth
   noStroke();
-  fill(234, 105, 72);
-  rect.width = 700;
-  rect.height = 265;
-  rect.radius = 15;
-  rect(width/40, height/20,rect.width,rect.height, rect.radius, rect.radius, rect.radius, rect.radius);
   // (Almost) white text - three different sizes
   fill(250, 248, 236);
   textSize(50);
@@ -1167,4 +1140,19 @@ state = `menu`;
 else if (keyCode ===27){
   state = `title`;
 }
+}
+
+function doubleClicked(){
+  if(state === `menuGoodEnding`){
+    state = `doors`
+  }
+  else if (state === `outside01`){
+    state = `kittens`
+  }
+  else if (state === `outside02`){
+    state = `petShop`;
+  }
+  else if (state === `lastTextPanel`){
+    state = `happyEnding`
+  }
 }
