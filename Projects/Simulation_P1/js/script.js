@@ -5,6 +5,7 @@ Angel Cella Cenerini
 
 CAT OWNER SIMULATOR
 **************************************************/
+"use strict;";
 
 //Declaring fonts
 let myFontTitle;
@@ -203,14 +204,22 @@ let choice02 = {
   radius: 15
 }
 
-let timer = 3;
-
+// Door remain closed without User's input
 let displayOpenedDoor1 = false;
+let displayOpenedDoor2 = false;
+let displayOpenedDoor3 = false;
+
+// Declaring Countdown before door in level01 close automatically
+let timerDoor1Closing = 2;
+let timerDoor2Closing = 2;
+let timerDoor3Closing = 2;
+
+
 
 
 
 //Declaring States; *(b+g) = bad + good outcome;
-let state = `title`; //Title, Menu(b+g), Level01(b+g), Level02(b+g), Level03(b+g), Level04(b+g), Happy Ending
+let state = `doors`; //Title, Menu(b+g), Level01(b+g), Level02(b+g), Level03(b+g), Level04(b+g), Happy Ending
 
 function preload(){
 
@@ -348,8 +357,6 @@ function draw() {
   //level01 - doors
   //Opened Door 1
   if (displayOpenedDoor1){
-    //level01 - doors
-    //Opened Door 1
     push();
     noStroke();
     fill(0);
@@ -360,41 +367,75 @@ function draw() {
     pop();
   }
 
-  //Checking if User 'opens' imgDoor1
+  //Checking if User 'opens' Door1 - timer resets here
   d9 = dist(imgCursor.x, imgCursor.y, imgDoor1.x, imgDoor1.y);
 
   if( mouseIsPressed && (d9 < imgCursor.size/2 + imgDoor1.width/2 || d9 < imgCursor.size/2 + imgDoor1.height/2) && (state === `doors`)){
     displayOpenedDoor1 = true;
-    timer = 3;
+    timerDoor1Closing = 2;
   }
-  if(frameCount % 60 === 0 && timer > 0){
-    timer --;
+  //Door1 "closing" on its own after 2 seconds
+  if(frameCount % 60 === 0 && timerDoor1Closing > 0){
+    timerDoor1Closing --;
   }
-  if(timer === 0){
+  if(timerDoor1Closing === 0){
     displayOpenedDoor1 = false;
   }
 
-
   //level01 - doors
   //Opened Door 2
-  push();
-  noStroke();
-  fill(0);
-  rectMode(CENTER);
-  openedDoor2.x = 3*width/4;
-  openedDoor2.y = 4*height/7;
-  rect(openedDoor2.x, openedDoor2.y, openedDoor2.width, openedDoor2.height);
-  pop();
+  if (displayOpenedDoor2){
+    push();
+    noStroke();
+    fill(0);
+    rectMode(CENTER);
+    openedDoor2.x = width/2;
+    openedDoor2.y = 4*height/7;
+    rect(openedDoor2.x, openedDoor2.y, openedDoor2.width, openedDoor2.height);
+    pop();
+  }
+  //Checking if User 'opens' Door2 - timer resets here
+  d10 = dist(imgCursor.x, imgCursor.y, imgDoor2.x, imgDoor2.y);
+
+  if( mouseIsPressed && (d10 < imgCursor.size/2 + imgDoor2.width/2 || d10 < imgCursor.size/2 + imgDoor2.height/2) && (state === `doors`)){
+    displayOpenedDoor2 = true;
+    timerDoor2Closing = 2;
+  }
+  //Door2 "closing" on its own after 2 seconds
+  if(frameCount % 60 === 0 && timerDoor2Closing > 0){
+    timerDoor2Closing --;
+  }
+  if(timerDoor2Closing === 0){
+    displayOpenedDoor2 = false;
+  }
+
   //level01 - doors
   //Opened Door 3
-  push();
-  noStroke();
-  fill(0);
-  rectMode(CENTER);
-  openedDoor3.x = width/2;
-  openedDoor3.y = 4*height/7;
-  rect(openedDoor3.x, openedDoor3.y, openedDoor3.width, openedDoor3.height);
-  pop();
+  if (displayOpenedDoor3){
+    push();
+    noStroke();
+    fill(0);
+    rectMode(CENTER);
+    openedDoor3.x = 3*width/4;
+    openedDoor3.y = 4*height/7;
+    rect(openedDoor3.x, openedDoor3.y, openedDoor3.width, openedDoor3.height);
+    pop();
+  }
+
+  //Checking if User 'opens' Door3 - timer resets here
+  d11 = dist(imgCursor.x, imgCursor.y, imgDoor3.x, imgDoor3.y);
+
+  if( mouseIsPressed && (d11 < imgCursor.size/2 + imgDoor3.width/2 || d11 < imgCursor.size/2 + imgDoor3.height/2) && (state === `doors`)){
+    displayOpenedDoor3 = true;
+    timerDoor3Closing = 2;
+  }
+  //Door2 "closing" on its own after 2 seconds
+  if(frameCount % 60 === 0 && timerDoor3Closing > 0){
+    timerDoor3Closing --;
+  }
+  if(timerDoor3Closing === 0){
+    displayOpenedDoor3 = false;
+  }
 
   }
 
