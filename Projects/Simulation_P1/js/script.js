@@ -220,7 +220,7 @@ let choice02 = {
 
 
 //Declaring States; *(b+g) = bad + good outcome;
-let state = `outside01`; //Title, Menu(b+g), Level01(b+g), Level02(b+g), Level03(b+g), Level04(b+g), Happy Ending
+let state = `menuGoodEnding`; //Title, Menu(b+g), Level01(b+g), Level02(b+g), Level03(b+g), Level04(b+g), Happy Ending
 
 function preload(){
 
@@ -350,6 +350,12 @@ function draw() {
     returnToTitleScreen();
 
   }
+  // Menu's "Good" Ending
+  else if (state === `menuGoodEnding`){
+    menuGoodEndingTextBox();
+    menuGoodEndingText();
+
+}
 
   // Level 01
   else if (state === `doors`){
@@ -371,7 +377,7 @@ function draw() {
   else if (state === `outside01`){
     outside01TextBox();
     outside01Text();
-    clickToContinueOption();
+    clickToContinueText();
 
 }
 
@@ -516,7 +522,7 @@ function returnToTitleScreen(){
   pop();
 }
 
-function clickToContinueOption(){
+function clickToContinueText(){
   //Clicking mouse to continue simulation
   push();
   noStroke();
@@ -650,6 +656,38 @@ function cryingCatText(){
   fill(260, 268, 246);
   text(`    How could you? :(
     All cats are beautiful, you are not allowed a preference.`, width/4, height/4);
+  pop();
+}
+
+function menuGoodEndingTextBox(){
+  // Menu - "Good" Ending
+  // Indigo Text Box
+  push();
+  stroke(255);
+  strokeWeight(3);
+  rectMode(CENTER);
+  fill(134, 138, 187);
+  rect.width = 1000;
+  rect.height = 300;
+  rect.radius = 15;
+  rect(width/2, height/2, rect.width, rect.height, rect.radius, rect.radius);
+  pop();
+}
+
+function menuGoodEndingText(){
+  // Menu - "Good" Ending
+  // (Almost) White Text
+  push();
+  noStroke();
+  textAlign(LEFT,CENTER);
+  fill(260, 268, 246);
+  text(`Oh! We've got a true cat lover here!
+Alright, let's see if you are ready for the next challenge.
+Cats need constant access to the entire house; it doesn't matter whether
+they enter the room or not, do not leave the doors closed!
+
+You'll have 15 seconds to prove yourself a dedicated caregiver!
+Click on the doors to open them!`, width/5, height/2);
   pop();
 }
 
@@ -801,7 +839,7 @@ function outside01Text(){
   fill(260, 268, 246);
   text(`  Ha! Foolish human, your time was wasted, for cats are well-trained in the technique of
   teleportation. Still, your pet appreciates the effort.
-  
+
 
   Now, your kitty needs supplies; you head to the pet store.
 
