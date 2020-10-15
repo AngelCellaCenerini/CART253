@@ -180,7 +180,7 @@ let choice02 = {
 
 
 //Declaring States; *(b+g) = bad + good outcome;
-let state = `menu`; //Title, Menu(b+g), Level01(b+g), Level02(b+g), Level03(b+g), Level04(b+g), Happy Ending
+let state = `kittens`; //Title, Menu(b+g), Level01(b+g), Level02(b+g), Level03(b+g), Level04(b+g), Happy Ending
 
 function preload(){
 
@@ -312,8 +312,9 @@ function draw() {
   else if (state === `outside01`){
     outside01TextBox();
     outside01Text();
+    clickToContinueOption();
 
-  }
+}
 
  // Level 02
   else if (state === `kittens`){
@@ -365,11 +366,7 @@ function draw() {
 
   }
 
- function doubleClicked(){
-   if (state === `title`){
-      state = `menu`;
-   }
- }
+
 
 
   //Cat icons (Level02) movements;
@@ -459,6 +456,17 @@ function returnToTitleScreen(){
   textSize(15);
   fill(260, 268, 246);
   text(`Press ESC to return to Title Screen.`, width/2, 6*height/7);
+  pop();
+}
+
+function clickToContinueOption(){
+  //Clicking mouse to continue simulation
+  push();
+  noStroke();
+  textAlign(RIGHT, RIGHT);
+  fill(260, 268, 246);
+  textSize(15);
+  text(`Click to continue >`, 6*width/7, 6*height/7);
   pop();
 }
 
@@ -874,5 +882,19 @@ function keyPressed() {
 if (keyCode === 27) {
 state = `title`;
 }
+}
 
+function mouseClicked(){
+  if (state === `title`){
+     state = `menu`;
+  }
+  if (state === `outside01`){
+     state = `kittens`;
+  }
+  else if (state === `outside02`){
+     state = `petShop`;
+  }
+  else if (state === `lastTextPanel`){
+    state = `happyEnding`;
+  }
 }
