@@ -176,7 +176,7 @@ let choice01 = {
 let choice02 = {
   x: 0,
   y: 0,
-  width: 440,
+  width: 450,
   height: 80,
   radius: 15
 }
@@ -391,10 +391,11 @@ function draw() {
     //Check Two Possible Outcomes - Level02
     let d5 = dist(imgCursor.x, imgCursor.y, choice01.x, choice01.y);
     let d6 = dist(imgCursor.x, imgCursor.y, choice02.x, choice02.y);
-    //Check Bad Ending 02 - User choosing to get kitten(s) in Level02 //Check "Right" Answer - User choosing not to get kitten(s) in Level02
+    //Check Bad Ending 02 - User choosing to get kitten(s) in Level02
     if ((d5 < imgCursor.size/2 + choice01.width/2 || d5 < imgCursor.size/2 + choice01.height/2) && (mouseIsPressed)){
       state = `hoarderEnding`;
     }
+    //Check "Right" Answer - User choosing not to get kitten(s) in Level02
     else if ((d6 < imgCursor.size/2 + choice02.width/2 || d6 < imgCursor.size/2 + choice02.height/2) && (mouseIsPressed)){
         state = `outside02`;
       }
