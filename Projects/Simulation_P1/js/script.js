@@ -328,7 +328,7 @@ function draw() {
     hoarder();
 
 }
-
+  // Level02- Good outcome
   else if (state === `outside02`){
     outside02TextBox();
     outside02Text();
@@ -350,11 +350,18 @@ function draw() {
    streetEndingText();
 
  }
+ //Level03 - Good outcome
+ else if (state === 'lastTextPanel'){
+   lastTextPanelTextBox();
+   lastTextPanelText();
+
+ }
 
  // Happy Ending!
   else if (state === `happyEnding`){
     finalEndingBackground();
     finalEndingText();
+
   }
 
   //Cat icons (Level02) movements;
@@ -406,10 +413,10 @@ function draw() {
     if ((d7 < imgCursor.size/2 + imgExpensiveToy.size/2) && (mouseIsPressed)){
       state = `streetEnding`;
     }
-    // //Check "Right" Answer - User choosing cheaper toy in Level03
-    // if((d8 < imgCursor.size/2 + imgSimpleToy.size/2) && (mouseIsPressed)){
-    //   state = `lastTextPanel`;
-    // }
+    //Check "Right" Answer - User choosing cheaper toy in Level03
+    if((d8 < imgCursor.size/2 + imgSimpleToy.size/2) && (mouseIsPressed)){
+      state = `lastTextPanel`;
+    }
 
 
 
@@ -749,10 +756,39 @@ function streetEndingText(){
   fill(260, 268, 246);
   textSize(18);
   text(` Goodness me! You kept vainly spending all of your money on expensive toys,
- never understanding that cats care more about the wrapping rather than the
+ never understanding that cats care more about the wrapping than the
  objects themselves.
  But hey, now there's plenty of bags and cardboards for your pet to enjoy. `, width/4, height/10);
  pop();
+}
+
+function lastTextPanelTextBox(){
+  // Last Text Panel
+  // Indigo Text Box
+  push();
+  stroke(255);
+  strokeWeight(3);
+  rectMode(CENTER);
+  fill(134, 138, 187);
+  rect.width = 810;
+  rect.height = 180;
+  rect.radius = 15;
+  rect(width/2, height/2, rect.width, rect.height, rect.radius, rect.radius);
+  pop();
+}
+
+function lastTextPanelText(){
+  // Outside01
+  // (Almost) White Text
+  push();
+  noStroke();
+  textAlign(LEFT,CENTER);
+  fill(260, 268, 246);
+  text(`Yes! That was a winning move! Your cat loves playing together with you!
+
+After this much activity, the two of you settle down
+for a well-deserved nap...`, width/4, height/2);
+  pop();
 }
 
 function finalEndingBackground(){
