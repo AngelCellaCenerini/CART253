@@ -1,7 +1,7 @@
 /**************************************************
 PROJECT 01 - Simulation
-Template by CART253 Course
 Angel Cella Cenerini
+(Template by CART253 Course)
 
 CAT OWNER SIMULATOR
 **************************************************/
@@ -125,22 +125,22 @@ let openedDoor3 = {
 // Level01 ends after Countdown
 let timerLevel01 = 15;
 
-// Door remain closed without User's input
+// Doors remain closed without User's input
 let displayOpenedDoor1 = false;
 let displayOpenedDoor2 = false;
 let displayOpenedDoor3 = false;
 
-// Declaring Countdown before door closes automatically -level01
+// Declaring Countdown before doors close automatically -level01
 let timerDoor1Closing = 2;
 let timerDoor2Closing = 2;
 let timerDoor3Closing = 2;
 
-//Level03 - Street
+//Level02 - Street
 let imgKittens = {
   x: 0,
   y: 0,
 }
-//Bad Ending 03
+//Bad Ending 02
 let imgHoarder1 = {
   x: 0,
   y: 0,
@@ -171,7 +171,7 @@ let imgHoarder5 = {
   speed: 10
 }
 
-//Level04 - Petshop
+//Level03 - Petshop
 let imgPetShop = {
   x: 0,
   y: 0
@@ -189,7 +189,7 @@ let imgExpensiveToy = {
   size: 330
 }
 
-//Bad Ending 04
+//Bad Ending 03
 let imgStreetEnding = {
   x: 0,
   y: 0,
@@ -220,7 +220,7 @@ let choice02 = {
 
 
 //Declaring States; *(b+g) = bad + good outcome;
-let state = `doors`; //Title, Menu(b+g), Level01(b+g), Level02(b+g), Level03(b+g), Level04(b+g), Happy Ending
+let state = `outside01`; //Title, Menu(b+g), Level01(b+g), Level02(b+g), Level03(b+g), Level04(b+g), Happy Ending
 
 function preload(){
 
@@ -785,8 +785,8 @@ function outside01TextBox(){
   strokeWeight(3);
   rectMode(CENTER);
   fill(134, 138, 187);
-  rect.width = 800;
-  rect.height = 200;
+  rect.width = 1100;
+  rect.height = 300;
   rect.radius = 15;
   rect(width/2, height/2, rect.width, rect.height, rect.radius, rect.radius);
   pop();
@@ -799,11 +799,14 @@ function outside01Text(){
   noStroke();
   textAlign(LEFT,CENTER);
   fill(260, 268, 246);
-  text(`  Good job!
+  text(`  Ha! Foolish human, your time was wasted, for cats are well-trained in the technique of
+  teleportation. Still, your pet appreciates the effort.
+  
+
   Now, your kitty needs supplies; you head to the pet store.
 
 
-  On the way there, you see someone waving you over...`, width/4, height/2);
+  On the way there, you see someone waving you over...`, width/6, height/2);
   pop();
 }
 
