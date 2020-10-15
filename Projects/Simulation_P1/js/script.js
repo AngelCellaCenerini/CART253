@@ -186,7 +186,7 @@ let choice02 = {
 
 
 //Declaring States; *(b+g) = bad + good outcome;
-let state = `cryingCat`; //Title, Menu(b+g), Level01(b+g), Level02(b+g), Level03(b+g), Level04(b+g), Happy Ending
+let state = `menu`; //Title, Menu(b+g), Level01(b+g), Level02(b+g), Level03(b+g), Level04(b+g), Happy Ending
 
 function preload(){
 
@@ -431,7 +431,7 @@ function draw() {
     //Check "Right" Answer - User choosing Cat 4 in Menu
     let d4 = dist(imgCursor.x, imgCursor.y, imgCat4.x, imgCat4.y);
     if ((d4 < imgCursor.size/2 + imgCat4.size/2) && (mouseIsPressed)){
-      //state = `door`;
+      state = `doors`;
     }
 
     //Check Two Possible Outcomes - Level02
