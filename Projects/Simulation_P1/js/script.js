@@ -354,6 +354,8 @@ function draw() {
   else if (state === `menuGoodEnding`){
     menuGoodEndingTextBox();
     menuGoodEndingText();
+    clickToContinueText();
+    clickToContinue01();
 
 }
 
@@ -378,6 +380,7 @@ function draw() {
     outside01TextBox();
     outside01Text();
     clickToContinueText();
+    clickToContinue02();
 
 }
 
@@ -398,6 +401,8 @@ function draw() {
   else if (state === `outside02`){
     outside02TextBox();
     outside02Text();
+    clickToContinueText();
+    clickToContinue03();
 
   }
 
@@ -421,6 +426,8 @@ function draw() {
  else if (state === 'lastTextPanel'){
    lastTextPanelTextBox();
    lastTextPanelText();
+   clickToContinueText();
+   clickToContinue04();
 
  }
 
@@ -531,6 +538,30 @@ function clickToContinueText(){
   textSize(15);
   text(`Click to continue >`, 6*width/7, 6*height/7);
   pop();
+}
+
+function clickToContinue01(){
+  if (mouseIsPressed && state === `menuGoodEnding`){
+    state = `doors`;
+  }
+}
+
+function clickToContinue02(){
+  if (mouseIsPressed && state === `outside01`){
+    state = `kittens`;
+  }
+}
+
+function clickToContinue03(){
+  if (mouseIsPressed && state === `outside02`){
+    state = `petShop`;
+  }
+}
+
+function clickToContinue04(){
+  if (mouseIsPressed && state === `lastTextPanel`){
+    state = `happyEnding`;
+  }
 }
 
 //Title screen - black cat, cream background, black text
@@ -683,8 +714,8 @@ function menuGoodEndingText(){
   fill(260, 268, 246);
   text(`Oh! We've got a true cat lover here!
 Alright, let's see if you are ready for the next challenge.
-Cats need constant access to the entire house; it doesn't matter whether
-they enter the room or not, do not leave the doors closed!
+Cats need constant access to the entire house; it doesn't matter whether they enter
+the room or not, do not leave the doors closed!
 
 You'll have 15 seconds to prove yourself a dedicated caregiver!
 Click on the doors to open them!`, width/5, height/2);
