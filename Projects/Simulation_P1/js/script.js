@@ -204,7 +204,7 @@ let displayOpenedDoor1 = false;
 
 
 //Declaring States; *(b+g) = bad + good outcome;
-let state = `doors`; //Title, Menu(b+g), Level01(b+g), Level02(b+g), Level03(b+g), Level04(b+g), Happy Ending
+let state = `title`; //Title, Menu(b+g), Level01(b+g), Level02(b+g), Level03(b+g), Level04(b+g), Happy Ending
 
 function preload(){
 
@@ -353,12 +353,20 @@ function draw() {
     rect(openedDoor1.x, openedDoor1.y, openedDoor1.width, openedDoor1.height);
     pop();
   }
-  //Checking if User is "opening" imgDoor1
+
+  //Checking if User 'opens' imgDoor1
   d9 = dist(imgCursor.x, imgCursor.y, imgDoor1.x, imgDoor1.y);
 
   if( mouseIsPressed && (d9 < imgCursor.size/2 + imgDoor1.width/2 || d9 < imgCursor.size/2 + imgDoor1.height/2)){
     displayOpenedDoor1 = true;
   }
+  if(frameCount % 60 === 0 && timer > 0){
+    timer --;
+  }
+  if(timer === 0){
+    displayOpenedDoor1 = false;
+  }
+
 
   //level01 - doors
   //Opened Door 2
@@ -1007,6 +1015,12 @@ function keyPressed() {
 if (keyCode === 27) {
 state = `title`;
 }
+}
+
+function mouseIsPressed(){
+  if (state === `title`){
+    state = `menu`;
+  }
 }
 
 // function mouseClicked(){
