@@ -1022,20 +1022,3 @@ else if (keyCode ===27){
   state = `title`;
 }
 }
-
-
-
-// function mouseClicked(){
-//   if (state === `title`){
-//      state = `menu`;
-//   }
-//   if (state === `outside01`){
-//      state = `kittens`;
-//   }
-//   else if (state === `outside02`){
-//      state = `petShop`;
-//   }
-//   else if (state === `lastTextPanel`){
-//     state = `happyEnding`;
-//   }
-// }
