@@ -17,6 +17,12 @@ let bg = {
   b: 0
 }
 
+let bg2 = {
+  r: 250,
+  g: 248,
+  b: 236
+}
+
 //Declaring image files
 // Cursor (User)
 let imgCursor = {
@@ -204,7 +210,7 @@ let displayOpenedDoor1 = false;
 
 
 //Declaring States; *(b+g) = bad + good outcome;
-let state = `title`; //Title, Menu(b+g), Level01(b+g), Level02(b+g), Level03(b+g), Level04(b+g), Happy Ending
+let state = `kittens`; //Title, Menu(b+g), Level01(b+g), Level02(b+g), Level03(b+g), Level04(b+g), Happy Ending
 
 function preload(){
 
@@ -359,6 +365,7 @@ function draw() {
 
   if( mouseIsPressed && (d9 < imgCursor.size/2 + imgDoor1.width/2 || d9 < imgCursor.size/2 + imgDoor1.height/2)){
     displayOpenedDoor1 = true;
+    timer = 3;
   }
   if(frameCount % 60 === 0 && timer > 0){
     timer --;
@@ -501,7 +508,7 @@ function draw() {
       state = `hoarderEnding`;
     }
     //Check "Right" Answer - User choosing not to get kitten(s) in Level02
-    else if ((d6 < imgCursor.size/2 + choice02.width/2 || d6 < imgCursor.size/2 + choice02.height/2) && (mouseIsPressed)){
+    else if ((d6 < imgCursor.size/2 + choice02.width/2 || d6 < imgCursor.size/2 + choice02.height/2) && (mouseIsPressed) && (state === `kittens`)){
         state = `outside02`;
       }
     //Check Two Possible Outcomes - Level03
@@ -558,10 +565,7 @@ function clickToContinueOption(){
 //Title screen - black cat, cream background, black text
 function title(){
   push();
-  bg.r = 250;
-  bg.g = 248;
-  bg.b = 236;
-  background(bg.r, bg.g, bg.b);
+  background(bg2.r, bg2.g, bg2.b);
   image(intro, imgIntro.x, imgIntro.y, imgIntro.width,imgIntro.height);
   textFont(myFontTitle);
   fill(20);
@@ -586,7 +590,6 @@ function start(){
   textSize(18);
   textAlign(CENTER, CENTER);
   text(`Press ENTER to start`, width/2, 14*height/15);
-  keyTyped();
   pop();
 
 
@@ -1012,16 +1015,15 @@ function finalEndingText(){
 
 // Checking if User presses ESC key
 function keyPressed() {
-if (keyCode === 27) {
-state = `title`;
+if (keyCode === 32 && state === `title`) {
+state = `menu`;
+}
+else if (keyCode ===27){
+  state = `title`;
 }
 }
 
-function mouseIsPressed(){
-  if (state === `title`){
-    state = `menu`;
-  }
-}
+
 
 // function mouseClicked(){
 //   if (state === `title`){
