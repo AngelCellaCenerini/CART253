@@ -554,7 +554,7 @@ function start(){
   push();
   textSize(18);
   textAlign(CENTER, CENTER);
-  text(`Press ENTER to start`, width/2, 14*height/15);
+  text(`Press SPACEBAR to start`, width/2, 14*height/15);
   pop();
 
 
