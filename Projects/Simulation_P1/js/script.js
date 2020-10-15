@@ -75,22 +75,29 @@ let imgCat = {
 let imgDoor1 = {
   x: 0,
   y: 0,
-  width: 400,
-  height: 500
+  width: 250,
+  height: 350
 }
 
 let imgDoor2 = {
   x: 0,
   y: 0,
-  width: 400,
-  height: 500
+  width: 250,
+  height: 350
 }
 
 let imgDoor3 = {
   x: 0,
   y: 0,
-  width: 400,
-  height: 500
+  width: 250,
+  height: 350
+}
+
+let openedDoor = {
+  x: 0,
+  y: 0,
+  width: 204,
+  height: 407
 }
 
 //Level03 - Street
@@ -322,6 +329,24 @@ function draw() {
   image(door1, imgDoor1.x, imgDoor1.y, imgDoor1.width, imgDoor1.height);
   image(door2, imgDoor2.x, imgDoor2.y, imgDoor2.width, imgDoor2.height);
   image(door3, imgDoor3.x, imgDoor3.y, imgDoor3.width, imgDoor3.height);
+
+  push();
+  noStroke();
+  fill(0);
+  rectMode(CENTER);
+  openedDoor.x = width/4;
+  openedDoor.y = 4*height/7;
+  rect(openedDoor.x, openedDoor.y, openedDoor.width, openedDoor.height);
+
+  openedDoor.x = 3*width/4;
+  openedDoor.y = 4*height/7;
+  rect(openedDoor.x, openedDoor.y, openedDoor.width, openedDoor.height);
+
+  openedDoor.x = width/2;
+  openedDoor.y = 4*height/7;
+  rect(openedDoor.x, openedDoor.y, openedDoor.width, openedDoor.height);
+  pop();
+
   }
 
 
