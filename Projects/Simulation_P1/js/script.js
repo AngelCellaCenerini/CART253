@@ -166,16 +166,22 @@ let imgHappyEnding = {
 
 // Declaring Choice buttons in Level 02
 let choice01 = {
-width: 400,
-height: 80,
-radius: 15
-}
-
-let choice02 = {
-  width: 400,
+  x: 0,
+  y: 0,
+  width: 310,
   height: 80,
   radius: 15
 }
+
+let choice02 = {
+  x: 0,
+  y: 0,
+  width: 440,
+  height: 80,
+  radius: 15
+}
+
+
 
 //Declaring States; *(b+g) = bad + good outcome;
 let state = `kittens`; //Title, Menu(b+g), Level01(b+g), Level02(b+g), Level03(b+g), Level04(b+g), Happy Ending
@@ -382,16 +388,19 @@ function draw() {
     //   //state = `door`;
     // }
     //
-    // //Check Bad Ending 02 - User choosing to get kitten(s) in Level02
-    // let d5 = dist(imgCursor.x, imgCursor.y, choice01.x, choice01.y);
-    // if (d5 < imgCursor.size/2 + choice01.width/2 || d5 < imgCursor.size/2 + choice01.height/2){
-    //   state = `outside02`;
-    // }
-    // //Check "Right" Answer - User choosing not to get kitten(s) in Level02
-    // let d6 = dist(imgCursor.x, imgCursor.y, choice02.x, choice02.y);
-    // if (d6 < imgCursor.size/2 + choice02.width/2 || d6 < imgCursor.size/2 + choice02.height/2){
-    //   state = `hoarder`;
-    // }
+    //Check Two Possible Outcomes - Level02
+    let d5 = dist(imgCursor.x, imgCursor.y, choice01.x, choice01.y);
+    let d6 = dist(imgCursor.x, imgCursor.y, choice02.x, choice02.y);
+    //Check Bad Ending 02 - User choosing to get kitten(s) in Level02 //Check "Right" Answer - User choosing not to get kitten(s) in Level02
+    if ((d5 < imgCursor.size/2 + choice01.width/2 || d5 < imgCursor.size/2 + choice01.height/2) && (mouseIsPressed)){
+      state = `hoarderEnding`;
+    }
+    else if ((d6 < imgCursor.size/2 + choice02.width/2 || d6 < imgCursor.size/2 + choice02.height/2) && (mouseIsPressed)){
+        state = `outside02`;
+      }
+
+
+
 
 
 
@@ -567,15 +576,21 @@ function kittensOptions(){
   strokeWeight(3);
   rectMode(CENTER);
   fill(134, 138, 187);
-  rect(width/6, 2*height/5, choice01.width,  choice01.height,  choice01.radius,  choice01.radius);
-  rect(width/6, 3*height/5, choice02.width,  choice02.height,  choice02.radius, choice02.radius);
+
+  choice01.x = 2*width/13;
+  choice01.y = 2*height/5;
+  rect(choice01.x, choice01.y, choice01.width,  choice01.height,  choice01.radius,  choice01.radius, choice01.radius,  choice01.radius);
+
+  choice02.x = width/5;
+  choice02.y = 3*height/5;
+  rect(choice02.x, choice02.y, choice02.width, choice02.height, choice02.radius, choice02.radius, choice02.radius, choice02.radius)
   //Texts
   noStroke();
   textAlign(LEFT,CENTER);
   fill(260, 268, 246);
-  text(`More kitties, more cuddles`, width/20, 2*height/5);
-  text(`Hmm..I'd rather focus on
-the cat I already have`, width/20, 3*height/5);
+  text(`More kitties, more cuddles`, width/16, 2*height/5);
+  text(`Hmm..I'd rather focus on the cat
+I already have`, width/15, 3*height/5);
   pop();
 }
 
