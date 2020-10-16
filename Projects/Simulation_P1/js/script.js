@@ -239,7 +239,6 @@ function preload(){
 
   costumedFonts();
   imageFiles();
-  sounds();
 
 }
 
@@ -278,14 +277,6 @@ function imageFiles(){
 }
 //
 
-function sounds(){
-  level01SFX = loadSound('assets/sounds/doorLevel.mp3');
-  kittensMeowingSFX = loadSound('assets/sounds/kittensMeowing.mp3');
-  nyanCatSFX = loadSound('assets/sounds/nyanCat.mp3');
-  violinSFX = loadSound('assets/sounds/violin.mp3');
-  endingSFX = loadSound('assets/sounds/ending.mp3');
-}
-//
 
 // setup()
 // Canvas + Default Settings
@@ -416,8 +407,6 @@ function draw() {
  }
  // Level03 - Bad ending
  else if (state === `streetEnding`){
-
-   violinSFX.play();
    streetEndingBackground();
    streeEndingTextBox();
    streetEndingText();
