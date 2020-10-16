@@ -284,6 +284,7 @@ function setup() {
 
 }
 //
+// /setup()
 
 function positioningBackgroundImages(){
 
@@ -301,7 +302,6 @@ function positioningBackgroundImages(){
   imgStreetEnding.y = height/2;
 }
 //
-// /setup()
 
 // draw()
 // Customized Cursor + Default Background + States
