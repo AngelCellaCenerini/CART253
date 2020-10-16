@@ -205,7 +205,7 @@ let imgHappyEnding = {
 let choice01 = {
   x: 0,
   y: 0,
-  width: 310,
+  width: 320,
   height: 80,
   radius: 15
 }
@@ -220,7 +220,7 @@ let choice02 = {
 
 
 //Declaring States; *(b+g) = bad + good outcome;
-let state = `hoarderEnding`; //Title, Menu(b+g), Level01(b+g), Level02(b+g), Level03(b+g), Level04(b+g), Happy Ending
+let state = `kittens`; //Title, Menu(b+g), Level01(b+g), Level02(b+g), Level03(b+g), Level04(b+g), Happy Ending
 
 function preload(){
 
@@ -560,6 +560,7 @@ function details(){
 
   push();
   textSize(50);
+  fill(20);
   textAlign(CENTER, CENTER);
   text(`SIMULATOR`, width/2, 3*height/8);
   pop();
@@ -570,6 +571,7 @@ function start(){
   push();
   textSize(18);
   textAlign(CENTER, CENTER);
+  fill(20);
   text(`Press SPACEBAR to start`, width/2, 14*height/15);
   pop();
 
@@ -901,19 +903,19 @@ function kittensOptions(){
   fill(134, 138, 187);
 
   choice01.x = 2*width/13;
-  choice01.y = 2*height/5;
+  choice01.y = 3*height/7;
   rect(choice01.x, choice01.y, choice01.width,  choice01.height,  choice01.radius,  choice01.radius, choice01.radius,  choice01.radius);
 
   choice02.x = width/5;
-  choice02.y = 3*height/5;
+  choice02.y = 4*height/5;
   rect(choice02.x, choice02.y, choice02.width, choice02.height, choice02.radius, choice02.radius, choice02.radius, choice02.radius)
   //Texts
   noStroke();
   textAlign(LEFT,CENTER);
   fill(260, 268, 246);
-  text(`More kitties, more cuddles.`, width/16, 2*height/5);
+  text(`More kitties, more cuddles.`, width/16, 3*height/7);
   text(`Hmm..I'd rather focus on the cat
-I already have.`, width/15, 3*height/5);
+I already have.`, width/15, 4*height/5);
   pop();
 }
 
