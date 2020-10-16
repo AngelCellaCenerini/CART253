@@ -5,11 +5,17 @@ Angel Cella Cenerini
 
 CAT OWNER SIMULATOR
 **************************************************/
-"use strict;";
 
 // Declaring fonts
 let myFontTitle;
 let myFontBody;
+
+// Declaring Audio Files (.mp3)
+let level01SFX;
+let kittensMeowingSFX;
+let nyanCatSFX;
+let violinSFX;
+let endingSFX;
 
 // Default Backround - Black
 let bg = {
@@ -233,6 +239,7 @@ function preload(){
 
   costumedFonts();
   imageFiles();
+  sounds();
 
 }
 
@@ -268,6 +275,15 @@ function imageFiles(){
   expensiveToy = loadImage('assets/images/expensiveToy.png');
   streetEnding = loadImage('assets/images/streetEnding.jpg');
   happyEnding = loadImage('assets/images/happyEnding.jpg');
+}
+//
+
+function sounds(){
+  level01SFX = loadSound('assets/sounds/doorLevel.mp3');
+  kittensMeowingSFX = loadSound('assets/sounds/kittensMeowing.mp3');
+  nyanCatSFX = loadSound('assets/sounds/nyanCat.mp3');
+  violinSFX = loadSound('assets/sounds/violin.mp3');
+  endingSFX = loadSound('assets/sounds/ending.mp3');
 }
 //
 
@@ -401,6 +417,7 @@ function draw() {
  // Level03 - Bad ending
  else if (state === `streetEnding`){
 
+   violinSFX.play();
    streetEndingBackground();
    streeEndingTextBox();
    streetEndingText();
@@ -417,6 +434,7 @@ function draw() {
 
  // Happy Ending!
   else if (state === `happyEnding`){
+    // endingSFX.play();
     finalEndingBackground();
     finalEndingText();
 
