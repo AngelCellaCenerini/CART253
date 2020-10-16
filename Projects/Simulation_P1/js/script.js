@@ -220,7 +220,7 @@ let choice02 = {
 
 
 //Declaring States; *(b+g) = bad + good outcome;
-let state = `menu`; //Title, Menu(b+g), Level01(b+g), Level02(b+g), Level03(b+g), Level04(b+g), Happy Ending
+let state = `hoarderEnding`; //Title, Menu(b+g), Level01(b+g), Level02(b+g), Level03(b+g), Level04(b+g), Happy Ending
 
 function preload(){
 
@@ -920,11 +920,27 @@ I already have.`, width/15, 3*height/5);
 function hoarder(){
   //Hoerder ending - Level02 Bad Ending
   //Repeated cat icons moving acroos screen
-  for(i = 0;i<2;i++){
+
     imgHoarder1.x = random(0,width);
     imgHoarder1.y = random(0,height);
     image(hoarder1, imgHoarder1.x, imgHoarder1.y);
-  }
+
+    imgHoarder2.x = random(0,width);
+    imgHoarder2.y = random(0,height);
+    image(hoarder2, imgHoarder2.x, imgHoarder2.y);
+
+    imgHoarder3.x = random(0,width);
+    imgHoarder3.y = random(0,height);
+    image(hoarder3, imgHoarder3.x, imgHoarder3.y);
+
+    imgHoarder4.x = random(0,width);
+    imgHoarder4.y = random(0,height);
+    image(hoarder4, imgHoarder4.x, imgHoarder4.y);
+
+    imgHoarder5.x = random(0,width);
+    imgHoarder5.y = random(0,height);
+    image(hoarder5, imgHoarder5.x, imgHoarder5.y);
+
   //Lilac text box (rounded corners)
   push();
   noStroke();
