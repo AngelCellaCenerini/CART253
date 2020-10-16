@@ -7,32 +7,33 @@ CAT OWNER SIMULATOR
 **************************************************/
 "use strict;";
 
-//Declaring fonts
+// Declaring fonts
 let myFontTitle;
 let myFontBody;
 
-//Backround
+// Default Backround - Black
 let bg = {
   r: 0,
   g: 0,
   b: 0
 }
 
+// Title Backround - Light Cream
 let bg2 = {
   r: 250,
   g: 248,
   b: 236
 }
 
-//Declaring image files
-// Cursor (User)
+// Declaring image files
+// Cursor (User) - Cat paw
 let imgCursor = {
   x: 0,
   y: 0,
   size: 50
 }
 
-// Title - black cat
+// Title - Black Cat
 let imgIntro = {
   x: 0,
   y: 0,
@@ -40,7 +41,7 @@ let imgIntro = {
   height: 400
 }
 
-//Menu- Choosing cats
+// Menu- Cats options
 let imgCat1 = {
   x: 0,
   y: 0,
@@ -65,21 +66,24 @@ let imgCat4 = {
   size: 400
 }
 
-//Menu - Bad Ending
+// Menu - Bad Ending
 let imgCryingCat = {
   x: 0,
   y: 0,
 }
 
-// Level02 - Doors minigame
-//Level02 - Small Decorative Icon
+// Level01 - Doors minigame
+// Level01 - Countdown; level ends after 15 seconds
+let timerLevel01 = 15;
+
+// Level01 - Small Decorative Icon
 let imgCat = {
   x: 0,
   y: 0,
   size: 550
 }
 
-//Level02 - Doors Icons
+// Level01 - Doors Icons
 let imgDoor1 = {
   x: 0,
   y: 0,
@@ -101,6 +105,12 @@ let imgDoor3 = {
   height: 350
 }
 
+// Doors remain closed without User's input
+let displayOpenedDoor1 = false;
+let displayOpenedDoor2 = false;
+let displayOpenedDoor3 = false;
+
+// Level01 - "Opened" Doors; black rectangles offer illusion of doors opening via User's input
 let openedDoor1 = {
   x: 0,
   y: 0,
@@ -122,25 +132,35 @@ let openedDoor3 = {
   height: 407
 }
 
-// Level01 ends after Countdown
-let timerLevel01 = 15;
-
-// Doors remain closed without User's input
-let displayOpenedDoor1 = false;
-let displayOpenedDoor2 = false;
-let displayOpenedDoor3 = false;
-
-// Declaring Countdown before doors close automatically -level01
+// Level01 - Countdown before doors close automatically (2 seconds)
 let timerDoor1Closing = 2;
 let timerDoor2Closing = 2;
 let timerDoor3Closing = 2;
 
-//Level02 - Street
+// Level02 - Kittens
 let imgKittens = {
   x: 0,
   y: 0,
 }
-//Bad Ending 02
+
+// Level02 - Choice Buttons
+let choice01 = {
+  x: 0,
+  y: 0,
+  width: 320,
+  height: 80,
+  radius: 15
+}
+
+let choice02 = {
+  x: 0,
+  y: 0,
+  width: 450,
+  height: 80,
+  radius: 15
+}
+
+// Level02 - Bad Ending
 let imgHoarder1 = {
   x: 0,
   y: 0,
@@ -171,12 +191,13 @@ let imgHoarder5 = {
   speed: 10
 }
 
-//Level03 - Petshop
+// Level03 - Petshop
 let imgPetShop = {
   x: 0,
   y: 0
 }
 
+// Level03 - Toys Icons
 let imgSimpleToy = {
   x: 0,
   y: 0,
@@ -189,43 +210,30 @@ let imgExpensiveToy = {
   size: 330
 }
 
-//Bad Ending 03
+// Level03 - Bad Ending
 let imgStreetEnding = {
   x: 0,
   y: 0,
 }
 
-//Happy Ending
+// End - Happy Ending
 let imgHappyEnding = {
   x: 0,
   y: 0
 }
 
-// Declaring Choice buttons in Level 02
-let choice01 = {
-  x: 0,
-  y: 0,
-  width: 320,
-  height: 80,
-  radius: 15
-}
-
-let choice02 = {
-  x: 0,
-  y: 0,
-  width: 450,
-  height: 80,
-  radius: 15
-}
 
 
-//Declaring States; *(b+g) = bad + good outcome;
-let state = `kittens`; //Title, Menu(b+g), Level01(b+g), Level02(b+g), Level03(b+g), Level04(b+g), Happy Ending
+// States; *(b+g) = bad + good outcomes;
+let state = `kittens`; //Title, Menu(b+g), "Transition" Panel - "menuGoodEnding", Level01 - "doors"(b+g),"Transition" Panel - "outside01", Level02 - "kittens"(b+g),"Transition" Panel - "outside02", Level03 - "petShop"(b+g),"Transition" Panel - "lastTextPanel", Happy Ending
+
+//
 
 function preload(){
 
   costumedFonts();
   imageFiles();
+
 }
 
 
@@ -258,10 +266,13 @@ function imageFiles(){
   streetEnding = loadImage('assets/images/streetEnding.jpg');
   happyEnding = loadImage('assets/images/happyEnding.jpg');
 }
-// setup()
+
 //
-// Description of setup() goes here.
+
+// setup()
+// Set Up functions
 function setup() {
+
   createCanvas(windowWidth, windowHeight);
   imageMode(CENTER);
   noCursor();
@@ -269,7 +280,7 @@ function setup() {
   textFont(myFontBody);
   textSize(20);
 
-  //Cat icons (level02) randomly appearing on screen
+  // Cat icons (level02) randomly appearing on screen
   imgHoarder1.x = random(0,width);
   imgHoarder1.y = random(0,height);
 
@@ -285,27 +296,12 @@ function setup() {
   imgHoarder5.x = random(0,width);
   imgHoarder5.y = random(0,height);
 
-  //Cat icons (level02) moving in random directions (both vertically and horizontally) with varying speed
-  imgHoarder1.vx = random(-imgHoarder1.speed,imgHoarder1.speed);
-  imgHoarder1.vy = random(-imgHoarder1.speed,imgHoarder1.speed);
-
-  imgHoarder2.vx = random(-imgHoarder2.speed,imgHoarder2.speed);
-  imgHoarder2.vy = random(-imgHoarder2.speed,imgHoarder2.speed);
-
-  imgHoarder3.vx = random(-imgHoarder3.speed,imgHoarder3.speed);
-  imgHoarder3.vy = random(-imgHoarder3.speed,imgHoarder3.speed);
-
-  imgHoarder4.vx = random(-imgHoarder4.speed,imgHoarder4.speed);
-  imgHoarder4.vy = random(-imgHoarder4.speed,imgHoarder4.speed);
-
-  imgHoarder5.vx = random(-imgHoarder5.speed,imgHoarder5.speed);
-  imgHoarder5.vy = random(-imgHoarder5.speed,imgHoarder5.speed);
-
 }
 
+//
 
 function positioningBackgroundImages(){
-  //Centering .jpg files to canvas, for they function as backgrounds for the different states.
+  // Centering .jpg files, for they function as backgrounds in the different states
   imgIntro.x = width/2;
   imgIntro.y = 2*height/3;
 
@@ -320,14 +316,15 @@ function positioningBackgroundImages(){
 
 }
 
-// draw()
 //
-// Description of draw() goes here.
+// draw()
+// Customized Cursor + Default Background + States
 function draw() {
 
+  // Default Backround
   background(bg.r, bg.g, bg.b);
 
-  //Title
+  // Title
   if (state === `title`){
     title();
     details();
@@ -335,13 +332,14 @@ function draw() {
 
   }
 
-  //Menu
+  // Menu
   else if (state === `menu`){
     catOptions();
     menuTextBoxes();
     menuText();
 
   }
+
   // Menu's Bad Ending
   else if (state === `cryingCat`){
     cryingCatIcon();
@@ -350,31 +348,32 @@ function draw() {
     returnToTitleScreen();
 
   }
-  // Menu's "Good" Ending
+
+  // Menu's "Good" Outcome
   else if (state === `menuGoodEnding`){
     menuGoodEndingTextBox();
     menuGoodEndingText();
     clickToContinueText();
 
-}
+  }
 
-  // Level 01
+  // Level 01 - Doors Minigame
   else if (state === `doors`){
-  level01Countdown(); //15 seconds
-  doorsIcons();
+    level01Countdown(); // 15 seconds
+    doorsIcons();
 
-  openingDoor1();
-  door1ClosingAutomatically(); //User "opens" up to 3 doors, which will automatically close after 2 seconds
+    openingDoor1();
+    door1ClosingAutomatically(); // User "opens" up to 3 doors, which will automatically close after 2 seconds
 
-  openingDoor2();
-  door2ClosingAutomatically();
+    openingDoor2();
+    door2ClosingAutomatically();
 
-  openingDoor3();
-  door3ClosingAutomatically();
+    openingDoor3();
+    door3ClosingAutomatically();
 
 }
 
-  // Level01 - Level02 transition
+  // Level01 / Level02 transition
   else if (state === `outside01`){
     outside01TextBox();
     outside01Text();
@@ -382,7 +381,7 @@ function draw() {
 
 }
 
- // Level 02
+ // Level 02 - Kittens
   else if (state === `kittens`){
     kittensBackground();
     kittensText();
@@ -395,7 +394,7 @@ function draw() {
     returnToTitleScreen();
 
 }
-  // Level02- Good outcome
+  // Level02- "Good" Outcome
   else if (state === `outside02`){
     outside02TextBox();
     outside02Text();
@@ -403,7 +402,7 @@ function draw() {
 
   }
 
-// Level03
+// Level03 - Pet Shop
  else if (state === `petShop`){
    petShopGraphics();
    petShopTextBoxes();
@@ -419,7 +418,7 @@ function draw() {
    returnToTitleScreen();
 
  }
- //Level03 - Good outcome
+ //Level03 - "Good" Outcome
  else if (state === 'lastTextPanel'){
    lastTextPanelTextBox();
    lastTextPanelText();
@@ -435,7 +434,7 @@ function draw() {
   }
 
 
-  //Cat icons (Level02) movements;
+  // Level02 - Cat icons' movements;
     imgHoarder1.x = imgHoarder1.x + imgHoarder1.vx;
     imgHoarder1.y = imgHoarder1.y + imgHoarder1.vy;
 
@@ -452,7 +451,7 @@ function draw() {
     imgHoarder5.y = imgHoarder5.y + imgHoarder5.vy;
 
 
-    //Check Bad Ending 01 - User choosing Cat 1, 2 or 3 in Menu
+    // Menu - Check Bad Ending 01 : User choosing Cat 1, 2 or 3
     let d1 = dist(imgCursor.x, imgCursor.y, imgCat1.x, imgCat1.y);
     if ((d1 < imgCursor.size/2 + imgCat1.size/2) && (mouseIsPressed) && (state === `menu`)){
       state = `cryingCat`;
@@ -468,54 +467,50 @@ function draw() {
       state = `cryingCat`;
     }
 
-    //Check "Right" Answer - User choosing Cat 4 in Menu
+    // Menu - Check "Right" Answer : User choosing Cat 4
     let d4 = dist(imgCursor.x, imgCursor.y, imgCat4.x, imgCat4.y);
     if ((d4 < imgCursor.size/2 + imgCat4.size/2) && (mouseIsPressed) && (state === `menu`)){
       state = `menuGoodEnding`;
     }
 
-    //Check Two Possible Outcomes - Level02
+    // Level02 - Check Bad Ending 02 : User choosing to get kitten(s)
     let d5 = dist(imgCursor.x, imgCursor.y, choice01.x, choice01.y);
-    let d6 = dist(imgCursor.x, imgCursor.y, choice02.x, choice02.y);
-    //Check Bad Ending 02 - User choosing to get kitten(s) in Level02
     if ((d5 < imgCursor.size/2 + choice01.width/2 || d5 < imgCursor.size/2 + choice01.height/2) && (mouseIsPressed) && (state === `kittens`)){
       state = `hoarderEnding`;
     }
-    //Check "Right" Answer - User choosing not to get kitten(s) in Level02
-    else if ((d6 < imgCursor.size/2 + choice02.width/2 || d6 < imgCursor.size/2 + choice02.height/2) && (mouseIsPressed) && (state === `kittens`)){
+
+    // Level02 - Check "Right" Answer : User choosing not to get kitten(s)
+    let d6 = dist(imgCursor.x, imgCursor.y, choice02.x, choice02.y);
+    if ((d6 < imgCursor.size/2 + choice02.width/2 || d6 < imgCursor.size/2 + choice02.height/2) && (mouseIsPressed) && (state === `kittens`)){
         state = `outside02`;
       }
-    //Check Two Possible Outcomes - Level03
-    let d8 = dist(imgCursor.x, imgCursor.y, imgSimpleToy.x, imgSimpleToy.y);
+
+
+    // Level03 - Check Bad Ending 03 : User choosing more expensive toy
     let d7 = dist(imgCursor.x, imgCursor.y, imgExpensiveToy.x, imgExpensiveToy.y);
-    //Check Bad Ending 02 - User choosing to get kitten(s) in Level02
     if ((d7 < imgCursor.size/2 + imgExpensiveToy.size/2) && (mouseIsPressed) && (state === `petShop`)){
       state = `streetEnding`;
     }
-    //Check "Right" Answer - User choosing cheaper toy in Level03
+
+    // Level03 - Check "Right" Answer : User choosing cheaper toy
+    let d8 = dist(imgCursor.x, imgCursor.y, imgSimpleToy.x, imgSimpleToy.y);
     if((d8 < imgCursor.size/2 + imgSimpleToy.size/2) && (mouseIsPressed) && (state === `petShop`)){
       state = `lastTextPanel`;
     }
 
-
-
-
-
-
-
-  //Cursor (User)
+  // Cursor (User) - Cat Paw
   imgCursor.x = mouseX;
   imgCursor.y = mouseY;
   image(cursor, imgCursor.x,imgCursor.y, imgCursor.size);
 
 }
 
-//Return to Title Screen(State) Option
+// Return to Title (State) Option
 function returnToTitleScreen(){
-  keyPressed();
+
   //Option to return to menu by pressing "ESC" key
-  // (Almost)white text
-  //Direction
+  keyPressed();
+  // (Almost)white text - Directions
   push();
   noStroke();
   textAlign(CENTER,CENTER);
@@ -524,9 +519,11 @@ function returnToTitleScreen(){
   text(`Press ESC to return to Title Screen.`, width/2, 6*height/7);
   pop();
 }
+//
 
+// Moving forward onto next state - Text
 function clickToContinueText(){
-  //Clicking mouse to continue simulation
+
   push();
   noStroke();
   textAlign(RIGHT, RIGHT);
@@ -535,19 +532,16 @@ function clickToContinueText(){
   text(`Double Click to continue >`, 6*width/7, 6*height/7);
   pop();
 }
+//
 
-function clickToContinue01(){
-  if (mouseIsPressed && state === `menuGoodEnding`){
-    state = `doors`;
-  }
-}
-
-
-//Title screen - black cat, cream background, black text
+// Title Screen
 function title(){
+
+  // Title - Background
   push();
   background(bg2.r, bg2.g, bg2.b);
   image(intro, imgIntro.x, imgIntro.y, imgIntro.width,imgIntro.height);
+  // Title - Text
   textFont(myFontTitle);
   fill(20);
   textSize(150);
@@ -558,6 +552,7 @@ function title(){
 
 function details(){
 
+  // Title - further details Text
   push();
   textSize(50);
   fill(20);
@@ -568,18 +563,19 @@ function details(){
 
 function start(){
 
+ // Title - Directions for starting Simulator
   push();
   textSize(18);
   textAlign(CENTER, CENTER);
   fill(20);
   text(`Press SPACEBAR to start`, width/2, 14*height/15);
   pop();
-
-
 }
+//
 
+// Menu - Cat options
 function catOptions(){
-  //"Menu" - Cat options
+
   //Cat icons
     imgCat1.x = width/8;
     imgCat1.y = height/2;
@@ -597,7 +593,7 @@ function catOptions(){
 }
 
 function menuTextBoxes(){
-  //"Menu" - Cat options
+
   //Indigo text boxes
   push();
   //Caption
@@ -621,8 +617,8 @@ function menuTextBoxes(){
 }
 
 function menuText(){
-  //"Menu" - Cat options
-  // (Almost)white text
+
+  // (Almost) white text
   //Caption
   push();
   noStroke();
@@ -637,15 +633,19 @@ function menuText(){
   a cat is a cat`, 7*width/8, 4*height/5);
     pop();
 }
+//
 
+// Menu - Bad Ending
 function cryingCatIcon(){
+
+  // Background
   imgCryingCat.x = 3*width/4;
   imgCryingCat.y = 4*height/5;
   image(cryingCat, imgCryingCat.x, imgCryingCat.y);
 }
 
 function cryingCatTextBox(){
-  // Menu - Bad Ending
+
   // Indigo Text Box
   push();
   stroke(255);
@@ -660,7 +660,7 @@ function cryingCatTextBox(){
 }
 
 function cryingCatText(){
-  // Menu - Bad Ending
+
   // (Almost) White Text
   push();
   noStroke();
@@ -670,9 +670,11 @@ function cryingCatText(){
     All cats are beautiful, you are not allowed a preference.`, width/4, height/4);
   pop();
 }
+//
 
+// Menu - Good Outcome
 function menuGoodEndingTextBox(){
-  // Menu - "Good" Ending
+
   // Indigo Text Box
   push();
   stroke(255);
@@ -687,7 +689,7 @@ function menuGoodEndingTextBox(){
 }
 
 function menuGoodEndingText(){
-  // Menu - "Good" Ending
+
   // (Almost) White Text
   push();
   noStroke();
@@ -702,8 +704,11 @@ You'll have 15 seconds to prove yourself a dedicated caregiver!
 Click on the doors to open them!`, width/5, height/2);
   pop();
 }
+//
 
+// Level01 - Doors Minigame
 function level01Countdown(){
+
   // Countdown for Level01; 15 seconds
   if ((frameCount % 60 === 0) && (timerLevel01 > 0) && (state === `doors`)){
     timerLevel01 --;
@@ -714,8 +719,8 @@ function level01Countdown(){
 }
 
 function doorsIcons(){
-  //Level 01 - Doors
-  //Door icons
+
+  // Door icons
   imgDoor1.x = width/4;
   imgDoor1.y = height/2;
   imgDoor2.x = width/2;
@@ -729,8 +734,8 @@ function doorsIcons(){
 }
 
 function openingDoor1(){
-    //level01 - doors
-    //Opened Door 1 (Balck rectangle illusion)
+
+    // Opened Door 1 (Balck rectangle illusion)
     if (displayOpenedDoor1){
       push();
       noStroke();
@@ -742,7 +747,7 @@ function openingDoor1(){
       pop();
     }
 
-    //Checking if User 'opens' Door1 - timer resets here
+    // Check if User 'opens' Door1 - timer resets here
     d9 = dist(imgCursor.x, imgCursor.y, imgDoor1.x, imgDoor1.y);
 
     if( mouseIsPressed && (d9 < imgCursor.size/2 + imgDoor1.width/2 || d9 < imgCursor.size/2 + imgDoor1.height/2) && (state === `doors`)){
@@ -752,7 +757,8 @@ function openingDoor1(){
 }
 
 function door1ClosingAutomatically(){
-  //Door1 "closing" on its own after 2 seconds
+
+  // Door1 'closing' on its own after 2 seconds
   if(frameCount % 60 === 0 && timerDoor1Closing > 0){
     timerDoor1Closing --;
   }
@@ -762,8 +768,8 @@ function door1ClosingAutomatically(){
 }
 
 function openingDoor2(){
-  //level01 - doors
-  //Opened Door 2 (Balck rectangle illusion)
+
+  // Opened Door 2 (Balck rectangle illusion)
   if (displayOpenedDoor2){
     push();
     noStroke();
@@ -774,7 +780,7 @@ function openingDoor2(){
     rect(openedDoor2.x, openedDoor2.y, openedDoor2.width, openedDoor2.height);
     pop();
   }
-  //Checking if User 'opens' Door2 - timer resets here
+  // Check if User 'opens' Door2 - timer resets here
   d10 = dist(imgCursor.x, imgCursor.y, imgDoor2.x, imgDoor2.y);
 
   if( mouseIsPressed && (d10 < imgCursor.size/2 + imgDoor2.width/2 || d10 < imgCursor.size/2 + imgDoor2.height/2) && (state === `doors`)){
@@ -784,7 +790,8 @@ function openingDoor2(){
 }
 
 function door2ClosingAutomatically(){
-  //Door2 "closing" on its own after 2 seconds
+
+  // Door2 "closing" on its own after 2 seconds
   if(frameCount % 60 === 0 && timerDoor2Closing > 0){
     timerDoor2Closing --;
   }
@@ -794,7 +801,7 @@ function door2ClosingAutomatically(){
 }
 
 function openingDoor3(){
-  //level01 - doors
+
   //Opened Door 3 (Balck rectangle illusion)
   if (displayOpenedDoor3){
     push();
@@ -807,7 +814,7 @@ function openingDoor3(){
     pop();
   }
 
-  //Checking if User 'opens' Door3 - timer resets here
+  //Check if User 'opens' Door3 - timer resets here
   d11 = dist(imgCursor.x, imgCursor.y, imgDoor3.x, imgDoor3.y);
 
   if( mouseIsPressed && (d11 < imgCursor.size/2 + imgDoor3.width/2 || d11 < imgCursor.size/2 + imgDoor3.height/2) && (state === `doors`)){
@@ -817,18 +824,20 @@ function openingDoor3(){
 }
 
 function door3ClosingAutomatically(){
+
   //Door3 "closing" on its own after 2 seconds
   if(frameCount % 60 === 0 && timerDoor3Closing > 0){
     timerDoor3Closing --;
-  }
+}
   if(timerDoor3Closing === 0){
     displayOpenedDoor3 = false;
-  }
+    }
+}
+//
 
-  }
-
+// Transition Level01/Level02 - Outside01
 function outside01TextBox(){
-  // Outside01
+
   // Indigo Text Box
   push();
   stroke(255);
@@ -843,7 +852,7 @@ function outside01TextBox(){
 }
 
 function outside01Text(){
-  // Outside01
+
   // (Almost) White Text
   push();
   noStroke();
@@ -859,19 +868,19 @@ function outside01Text(){
   On the way there, you see someone waving you over...`, width/6, height/2);
   pop();
 }
+//
 
+// Llevel02 - Kittens
 function kittensBackground(){
-  // Kittens - level02
-  push();
+
   // Background
   image(kittens, imgKittens.x, imgKittens.y);
-  pop();
 }
 
 function kittensText(){
 
-  push();
   // Indigo Text Box
+  push();
   stroke(255);
   strokeWeight(3);
   rectMode(CENTER);
@@ -880,6 +889,7 @@ function kittensText(){
   rect.height = 150;
   rect.radius = 15;
   rect(width/2,height/7, rect.width, rect.height, rect.radius, rect.radius);
+
   // (Almost)white text
   noStroke();
   textAlign(LEFT,CENTER);
@@ -888,15 +898,14 @@ function kittensText(){
     be just what your own pet needs?
 
     What will you do?`, width/30, height/7);
-
     pop();
 }
 
 function kittensOptions(){
+
+  //Avilable choises : Affermative(Choice01)/Negative(Choice02)
+  // Indigo Text boxes
   push();
-  //Avilable choises:
-  //Affermative/Negative
-  //Text boxes
   stroke(255);
   strokeWeight(3);
   rectMode(CENTER);
@@ -909,7 +918,8 @@ function kittensOptions(){
   choice02.x = width/5;
   choice02.y = 4*height/5;
   rect(choice02.x, choice02.y, choice02.width, choice02.height, choice02.radius, choice02.radius, choice02.radius, choice02.radius)
-  //Texts
+
+  // (Almost) White Texts
   noStroke();
   textAlign(LEFT,CENTER);
   fill(260, 268, 246);
@@ -918,52 +928,57 @@ function kittensOptions(){
 I already have.`, width/15, 4*height/5);
   pop();
 }
+//
 
+// Level02 - Bad Ending 02 : Hoerder Ending
 function hoarder(){
-  //Hoerder ending - Level02 Bad Ending
-  //Repeated cat icons moving acroos screen
 
-    imgHoarder1.x = random(0,width);
-    imgHoarder1.y = random(0,height);
-    image(hoarder1, imgHoarder1.x, imgHoarder1.y);
+  // Cat icons spawning randomly on screen
+  imgHoarder1.x = random(0,width);
+  imgHoarder1.y = random(0,height);
+  image(hoarder1, imgHoarder1.x, imgHoarder1.y);
 
-    imgHoarder2.x = random(0,width);
-    imgHoarder2.y = random(0,height);
-    image(hoarder2, imgHoarder2.x, imgHoarder2.y);
+  imgHoarder2.x = random(0,width);
+  imgHoarder2.y = random(0,height);
+  image(hoarder2, imgHoarder2.x, imgHoarder2.y);
 
-    imgHoarder3.x = random(0,width);
-    imgHoarder3.y = random(0,height);
-    image(hoarder3, imgHoarder3.x, imgHoarder3.y);
+  imgHoarder3.x = random(0,width);
+  imgHoarder3.y = random(0,height);
+  image(hoarder3, imgHoarder3.x, imgHoarder3.y);
 
-    imgHoarder4.x = random(0,width);
-    imgHoarder4.y = random(0,height);
-    image(hoarder4, imgHoarder4.x, imgHoarder4.y);
+  imgHoarder4.x = random(0,width);
+  imgHoarder4.y = random(0,height);
+  image(hoarder4, imgHoarder4.x, imgHoarder4.y);
 
-    imgHoarder5.x = random(0,width);
-    imgHoarder5.y = random(0,height);
-    image(hoarder5, imgHoarder5.x, imgHoarder5.y);
+  imgHoarder5.x = random(0,width);
+  imgHoarder5.y = random(0,height);
+  image(hoarder5, imgHoarder5.x, imgHoarder5.y);
 
-  //Lilac text box (rounded corners)
+  //Lilac Text Box
   push();
-  noStroke();
+  stroke(255);
+  strokeWeight(1);
   fill(215, 177, 236);
   rectMode(CENTER);
   rect.width = 900;
   rect.height = 150;
   rect.radius = 15;
   rect(width/2, height/2,rect.width,rect.height, rect.radius, rect.radius, rect.radius, rect.radius);
-  //(Almost)white text
+
+  //(Almost) White Text
+  noStroke();
   textAlign(CENTER,CENTER);
   fill(260, 268, 246);
   text(`Yikes! It seems that one kitten was just the beginning
     of a spiraling hoarding disorder! You could not resist the
     feline charms and are now a fanatical catlady, shunned by society.`, width/2, height/2);
   pop();
-
 }
+//
 
+// Transition Panel Level02/Level03 - Outside02
 function outside02TextBox(){
-  // Outside02
+
   // Indigo Text Box
   push();
   stroke(255);
@@ -978,7 +993,7 @@ function outside02TextBox(){
 }
 
 function outside02Text(){
-  // Outside02
+
   // (Almost) White Text
   push();
   noStroke();
@@ -991,12 +1006,15 @@ function outside02Text(){
     You resume your walk.`, 2*width/9, height/2);
   pop();
 }
+//
 
+// Level03 - Pet Shop
 function petShopGraphics(){
-  // Level03
-  // PetShop Background
+
+  // Background
   image(petShop, imgPetShop.x, imgPetShop.y);
-  // Toy Options
+
+  // Toy Options (Icons)
   imgSimpleToy.x = width/3;
   imgSimpleToy.y = 2*height/5;
   imgExpensiveToy.x = 2*width/3;
@@ -1007,7 +1025,7 @@ function petShopGraphics(){
 }
 
 function petShopTextBoxes(){
-  // Level03
+
   //Indigo Text Boxes
   //Caption
   stroke(255);
@@ -1018,6 +1036,7 @@ function petShopTextBoxes(){
   rect.height = 110;
   rect.radius = 15;
   rect(width/2, height/9, rect.width, rect.height, rect.radius, rect.radius);
+
   //Options
   rect.width = 305;
   rect.height = 50;
@@ -1027,7 +1046,7 @@ function petShopTextBoxes(){
 }
 
 function petShopText(){
-  // Level03
+
   //(Almost) White Text
   //Caption
   push();
@@ -1038,21 +1057,24 @@ function petShopText(){
   text(`  You get to the pet store and pick up all the necessities.
  When choosing a toy for your pet, however, you are presented with two options;
  the most obvious difference between them is the price range. What to buy?`, 2*width/9, height/9);
+
   //Options
   textAlign(CENTER, CENTER);
   text(`This one will do!`, width/3, 7*height/11);
   text(`My cat would  l o v e  this!`, 2*width/3, 7*height/11);
     pop();
 }
+//
 
+// Level 03 - Bad Ending 03 : Street Ending
 function streetEndingBackground(){
-  // Level 03
+
   // Background
   image(streetEnding, imgStreetEnding.x, imgStreetEnding.y);
 }
 
 function streeEndingTextBox(){
-  // Level03 - Bad Ending
+
   //Blue Text Boxes
   //Caption
   push();
@@ -1068,7 +1090,7 @@ function streeEndingTextBox(){
 }
 
 function streetEndingText(){
-  // Level03 - Bad Ending
+
   //(Almost) White Text
   //Caption
   push();
@@ -1082,9 +1104,11 @@ function streetEndingText(){
  But hey, now there's plenty of bags and cardboards for your pet to enjoy. `, width/4, height/10);
  pop();
 }
+//
 
+// Transition Panel Level03/Level04 - Last Text Panel
 function lastTextPanelTextBox(){
-  // Last Text Panel
+
   // Indigo Text Box
   push();
   stroke(255);
@@ -1099,7 +1123,7 @@ function lastTextPanelTextBox(){
 }
 
 function lastTextPanelText(){
-  // Outside01
+
   // (Almost) White Text
   push();
   noStroke();
@@ -1111,10 +1135,12 @@ After this much activity, the two of you settle down
 for a well-deserved nap...`, width/4, height/2);
   pop();
 }
+//
 
+// Happy Ending
 function finalEndingBackground(){
 
-  // Blue-indigo background
+  // Blue-indigo Background
   push();
   bg.r = 132;
   bg.g = 148;
@@ -1125,14 +1151,13 @@ function finalEndingBackground(){
   imgHappyEnding.y = 3*height/5;
   image(happyEnding, imgHappyEnding.x, imgHappyEnding.y);
   pop();
-
 }
 
 function finalEndingText(){
 
+  // (Almost) White Text - three different sizes
   push();
   noStroke();
-  // (Almost) white text - three different sizes
   fill(250, 248, 236);
   textSize(50);
   text(`You did it!`, width/20, height/7);
@@ -1144,14 +1169,12 @@ function finalEndingText(){
   textSize(17);
   text(`(Not really, but this is the chosen ending for the simulation.)`, width/20, 6*height/17);
   pop();
-
 }
+//
 
-
-
-
-// Checking if User presses ESC key
+// Check if User presses SPACEBAR or ESC key
 function keyPressed() {
+
 if (keyCode === 32 && state === `title`) {
 state = `menu`;
 }
@@ -1159,8 +1182,11 @@ else if (keyCode ===27){
   state = `title`;
 }
 }
+//
 
+// Check if User Double Clicks
 function doubleClicked(){
+  
   if(state === `menuGoodEnding`){
     state = `doors`
   }
@@ -1174,3 +1200,4 @@ function doubleClicked(){
     state = `happyEnding`
   }
 }
+//
