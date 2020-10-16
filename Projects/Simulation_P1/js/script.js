@@ -10,13 +10,6 @@ CAT OWNER SIMULATOR
 let myFontTitle;
 let myFontBody;
 
-// Declaring Audio Files (.mp3)
-let level01SFX;
-let kittensMeowingSFX;
-let nyanCatSFX;
-let violinSFX;
-let endingSFX;
-
 // Default Backround - Black
 let bg = {
   r: 0,
@@ -29,6 +22,13 @@ let bg2 = {
   r: 250,
   g: 248,
   b: 236
+}
+
+// Ending Backround - Light Blue
+let bg3 = {
+  r: 132,
+  g: 148,
+  b: 217
 }
 
 // Declaring image files
@@ -239,7 +239,6 @@ function preload(){
 
   costumedFonts();
   imageFiles();
-
 }
 
 
@@ -426,6 +425,7 @@ function draw() {
     // endingSFX.play();
     finalEndingBackground();
     finalEndingText();
+    returnToTitleScreen();
 
   }
 
@@ -447,7 +447,7 @@ function returnToTitleScreen(){
   textAlign(CENTER,CENTER);
   textSize(15);
   fill(260, 268, 246);
-  text(`Press ESC to return to Title Screen.`, width/2, 6*height/7);
+  text(`Press ESC to return to Title Screen.`, width/2, 8*height/9);
   pop();
 }
 //
@@ -1131,10 +1131,10 @@ function finalEndingBackground(){
 
   // Blue-indigo Background
   push();
-  bg.r = 132;
-  bg.g = 148;
-  bg.b = 217;
-  background(bg.r, bg.g, bg.b);
+  bg3.r = 132;
+  bg3.g = 148;
+  bg3.b = 217;
+  background(bg3.r, bg3.g, bg3.b);
   // Holding purring cat icon
   imgHappyEnding.x = 2*width/3;
   imgHappyEnding.y = 3*height/5;
