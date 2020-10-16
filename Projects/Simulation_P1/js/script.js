@@ -225,7 +225,7 @@ let imgHappyEnding = {
 
 
 // States; *(b+g) = bad + good outcomes;
-let state = `kittens`; //Title, Menu(b+g), "Transition" Panel - "menuGoodEnding", Level01 - "doors"(b+g),"Transition" Panel - "outside01", Level02 - "kittens"(b+g),"Transition" Panel - "outside02", Level03 - "petShop"(b+g),"Transition" Panel - "lastTextPanel", Happy Ending
+let state = `title`; //Title, Menu(b+g), "Transition" Panel - "menuGoodEnding", Level01 - "doors"(b+g),"Transition" Panel - "outside01", Level02 - "kittens"(b+g),"Transition" Panel - "outside02", Level03 - "petShop"(b+g),"Transition" Panel - "lastTextPanel", Happy Ending
 
 //
 
@@ -238,11 +238,14 @@ function preload(){
 
 
 function costumedFonts(){
+
   myFontTitle = loadFont('assets/CatFont.otf');
   myFontBody = loadFont('assets/AnonymousPro-Regular.otf');
 }
+//
 
 function imageFiles(){
+
   cursor = loadImage('assets/images/cursor.png');
   intro = loadImage('assets/images/intro.jpg');
   cat1 = loadImage('assets/images/cat1.png');
@@ -266,11 +269,10 @@ function imageFiles(){
   streetEnding = loadImage('assets/images/streetEnding.jpg');
   happyEnding = loadImage('assets/images/happyEnding.jpg');
 }
-
 //
 
 // setup()
-// Set Up functions
+// Canvas + Default Settings
 function setup() {
 
   createCanvas(windowWidth, windowHeight);
@@ -280,27 +282,11 @@ function setup() {
   textFont(myFontBody);
   textSize(20);
 
-  // Cat icons (level02) randomly appearing on screen
-  imgHoarder1.x = random(0,width);
-  imgHoarder1.y = random(0,height);
-
-  imgHoarder2.x = random(0,width);
-  imgHoarder2.y = random(0,height);
-
-  imgHoarder3.x = random(0,width);
-  imgHoarder3.y = random(0,height);
-
-  imgHoarder4.x = random(0,width);
-  imgHoarder4.y = random(0,height);
-
-  imgHoarder5.x = random(0,width);
-  imgHoarder5.y = random(0,height);
-
 }
-
 //
 
 function positioningBackgroundImages(){
+
   // Centering .jpg files, for they function as backgrounds in the different states
   imgIntro.x = width/2;
   imgIntro.y = 2*height/3;
@@ -313,10 +299,10 @@ function positioningBackgroundImages(){
 
   imgStreetEnding.x = width/2;
   imgStreetEnding.y = height/2;
-
 }
-
 //
+// /setup()
+
 // draw()
 // Customized Cursor + Default Background + States
 function draw() {
@@ -337,6 +323,7 @@ function draw() {
     catOptions();
     menuTextBoxes();
     menuText();
+    checkMenuOutcomes();
 
   }
 
@@ -386,6 +373,7 @@ function draw() {
     kittensBackground();
     kittensText();
     kittensOptions();
+    checkLevel02Outcomes();
 
   }
   // Level02 - Bad Ending
@@ -407,6 +395,7 @@ function draw() {
    petShopGraphics();
    petShopTextBoxes();
    petShopText();
+   checkLevel03Outcomes();
 
  }
  // Level03 - Bad ending
@@ -433,77 +422,12 @@ function draw() {
 
   }
 
-
-  // Level02 - Cat icons' movements;
-    imgHoarder1.x = imgHoarder1.x + imgHoarder1.vx;
-    imgHoarder1.y = imgHoarder1.y + imgHoarder1.vy;
-
-    imgHoarder2.x = imgHoarder2.x + imgHoarder2.vx;
-    imgHoarder2.y = imgHoarder2.y + imgHoarder2.vy;
-
-    imgHoarder3.x = imgHoarder3.x + imgHoarder3.vx;
-    imgHoarder3.y = imgHoarder3.y + imgHoarder3.vy;
-
-    imgHoarder4.x = imgHoarder4.x + imgHoarder4.vx;
-    imgHoarder4.y = imgHoarder4.y + imgHoarder4.vy;
-
-    imgHoarder5.x = imgHoarder5.x + imgHoarder5.vx;
-    imgHoarder5.y = imgHoarder5.y + imgHoarder5.vy;
-
-
-    // Menu - Check Bad Ending 01 : User choosing Cat 1, 2 or 3
-    let d1 = dist(imgCursor.x, imgCursor.y, imgCat1.x, imgCat1.y);
-    if ((d1 < imgCursor.size/2 + imgCat1.size/2) && (mouseIsPressed) && (state === `menu`)){
-      state = `cryingCat`;
-    }
-
-    let d2 = dist(imgCursor.x, imgCursor.y, imgCat2.x, imgCat2.y);
-    if ((d2 < imgCursor.size/2 + imgCat2.size/2) && (mouseIsPressed) && (state === `menu`)){
-      state = `cryingCat`;
-    }
-
-    let d3 = dist(imgCursor.x, imgCursor.y, imgCat3.x, imgCat3.y);
-    if ((d3 < imgCursor.size/2 + imgCat3.size/2) && (mouseIsPressed) && (state === `menu`)){
-      state = `cryingCat`;
-    }
-
-    // Menu - Check "Right" Answer : User choosing Cat 4
-    let d4 = dist(imgCursor.x, imgCursor.y, imgCat4.x, imgCat4.y);
-    if ((d4 < imgCursor.size/2 + imgCat4.size/2) && (mouseIsPressed) && (state === `menu`)){
-      state = `menuGoodEnding`;
-    }
-
-    // Level02 - Check Bad Ending 02 : User choosing to get kitten(s)
-    let d5 = dist(imgCursor.x, imgCursor.y, choice01.x, choice01.y);
-    if ((d5 < imgCursor.size/2 + choice01.width/2 || d5 < imgCursor.size/2 + choice01.height/2) && (mouseIsPressed) && (state === `kittens`)){
-      state = `hoarderEnding`;
-    }
-
-    // Level02 - Check "Right" Answer : User choosing not to get kitten(s)
-    let d6 = dist(imgCursor.x, imgCursor.y, choice02.x, choice02.y);
-    if ((d6 < imgCursor.size/2 + choice02.width/2 || d6 < imgCursor.size/2 + choice02.height/2) && (mouseIsPressed) && (state === `kittens`)){
-        state = `outside02`;
-      }
-
-
-    // Level03 - Check Bad Ending 03 : User choosing more expensive toy
-    let d7 = dist(imgCursor.x, imgCursor.y, imgExpensiveToy.x, imgExpensiveToy.y);
-    if ((d7 < imgCursor.size/2 + imgExpensiveToy.size/2) && (mouseIsPressed) && (state === `petShop`)){
-      state = `streetEnding`;
-    }
-
-    // Level03 - Check "Right" Answer : User choosing cheaper toy
-    let d8 = dist(imgCursor.x, imgCursor.y, imgSimpleToy.x, imgSimpleToy.y);
-    if((d8 < imgCursor.size/2 + imgSimpleToy.size/2) && (mouseIsPressed) && (state === `petShop`)){
-      state = `lastTextPanel`;
-    }
-
-  // Cursor (User) - Cat Paw
-  imgCursor.x = mouseX;
-  imgCursor.y = mouseY;
-  image(cursor, imgCursor.x,imgCursor.y, imgCursor.size);
+  // User - Cat Paw Cursor
+  displayUser();
 
 }
+//
+// /draw()
 
 // Return to Title (State) Option
 function returnToTitleScreen(){
@@ -632,6 +556,32 @@ function menuText(){
   text(`The type doesn't matter,
   a cat is a cat`, 7*width/8, 4*height/5);
     pop();
+}
+//
+
+// Check Menu's 4 Possible Oucomes
+function checkMenuOutcomes(){
+  // Menu - Check Bad Ending 01 : User choosing Cat 1, 2 or 3
+  let d1 = dist(imgCursor.x, imgCursor.y, imgCat1.x, imgCat1.y);
+  if ((d1 < imgCursor.size/2 + imgCat1.size/2) && (mouseIsPressed) && (state === `menu`)){
+    state = `cryingCat`;
+  }
+
+  let d2 = dist(imgCursor.x, imgCursor.y, imgCat2.x, imgCat2.y);
+  if ((d2 < imgCursor.size/2 + imgCat2.size/2) && (mouseIsPressed) && (state === `menu`)){
+    state = `cryingCat`;
+  }
+
+  let d3 = dist(imgCursor.x, imgCursor.y, imgCat3.x, imgCat3.y);
+  if ((d3 < imgCursor.size/2 + imgCat3.size/2) && (mouseIsPressed) && (state === `menu`)){
+    state = `cryingCat`;
+  }
+
+  // Menu - Check "Right" Answer : User choosing Cat 4
+  let d4 = dist(imgCursor.x, imgCursor.y, imgCat4.x, imgCat4.y);
+  if ((d4 < imgCursor.size/2 + imgCat4.size/2) && (mouseIsPressed) && (state === `menu`)){
+    state = `menuGoodEnding`;
+  }
 }
 //
 
@@ -930,6 +880,22 @@ I already have.`, width/15, 4*height/5);
 }
 //
 
+// Check Level02's 2 Possible Outcomes
+function checkLevel02Outcomes(){
+  // Level02 - Check Bad Ending 02 : User choosing to get kitten(s)
+  let d5 = dist(imgCursor.x, imgCursor.y, choice01.x, choice01.y);
+  if ((d5 < imgCursor.size/2 + choice01.width/2 || d5 < imgCursor.size/2 + choice01.height/2) && (mouseIsPressed) && (state === `kittens`)){
+    state = `hoarderEnding`;
+  }
+
+  // Level02 - Check "Right" Answer : User choosing not to get kitten(s)
+  let d6 = dist(imgCursor.x, imgCursor.y, choice02.x, choice02.y);
+  if ((d6 < imgCursor.size/2 + choice02.width/2 || d6 < imgCursor.size/2 + choice02.height/2) && (mouseIsPressed) && (state === `kittens`)){
+      state = `outside02`;
+    }
+}
+//
+
 // Level02 - Bad Ending 02 : Hoerder Ending
 function hoarder(){
 
@@ -957,7 +923,7 @@ function hoarder(){
   //Lilac Text Box
   push();
   stroke(255);
-  strokeWeight(1);
+  strokeWeight(2);
   fill(215, 177, 236);
   rectMode(CENTER);
   rect.width = 900;
@@ -1055,14 +1021,30 @@ function petShopText(){
   fill(260, 268, 246);
   textSize(18);
   text(`  You get to the pet store and pick up all the necessities.
- When choosing a toy for your pet, however, you are presented with two options;
- the most obvious difference between them is the price range. What to buy?`, 2*width/9, height/9);
+  When choosing a toy for your pet, however, you are presented with two options;
+  the most obvious difference between them is the price range. What to buy?`, 2*width/9, height/9);
 
   //Options
   textAlign(CENTER, CENTER);
   text(`This one will do!`, width/3, 7*height/11);
   text(`My cat would  l o v e  this!`, 2*width/3, 7*height/11);
     pop();
+}
+//
+
+// Check Level03's 2 Possible Outcomes
+function checkLevel03Outcomes(){
+  // Level03 - Check Bad Ending 03 : User choosing more expensive toy
+  let d7 = dist(imgCursor.x, imgCursor.y, imgExpensiveToy.x, imgExpensiveToy.y);
+  if ((d7 < imgCursor.size/2 + imgExpensiveToy.size/2) && (mouseIsPressed) && (state === `petShop`)){
+    state = `streetEnding`;
+  }
+
+  // Level03 - Check "Right" Answer : User choosing cheaper toy
+  let d8 = dist(imgCursor.x, imgCursor.y, imgSimpleToy.x, imgSimpleToy.y);
+  if((d8 < imgCursor.size/2 + imgSimpleToy.size/2) && (mouseIsPressed) && (state === `petShop`)){
+    state = `lastTextPanel`;
+  }
 }
 //
 
@@ -1186,7 +1168,7 @@ else if (keyCode ===27){
 
 // Check if User Double Clicks
 function doubleClicked(){
-  
+
   if(state === `menuGoodEnding`){
     state = `doors`
   }
@@ -1199,5 +1181,14 @@ function doubleClicked(){
   else if (state === `lastTextPanel`){
     state = `happyEnding`
   }
+}
+//
+
+// Display User
+function displayUser(){
+  // Cursor (User) - Cat Paw
+  imgCursor.x = mouseX;
+  imgCursor.y = mouseY;
+  image(cursor, imgCursor.x,imgCursor.y, imgCursor.size);
 }
 //
