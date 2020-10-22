@@ -34,9 +34,17 @@ function setup() {
 // Description of draw() goes here.
 function draw() {
   background(0);
+  // Customized Cursor : Pokeball Icon; follows mouse movements
+  displayCursor();
+
+}
+
+
+// Customized Cursor : Pokeball Icon; follows mouse movements
+function displayCursor(){
 
   imgPokeball.x = mouseX;
   imgPokeball.y = mouseY;
   image(pokeball, imgPokeball.x, imgPokeball.y);
-
 }
+//
