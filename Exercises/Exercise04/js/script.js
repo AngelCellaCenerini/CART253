@@ -1,4 +1,4 @@
-"use strict;";
+"use strict";
 
 /**************************************************
 Exercise 04 - The Age of Aquariums
@@ -7,6 +7,8 @@ Angel Cella Cenerini
 
 Catch that magilove!
 **************************************************/
+
+let victorySFX;
 
 // Cutomized Fonts
 let myFont;
@@ -26,12 +28,14 @@ let bg = {
 }
 
 // Background - Underwater scene; Simulation
+let waterBackground;
 let imgWaterBackground = {
   x: 0,
   y: 0
 }
 
 // Title Screen Icon - MagiLove
+let titleMagikarp;
 let imgTitleMagikarp = {
   x: 0,
   y: 0
@@ -42,22 +46,27 @@ let magikarpIcons = [];
 let displayIcons;
 
 // Pokeball icon (AKA User/Cursor)
+let pokeball;
 let imgPokeball = {
   x: 0,
   y: 0
 }
 
 let love = [];
-// // Magikarp Love - Happy Ending 01
-// let imgMagikarpLove = {
-//   x: 0,
-//   y: 0,
-//   vx: 0,
-//   vy: 0,
-//   speed: 8
-// }
+// Magikarp Love - Happy Ending 01
+let magikarpLove = {
+  x: 0,
+  y: 0,
+  vx: 0,
+  vy: 0,
+  speed: 8,
+  image: undefined
+}
+let imageMagikarpLove;
+
 
 // Gyarados Icon - Happy Ending 02
+let gyarados;
 let imgGyarados = {
   x: 600,
   y: 400,
@@ -67,6 +76,7 @@ let imgGyarados = {
 }
 
 // Pokemon (dragon)Fly Icon - Yanmega; Bad Ending
+let yanmega;
 let imgYanmega = {
   x: 600,
   y: 200,
@@ -79,12 +89,14 @@ let imgYanmega = {
 let state = `happy ending 01` // Title, Simulation, Happy Ending 01, Happy Ending 02, Bad Ending
 
 function preload(){
+
+ victorySFX = loadSound('assets/sounds/victory.wav');
  myFont = loadFont('assets/AnonymousPro-Regular.otf');
 
   waterBackground = loadImage('assets/images/waterBackground.jpg');
   pokeball = loadImage('assets/images/pokeball.png');
   titleMagikarp = loadImage('assets/images/titleMagikarp.png');
-  magikarpLove = loadImage('assets/images/magikarpLove.png');
+  imageMagikarpLove = loadImage('assets/images/magikarpLove.png');
   gyarados = loadImage(`assets/images/gyarados.png`);
   yanmega = loadImage(`assets/images/yanmega.png`);
 
@@ -104,6 +116,9 @@ function setup() {
   textFont(myFont);
   textAlign(CENTER, CENTER);
   noStroke();
+  magikarpLove.image = imageMagikarpLove;
+
+
 
 
    // magikarpIcons[0] = displayIcons(magikarpIcons, random(0,width), random(0, height));
@@ -116,13 +131,27 @@ function setup() {
 
 }
 
+function createMagikarpLove(x, y) {
+let magikarpLove = {
+  x: x,
+  y: y,
+  vx: 0,
+  vy: 0,
+  speed: 2,
+  image: imageMagikarpLove
+};
+return magikarp;
+}
+
 // draw()
 //
 // Description of draw() goes here.
 function draw() {
   background(0);
 
-  if (state === `title`){ // Black background
+  if (state === `title`){
+
+
 
   // Default Black Background
   background(bgD.r, bgD.g, bgD.b);
@@ -146,18 +175,19 @@ function draw() {
 
  else if (state === `happy ending 01`){
    background(bg.r, bg.g, bg.b);
-   imgMagikarpLove.vy = imgMagikarpLove.speed;
-   imgMagikarpLove.y = imgMagikarpLove.y + imgMagikarpLove.vy;
-   if(imgMagikarpLove.y < 0 || imgMagikarpLove.y > height){
-      imgMagikarpLove.y = 0;
-   }
 
-   image(magikarpLove, imgMagikarpLove.x, imgMagikarpLove.y);
+   // Magirkap(s) Movements
+   magikarpMovements();
+   // Display Magirkap(s) Icons
+   displayMagirkap();
+
  }
 
  else if (state ===`happy ending 02`){
    // White Background
    background(bg.r, bg.g, bg.b);
+
+
 
    // Gyarados Icon Movements
    gyaradosMovements();
@@ -219,6 +249,22 @@ function displayCursor(){
 }
 //
 
+// Magirkap(s) Movements
+function magikarpMovements(){
+  magikarpLove.vy = magikarpLove.speed;
+  magikarpLove.y = magikarpLove.y + magikarpLove.vy;
+  if(magikarpLove.y < 0 || magikarpLove.y > height){
+     magikarpLove.y = 0;
+  }
+}
+//
+
+// Display Magirkap(s) Icons
+function displayMagirkap(){
+  image(magikarpLove.image, magikarpLove.x, magikarpLove.y);
+}
+//
+
 // Gyarados Icon Movements
 function gyaradosMovements(){
   // Gyarados Icon Movements
@@ -253,8 +299,8 @@ function happyEnding02Text(){
 // Movements - Yanmega Icon
 function yanmegaMovements(){
   // Movements - Yanmega Icon
-  let change = random(0,1);
-  if (change < 0,05){
+  let change = random(0, 1);
+  if (change < 0.05){
       imgYanmega.vx = random (-imgYanmega.speed,imgYanmega.speed);
       imgYanmega.vy = random (-imgYanmega.speed,imgYanmega.speed);
   }
@@ -297,6 +343,10 @@ function keyPressed(){
   // Return to Title Screen Command
   else if ((state === `bad ending` || state === `happy ending 02`) && (keyCode === 27)){
     state = `title`;
+  }
+  else if (state === `simulation` && (keyCode === 32)){
+     victorySFX.play();
+     state = `happy ending 02`;
   }
 }
 //
