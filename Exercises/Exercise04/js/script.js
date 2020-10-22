@@ -47,6 +47,16 @@ let imgPokeball = {
   y: 0
 }
 
+let love = [];
+// // Magikarp Love - Happy Ending 01
+// let imgMagikarpLove = {
+//   x: 0,
+//   y: 0,
+//   vx: 0,
+//   vy: 0,
+//   speed: 8
+// }
+
 // Gyarados Icon - Happy Ending 02
 let imgGyarados = {
   x: 600,
@@ -66,7 +76,7 @@ let imgYanmega = {
 }
 
 // Declaring state(s)
-let state = `happy ending 02` // Title, Simulation, Happy Ending 01, Happy Ending 02, Bad Ending
+let state = `happy ending 01` // Title, Simulation, Happy Ending 01, Happy Ending 02, Bad Ending
 
 function preload(){
  myFont = loadFont('assets/AnonymousPro-Regular.otf');
@@ -74,6 +84,7 @@ function preload(){
   waterBackground = loadImage('assets/images/waterBackground.jpg');
   pokeball = loadImage('assets/images/pokeball.png');
   titleMagikarp = loadImage('assets/images/titleMagikarp.png');
+  magikarpLove = loadImage('assets/images/magikarpLove.png');
   gyarados = loadImage(`assets/images/gyarados.png`);
   yanmega = loadImage(`assets/images/yanmega.png`);
 
@@ -132,6 +143,17 @@ function draw() {
     // Display Objects: Magikarp Icons
      // image(displayIcons, random(0,width), random(0, height));
 }
+
+ else if (state === `happy ending 01`){
+   background(bg.r, bg.g, bg.b);
+   imgMagikarpLove.vy = imgMagikarpLove.speed;
+   imgMagikarpLove.y = imgMagikarpLove.y + imgMagikarpLove.vy;
+   if(imgMagikarpLove.y < 0 || imgMagikarpLove.y > height){
+      imgMagikarpLove.y = 0;
+   }
+
+   image(magikarpLove, imgMagikarpLove.x, imgMagikarpLove.y);
+ }
 
  else if (state ===`happy ending 02`){
    // White Background
