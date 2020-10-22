@@ -81,6 +81,8 @@ function draw() {
   displayMagiHeart();
   // Display (White) Title Text
   displayTitleText();
+  // Start Simulation Command
+  keyPressed();
   }
 
   if (state === `simulation`){
@@ -89,7 +91,7 @@ function draw() {
     // Customized Cursor: Pokeball Icon; follows mouse movements
     displayCursor();
     // Display Objects: Magikarp Icons
-     image(displayIcons, random(0,width), random(0, height));
+     // image(displayIcons, random(0,width), random(0, height));
 }
 
 
@@ -127,5 +129,13 @@ function displayCursor(){
   imgPokeball.x = mouseX;
   imgPokeball.y = mouseY;
   image(pokeball, imgPokeball.x, imgPokeball.y);
+}
+//
+
+// Start Simulation Command
+function keyPressed(){
+  if ((state === `title`) && (keyCode === 32)){
+    state = `simulation`;
+  }
 }
 //
