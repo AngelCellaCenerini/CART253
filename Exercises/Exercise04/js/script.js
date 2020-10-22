@@ -14,6 +14,10 @@ let imgWaterBackground = {
   y: 0
 }
 
+// Objects - Magikarps Icons
+let magikarpIcons = [];
+let displayIcons;
+
 // Pokeball icon (AKA User/Cursor)
 let imgPokeball = {
   x: 0,
@@ -27,6 +31,10 @@ function preload(){
   waterBackground = loadImage('assets/images/waterBackground.jpg');
   pokeball = loadImage('assets/images/pokeball.png');
 
+  for (let i = 0; i < 8; i ++){
+    magikarpIcons[i] = loadImage('assets/images/magikarp-${i}.png');
+  }
+
 }
 
 // setup()
@@ -37,6 +45,13 @@ function setup() {
   noCursor();
   imageMode(CENTER);
   textAlign(CENTER, CENTER);
+
+   // magikarpIcons[0] = displayIcons(magikarpIcons, random(0,width), random(0, height));
+   // for (let i = 0; i < 8; i ++){
+   //   displayIcons = random(magikarpIcons);
+   // //   magikarpIcons[i] = loadImage('assets/images/magikarp-${i}.png');
+   // }
+
 
 
 }
@@ -50,8 +65,10 @@ function draw() {
 if (state === `simulation`){
   // Customized Background - Underwater scene
   displayCustomizedBackground();
-  // Customized Cursor : Pokeball Icon; follows mouse movements
-  displayCursor();  
+  // Customized Cursor: Pokeball Icon; follows mouse movements
+  displayCursor();
+  // Display Objects: Magikarp Icons
+   image(displayIcons, random(0,width), random(0, height));
 }
 
 
