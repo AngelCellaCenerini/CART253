@@ -12,6 +12,10 @@ Catch that magilove!
 //
 // Description of setup() goes here.
 function setup() {
+  createCanvas(windowWidth, windowHeight);
+  imageMode(CENTER);
+  textAlign(CENTER, CENTER);
+
 
 }
 
@@ -19,5 +23,6 @@ function setup() {
 //
 // Description of draw() goes here.
 function draw() {
+  background(0);
 
 }
