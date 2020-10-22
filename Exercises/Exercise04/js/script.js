@@ -8,8 +8,16 @@ Angel Cella Cenerini
 Catch that magilove!
 **************************************************/
 
+// Cutomized Fonts
+let myFont;
+
 // Background - Underwater scene
 let imgWaterBackground = {
+  x: 0,
+  y: 0
+}
+
+let imgTitleMagikarp = {
   x: 0,
   y: 0
 }
@@ -25,15 +33,18 @@ let imgPokeball = {
 }
 
 // Declaring state(s)
-let state = `simulation` // Title, Simulation, Happy Ending 01, Happy Ending 02, Bad Ending
+let state = `title` // Title, Simulation, Happy Ending 01, Happy Ending 02, Bad Ending
 
 function preload(){
+ myFont = loadFont('assets/AnonymousPro-Regular.otf');
+
   waterBackground = loadImage('assets/images/waterBackground.jpg');
   pokeball = loadImage('assets/images/pokeball.png');
+  titleMagikarp = loadImage('assets/images/titleMagikarp.png');
 
-  for (let i = 0; i < 8; i ++){
-    magikarpIcons[i] = loadImage('assets/images/magikarp-${i}.png');
-  }
+  // for (let i = 0; i < 8; i ++){
+  //   magikarpIcons[i] = loadImage('assets/images/magikarp-${i}.png');
+  // }
 
 }
 
@@ -44,7 +55,9 @@ function setup() {
   createCanvas(windowWidth, windowHeight);
   noCursor();
   imageMode(CENTER);
+  textFont(myFont);
   textAlign(CENTER, CENTER);
+  noStroke();
 
    // magikarpIcons[0] = displayIcons(magikarpIcons, random(0,width), random(0, height));
    // for (let i = 0; i < 8; i ++){
@@ -62,17 +75,43 @@ function setup() {
 function draw() {
   background(0);
 
-if (state === `simulation`){
-  // Customized Background - Underwater scene
-  displayCustomizedBackground();
-  // Customized Cursor: Pokeball Icon; follows mouse movements
-  displayCursor();
-  // Display Objects: Magikarp Icons
-   image(displayIcons, random(0,width), random(0, height));
+  if (state === `title`){ // Black background
+
+  // Display Title Icon: Heart with Magikarp
+  displayMagiHeart();
+  // Display (White) Title Text
+  displayTitleText();
+  }
+
+  if (state === `simulation`){
+    // Customized Background - Underwater scene
+    displayCustomizedBackground();
+    // Customized Cursor: Pokeball Icon; follows mouse movements
+    displayCursor();
+    // Display Objects: Magikarp Icons
+     image(displayIcons, random(0,width), random(0, height));
 }
 
 
 }
+
+  // Display Title Icon: Heart with Magikarp
+function displayMagiHeart(){
+  image(titleMagikarp, width/2, 2*height/3);
+}
+//
+
+  // Display (White) Title Text
+function displayTitleText(){
+  push();
+  fill(255);
+  textSize(100);
+  text(`Catch That MagiLove!`, width/2, height/4);
+  textSize(20);
+  text(`Press SPACEBAR to start catching Magikarps!`, width/2, 9*height/10);
+  pop();
+}
+//
 
 // Customized Background - Underwater scene
 function displayCustomizedBackground(){
