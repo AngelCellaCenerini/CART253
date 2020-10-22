@@ -47,6 +47,15 @@ let imgPokeball = {
   y: 0
 }
 
+// Gyarados Icon - Happy Ending 02
+let imgGyarados = {
+  x: 600,
+  y: 400,
+  vx: 0,
+  vy: 0,
+  speed: 5
+}
+
 // Pokemon (dragon)Fly Icon - Yanmega; Bad Ending
 let imgYanmega = {
   x: 600,
@@ -57,7 +66,7 @@ let imgYanmega = {
 }
 
 // Declaring state(s)
-let state = `bad ending` // Title, Simulation, Happy Ending 01, Happy Ending 02, Bad Ending
+let state = `happy ending 02` // Title, Simulation, Happy Ending 01, Happy Ending 02, Bad Ending
 
 function preload(){
  myFont = loadFont('assets/AnonymousPro-Regular.otf');
@@ -65,6 +74,7 @@ function preload(){
   waterBackground = loadImage('assets/images/waterBackground.jpg');
   pokeball = loadImage('assets/images/pokeball.png');
   titleMagikarp = loadImage('assets/images/titleMagikarp.png');
+  gyarados = loadImage(`assets/images/gyarados.png`);
   yanmega = loadImage(`assets/images/yanmega.png`);
 
   // for (let i = 0; i < 8; i ++){
@@ -114,7 +124,7 @@ function draw() {
   keyPressed();
   }
 
-  if (state === `simulation`){
+  else if (state === `simulation`){
     // Customized Background - Underwater scene
     displayCustomizedBackground();
     // Customized Cursor: Pokeball Icon; follows mouse movements
@@ -123,16 +133,29 @@ function draw() {
      // image(displayIcons, random(0,width), random(0, height));
 }
 
-if (state === `bad ending`){
-  // White Background
-  background(bg.r, bg.g, bg.b);
+ else if (state ===`happy ending 02`){
+   // White Background
+   background(bg.r, bg.g, bg.b);
 
-  // Movements - Yanmega Icon
-  yanmegaMovements();
-  // Display Yanmega Icon
-  displayYanmega();
-  // Bad Ending White Text
-  badEndingText();
+   // Gyarados Icon Movements
+   gyaradosMovements();
+   // Display Gyarados Icon
+   displayGyarados();
+   // Happy Ending 02 - Black Text
+   happyEnding02Text();
+
+ }
+
+  else if (state === `bad ending`){
+     // White Background
+     background(bg.r, bg.g, bg.b);
+
+     // Movements - Yanmega Icon
+     yanmegaMovements();
+     // Display Yanmega Icon
+     displayYanmega();
+     // Bad Ending White Text
+     badEndingText();
 
 }
 
@@ -171,6 +194,37 @@ function displayCursor(){
   imgPokeball.x = mouseX;
   imgPokeball.y = mouseY;
   image(pokeball, imgPokeball.x, imgPokeball.y);
+}
+//
+
+// Gyarados Icon Movements
+function gyaradosMovements(){
+  // Gyarados Icon Movements
+  imgGyarados.vx = imgGyarados.speed;
+  imgGyarados.x = imgGyarados.x + imgGyarados.vx;
+
+  // Controlling/Checking Gyarados Icon Movements - Slides back and forth across screen
+  if(imgGyarados.x < width/3 || imgGyarados.x > 2*width/3){
+     imgGyarados.speed = - imgGyarados.speed;
+  }
+}
+//
+
+// Display Gyarados Icon
+function displayGyarados(){
+  image(gyarados, imgGyarados.x, imgGyarados.y);
+}
+//
+
+// Happy Ending 02 - Black Text
+function happyEnding02Text(){
+  push();
+  fill(0);
+  textSize(20);
+  text(`Woah! Your Magikarp was actually quite skilled and immediately evolved into a magnificent Gyarados! Congrats!`, width/2, height/6);
+  textSize(15);
+  text(`Press ESC to return to the Title Screen.`, width/2, 7*height/8);
+  pop();
 }
 //
 
@@ -219,7 +273,7 @@ function keyPressed(){
     state = `simulation`;
   }
   // Return to Title Screen Command
-  else if ((state === `bad ending`) && (keyCode === 27)){
+  else if ((state === `bad ending` || state === `happy ending 02`) && (keyCode === 27)){
     state = `title`;
   }
 }
