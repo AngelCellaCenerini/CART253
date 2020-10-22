@@ -64,7 +64,6 @@ let magikarpLove = {
 }
 let imageMagikarpLove;
 
-
 // Gyarados Icon - Happy Ending 02
 let gyarados;
 let imgGyarados = {
@@ -116,32 +115,32 @@ function setup() {
   textFont(myFont);
   textAlign(CENTER, CENTER);
   noStroke();
+
+  // MagikarpLove Icons - Happy Ending01 Background
   magikarpLove.image = imageMagikarpLove;
 
+  for (let i = 0; i < 30; i++) {
+   love[i] = createMagikarpLove(random(0,width),random(0,height));
+ }
 
-
-
-   // magikarpIcons[0] = displayIcons(magikarpIcons, random(0,width), random(0, height));
-   // for (let i = 0; i < 8; i ++){
-   //   displayIcons = random(magikarpIcons);
-   // //   magikarpIcons[i] = loadImage('assets/images/magikarp-${i}.png');
-   // }
 
 
 
 }
 
+// MagikarpLove Icons - Happy Ending01 Background
 function createMagikarpLove(x, y) {
 let magikarpLove = {
   x: x,
   y: y,
   vx: 0,
   vy: 0,
-  speed: 2,
+  speed: 5,
   image: imageMagikarpLove
 };
-return magikarp;
+return magikarpLove;
 }
+//
 
 // draw()
 //
@@ -174,20 +173,23 @@ function draw() {
 }
 
  else if (state === `happy ending 01`){
-   background(bg.r, bg.g, bg.b);
-
-   // Magirkap(s) Movements
-   magikarpMovements();
-   // Display Magirkap(s) Icons
-   displayMagirkap();
-
- }
-
- else if (state ===`happy ending 02`){
    // White Background
    background(bg.r, bg.g, bg.b);
 
+   // Magirkap(s) Movements + Display Magirkap(s) Icons - Cascade of Magikarp Love (What more can you want?); Overlapping effect is intentional
+   for (let i = 0; i < 30; i++) {
+    let imageMagikarp = love[i];
+    displayMagirkap(imageMagikarp);
+    magikarpMovements(imageMagikarp);
+  }
+   // Black Text
+   happyEnding01Text();
 
+ }
+
+ else if (state === `happy ending 02`){
+   // White Background
+   background(bg.r, bg.g, bg.b);
 
    // Gyarados Icon Movements
    gyaradosMovements();
@@ -249,8 +251,21 @@ function displayCursor(){
 }
 //
 
+// Happy Ending 01 - Black Text
+function happyEnding01Text(){
+  push();
+  textSize(25);
+  text(`Yes! You did it!
+    ...Not that it was particularly challenging, you were surrounded by opportunities...
+    Still, celebrate your newborn friendship by enjoying this cascade of Magikarp Love!`, width/2, height/2);
+    textSize(15);
+    text(`Press ESC to return to the Title Screen.`, width/2, 7*height/8);
+  pop();
+}
+//
+
 // Magirkap(s) Movements
-function magikarpMovements(){
+function magikarpMovements(magikarpLove){
   magikarpLove.vy = magikarpLove.speed;
   magikarpLove.y = magikarpLove.y + magikarpLove.vy;
   if(magikarpLove.y < 0 || magikarpLove.y > height){
@@ -260,7 +275,7 @@ function magikarpMovements(){
 //
 
 // Display Magirkap(s) Icons
-function displayMagirkap(){
+function displayMagirkap(magikarpLove){
   image(magikarpLove.image, magikarpLove.x, magikarpLove.y);
 }
 //
@@ -341,12 +356,12 @@ function keyPressed(){
     state = `simulation`;
   }
   // Return to Title Screen Command
-  else if ((state === `bad ending` || state === `happy ending 02`) && (keyCode === 27)){
+  else if ((state === `bad ending` || state === `happy ending 02` || state === `happy ending 01`) && (keyCode === 27)){
     state = `title`;
   }
-  else if (state === `simulation` && (keyCode === 32)){
-     victorySFX.play();
-     state = `happy ending 02`;
-  }
+  // else if (state === `simulation` && (keyCode === 32)){
+  //    victorySFX.play();
+  //    state = `happy ending 02`;
+  // }
 }
 //
