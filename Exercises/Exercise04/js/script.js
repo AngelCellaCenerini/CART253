@@ -27,19 +27,22 @@ let bg = {
   b: 255,
 }
 
-// Background - Underwater scene; Simulation
-let waterBackground;
-let imgWaterBackground = {
-  x: 0,
-  y: 0
-}
-
 // Title Screen Icon - MagiLove
 let titleMagikarp;
 let imgTitleMagikarp = {
   x: 0,
   y: 0
 }
+
+//  Simulation Background - Underwater scene
+let waterBackground;
+let imgWaterBackground = {
+  x: 0,
+  y: 0
+}
+
+// Simulation - Timer (1 min)
+let timer = 32;
 
 // Simulation - Pokeball icon (AKA User/Cursor)
 let pokeball = {
@@ -345,6 +348,8 @@ function draw() {
   else if (state === `simulation`){
     // Customized Background - Underwater scene
     displayCustomizedBackground();
+
+    simulationCountdown(); // 32 seconds
     // Magikarp Schools
     // Basic Magirkaps
     for (let i = 0; i < basicSchoolSize; i++) {
@@ -485,6 +490,17 @@ function displayCustomizedBackground(){
   imgWaterBackground.x = width/2;
   imgWaterBackground.y = height/2;
   image(waterBackground, imgWaterBackground.x, imgWaterBackground.y, windowWidth, windowHeight);
+}
+//
+
+// Simulation Countdown: 32 seconds
+ function simulationCountdown(){
+   if ((frameCount % 60 === 0) && (state === `simulation`)){
+     timer --;
+   }
+   if (timer === 0){
+     state = `bad ending`;
+   }
 }
 //
 
