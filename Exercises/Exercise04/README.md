@@ -5,4 +5,4 @@ This is the README file for the entire project. For more official projects you s
 Crediting Image/Sound Files:
 Original Pokémon Game Soundtrack Used (Palette Town Theme) - Credits: https://downloads.khinsider.com/game-soundtracks/album/pokemon-original-game-soundtrack/102%2520-%2520palette%2520town%2520theme.mp3 ;
 
-Original Pokémon Pixel Art from Pokémon Gold XDDD.
+Original Pokémon Pixel Art from Pokémon Gold XDDD. Image files have been edited by program creator.
