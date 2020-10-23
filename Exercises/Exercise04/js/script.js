@@ -10,7 +10,7 @@ Catch that magilove!
 
 let victorySFX;
 
-// Cutomized Fonts
+// Cutomized Font
 let myFont;
 
 // Default Black Background; Title
@@ -41,7 +41,7 @@ let imgTitleMagikarp = {
   y: 0
 }
 
-// Pokeball icon (AKA User/Cursor)
+// Simulation - Pokeball icon (AKA User/Cursor)
 let pokeball = {
   x: 0,
   y: 0,
@@ -50,7 +50,7 @@ let pokeball = {
 }
 let imagePokeball;
 
-// Simulation - schools of different Magikarps
+// Simulation - Schools of different Magikarps
 // Basic Magikarp School
 let basicSchool = [];
 let basicSchoolSize = 2;
@@ -123,9 +123,8 @@ let imageSayanMagikarp;
 //
 
 
-
+// Happy Ending 01 - Magikarp Love Cascade
 let love = [];
-// Magikarp Love - Happy Ending 01
 let magikarpLove = {
   x: 0,
   y: 0,
@@ -136,7 +135,7 @@ let magikarpLove = {
 }
 let imageMagikarpLove;
 
-// Gyarados Icon - Happy Ending 02
+// Happy Ending 02 - Gyarados Icon
 let gyarados;
 let imgGyarados = {
   x: 600,
@@ -146,7 +145,7 @@ let imgGyarados = {
   speed: 5
 }
 
-// Pokemon (dragon)Fly Icon - Yanmega; Bad Ending
+// Bad Ending - Pokemon (dragon)Fly Icon - Yanmega;
 let yanmega;
 let imgYanmega = {
   x: 600,
@@ -157,19 +156,18 @@ let imgYanmega = {
 }
 
 // Declaring state(s)
-let state = `simulation` // Title, Simulation, Happy Ending 01, Happy Ending 02, Bad Ending
+let state = `title` // Title, Simulation, Happy Ending 01, Happy Ending 02, Bad Ending
 
 function preload(){
 
- victorySFX = loadSound('assets/sounds/victory.wav');
- myFont = loadFont('assets/AnonymousPro-Regular.otf');
+  victorySFX = loadSound('assets/sounds/victory.mp3');
+  myFont = loadFont('assets/AnonymousPro-Regular.otf');
 
   waterBackground = loadImage('assets/images/waterBackground.jpg');
-  pokeball = loadImage('assets/images/pokeball.png');
+  imagePokeball = loadImage('assets/images/pokeball.png');
   titleMagikarp = loadImage('assets/images/titleMagikarp.png');
   imageBasicMagikarp = loadImage('assets/images/magikarp-0.png');
   imageRainbowMagikarp = loadImage('assets/images/magikarp-1.png');
-  // imageHatMagikarp = loadImage('assets/images/magikarp-2.png');
   imageCoffeeMagikarp = loadImage('assets/images/magikarp-3.png');
   imageZombieMagikarp = loadImage('assets/images/magikarp-5.png');
   imageSayanMagikarp = loadImage('assets/images/magikarp-7.png');
@@ -177,12 +175,11 @@ function preload(){
   gyarados = loadImage(`assets/images/gyarados.png`);
   yanmega = loadImage(`assets/images/yanmega.png`);
 
-
 }
 
 // setup()
 //
-// Description of setup() goes here.
+// Setting Up Program: Canvas, Text/Image Settings, Creating Icons (Arrays).
 function setup() {
   createCanvas(windowWidth, windowHeight);
   noCursor();
@@ -190,52 +187,55 @@ function setup() {
   textFont(myFont);
   textAlign(CENTER, CENTER);
   noStroke();
+
  // Simulation - Magikarp Schools
- // Basic Magirkaps Icons
+ // Creating Basic Magirkaps Icons
  basicMagikarp.image = imageBasicMagikarp;
 
  for (let i = 0; i < basicSchoolSize; i++) {
-  basicSchool[i] = createBasicMagikarp(random(0,width), random(0,height));
-}
-// Rainbow Magirkaps Icons
-rainbowMagikarp.image = imageRainbowMagikarp;
+  basicSchool[i] = createBasicMagikarp(random(width/3,width), random(0,height));
+ }
 
-for (let i = 0; i < rainbowSchoolSize; i++) {
- rainbowSchool[i] = createRainbowMagikarp(random(0,width), random(0,height));
-}
-// Coffee Magirkaps Icons
-coffeeMagikarp.image = imageCoffeeMagikarp;
+ // Creating Rainbow Magirkaps Icons
+ rainbowMagikarp.image = imageRainbowMagikarp;
 
-for (let i = 0; i < coffeeSchoolSize; i++) {
- coffeeSchool[i] = createCoffeeMagikarp(random(0,width), random(0,height));
-}
-// Zombie Magirkaps Icons
-zombieMagikarp.image = imageZombieMagikarp;
+ for (let i = 0; i < rainbowSchoolSize; i++) {
+  rainbowSchool[i] = createRainbowMagikarp(random(width/3,width), random(0,height));
+ }
 
-for (let i = 0; i < zombieSchoolSize; i++) {
- zombieSchool[i] = createZombieMagikarp(random(0,width), random(0,height));
-}
-//
+ // Creating Coffee Magirkaps Icons
+ coffeeMagikarp.image = imageCoffeeMagikarp;
 
-// Sayan Magirkaps Icons
-sayanMagikarp.image = imageSayanMagikarp;
+ for (let i = 0; i < coffeeSchoolSize; i++) {
+  coffeeSchool[i] = createCoffeeMagikarp(random(width/3,width), random(0,height));
+ }
 
-for (let i = 0; i < sayanSchoolSize; i++) {
- sayanSchool[i] = createSayanMagikarp(random(0,width), random(0,height));
-}
-//
+ // Creating Zombie Magirkaps Icons
+ zombieMagikarp.image = imageZombieMagikarp;
 
-  // MagikarpLove Icons - Happy Ending01 Background
-  magikarpLove.image = imageMagikarpLove;
+ for (let i = 0; i < zombieSchoolSize; i++) {
+  zombieSchool[i] = createZombieMagikarp(random(width/3,width), random(0,height));
+ }
 
-  for (let i = 0; i < 30; i++) {
-   love[i] = createMagikarpLove(random(0,width), random(0,height));
+ // Creating Sayan Magirkaps Icons
+ sayanMagikarp.image = imageSayanMagikarp;
+
+ for (let i = 0; i < sayanSchoolSize; i++) {
+  sayanSchool[i] = createSayanMagikarp(random(width/4,width), random(0,height));
  }
  //
 
+ // Happy Ending01 Background - MagikarpLove Icons
+ magikarpLove.image = imageMagikarpLove;
 
+ for (let i = 0; i < 30; i++) {
+  love[i] = createMagikarpLove(random(0,width), random(0,height));
+ }
+ //
 
 }
+
+// /setup()
 
 // Simulation - Magikarp Schools
 // Basic Magikarp Icons
@@ -243,6 +243,7 @@ function createBasicMagikarp(x, y) {
 let basicMagikarp = {
   x: x,
   y: y,
+  size: 200,
   vx: 0,
   vy: 0,
   speed: 5,
@@ -256,6 +257,7 @@ function createRainbowMagikarp(x, y) {
 let rainbowMagikarp = {
   x: x,
   y: y,
+  size: 200,
   vx: 0,
   vy: 0,
   speed: 5,
@@ -269,6 +271,7 @@ function createCoffeeMagikarp(x, y) {
 let coffeeMagikarp = {
   x: x,
   y: y,
+  size: 200,
   vx: 0,
   vy: 0,
   speed: 5,
@@ -282,6 +285,7 @@ function createZombieMagikarp(x, y) {
 let zombieMagikarp = {
   x: x,
   y: y,
+  size: 200,
   vx: 0,
   vy: 0,
   speed: 5,
@@ -296,6 +300,7 @@ function createSayanMagikarp(x, y) {
 let sayanMagikarp = {
   x: x,
   y: y,
+  size: 200,
   vx: 0,
   vy: 0,
   speed: 5,
@@ -305,7 +310,7 @@ return sayanMagikarp;
 }
 //
 
-// MagikarpLove Icons - Happy Ending01 Background
+// Happy Ending01 Background - MagikarpLove Icons
 function createMagikarpLove(x, y) {
 let magikarpLove = {
   x: x,
@@ -321,98 +326,122 @@ return magikarpLove;
 
 // draw()
 //
-// Description of draw() goes here.
+// Inserting: Backgorund, States, User Icon/Cursor.
 function draw() {
   background(0);
 
   if (state === `title`){
+    // Default Black Background
+    background(bgD.r, bgD.g, bgD.b);
 
+    // Display Title Icon: Heart with Magikarp
+    displayMagiHeart();
+    // Display (White) Title Text
+    displayTitleText();
+    // Start Simulation Command - SPACEBAR
 
-
-  // Default Black Background
-  background(bgD.r, bgD.g, bgD.b);
-
-  // Display Title Icon: Heart with Magikarp
-  displayMagiHeart();
-  // Display (White) Title Text
-  displayTitleText();
-  // Start Simulation Command - SPACEBAR
-  keyPressed();
   }
 
   else if (state === `simulation`){
     // Customized Background - Underwater scene
     displayCustomizedBackground();
-
-    // Basic Magirkaps (Constrained) Movements + Display Basic Magirkaps Icon
+    // Magikarp Schools
+    // Basic Magirkaps
     for (let i = 0; i < basicSchoolSize; i++) {
      let imageBasicMagikarp = basicSchool[i];
-     displayBasicMagirkarp(imageBasicMagikarp);
-     basicMagikarpMovements(imageBasicMagikarp);
 
+     // (Constrained) Basic Magikarp Movements
+     basicMagikarpMovements(imageBasicMagikarp);
+     // Display Basic Magirkaps Icons
+     displayBasicMagirkarp(imageBasicMagikarp);
+     // Check collision with Basic Magikarps: Happy Ending 02
      checkEnding02(imageBasicMagikarp);
+    }
+
+    // Rainbow Magirkaps
+    for (let i = 0; i < rainbowSchoolSize; i++) {
+     let imageRainbowMagikarp = rainbowSchool[i];
+
+     // (Constrained) Rainbow Magikarp Movements
+     rainbowMagikarpMovements(imageRainbowMagikarp);
+     // Display Rainbow Magirkaps Icons
+     displayRainbowMagirkarp(imageRainbowMagikarp);
+     // Check collision with Rainbow Magikarps: Happy Ending 01
+     checkEnding01R(imageRainbowMagikarp);
+    }
+
+    // Coffee Magirkaps
+    for (let i = 0; i < coffeeSchoolSize; i++) {
+     let imageCoffeeMagikarp = coffeeSchool[i];
+
+     // (Constrained) Coffee Magirkap Movements
+     coffeeMagikarpMovements(imageCoffeeMagikarp);
+     // Display Coffee Magirkaps Icons
+     displayCoffeeMagirkarp(imageCoffeeMagikarp);
+     // Check collision with Coffee Magikarps: Happy Ending 01
+     checkEnding01C(imageCoffeeMagikarp);
+    }
+
+    // Zombie Magirkaps
+    for (let i = 0; i < zombieSchoolSize; i++) {
+     let imageZombieMagikarp = zombieSchool[i];
+
+     // (Constrained) Movements Zombie Magirkap
+     zombieMagikarpMovements(imageZombieMagikarp);
+     // Display Zombie Magirkaps Icons
+     displayZombieMagirkarp(imageZombieMagikarp);
+     // Check collision with Zombie Magikarps: Happy Ending 01
+     checkEnding01Z(imageZombieMagikarp);
+    }
+
+    // Sayan Magirkaps
+    for (let i = 0; i < sayanSchoolSize; i++) {
+     let imageSayanMagikarp = sayanSchool[i];
+
+     // (Constrained) Movements Sayan Magirkap
+     sayanMagikarpMovements(imageSayanMagikarp);
+     // Display Sayan Magirkaps Icons
+     displaySayanMagirkarp(imageSayanMagikarp);
+     // Check collision with Sayan Magikarps: Happy Ending 01
+     checkEnding01S(imageSayanMagikarp);
+    }
+
+     // Customized Cursor: Pokeball Icon; follows mouse movements
+     displayCursor();
+
+}
+
+  else if (state === `happy ending 01`){
+     // White Background
+     background(bg.r, bg.g, bg.b);
+
+     // Cascade of Magikarp Love (What more can you want?); Overlapping effect is intentional
+     for (let i = 0; i < 30; i++) {
+      let imageMagikarpLove = love[i];
+
+     // Magirkap(s) Love Movements
+     magikarpMovements(imageMagikarpLove);
+     // Display Magirkap(s) Icons
+     displayMagirkarp(imageMagikarpLove);
+    }
+
+     // Black Text
+     happyEnding01Text();
+
    }
 
-   // Rainbow Magirkaps (Constrained) Movements + Display Rainbow Magirkaps Icon
-   for (let i = 0; i < rainbowSchoolSize; i++) {
-    let imageRainbowMagikarp = rainbowSchool[i];
-    displayRainbowMagirkarp(imageRainbowMagikarp);
-    rainbowMagikarpMovements(imageRainbowMagikarp);
-  }
+  else if (state === `happy ending 02`){
+     // White Background
+     background(bg.r, bg.g, bg.b);
 
-  // Coffee Magirkaps (Constrained) Movements + Display Coffee Magirkaps Icon
-  for (let i = 0; i < coffeeSchoolSize; i++) {
-   let imageCoffeeMagikarp = coffeeSchool[i];
-   displayCoffeeMagirkarp(imageCoffeeMagikarp);
-   coffeeMagikarpMovements(imageCoffeeMagikarp);
- }
+     // Gyarados Icon Movements
+     gyaradosMovements();
+     // Display Gyarados Icon
+     displayGyarados();
+     // Happy Ending 02 - Black Text
+     happyEnding02Text();
 
- // Zombie Magirkaps (Constrained) Movements + Display Zombie Magirkaps Icon
- for (let i = 0; i < zombieSchoolSize; i++) {
-  let imageZombieMagikarp = zombieSchool[i];
-  displayZombieMagirkarp(imageZombieMagikarp);
-  zombieMagikarpMovements(imageZombieMagikarp);
-}
-
- // Sayan Magirkaps (Constrained) Movements + Display Sayan Magirkaps Icon
-for (let i = 0; i < sayanSchoolSize; i++) {
-  let imageSayanMagikarp = sayanSchool[i];
-  displaySayanMagirkarp(imageSayanMagikarp);
-  sayanMagikarpMovements(imageSayanMagikarp);
-}
-
-    // Customized Cursor: Pokeball Icon; follows mouse movements
-    displayCursor();
-
-}
-
- else if (state === `happy ending 01`){
-   // White Background
-   background(bg.r, bg.g, bg.b);
-
-   // Magirkap(s) Movements + Display Magirkap(s) Icons - Cascade of Magikarp Love (What more can you want?); Overlapping effect is intentional
-   for (let i = 0; i < 30; i++) {
-    let imageMagikarpLove = love[i];
-    displayMagirkarp(imageMagikarpLove);
-    magikarpMovements(imageMagikarpLove);
-  }
-   // Black Text
-   happyEnding01Text();
-
- }
-
- else if (state === `happy ending 02`){
-   // White Background
-   background(bg.r, bg.g, bg.b);
-
-   // Gyarados Icon Movements
-   gyaradosMovements();
-   // Display Gyarados Icon
-   displayGyarados();
-   // Happy Ending 02 - Black Text
-   happyEnding02Text();
-
- }
+   }
 
   else if (state === `bad ending`){
      // White Background
@@ -425,18 +454,20 @@ for (let i = 0; i < sayanSchoolSize; i++) {
      // Bad Ending White Text
      badEndingText();
 
-}
+  }
 
 
 }
+// /draw()
 
-  // Display Title Icon: Heart with Magikarp
+//Title
+// Display Title Icon: Heart with Magikarp
 function displayMagiHeart(){
   image(titleMagikarp, width/2, 2*height/3);
 }
 //
 
-  // Display (White) Title Text
+// Display (White) Title Text
 function displayTitleText(){
   push();
   fill(255);
@@ -448,6 +479,7 @@ function displayTitleText(){
 }
 //
 
+// Simulation
 // Customized Background - Underwater scene
 function displayCustomizedBackground(){
   imgWaterBackground.x = width/2;
@@ -456,7 +488,7 @@ function displayCustomizedBackground(){
 }
 //
 
-//
+// (Constrained) Basic Magikarp Movements
 function basicMagikarpMovements(basicMagikarp){
 
   basicMagikarp.y = basicMagikarp.y + basicMagikarp.vy;
@@ -470,22 +502,13 @@ function basicMagikarpMovements(basicMagikarp){
   basicMagikarp.y = constrain( basicMagikarp.y, 0, height);
 }
 
-
+// Display Basic Magirkap Icons
 function displayBasicMagirkarp(basicMagikarp){
   image(basicMagikarp.image, basicMagikarp.x, basicMagikarp.y);
 }
 //
 
-
-function checkEnding02(basicMagikarp){
-  let d1 = dist(pokeball.x, pokeball.y, basicMagikarp.x, basicMagikarp.y);
-  if (d1 < pokeball.size/2 + basicMagikarp.size/2){
-    state = `happy ending 02`;
-  }
-}
-
-
-//
+// (Constrained) Rainbow Magikarp Movements
 function rainbowMagikarpMovements(rainbowMagikarp){
 
   rainbowMagikarp.y = rainbowMagikarp.y + rainbowMagikarp.vy;
@@ -499,13 +522,13 @@ function rainbowMagikarpMovements(rainbowMagikarp){
   rainbowMagikarp.y = constrain( rainbowMagikarp.y, 0, height);
 }
 
-
+// Display Rainbow Magirkap Icons
 function displayRainbowMagirkarp(rainbowMagikarp){
   image(rainbowMagikarp.image, rainbowMagikarp.x, rainbowMagikarp.y);
 }
 //
 
-//
+// (Constrained) Coffee Magikarp Movements
 function coffeeMagikarpMovements(coffeeMagikarp){
 
   coffeeMagikarp.y = coffeeMagikarp.y + coffeeMagikarp.vy;
@@ -519,13 +542,13 @@ function coffeeMagikarpMovements(coffeeMagikarp){
   coffeeMagikarp.y = constrain( coffeeMagikarp.y, 0, height);
 }
 
-
+// Display Coffee Magirkap Icons
 function displayCoffeeMagirkarp(coffeeMagikarp){
   image(coffeeMagikarp.image, coffeeMagikarp.x, coffeeMagikarp.y);
 }
 //
 
-//
+// (Constrained) Zombie Magikarp Movements
 function zombieMagikarpMovements(zombieMagikarp){
 
   zombieMagikarp.y = zombieMagikarp.y + zombieMagikarp.vy;
@@ -539,13 +562,13 @@ function zombieMagikarpMovements(zombieMagikarp){
   zombieMagikarp.y = constrain( zombieMagikarp.y, 0, height);
 }
 
-
+// Display Zombie Magirkap Icons
 function displayZombieMagirkarp(zombieMagikarp){
   image(zombieMagikarp.image, zombieMagikarp.x, zombieMagikarp.y);
 }
 //
 
-//
+// (Constrained) Sayan Magikarp Movements
 function sayanMagikarpMovements(sayanMagikarp){
 
   sayanMagikarp.y = sayanMagikarp.y + sayanMagikarp.vy;
@@ -559,7 +582,7 @@ function sayanMagikarpMovements(sayanMagikarp){
   sayanMagikarp.y = constrain( sayanMagikarp.y, 0, height);
 }
 
-
+// Display Sayan Magirkap Icons
 function displaySayanMagirkarp(sayanMagikarp){
   image(sayanMagikarp.image, sayanMagikarp.x, sayanMagikarp.y);
 }
@@ -570,7 +593,51 @@ function displayCursor(){
   pokeball.image = imagePokeball;
   pokeball.x = mouseX;
   pokeball.y = mouseY;
-  image(pokeball, pokeball.x, pokeball.y, pokeball.size);
+  image(pokeball.image, pokeball.x, pokeball.y, pokeball.size);
+}
+//
+
+// Checking User(Pokeball)/Objects(Magikarps) Collisions
+// User touches Rainbow, Coffee, Zombie, Sayan Magikarps: Happy Ending 01
+function checkEnding01R(rainbowMagikarp){
+  let d2 = dist(pokeball.x, pokeball.y, rainbowMagikarp.x, rainbowMagikarp.y);
+
+  if (d2 < pokeball.size/2 + rainbowMagikarp.size/2){
+    state = `happy ending 01`;
+  }
+}
+
+function checkEnding01C(coffeeMagikarp){
+  let d3 = dist(pokeball.x, pokeball.y, coffeeMagikarp.x, coffeeMagikarp.y);
+
+  if (d3 < pokeball.size/2 + coffeeMagikarp.size/2){
+    state = `happy ending 01`;
+  }
+}
+
+function checkEnding01Z(zombieMagikarp){
+  let d4 = dist(pokeball.x, pokeball.y, zombieMagikarp.x, zombieMagikarp.y);
+
+  if (d4 < pokeball.size/2 + zombieMagikarp.size/2){
+    state = `happy ending 01`;
+  }
+}
+
+function checkEnding01S(sayanMagikarp){
+  let d5 = dist(pokeball.x, pokeball.y, sayanMagikarp.x, sayanMagikarp.y);
+
+  if (d5 < pokeball.size/2 + sayanMagikarp.size/2){
+    state = `happy ending 01`;
+  }
+}
+//
+
+//User touches Basic Magikarps: Happy Ending 02
+function checkEnding02(basicMagikarp){
+  let d1 = dist(pokeball.x, pokeball.y, basicMagikarp.x, basicMagikarp.y);
+  if (d1 < pokeball.size/2 + basicMagikarp.size/2){
+    state = `happy ending 02`;
+  }
 }
 //
 
@@ -603,6 +670,7 @@ function displayMagirkarp(magikarpLove){
 }
 //
 
+// Happy Ending 02
 // Gyarados Icon Movements
 function gyaradosMovements(){
   // Gyarados Icon Movements
@@ -622,7 +690,7 @@ function displayGyarados(){
 }
 //
 
-// Happy Ending 02 - Black Text
+// Black Text
 function happyEnding02Text(){
   push();
   fill(0);
@@ -634,6 +702,7 @@ function happyEnding02Text(){
 }
 //
 
+// Bad Ending
 // Movements - Yanmega Icon
 function yanmegaMovements(){
   // Movements - Yanmega Icon
@@ -657,7 +726,7 @@ function displayYanmega(){
 }
 //
 
-// Bad Ending White Text
+// White Text
 function badEndingText(){
   push();
   fill(0);
@@ -672,6 +741,7 @@ function badEndingText(){
 }
 //
 
+// Events
 // Keyboard Commands
 function keyPressed(){
   // Start Simulation Command
