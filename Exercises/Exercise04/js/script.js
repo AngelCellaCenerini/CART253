@@ -5,10 +5,15 @@ Exercise 04 - The Age of Aquariums
 Template p5 project by CART253 course
 Angel Cella Cenerini
 
+Original Pokémon Game Soundtrack Used (Palette Town Theme) - Credits: https://downloads.khinsider.com/game-soundtracks/album/pokemon-original-game-soundtrack/102%2520-%2520palette%2520town%2520theme.mp3
+Original Pokémon Pixel Art from Pokémon Gold XDDD
+
 Catch that magilove!
 **************************************************/
+// Declaring Sound File
+let soundtrackSFX;
 
-let victorySFX;
+
 
 // Cutomized Font
 let myFont;
@@ -44,7 +49,7 @@ let imgWaterBackground = {
 // Simulation - Timer (1 min)
 let timer = 32;
 
-// Simulation - Pokeball icon (AKA User/Cursor)
+// Simulation - Pokéball icon (AKA User/Cursor)
 let pokeball = {
   x: 0,
   y: 0,
@@ -148,7 +153,7 @@ let imgGyarados = {
   speed: 5
 }
 
-// Bad Ending - Pokemon (dragon)Fly Icon - Yanmega;
+// Bad Ending - Pokémon (dragon)Fly Icon - Yanmega;
 let yanmega;
 let imgYanmega = {
   x: 600,
@@ -163,7 +168,8 @@ let state = `title` // Title, Simulation, Happy Ending 01, Happy Ending 02, Bad 
 
 function preload(){
 
-  victorySFX = loadSound('assets/sounds/victory.mp3');
+  soundtrackSFX = loadSound('assets/sounds/soundtrack.mp3');
+
   myFont = loadFont('assets/AnonymousPro-Regular.otf');
 
   waterBackground = loadImage('assets/images/waterBackground.jpg');
@@ -411,7 +417,7 @@ function draw() {
      checkEnding01S(imageSayanMagikarp);
     }
 
-     // Customized Cursor: Pokeball Icon; follows mouse movements
+     // Customized Cursor: Pokéball Icon; follows mouse movements
      displayCursor();
 
 }
@@ -604,7 +610,7 @@ function displaySayanMagirkarp(sayanMagikarp){
 }
 //
 
-// Customized Cursor : Pokeball Icon; follows mouse movements
+// Customized Cursor : Pokéball Icon; follows mouse movements
 function displayCursor(){
   pokeball.image = imagePokeball;
   pokeball.x = mouseX;
@@ -762,15 +768,14 @@ function badEndingText(){
 function keyPressed(){
   // Start Simulation Command
   if ((state === `title`) && (keyCode === 32)){
+
+    soundtrackSFX.play();
     state = `simulation`;
   }
   // Return to Title Screen Command
   else if ((state === `bad ending` || state === `happy ending 02` || state === `happy ending 01`) && (keyCode === 27)){
     state = `title`;
   }
-  // else if (state === `simulation` && (keyCode === 32)){
-  //    victorySFX.play();
-  //    state = `happy ending 02`;
-  // }
+
 }
 //
