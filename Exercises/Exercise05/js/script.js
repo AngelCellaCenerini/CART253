@@ -10,6 +10,27 @@ The user has 15 seconds to cook a delicious, somewhat edible, or insanely deadly
 // Declaring Custom Font
 let myFont;
 
+// Declaring Backgrounds
+// Good Ending
+let gBg = {
+  r: 255,
+  g: 255,
+  b: 255
+}
+// Bad Ending 01
+let b1Bg = {
+  r: 187,
+  g: 231,
+  b: 232
+}
+// Bad Ending 02
+let b2Bg = {
+  r: 136,
+  g: 136,
+  b: 136
+}
+
+
 // Declaring Icons (for Endings)
 // Stars - Good Ending
 let michelinStars;
@@ -31,7 +52,7 @@ let imgRip = {
 }
 
 // Set Up State(s)
-let state = `title`; // Title (Instructions icluded), Simulation, Good Ending, Bad Ending 01, Bad Ending 02
+let state = `goodEnding`; // Title (Instructions icluded), Simulation, Good Ending, Bad Ending 01, Bad Ending 02
 
 
 function preload(){
@@ -74,6 +95,9 @@ else if (state === `simulation`){
 
 // Good Ending - Best Quality Ingredients
 else if (state === `goodEnding`){
+  background(gBg.r, gBg.g, gBg.b);
+  goodEndingText();
+  displayStars();
 
 }
 
@@ -92,8 +116,7 @@ else if (state === `badEnding02`){
 
 
 
-
-//
+// Title
 function titleText(){
   push();
   // White Text
@@ -117,5 +140,24 @@ function titleText(){
   strokeWeight(5);
   line(width/6, height/3, 3*width/8, height/3);
   pop();
+}
+//
+
+// Good Ending
+function goodEndingText(){
+  // Dark Grey Text
+  push();
+  fill(10);
+  textSize(30);
+  text(`Wow! You managed to collect mostly good quality ingredients!
+  Your guests are satisfied and most likely to return! `, width/2, height/3);
+  pop();
+}
+
+function displayStars(){
+  // 3 Michelin Stars Icon
+  imgStars.x = width/2;
+  imgStars.y = 2*height/3;
+  image(michelinStars, imgStars.x, imgStars.y);
 }
 //
