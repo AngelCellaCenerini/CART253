@@ -52,7 +52,7 @@ let imgRip = {
 }
 
 // Set Up State(s)
-let state = `badEnding01`; // Title (Instructions icluded), Simulation, Good Ending, Bad Ending 01, Bad Ending 02
+let state = `badEnding02`; // Title (Instructions icluded), Simulation, Good Ending, Bad Ending 01, Bad Ending 02
 
 
 function preload(){
@@ -111,6 +111,9 @@ else if (state === `badEnding01`){
 
 // Bad Ending 02 - Inedible Ingredients
 else if (state === `badEnding02`){
+   background(b2Bg.r, b2Bg.g, b2Bg.b);
+   badEnding02Text();
+   displayTombstone();
 
 }
 
@@ -182,5 +185,22 @@ function displayToilet(){
   imgToilet.x = width/2;
   imgToilet.y = 2*height/3;
   image(toilet, imgToilet.x, imgToilet.y);
+}
+//
+
+// Bad Ending 02
+function badEnding02Text(){
+  // Dark Grey Text
+  fill(10);
+  textSize(30);
+  text(`You have made some...questionable choices.
+  The diners have nothing (left) to say.`, width/2, height/5);
+}
+
+function displayTombstone(){
+  // Tombstone Icon
+  imgRip.x = width/2;
+  imgRip.y = 5*height/8;
+  image(tombstone, imgRip.x, imgRip.y);
 }
 //
