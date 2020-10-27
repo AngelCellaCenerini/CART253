@@ -30,10 +30,12 @@ let imgRip = {
   y: 0
 }
 
+// Set Up State(s)
+let state = `title`; // Title, Instructions, Simulation, Good Ending, Bad Ending 01, Bad Ending 02
 
 function preload(){
   myFont = loadFont('assets/AnonymousPro-Regular.otf');
-  
+
   michelinStars = loadImage('assets/images/michelinStars.png');
   toilet = loadImage('assets/images/toilet.png');
   tombstone = loadImage('assets/images/rip.png');
@@ -44,6 +46,7 @@ function preload(){
 //
 // Description of setup() goes here.
 function setup() {
+  createCanvas(windowWidth, windowHeight);
 
 }
 
@@ -51,5 +54,6 @@ function setup() {
 //
 // Description of draw() goes here.
 function draw() {
+  background(0);
 
 }
