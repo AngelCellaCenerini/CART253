@@ -1,10 +1,11 @@
 "use strict";
 
 /**************************************************
-Template p5 project
-Pippin Barr
+Cooking Simulator (or Survival)
+Template p5 project by CART253 Course
+Angel Cella Cenerini
 
-Here is a description of this template p5 project.
+The user has 15 seconds to cook a delicious, somewhat edible, or insanely deadly dish for the diners!
 **************************************************/
 
 // setup()
