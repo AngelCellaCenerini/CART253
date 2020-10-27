@@ -19,9 +19,9 @@ let gBg = {
 }
 // Bad Ending 01
 let b1Bg = {
-  r: 187,
-  g: 231,
-  b: 232
+  r: 177,
+  g: 221,
+  b: 222
 }
 // Bad Ending 02
 let b2Bg = {
@@ -52,7 +52,7 @@ let imgRip = {
 }
 
 // Set Up State(s)
-let state = `goodEnding`; // Title (Instructions icluded), Simulation, Good Ending, Bad Ending 01, Bad Ending 02
+let state = `badEnding01`; // Title (Instructions icluded), Simulation, Good Ending, Bad Ending 01, Bad Ending 02
 
 
 function preload(){
@@ -85,7 +85,7 @@ function draw() {
 
 // Title (Instructions included)
 if (state === `title`){
-   titleText();
+  titleText();
 }
 
 // Simulation - "Catching" ingredients
@@ -95,14 +95,17 @@ else if (state === `simulation`){
 
 // Good Ending - Best Quality Ingredients
 else if (state === `goodEnding`){
-  background(gBg.r, gBg.g, gBg.b);
-  goodEndingText();
-  displayStars();
+   background(gBg.r, gBg.g, gBg.b);
+   goodEndingText();
+   displayStars();
 
 }
 
 // Bad Ending 01 - Edible Ingredients
 else if (state === `badEnding01`){
+   background(b1Bg.r, b1Bg.g, b1Bg.b);
+   badEnding01Text();
+   displayToilet();
 
 }
 
@@ -159,5 +162,25 @@ function displayStars(){
   imgStars.x = width/2;
   imgStars.y = 2*height/3;
   image(michelinStars, imgStars.x, imgStars.y);
+}
+//
+
+// Bad Ending 01
+function badEnding01Text(){
+  // White Text
+  push();
+  fill(255);
+  textSize(30);
+  text(`Not bad! The diners are rushing to the toilet,
+  but a pinch of food poisoning never killed anyone!
+  You all agree to order takeout next time.`, width/2, height/5);
+  pop();
+}
+
+function displayToilet(){
+  // Toilet Icon
+  imgToilet.x = width/2;
+  imgToilet.y = 2*height/3;
+  image(toilet, imgToilet.x, imgToilet.y);
 }
 //
