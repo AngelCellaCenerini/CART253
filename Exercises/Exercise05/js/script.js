@@ -52,7 +52,7 @@ let imgRip = {
 }
 
 // Set Up State(s)
-let state = `badEnding02`; // Title (Instructions icluded), Simulation, Good Ending, Bad Ending 01, Bad Ending 02
+let state = `simulation`; // Title (Instructions icluded), Simulation, Good Ending, Bad Ending 01, Bad Ending 02
 
 
 function preload(){
@@ -70,12 +70,14 @@ function preload(){
 function setup() {
   createCanvas(windowWidth, windowHeight);
   imageMode(CENTER);
+  rectMode(CENTER);
   textAlign(CENTER, CENTER);
   textFont(myFont);
   noStroke();
   noCursor();
 
 }
+// /setup()
 
 // draw()
 //
@@ -90,6 +92,13 @@ if (state === `title`){
 
 // Simulation - "Catching" ingredients
 else if (state === `simulation`){
+
+  push();
+  fill(170, 116, 87);
+  rect(width/2, height/2 + 10, 230, 12, 50);
+  fill(136);
+  quad(width/2, height/2, width/2 + 191, height/2, width/2 + 180, height/2 + 35, width/2 + 11, height/2 + 35);
+  pop();
 
 }
 
@@ -117,8 +126,9 @@ else if (state === `badEnding02`){
 
 }
 
-}
 
+}
+// /draw()
 
 
 
