@@ -1,17 +1,16 @@
 class Pan{
   constructor(w, h){
     this.x = 0;
-    this.y = height - 2*this.y;
+    this.y = 0;
     this.width = w;
     this.height = h;
     this.radius = 50;
-    this.speedVx = 0;
-    this.speedVy = 0;
     this.shift = 10;
 
   }
 
  // If LEFT_ARROW is pressed, Pot will shift to the left; same with RIGHT_ARROW
+
  keyPressed(){
    if (keyCode === 39) {
      moveRight();
@@ -41,3 +40,11 @@ class Pan{
     rect(this.x, 2*this.y, this.width, this.height, this.radius);
     pop();
 }
+}
+
+// push();
+// fill(170, 116, 87);
+// rect(width/2, height/2 + 10, 230, 12, 50);
+// fill(136);
+// quad(width/2, height/2, width/2 + 191, height/2, width/2 + 180, height/2 + 35, width/2 + 11, height/2 + 35);
+// pop();

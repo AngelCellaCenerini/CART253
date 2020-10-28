@@ -10,6 +10,9 @@ The user has 15 seconds to cook a delicious, somewhat edible, or insanely deadly
 // Declaring Custom Font
 let myFont;
 
+// Declaring Object Variable
+let pan;
+
 // Declaring Backgrounds
 // Good Ending
 let gBg = {
@@ -76,6 +79,8 @@ function setup() {
   noStroke();
   noCursor();
 
+  pan = new Pan(230, 12);
+
 }
 // /setup()
 
@@ -93,12 +98,18 @@ if (state === `title`){
 // Simulation - "Catching" ingredients
 else if (state === `simulation`){
 
-  push();
-  fill(170, 116, 87);
-  rect(width/2, height/2 + 10, 230, 12, 50);
-  fill(136);
-  quad(width/2, height/2, width/2 + 191, height/2, width/2 + 180, height/2 + 35, width/2 + 11, height/2 + 35);
-  pop();
+  // pan.move();
+  // pan.display();
+  // push();
+  // fill(246, 89, 72);
+  // ellipse(500, 500, 60);
+  // fill(213, 236, 122);
+  // ellipse(485, 470, 25, 10);
+  // fill(185, 103, 66);
+  // ellipse(512, 500, 36);
+  // fill(158, 73, 53);
+  // ellipse(512, 500, 12);
+  // pop();
 
 }
 
