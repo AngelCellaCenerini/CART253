@@ -10,6 +10,9 @@ The user has 15 seconds to cook a delicious, somewhat edible, or insanely deadly
 // Declaring Custom Font
 let myFont;
 
+// Declaring Gravity
+let gravityForce;
+
 // Declaring Object Variable
 let pan;
 
