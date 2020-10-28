@@ -86,14 +86,14 @@ function setup() {
   noStroke();
   noCursor();
 
-  // pan = new Pan(230, 12);
+  pan = new Pan(230, 12);
 
-  for (i = 0; i < numApples; i++){
-     let x = random(0, width);
-     let y = random(-400, -100);
-     let moldyApple = new MoldyApple(x,y);
-     apples.push(moldyApple);
-  }
+  // for (i = 0; i < numApples; i++){
+  //    let x = random(0, width);
+  //    let y = random(-400, -100);
+  //    let moldyApple = new MoldyApple(x,y);
+  //    apples.push(moldyApple);
+  // }
 }
 // /setup()
 
@@ -114,14 +114,15 @@ else if (state === `simulation`){
   // pan.move();
   // pan.display();
 
-  for(i = 0; i < apples.lenght; i ++){
-    let moldyApple = apples[i];
-    moldyApple.gravity(gravityForce);
-    moldyApple.move();
-    moldyApple.bounce();
-    moldyApple.display();
-
-  }
+  // for(i = 0; i < apples.lenght; i ++){
+  //   let moldyApple = apples[i];
+  //   if (moldyApple.active){
+  //       moldyApple.gravity(gravityForce);
+  //       moldyApple.move();
+  //       moldyApple.bounce(pan);
+  //       moldyApple.display();
+  //    }
+  // }
 
 
 }

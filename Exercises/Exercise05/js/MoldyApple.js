@@ -25,12 +25,20 @@ class MoldyApple{
     // Applying Movement to Object
     this.x = this.x + this.vx;
     this.y = this.y + this.vy;
+    // Deactivate Apple If it goes off screen
+    if (this.y - this.size/2 > height){
+      this.active = false;
     }
+  }
 
-  bounce(){
-    if (this.y + this.size/2 >= height){
-       this.vy = -this.vy;
-       this.ay = 0; // Acceleration will have to build from start >> Physics!
+  bounce(pan){
+    if ((this.x > pan.x - pan.width/2) && (this.x < pan.x + pan.width/2) &&
+        (this.y + this.size > pan.y - pan.height/2) && (this.y - this.size < pan.y + pan.height/2)){
+          let dx = this.x - pan.x;
+          this.vx = this.vx + map(dx, -pan.width/2, pan.width.2, - 0.5, 0.5);
+
+          this.vy = -this.vy;
+          this.ay = 0; // Acceleration will have to build from start >> Physics!    
     }
   }
 

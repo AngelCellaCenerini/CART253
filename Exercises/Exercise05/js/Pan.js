@@ -31,7 +31,7 @@ class Pan{
     // Grey Pot
     push();
     fill(170, 116, 87);
-    quad(this.x, this.y, 191*this.x/5, this.y, 36*this.x + 180, 7*this.y, 11*this.x/4, 7*this.y);
+    rect(this.x, this.y, this.width, this.height);
     pop();
 
     // Pot Handle
