@@ -11,7 +11,11 @@ The user has 15 seconds to cook a delicious, somewhat edible, or insanely deadly
 let myFont;
 
 // Declaring Gravity
-let gravityForce;
+let gravityForce = 0.0025;
+
+// Declaring Apple Array
+let apples = [];
+let numApples = 4;
 
 // Declaring Object Variable
 let pan;
@@ -82,8 +86,14 @@ function setup() {
   noStroke();
   noCursor();
 
-  pan = new Pan(230, 12);
+  // pan = new Pan(230, 12);
 
+  for (i = 0; i < numApples; i++){
+     let x = random(0, width);
+     let y = random(-400, -100);
+     let moldyApple = new MoldyApple(x,y);
+     apples.push(moldyApple);
+  }
 }
 // /setup()
 
@@ -103,16 +113,16 @@ else if (state === `simulation`){
 
   // pan.move();
   // pan.display();
-  // push();
-  // fill(246, 89, 72);
-  // ellipse(500, 500, 60);
-  // fill(213, 236, 122);
-  // ellipse(485, 470, 25, 10);
-  // fill(185, 103, 66);
-  // ellipse(512, 500, 36);
-  // fill(158, 73, 53);
-  // ellipse(512, 500, 12);
-  // pop();
+
+  for(i = 0; i < apples.lenght; i ++){
+    let moldyApple = apples[i];
+    moldyApple.gravity(gravityForce);
+    moldyApple.move();
+    moldyApple.bounce();
+    moldyApple.display();
+
+  }
+
 
 }
 
