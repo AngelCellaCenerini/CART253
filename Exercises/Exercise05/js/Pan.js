@@ -1,10 +1,13 @@
 class Pan{
   constructor(w, h){
     this.x = 0;
-    this.y = 0;
+    // this.y = 500;
+    // this.y = height - this.height/2;
     this.width = w;
     this.height = h;
-    this.radius = 50;
+    this.hLenght = 300;   // Lenght of the Pan Handle
+    this.hThickness = 18; // Thickness of the Pan Handle
+    this.radius = 5;
     this.shift = 10;
 
   }
@@ -28,18 +31,18 @@ class Pan{
  //
 
  display() {
-    // Grey Pot
-    push();
-    fill(170, 116, 87);
-    rect(this.x, this.y, this.width, this.height);
-    pop();
+   // Pan Handle
+   push();
+   fill(155, 101, 72);
+   rect(this.x - this.width/2, this.y, this.hLenght, this.hThickness, this.radius);
+   pop();
 
-    // Pot Handle
+    // Grey Pan
     push();
     fill(136);
-    rect(this.x, 2*this.y, this.width, this.height, this.radius);
+    rect(this.x, this.y, this.width, this.height);
     pop();
-}
+  }
 }
 
 // push();

@@ -86,7 +86,7 @@ function setup() {
   noStroke();
   noCursor();
 
-  pan = new Pan(230, 12);
+  pan = new Pan(220, 40);
 
   // for (i = 0; i < numApples; i++){
   //    let x = random(0, width);
@@ -124,6 +124,24 @@ else if (state === `simulation`){
   //    }
   // }
 
+// Spaghetti
+// push();
+// stroke(220, 187,79);
+// strokeWeight(3);
+// let line = {
+//   x1 : 200,
+//   y1 : 200,
+//   x2 : 240,
+//   y2 : 70
+// }
+//
+// for(i = 0; i < 7; i ++){
+//   // line(200, 200, 240, 70);
+//   line(line.x1, line.y1, line.x2, line.y2);
+//   line.y1 = line.y1 + 0.5;
+//   line.y2 = line.y2 + 0.5;
+// }
+// pop();
 
 }
 
