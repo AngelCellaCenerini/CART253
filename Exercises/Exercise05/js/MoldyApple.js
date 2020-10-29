@@ -31,16 +31,17 @@ class MoldyApple{
     }
   }
 
-  // bounce(pan){
-  //   if ((this.x > pan.x - pan.width/2) && (this.x < pan.x + pan.width/2) &&
-  //       (this.y + this.size > pan.y - pan.height/2) && (this.y - this.size < pan.y + pan.height/2)){
-  //         let dx = this.x - pan.x;
-  //         this.vx = this.vx + map(dx, -pan.width/2, pan.width/2, - 0.5, 0.5);
-  //
-  //         this.vy = -this.vy;
-  //         this.ay = 0; // Acceleration will have to build from start >> Physics!
-  //   }
-  // }
+  bounce(pan){
+    // Object bouncing back upwards when hitting pan
+    if ((this.x > pan.x - pan.width/2) && (this.x < pan.x + pan.width/2) &&
+        (this.y + this.size/2 > pan.y - pan.height/2) && (this.y - this.size/2 < pan.y + pan.height/2)){
+          let dx = this.x - pan.x;
+          this.vx = this.vx + map(dx, -pan.width/2, pan.width/2, - 0.5, 0.5);
+
+          this.vy = -this.vy;
+          this.ay = 0; // Acceleration will have to build from start >> Physics!
+    }
+  }
 
   display(){
     push();
@@ -59,14 +60,3 @@ class MoldyApple{
     pop();
   }
 }
-
-// push();
-// fill(246, 89, 72);
-// ellipse(500, 500, 60);
-// fill(213, 236, 122);
-// ellipse(485, 470, 25, 10);
-// fill(185, 103, 66);
-// ellipse(512, 500, 36);
-// fill(158, 73, 53);
-// ellipse(512, 500, 12);
-// pop();

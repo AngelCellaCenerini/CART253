@@ -1,26 +1,25 @@
 class Pan{
   constructor(w, h){
-    this.x = 0;
-    // this.y = 500;
-    // this.y = height - this.height/2;
     this.width = w;
     this.height = h;
+    this.x = 0;
+    this.y = height - this.height/2;
     this.hLenght = 300;   // Lenght of the Pan Handle
     this.hThickness = 18; // Thickness of the Pan Handle
     this.radius = 5;
-    this.shift = 10;
+    this.shift = 60;
 
   }
 
  // If LEFT_ARROW is pressed, Pot will shift to the left; same with RIGHT_ARROW
-
- keyPressed(){
-   if ((keyCode === 39) && (state === `simulation`)) {
-     moveRight();
-  } else if ((keyCode === 37) && (state === `simulation`)) {
-     moveLeft();
+  keyPressed(){
+    if ((keyCode === RIGHT_ARROW) && (state === `simulation`)) { 
+      this.moveRight();
+   } else if ((keyCode === LEFT_ARROW) && (state === `simulation`)) {
+      this.moveLeft();
+   }
   }
- }
+
 // Movements
  moveRight(){
    this.x = this.x + this.shift;

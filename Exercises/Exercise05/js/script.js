@@ -5,7 +5,7 @@ Cooking Simulator (or Survival)
 Angel Cella Cenerini
 p5 Template by CART253 Course
 
-The user has 15 seconds to cook a delicious, somewhat edible, or insanely deadly dish for the diners!
+The user has to choose one ingredient in order to cook a delicious, somewhat edible, or insanely deadly dish for the diners!
 **************************************************/
 // Declaring Custom Font
 let myFont;
@@ -95,7 +95,7 @@ function setup() {
   noStroke();
   noCursor();
 
-  // pan = new Pan(220, 40);
+  pan = new Pan(220, 40);
 
   //
   for (let i = 0; i < numEggs; i++){
@@ -139,57 +139,42 @@ if (state === `title`){
 // Simulation - "Catching" ingredients
 else if (state === `simulation`){
 
-  // pan.move();
-  // pan.display();
+  pan.display();
 
   // Eggs
-  for(let i = 0; i < eggs.length; i ++){
+  for(let i = 0; i < eggs.length; i++){
     let egg = eggs[i];
     if (egg.active){
         egg.gravity(gravityForce);
         egg.move();
-        // moldyApple.bounce(pan);
+        egg.bounce(pan);
         egg.display();
      }
   }
   // Apples
-  for(let i = 0; i < apples.length; i ++){
+  for(let i = 0; i < apples.length; i++){
     let moldyApple = apples[i];
     if (moldyApple.active){
         moldyApple.gravity(gravityForce);
         moldyApple.move();
-        // moldyApple.bounce(pan);
+        moldyApple.bounce(pan);
         moldyApple.display();
      }
   }
   // Detergents
-  for(let i = 0; i < detergents.length; i ++){
+  for(let i = 0; i < detergents.length; i++){
     let detergent = detergents[i];
     if (detergent.active){
         detergent.gravity(gravityForce);
         detergent.move();
-        // moldyApple.bounce(pan);
+        detergent.bounce(pan);
         detergent.display();
      }
   }
 
+  countingRemainingObjectsOnScreen();
+  checkEnding();
 
-
-
-// Check if only Egg(s) are on screen
-// if ((!moldyApple.active) && (!detergent.active)){
-//      state = `goodEnding`;
-// }
-// Check if only moldy Apple(s) are on screen
-// if ((!egg.active) && (!detergent.active)){
-//      state = `badEnding01`;
-// }
-// Check if only Detergent(s) are on screen
-// if ((!moldyApple.active) && (!egg.active)){
-//      state = `badEnding02`;
-// }
-//
-//
 }
 
 // Good Ending - Best Quality Ingredients
@@ -220,7 +205,20 @@ else if (state === `badEnding02`){
 }
 // /draw()
 
+// Switch to Good Ending
+function switchGoodEnding(){
+state = `goodEnding`;
+}
 
+// Switch to Bad Ending 01
+function switchBadEnding01(){
+state = `badEnding01`;
+}
+
+// Switch to Bad Ending 02
+function switchBadEnding02(){
+state = `badEnding02`;
+}
 
 // Title
 function titleText(){
@@ -246,6 +244,54 @@ function titleText(){
   strokeWeight(5);
   line(width/6, height/4, 3*width/8, height/4);
   pop();
+}
+//
+
+// Simulation
+//
+function countingRemainingObjectsOnScreen(){
+  // Counting Objects On Screen
+  // Counting Eggs
+  let remainingEggs = 0;
+  for (let i = 0; i < eggs.length; i ++){
+    let egg = eggs[i];
+    if (egg.active){
+         remainingEggs++;  // Would be remainingEggs = remainingEggs +1;
+    }
+  }
+  // Counting Moldy Apples
+  let remainingApples = 0;
+  for (let i = 0; i < apples.length; i ++){
+    let moldyApple = apples[i];
+    if (moldyApple.active){
+         remainingApples++;
+    }
+  }
+  // Counting Detergents
+  let remainingDetergents = 0;
+  for (let i = 0; i < detergents.length; i ++){
+    let detergent = detergents[i];
+    if (detergent.active){
+         remainingDetergents++;
+    }
+  }
+}
+//
+
+//
+function checkEnding(){
+  // Check Good Ending: Only Egg(s) remain(s) on screen
+  if ((remainingApples === 0) && (remainingDetergents === 0)){
+      setTimeout(switchGoodEnding, 2000);
+  }
+  // Check Bad Ending 01: Only Moldy Apple(s) remain(s) on screen
+  if ((remainingDetergents === 0) && (remainingEggs === 0)){
+      setTimeout(switchBadEnding01, 2000);
+  }
+  // Check Bad Ending 02: Only Detergent(s) remain(s) on screen
+  if ((remainingApples === 0) && (remainingEggs === 0)){
+      setTimeout(switchBadEnding02, 2000);
+  }
 }
 //
 
@@ -310,4 +356,8 @@ function keyPressed(){
   if ((keyCode === 32) && (state === `title`)) {
     state = `simulation`;
  }
+ else if(state === `simulation`){
+     pan.keyPressed();
+  }
 }
+//

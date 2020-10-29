@@ -31,16 +31,17 @@ class Detergent{
     }
   }
 
-  // bounce(pan){
-  //   if ((this.x > pan.x - pan.width/2) && (this.x < pan.x + pan.width/2) &&
-  //       (this.y + this.size > pan.y - pan.height/2) && (this.y - this.size < pan.y + pan.height/2)){
-  //         let dx = this.x - pan.x;
-  //         this.vx = this.vx + map(dx, -pan.width/2, pan.width/2, - 0.3, 0.3);
-  //
-  //         this.vy = -this.vy;
-  //         this.ay = 0; // Acceleration will have to build from start >> Physics!
-  //   }
-  // }
+  bounce(pan){
+    // Object bouncing back upwards when hitting pan
+    if ((this.x > pan.x - pan.width/2) && (this.x < pan.x + pan.width/2) &&
+        (this.y + this.size/2 > pan.y - pan.height/2) && (this.y - this.size/2< pan.y + pan.height/2)){
+          let dx = this.x - pan.x;
+          this.vx = this.vx + map(dx, -pan.width/2, pan.width/2, - 0.3, 0.3);
+
+          this.vy = -this.vy;
+          this.ay = 0; // Acceleration will have to build from start >> Physics!
+    }
+  }
 
   display(){
     // Orange Box
