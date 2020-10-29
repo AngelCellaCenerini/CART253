@@ -305,6 +305,8 @@ function goodEndingText(){
   textSize(30);
   text(`Wow! You managed to collect mostly good quality ingredients!
   Your guests are satisfied and most likely to return! `, width/2, height/3);
+  textSize(13);
+  text(`Press ESC to return to Title Screen`, width/2, 29*height/30);
   pop();
 }
 
@@ -325,6 +327,8 @@ function badEnding01Text(){
   text(`Not bad! The diners are rushing to the toilet,
   but a pinch of food poisoning never killed anyone!
   You all agree to order takeout next time.`, width/2, height/5);
+  textSize(13);
+  text(`Press ESC to return to Title Screen`, width/2, 29*height/30);
   pop();
 }
 
@@ -339,10 +343,14 @@ function displayToilet(){
 // Bad Ending 02
 function badEnding02Text(){
   // Dark Grey Text
+  push();
   fill(10);
   textSize(30);
   text(`You have made some...questionable choices.
   The diners have nothing (left) to say.`, width/2, height/5);
+  textSize(13);
+  text(`Press ESC to return to Title Screen`, width/2, 29*height/30);
+  pop();
 }
 
 function displayTombstone(){
@@ -363,6 +371,7 @@ function keyPressed(){
      pan.keyPressed();
   }
  else if((state === `goodEnding` || state === `badEnding01` || state===`badEnding02`) && (keyCode === 27)){
+
    state = `title`;
    rossiniSFX.stop();
  }
