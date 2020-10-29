@@ -85,7 +85,7 @@ function preload(){
 
 // setup()
 //
-// Description of setup() goes here.
+// Canvas, General Settings, Creating Objects
 function setup() {
   createCanvas(windowWidth, windowHeight);
   imageMode(CENTER);
@@ -97,14 +97,14 @@ function setup() {
 
   pan = new Pan(220, 40);
 
-  //
+  // Creating Eggs
   for (let i = 0; i < numEggs; i++){
      let x = random(0, width);
      let y = random(-400, -100);
      let egg = new Egg(x,y);
      eggs.push(egg);
   }
-  //
+  // Creating Moldy Apples
     for (let i = 0; i < numApples; i++){
        let x = random(0, width);
        let y = random(-400, -100);
@@ -112,7 +112,7 @@ function setup() {
        apples.push(moldyApple);
     }
 
-  //
+  // Creating Detergents
     for (let i = 0; i < numDetergents; i++){
        let x = random(0, width);
        let y = random(-400, -100);
@@ -120,14 +120,11 @@ function setup() {
        detergents.push(detergent);
     }
 }
-
-
-
 // /setup()
 
 // draw()
 //
-// Description of draw() goes here.
+// States (previously mentioned)
 function draw() {
   background(0);
 
@@ -141,6 +138,7 @@ else if (state === `simulation`){
 
   pan.display();
 
+  // Inserting Objects
   // Eggs
   for(let i = 0; i < eggs.length; i++){
     let egg = eggs[i];
@@ -172,12 +170,12 @@ else if (state === `simulation`){
      }
   }
 
-  countingRemainingObjectsOnScreen();
+  // Ending varies based on user's choice of ingredient(s)
   checkEnding();
 
 }
 
-// Good Ending - Best Quality Ingredients
+// Good Ending - Best Quality Ingredient(s)
 else if (state === `goodEnding`){
    background(gBg.r, gBg.g, gBg.b);
    goodEndingText();
@@ -185,7 +183,7 @@ else if (state === `goodEnding`){
 
 }
 
-// Bad Ending 01 - Edible Ingredients
+// Bad Ending 01 - Edible Ingredients(
 else if (state === `badEnding01`){
    background(b1Bg.r, b1Bg.g, b1Bg.b);
    badEnding01Text();
@@ -193,7 +191,7 @@ else if (state === `badEnding01`){
 
 }
 
-// Bad Ending 02 - Inedible Ingredients
+// Bad Ending 02 - Inedible Ingredient(s)
 else if (state === `badEnding02`){
    background(b2Bg.r, b2Bg.g, b2Bg.b);
    badEnding02Text();
@@ -204,21 +202,6 @@ else if (state === `badEnding02`){
 
 }
 // /draw()
-
-// Switch to Good Ending
-function switchGoodEnding(){
-state = `goodEnding`;
-}
-
-// Switch to Bad Ending 01
-function switchBadEnding01(){
-state = `badEnding01`;
-}
-
-// Switch to Bad Ending 02
-function switchBadEnding02(){
-state = `badEnding02`;
-}
 
 // Title
 function titleText(){
@@ -249,7 +232,7 @@ function titleText(){
 
 // Simulation
 //
-function countingRemainingObjectsOnScreen(){
+function checkEnding(){
   // Counting Objects On Screen
   // Counting Eggs
   let remainingEggs = 0;
@@ -275,11 +258,8 @@ function countingRemainingObjectsOnScreen(){
          remainingDetergents++;
     }
   }
-}
-//
 
-//
-function checkEnding(){
+  // Check Endings (2 seconds delay)
   // Check Good Ending: Only Egg(s) remain(s) on screen
   if ((remainingApples === 0) && (remainingDetergents === 0)){
       setTimeout(switchGoodEnding, 2000);
@@ -292,6 +272,23 @@ function checkEnding(){
   if ((remainingApples === 0) && (remainingEggs === 0)){
       setTimeout(switchBadEnding02, 2000);
   }
+}
+//
+
+// Switch to Endings (2 seconds delay)
+// Switch to Good Ending
+function switchGoodEnding(){
+state = `goodEnding`;
+}
+
+// Switch to Bad Ending 01
+function switchBadEnding01(){
+state = `badEnding01`;
+}
+
+// Switch to Bad Ending 02
+function switchBadEnding02(){
+state = `badEnding02`;
 }
 //
 
