@@ -1,11 +1,12 @@
-class MoldyApple{
+class Egg{
   constructor(x,y){
     this.x = x;
     this.y = y;
-    this.size = 60;
+    this.width = 35;
+    this.height = 45;
     this.vx = 0;
     this.vy = 0;
-    this.maxSpeed = 7.5;
+    this.maxSpeed = 9;
     this.ax = 0;
     this.ay = 0;
     this.active = true;
@@ -35,7 +36,7 @@ class MoldyApple{
   //   if ((this.x > pan.x - pan.width/2) && (this.x < pan.x + pan.width/2) &&
   //       (this.y + this.size > pan.y - pan.height/2) && (this.y - this.size < pan.y + pan.height/2)){
   //         let dx = this.x - pan.x;
-  //         this.vx = this.vx + map(dx, -pan.width/2, pan.width/2, - 0.5, 0.5);
+  //         this.vx = this.vx + map(dx, -pan.width/2, pan.width/2, - 0.7, 0.7);
   //
   //         this.vy = -this.vy;
   //         this.ay = 0; // Acceleration will have to build from start >> Physics!
@@ -44,29 +45,13 @@ class MoldyApple{
 
   display(){
     push();
-    // Red Apple
-    fill(246, 89, 72);
-    ellipse(this.x, this.y, this.size);
-    // Green Leaf
-    fill(213, 236, 122);
-    ellipse(this.x - this.size/4, this.y - this.size/2, 3*this.size/11, 5*this.size/11);
-    // Mold - Layer 1
-    fill(185, 103, 66);
-    ellipse(this.x + this.size/5, this.y, 3*this.size/5);
-    // Mold - Layer 2
-    fill(158, 73, 53);
-    ellipse(this.x + this.size/5, this.y, 1*this.size/5);
+    fill(235, 214, 199);
+    ellipse(this.x, this.y, this.width, this.height);
+    stroke(218, 185, 169);
+    strokeWeight(8);
+    point(this.x + this.width/4, this.y);
+    strokeWeight(6);
+    point(this.x + this.width/4, this.y - this.height/4);
     pop();
   }
 }
-
-// push();
-// fill(246, 89, 72);
-// ellipse(500, 500, 60);
-// fill(213, 236, 122);
-// ellipse(485, 470, 25, 10);
-// fill(185, 103, 66);
-// ellipse(512, 500, 36);
-// fill(158, 73, 53);
-// ellipse(512, 500, 12);
-// pop();

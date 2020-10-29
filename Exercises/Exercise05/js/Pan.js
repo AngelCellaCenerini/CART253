@@ -15,9 +15,9 @@ class Pan{
  // If LEFT_ARROW is pressed, Pot will shift to the left; same with RIGHT_ARROW
 
  keyPressed(){
-   if (keyCode === 39) {
+   if ((keyCode === 39) && (state === `simulation`)) {
      moveRight();
-  } else if (keyCode === 37) {
+  } else if ((keyCode === 37) && (state === `simulation`)) {
      moveLeft();
   }
  }
@@ -44,10 +44,3 @@ class Pan{
     pop();
   }
 }
-
-// push();
-// fill(170, 116, 87);
-// rect(width/2, height/2 + 10, 230, 12, 50);
-// fill(136);
-// quad(width/2, height/2, width/2 + 191, height/2, width/2 + 180, height/2 + 35, width/2 + 11, height/2 + 35);
-// pop();

@@ -13,9 +13,18 @@ let myFont;
 // Declaring Gravity
 let gravityForce = 0.0025;
 
+// Declaring Egg Array
+let eggs = [];
+let numEggs = 5;
+
 // Declaring Apple Array
 let apples = [];
 let numApples = 4;
+
+// Declaring Detergent Array
+let detergents = [];
+let numDetergents = 3;
+
 
 // Declaring Object Variable
 let pan;
@@ -62,7 +71,7 @@ let imgRip = {
 }
 
 // Set Up State(s)
-let state = `simulation`; // Title (Instructions icluded), Simulation, Good Ending, Bad Ending 01, Bad Ending 02
+let state = `title`; // Title (Instructions icluded), Simulation, Good Ending, Bad Ending 01, Bad Ending 02
 
 
 function preload(){
@@ -86,15 +95,34 @@ function setup() {
   noStroke();
   noCursor();
 
-  pan = new Pan(220, 40);
+  // pan = new Pan(220, 40);
 
-  // for (i = 0; i < numApples; i++){
-  //    let x = random(0, width);
-  //    let y = random(-400, -100);
-  //    let moldyApple = new MoldyApple(x,y);
-  //    apples.push(moldyApple);
-  // }
+  //
+  for (let i = 0; i < numEggs; i++){
+     let x = random(0, width);
+     let y = random(-400, -100);
+     let egg = new Egg(x,y);
+     eggs.push(egg);
+  }
+  //
+    for (let i = 0; i < numApples; i++){
+       let x = random(0, width);
+       let y = random(-400, -100);
+       let moldyApple = new MoldyApple(x,y);
+       apples.push(moldyApple);
+    }
+
+  //
+    for (let i = 0; i < numDetergents; i++){
+       let x = random(0, width);
+       let y = random(-400, -100);
+       let detergent = new Detergent(x,y);
+       detergents.push(detergent);
+    }
 }
+
+
+
 // /setup()
 
 // draw()
@@ -114,35 +142,54 @@ else if (state === `simulation`){
   // pan.move();
   // pan.display();
 
-  // for(i = 0; i < apples.lenght; i ++){
-  //   let moldyApple = apples[i];
-  //   if (moldyApple.active){
-  //       moldyApple.gravity(gravityForce);
-  //       moldyApple.move();
-  //       moldyApple.bounce(pan);
-  //       moldyApple.display();
-  //    }
-  // }
+  // Eggs
+  for(let i = 0; i < eggs.length; i ++){
+    let egg = eggs[i];
+    if (egg.active){
+        egg.gravity(gravityForce);
+        egg.move();
+        // moldyApple.bounce(pan);
+        egg.display();
+     }
+  }
+  // Apples
+  for(let i = 0; i < apples.length; i ++){
+    let moldyApple = apples[i];
+    if (moldyApple.active){
+        moldyApple.gravity(gravityForce);
+        moldyApple.move();
+        // moldyApple.bounce(pan);
+        moldyApple.display();
+     }
+  }
+  // Detergents
+  for(let i = 0; i < detergents.length; i ++){
+    let detergent = detergents[i];
+    if (detergent.active){
+        detergent.gravity(gravityForce);
+        detergent.move();
+        // moldyApple.bounce(pan);
+        detergent.display();
+     }
+  }
 
-// Spaghetti
-// push();
-// stroke(220, 187,79);
-// strokeWeight(3);
-// let line = {
-//   x1 : 200,
-//   y1 : 200,
-//   x2 : 240,
-//   y2 : 70
+
+
+
+// Check if only Egg(s) are on screen
+// if ((!moldyApple.active) && (!detergent.active)){
+//      state = `goodEnding`;
+// }
+// Check if only moldy Apple(s) are on screen
+// if ((!egg.active) && (!detergent.active)){
+//      state = `badEnding01`;
+// }
+// Check if only Detergent(s) are on screen
+// if ((!moldyApple.active) && (!egg.active)){
+//      state = `badEnding02`;
 // }
 //
-// for(i = 0; i < 7; i ++){
-//   // line(200, 200, 240, 70);
-//   line(line.x1, line.y1, line.x2, line.y2);
-//   line.y1 = line.y1 + 0.5;
-//   line.y2 = line.y2 + 0.5;
-// }
-// pop();
-
+//
 }
 
 // Good Ending - Best Quality Ingredients
@@ -182,22 +229,22 @@ function titleText(){
   fill(255);
   // Title
   textSize(70);
-  text( `SURVIVAL COOKING SIMULATOR`, width/2, height/3);
+  text( `SURVIVAL COOKING SIMULATOR`, width/2, height/4);
   // Description
   textSize(22);
   text(`Living on your own can be hard, especially if you're the one cooking.
 
-  ...Or, if you're cooking for guests.
-
-  Because time is relative, you have 15 seconds to prepare a somewhat decent meal!
-  Choose the best ingredients for your diners! `,width/2, 3*height/5);
+  ...Or, if you're cooking for guests.`,width/2, height/2);
+  textSize(17);
+  text(`Use the ARROW keys to move the cooking pan left or right.
+  Choose between an egg, a moldy apple, or powder detergent as your ingredient!`,width/2, 3*height/4);
   // Instructions
-  textSize(16);
+  textSize(15);
   text(`Press SPACEBAR to begin`, width/2, 7*height/8);
   // Red Line (Crossing "Survival")
   stroke(255, 0, 0);
   strokeWeight(5);
-  line(width/6, height/3, 3*width/8, height/3);
+  line(width/6, height/4, 3*width/8, height/4);
   pop();
 }
 //
@@ -257,3 +304,10 @@ function displayTombstone(){
   image(tombstone, imgRip.x, imgRip.y);
 }
 //
+
+// P5 events
+function keyPressed(){
+  if ((keyCode === 32) && (state === `title`)) {
+    state = `simulation`;
+ }
+}
