@@ -10,6 +10,9 @@ The user has to choose one ingredient in order to cook a delicious, somewhat edi
 // Declaring Custom Font
 let myFont;
 
+// Declaring Background Music (Plays in Simulation)
+let rossiniSFX;
+
 // Declaring Gravity
 let gravityForce = 0.0025;
 
@@ -76,6 +79,8 @@ let state = `title`; // Title (Instructions icluded), Simulation, Good Ending, B
 
 function preload(){
   myFont = loadFont('assets/AnonymousPro-Regular.otf');
+
+  rossiniSFX = loadSound("assets/sounds/rossini.mp3");
 
   michelinStars = loadImage('assets/images/michelinStars.png');
   toilet = loadImage('assets/images/toilet.png');
@@ -351,10 +356,15 @@ function displayTombstone(){
 // P5 events
 function keyPressed(){
   if ((keyCode === 32) && (state === `title`)) {
+    rossiniSFX.play();
     state = `simulation`;
  }
  else if(state === `simulation`){
      pan.keyPressed();
   }
+ else if((state === `goodEnding` || state === `badEnding01` || state===`badEnding02`) && (keyCode === 27)){
+   state = `title`;
+   rossiniSFX.stop();
+ }
 }
 //
