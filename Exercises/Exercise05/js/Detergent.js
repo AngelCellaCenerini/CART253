@@ -5,7 +5,7 @@ class Detergent{
     this.size = 120;
     this.vx = 0;
     this.vy = 0;
-    this.maxSpeed = 6;
+    this.maxSpeed = 8;
     this.ax = 0;
     this.ay = 0;
     this.active = true;
@@ -36,7 +36,7 @@ class Detergent{
     if ((this.x > pan.x - pan.width/2) && (this.x < pan.x + pan.width/2) &&
         (this.y + this.size/2 > pan.y - pan.height/2) && (this.y - this.size/2< pan.y + pan.height/2)){
           let dx = this.x - pan.x;
-          this.vx = this.vx + map(dx, -pan.width/2, pan.width/2, - 0.3, 0.3);
+          this.vx = this.vx + map(dx, -pan.width/2, pan.width/2, - 0.4, 0.4);
 
           this.vy = -this.vy;
           this.ay = 0; // Acceleration will have to build from start >> Physics!
