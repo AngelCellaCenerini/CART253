@@ -6,6 +6,9 @@ Angel Cella Cenerini
 p5 Template by CART253 Course
 
 The user has to choose one ingredient in order to cook a delicious, somewhat edible, or insanely deadly dish for the diners!
+Credits:
+soundtrack - Rossini, William Tell Overture
+graphics - creator XD
 **************************************************/
 // Declaring Custom Font
 let myFont;
@@ -18,15 +21,15 @@ let gravityForce = 0.0025;
 
 // Declaring Egg Array
 let eggs = [];
-let numEggs = 5;
+let numEggs = 6;
 
 // Declaring Apple Array
 let apples = [];
-let numApples = 4;
+let numApples = 5;
 
 // Declaring Detergent Array
 let detergents = [];
-let numDetergents = 3;
+let numDetergents = 4;
 
 
 // Declaring Object Variable
@@ -303,7 +306,7 @@ function goodEndingText(){
   push();
   fill(10);
   textSize(30);
-  text(`Wow! You managed to collect mostly good quality ingredients!
+  text(`Wow! You managed to collect an ingredient of (mostly) good quality!
   Your guests are satisfied and most likely to return! `, width/2, height/3);
   textSize(13);
   text(`Press ESC to return to Title Screen`, width/2, 29*height/30);
