@@ -23,6 +23,11 @@ class Light {
 
   display(){
   // Specific features will be inserted in subclasses
-  // ellipse(this.x, this.y, this.size);
+  }
+
+  keyPressed(){
+    if((keyCode === undefined) && (state === `simulation`)){
+      this.size = this.size + 5;
+    }
   }
 }

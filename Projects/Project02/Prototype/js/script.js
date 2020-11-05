@@ -8,6 +8,10 @@ Prototype for Project 02: Testing "Playing Melody" Simulation
 User, guided by "script", plays sounds(corresponding to lights) and compose """melody"""
 **************************************************/
 
+// Declaring array (storing all sorts of lights)
+let lights[];
+let numAtmosphericLights = 10;
+
 // Declaring States
 let state = `simulation`; // Intro, Simulation
 // setup()
@@ -18,6 +22,15 @@ function setup() {
   noStroke();
   noCursor();
   textAlign(CENTER, CENTER);
+
+  // Creating all Light Classes
+  // Atmospheric Lights
+  for (let i = 0; i < numAtmosphericLights; i ++){
+    let x = random(0, width);
+    let y = random(0, height);
+    let atmosphericLight = new AtmosphericLight;
+    lights.push(atmosphericLight);
+  }
 }
 
 // draw()
@@ -29,6 +42,13 @@ function draw() {
   if (state === `intro`) {
     textIntro();
   } else if (state === `simulation`) {
+
+    // Lights
+    for (let i = 0; i < lights.lenght; i ++){
+    let light = lights[i];
+    light.move();
+    light.display();
+    }
   }
 }
 
@@ -60,5 +80,10 @@ function keyPressed(){
   }
   else if ((state === `simulation`) && (keyCode === 27)){
     state = `intro`;
+  }
+
+  for (let i = 0; i < lights.light.lenght; i ++){
+    let light = light.lights[i];
+    light.keyPressed();
   }
 }

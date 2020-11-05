@@ -1,7 +1,7 @@
 class AtmosphericLight extends Light {
   constructor(x, y){
   super(x, y);
-  this.size = 20;
+  this.size = 10;
   this.speed = 1.8;
   }
 
@@ -12,5 +12,10 @@ class AtmosphericLight extends Light {
     fill(250, 250, 250, 180);
     ellipse(this.x, this.y, this.size + this.size/4);
     pop();
+  }
+
+  keyPressed(){
+    super.keyPressed();
+    keyCode === 65;
   }
 }
