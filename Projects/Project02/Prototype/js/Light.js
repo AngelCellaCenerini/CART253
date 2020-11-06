@@ -14,7 +14,7 @@ class Light {
   }
 
   move(){
-    // Lights gentlry float around screen
+    // Lights gently floating around screen
     this.y = this.y + this.vy;
     this.x = this.x + this.vx;
     let change = random(0, 1);
@@ -49,12 +49,11 @@ class Light {
   // Specific features will be inserted in subclasses
   }
 
-  savingFrame(){
+  growthDuration(){
   if (frameCount % 60 === 0 && this.timer > 0){
     this.timer --;
   }
   if (this.timer === 0){
-    // this.timer = false;
     this.returnOriginalSize()
   }
   }
@@ -67,7 +66,7 @@ class Light {
   }
 
   returnOriginalSize(){
-    this.size = this.originalSize;
+    this.size = this.originalSize; // after 2 seconds, objects regains it original size
   }
 
 }

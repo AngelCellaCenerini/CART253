@@ -9,9 +9,9 @@ class GreenLight extends Light {
 
   display(){
     push();
-    fill(237, 255, 177);
+    fill(247, 265, 187);
     ellipse(this.x, this.y, this.size)
-    fill(237, 255, 177, 130);
+    fill(247, 265, 187, 130);
     ellipse(this.x, this.y, this.size + this.size/2);
     pop();
   }

@@ -9,9 +9,9 @@ class YellowLight extends Light {
 
   display(){
     push();
-    fill(255, 243, 177);
+    fill(255, 240, 162);
     ellipse(this.x, this.y, this.size)
-    fill(205, 230, 255, 130);
+    fill(205, 240, 162, 130);
     ellipse(this.x, this.y, this.size + this.size/2);
     pop();
   }

@@ -9,9 +9,9 @@ class PinkLight extends Light {
 
   display(){
     push();
-    fill(255, 202, 177);
+    fill(255, 212, 187);
     ellipse(this.x, this.y, this.size)
-    fill(2255, 182, 177, 130);
+    fill(255, 212, 187, 130);
     ellipse(this.x, this.y, this.size + this.size/2);
     pop();
   }
