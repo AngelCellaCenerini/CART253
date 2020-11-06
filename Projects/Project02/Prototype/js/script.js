@@ -22,6 +22,7 @@ let lights = [];
 let numAtmosphericLights = 10;
 let numBiggerAtmosphericLights = 6;
 let numBlueLights = 1;
+let numGreenLights = 1;
 
 // Declaring States
 let state = `simulation`; // Intro, Simulation
@@ -58,12 +59,19 @@ function setup() {
     let biggerAtmosphericLight = new BiggerAtmosphericLight(x, y);
     lights.push(biggerAtmosphericLight);
   }
-  // /\?????????
+  // Blue Light(s)
   for (let i = 0; i < numBlueLights; i ++){    ///???????
     let x = random(0, width);
     let y = random(0, height);
     let blueLight = new BlueLight(x, y, chime1SFX);
     lights.push(blueLight);
+  }
+  // Green Light(s)
+  for (let i = 0; i < numGreenLights; i ++){    ///???????
+    let x = random(0, width);
+    let y = random(0, height);
+    let greenLight = new GreenLight(x, y, chime2SFX);
+    lights.push(greenLight);
   }
 }
 
@@ -92,7 +100,7 @@ function draw() {
         state = `intro`;
         }
       }
-      console.log(`good`);
+      // Add state
   }
 
 

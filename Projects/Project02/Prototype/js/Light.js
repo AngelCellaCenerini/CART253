@@ -4,8 +4,7 @@ class Light {
     this.y = y;
     this.originalSize = undefined;
     this.size = undefined;
-    this.growth = 5;
-    this.shrinkage = 5;
+    this.growth = 8;
     this.vx = 0;
     this.vy = 0;
     this.speed = undefined;
