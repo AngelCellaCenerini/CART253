@@ -23,6 +23,7 @@ let numAtmosphericLights = 10;
 let numBiggerAtmosphericLights = 6;
 let numBlueLights = 1;
 let numGreenLights = 1;
+let numPinkLights = 1;
 
 // Declaring States
 let state = `simulation`; // Intro, Simulation
@@ -72,6 +73,13 @@ function setup() {
     let y = random(0, height);
     let greenLight = new GreenLight(x, y, chime2SFX);
     lights.push(greenLight);
+  }
+  // Pink Light(s)
+  for (let i = 0; i < numPinkLights; i ++){    ///???????
+    let x = random(0, width);
+    let y = random(0, height);
+    let pinkLight = new PinkLight(x, y, chime3SFX);
+    lights.push(pinkLight);
   }
 }
 
