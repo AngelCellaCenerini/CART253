@@ -7,13 +7,32 @@ ANgel Cella Cenerini
 Prototype for Project 02: Testing "Playing Melody" Simulation
 User, guided by "script", plays sounds(corresponding to lights) and compose """melody"""
 **************************************************/
+// MP3 FIles - Chiming Sounds
+let chime1SFX;
+let chime2SFX;
+let chime3SFX;
+let chime4SFX;
 
+
+let correctKeySequence = [65, 87, 68, 83];
+let inputKey = [];
 // Declaring array (storing all sorts of lights)
-let lights[];
+
+let lights = [];
 let numAtmosphericLights = 10;
+let numBlueLights = 1;
 
 // Declaring States
 let state = `simulation`; // Intro, Simulation
+
+
+function preload(){
+  chime1SFX = loadSound('assets/sounds/chime1.mp3');
+  chime2SFX = loadSound('assets/sounds/chime2.mp3');
+  chime3SFX = loadSound('assets/sounds/chime3.mp3');
+  chime4SFX = loadSound('assets/sounds/chime4.mp3');
+}
+
 // setup()
 //
 // Description of setup() goes here.
@@ -28,8 +47,15 @@ function setup() {
   for (let i = 0; i < numAtmosphericLights; i ++){
     let x = random(0, width);
     let y = random(0, height);
-    let atmosphericLight = new AtmosphericLight;
+    let atmosphericLight = new AtmosphericLight(x, y);
     lights.push(atmosphericLight);
+  }
+  // /\?????????
+  for (let i = 0; i < numBlueLights; i ++){    ///???????
+    let x = random(0, width);
+    let y = random(0, height);
+    let blueLight = new BlueLight(x, y, chime1SFX);
+    lights.push(blueLight);
   }
 }
 
@@ -44,12 +70,25 @@ function draw() {
   } else if (state === `simulation`) {
 
     // Lights
-    for (let i = 0; i < lights.lenght; i ++){
+    for (let i = 0; i < lights.length; i ++){
     let light = lights[i];
     light.move();
     light.display();
+    light.savingFrame();
     }
   }
+
+  if(inputKey.length === correctKeySequence.length){
+      for(let i = 0; i < correctKeySequence.length; i ++){
+        if(inputKey[i] !== correctKeySequence[i]){
+        state = `intro`;
+        }
+      }
+      console.log(`good`);
+  }
+
+
+
 }
 
 // intro
@@ -82,8 +121,11 @@ function keyPressed(){
     state = `intro`;
   }
 
-  for (let i = 0; i < lights.light.lenght; i ++){
-    let light = light.lights[i];
+  for (let i = 0; i < lights.length; i ++){
+    let light = lights[i];
     light.keyPressed();
   }
+
+  inputKey.push(keyCode);
+  console.log(inputKey);
 }

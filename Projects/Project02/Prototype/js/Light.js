@@ -1,11 +1,17 @@
 class Light {
-  constructor(x, y){
+  constructor(x, y, chime){
     this.x = x;
     this.y = y;
+    this.originalSize = undefined;
     this.size = undefined;
+    this.growth = 5;
+    this.shrinkage = 5;
     this.vx = 0;
     this.vy = 0;
     this.speed = undefined;
+    this.keyCode = undefined;
+    this.chime = chime;
+    this.timer = undefined;
   }
 
   move(){
@@ -21,13 +27,48 @@ class Light {
     this.y = constrain( this.y, 0, height);
   }
 
+  wrap(){
+    // Redirecting (almost)offscreen object
+    // Horizontally
+    if (this.x > width) {
+      this.x -= width;
+    }
+    else if(this.x < 0){
+      this.x += width;
+    }
+    // Vertically
+    if (this.y > height) {
+      this.y -= height;
+    }
+    else if(this.y < 0){
+      this.y += height;
+    }
+  }
+
+
   display(){
   // Specific features will be inserted in subclasses
   }
 
+  savingFrame(){
+  if (frameCount % 60 === 0 && this.timer > 0){
+    this.timer --;
+  }
+  if (this.timer === 0){
+    // this.timer = false;
+    this.returnOriginalSize()
+  }
+  }
+
   keyPressed(){
-    if((keyCode === undefined) && (state === `simulation`)){
-      this.size = this.size + 5;
+    if((keyCode === this.keyCode) && (state === `simulation`)){
+      this.size = this.size + this.growth;
+      this.timer = 2;
     }
   }
+
+  returnOriginalSize(){
+    this.size = this.originalSize;
+  }
+
 }
