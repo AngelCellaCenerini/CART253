@@ -20,6 +20,7 @@ let inputKey = [];
 
 let lights = [];
 let numAtmosphericLights = 10;
+let numBiggerAtmosphericLights = 6;
 let numBlueLights = 1;
 
 // Declaring States
@@ -49,6 +50,13 @@ function setup() {
     let y = random(0, height);
     let atmosphericLight = new AtmosphericLight(x, y);
     lights.push(atmosphericLight);
+  }
+  // Bigger Atmospheric Lights
+  for (let i = 0; i < numBiggerAtmosphericLights; i ++){
+    let x = random(0, width);
+    let y = random(0, height);
+    let biggerAtmosphericLight = new BiggerAtmosphericLight(x, y);
+    lights.push(biggerAtmosphericLight);
   }
   // /\?????????
   for (let i = 0; i < numBlueLights; i ++){    ///???????

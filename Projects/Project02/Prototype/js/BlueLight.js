@@ -1,8 +1,8 @@
 class BlueLight extends Light {
   constructor(x, y, chime){
   super(x, y, chime);
-  this.size = 22;
-  this.originalSize = 22;
+  this.size = 45;
+  this.originalSize = 45;
   this.speed = 1;
   this.keyCode = 65;
   }
