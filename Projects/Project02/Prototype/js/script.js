@@ -14,8 +14,8 @@ let chime3SFX;
 let chime4SFX;
 
 //
-let correctKeySequence = [65, 87, 68, 83];
-let pressedKey = [];
+let correctKeySequence = [65, 87, 65, 87];
+let insertedKey = [];
 
 // Declaring array (storing all sorts of lights)
 let lights = [];
@@ -29,7 +29,7 @@ let numPinkLights = 1;
 let numYellowLights = 1;
 
 // Declaring States
-let state = `simulation`; // Intro, Simulation
+let state = `intro`; // Intro, Simulation
 
 
 function preload(){
@@ -103,7 +103,10 @@ function draw() {
 
   if (state === `intro`) {
     textIntro();
-  } else if (state === `simulation`) {
+    switchToSim();
+  }
+
+  else if (state === `simulation`) {
 
     // Lights
     for (let i = 0; i < lights.length; i ++){
@@ -112,17 +115,14 @@ function draw() {
     light.display();
     light.growthDuration();
     }
+    // Check if User is following Script (Correct Key Sequence)
+    adherenceToScript();
   }
-  // Check if User is following Script (Key Sequence stored in Array)
-  if (pressedKey.length === correctKeySequence.length){
-      for(let i = 0; i < correctKeySequence.length; i ++){
-        if(pressedKey[i] !== correctKeySequence[i]){
-        state = `intro`;
-        }
-      }
-      // Add state
+  else if (state === `success`){
+    textSuccess();
   }
-}
+
+  }
 //
 // /draw()
 
@@ -131,11 +131,19 @@ function draw() {
 function textIntro() {
   push();
   fill(255);
-  textSize(30);
-  text(`Project 02: Prototype - Playing Melody`, width/2, height/2);
+  textSize(50);
+  text(`Project 02: Prototype - Playing Melody`, width/2, height/3);
   textSize(20);
-  text(`Press the keys as instructed by the "script" to create a "melody". Press ENTER to start.`, width/2, 3*height/5);
+  text(`Press the keys as instructed by the "script" to create a "melody".
+  If you don't, you will be automatically brought back to the Title Screen.
+  CLICK to start.`, width/2, 3*height/5);
   pop();
+}
+
+function switchToSim(){
+  if (mouseIsPressed){
+    state = `simulation`;
+  }
 }
 //
 
@@ -148,12 +156,36 @@ function textSimulation(){
   pop();
 }
 
+function adherenceToScript(){
+  // Check if User is following Script (Key Sequence stored in Array)
+  if (insertedKey.length === correctKeySequence.length){
+      for(let i = 0; i < correctKeySequence.length; i ++){
+        if(insertedKey[i] !== correctKeySequence[i]){
+        state = `intro`;
+        }
+        else{
+          state = `success`;
+        }
+      }
+  }
+}
+
+// Ending - Success
+function textSuccess(){
+  push();
+  fill(255);
+  textSize(50);
+  text(`let breathtakingEnding = undefined;`, width/2, height/3);
+  textSize(20);
+  text(`Success! You correctly followed the script; hopefully your ears aren't bleeding after that.
+  Press ESC to return to Title Screen.`, width/2, 3*height/5);
+  pop();
+}
+
 // P5 Events
 function keyPressed(){
-  if ((state === `intro`) && (keyCode === 13)){
-    state = `simulation`;
-  }
-  else if ((state === `simulation`) && (keyCode === 27)){
+
+  if ((state === `simulation`|| state === `success`) && (keyCode === 27)){
     state = `intro`;
   }
 
@@ -161,5 +193,5 @@ function keyPressed(){
     let light = lights[i];
     light.keyPressed();
   }
-  pressedKey.push(keyCode);
+  insertedKey.push(keyCode); // "Storing" keys pressed by User
 }
