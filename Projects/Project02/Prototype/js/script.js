@@ -2,7 +2,7 @@
 
 /**************************************************
 Template p5 by CART253 Course
-ANgel Cella Cenerini
+Angel Cella Cenerini
 
 Prototype for Project 02: Testing "Playing Melody" Simulation
 User, guided by "script", plays sounds(corresponding to lights) and composes """melody"""
@@ -14,7 +14,7 @@ let chime3SFX;
 let chime4SFX;
 
 //
-let correctKeySequence = [65, 87, 65, 87];
+let correctKeySequence = [65,65, 87, 83, 68, 68, 87, 83, 68, 68, 65, 83, 87];
 let insertedKey = [];
 
 // Declaring array (storing all sorts of lights)
