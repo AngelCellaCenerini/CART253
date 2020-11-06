@@ -194,6 +194,7 @@ function adherenceToScript(){
       }
   }
 }
+//
 
 // Ending - Success
 function textSuccess(){
@@ -206,6 +207,7 @@ function textSuccess(){
   Press ESC to return to Title Screen.`, width/2, 3*height/5);
   pop();
 }
+//
 
 // P5 Events
 function keyPressed(){
@@ -220,3 +222,4 @@ function keyPressed(){
   }
   insertedKey.push(keyCode); // "Storing" keys pressed by User
 }
+//
