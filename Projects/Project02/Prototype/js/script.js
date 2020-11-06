@@ -13,7 +13,7 @@ let chime2SFX;
 let chime3SFX;
 let chime4SFX;
 
-//
+// Assembling "Melody" aka a Set Sequence of Keys for User to follow
 let correctKeySequence = [65,65, 87, 83, 68, 68, 87, 83, 68, 68, 65, 83, 87];
 let insertedKey = [];
 
@@ -47,6 +47,7 @@ function setup() {
   noStroke();
   noCursor();
   textAlign(CENTER, CENTER);
+  rectMode(CENTER);
 
   // Creating Light Subclasses
   // Atmospheric Lights
@@ -108,6 +109,30 @@ function draw() {
 
   else if (state === `simulation`) {
 
+    push();
+    fill(255, 255, 255, 50);
+    rect(width/10, 2*height/5, width/8, 3*height/5);
+    fill(255);
+    textSize(20);
+    textAlign(RIGHT);
+    text(`Script:
+
+    A
+    A
+    W
+    S
+    D
+    D
+    W
+    S
+    D
+    D
+    A
+    S
+    W`, width/10, 2*height/5);
+    pop();
+
+
     // Lights
     for (let i = 0; i < lights.length; i ++){
     let light = lights[i];
@@ -115,8 +140,8 @@ function draw() {
     light.display();
     light.growthDuration();
     }
-    // Check if User is following Script (Correct Key Sequence)
-    adherenceToScript();
+
+    adherenceToScript();  // Check if User is following Script (Correct Key Sequence)
   }
   else if (state === `success`){
     textSuccess();
