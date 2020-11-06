@@ -19,11 +19,12 @@ let inputKey = [];
 // Declaring array (storing all sorts of lights)
 
 let lights = [];
-let numAtmosphericLights = 10;
-let numBiggerAtmosphericLights = 6;
+let numAtmosphericLights = 12;
+let numBiggerAtmosphericLights = 7;
 let numBlueLights = 1;
 let numGreenLights = 1;
 let numPinkLights = 1;
+let numYellowLights = 1;
 
 // Declaring States
 let state = `simulation`; // Intro, Simulation
@@ -80,6 +81,13 @@ function setup() {
     let y = random(0, height);
     let pinkLight = new PinkLight(x, y, chime3SFX);
     lights.push(pinkLight);
+  }
+  // Yellow Light(s)
+  for (let i = 0; i < numYellowLights; i ++){    ///???????
+    let x = random(0, width);
+    let y = random(0, height);
+    let yellowLight = new YellowLight(x, y, chime4SFX);
+    lights.push(yellowLight);
   }
 }
 
