@@ -32,14 +32,19 @@ let button = {
 let cues = [
   ``,
   `1. What a lovely keyboard you have there,
-lying on your desk.`,
+  lying on your desk.`,
   `2. I am not falling.`,
   `3. I am flickering.`,
   `4. Don't read me like that.`,
-  `5. ...Just read me backwards.`,
+  `5. Try me backwards.`,
   `6. Did you get it yet? Type me!`
 ];
 let currentIndex = 0;
+
+// Word User has to type in order to surpass level
+let answer = `stop`;
+// Keeping Track of User's Input
+let currentInput = ``;
 
 
 function preload(){
@@ -124,6 +129,18 @@ crypticButtons();
 
 tips();
 
+// Current Input Settings
+push();
+fill(255);
+textSize(30);
+textFont(myFontA);
+// Check if Word Inserted is Correct
+  let correct = checkInput();
+// Display Current Input from User
+text(currentInput, width/2, 3*height/5);
+pop();
+
+
 checkFail();
 }
 
@@ -178,6 +195,18 @@ function tips(){
    pop();
 }
 
+function checkInput() {
+  // Converting Input to Lower Case
+  let lowerCaseInput = currentInput.toLowerCase();
+  // Check if the Converted Input corrisponds to Answer
+  if (lowerCaseInput === answer) {
+    console.log(`yes!`);
+  }
+  else {
+    return false;
+  }
+}
+
 function checkFail(){
   for (let i = 0; i < creatures.length; i ++){
     let creature = creatures[i];
@@ -194,6 +223,14 @@ function keyPressed(){
   else if (keyCode === 84){ ///?
     diplayTips();
   }
+  else if (keyCode === 8) {
+    // User can Reset Inserted Input
+    currentInput = ``;
+  }
+}
+
+function keyTyped() {
+  currentInput += key;
 }
 
 function mousePressed(){
