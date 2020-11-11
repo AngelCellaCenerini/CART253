@@ -7,8 +7,10 @@ Angel Cella Cenerini
 
 User will guide displyed object(s) through the tone of their voice in order to avoid hitting the obstacles.
 **************************************************/
-let myFont;
+let myFontA;
+let myFontB;
 
+// Winged Creatures
 let creatures = [];
 let numVioletCreatures = 1; // Might use more in the final project
 let numBlueCreatures = 1;
@@ -17,16 +19,32 @@ let numGreenCreatures = 1;
 // Declaring Gravity
 let gravityForce = 0.0025;
 
+// "POTS" Buttons
 let button = {
   x: 0,
   y: 0,
   width: 300,
   height: 150,
   radius: 15
-}
+};
+
+// Tips: Ordered Sequence      - might be too cryptict, feedback is more than welcome pls!
+let cues = [
+  ``,
+  `1. What a lovely keyboard you have there,
+lying on your desk.`,
+  `2. I am not falling.`,
+  `3. I am flickering.`,
+  `4. Don't read me like that.`,
+  `5. ...Just read me backwards.`,
+  `6. Did you get it yet? Type me!`
+];
+let currentIndex = 0;
+
 
 function preload(){
-  myFont = loadFont('assets/BigShouldersStencilDisplay-Regular.otf');
+  myFontA = loadFont('assets/AnonymousPro-Regular.otf');
+  myFontB = loadFont('assets/BigShouldersStencilDisplay-Regular.otf');
 }
 
 // setup()
@@ -35,7 +53,6 @@ function preload(){
 function setup() {
 createCanvas(windowWidth, windowHeight);
 rectMode(CENTER);
-textFont(myFont);
 textSize(70);
 textAlign(CENTER, CENTER);
 
@@ -105,12 +122,15 @@ pop();
 
 crypticButtons();
 
+tips();
+
 checkFail();
 }
 
 
 function crypticButtons(){
   // Cryptict Buttons
+  textFont(myFontB);
   // Positive Space
   button.x = width/6;
   button.y = height/2;
@@ -143,11 +163,42 @@ function crypticButtons(){
   pop();
 }
 
+function tips(){
+   push();
+   noStroke();
+   fill(255, 255, 255, 120);
+   rect(width/2, height/2, 600);
+   fill(255);
+   textFont(myFontA);
+   textAlign(CENTER, LEFT);
+   textSize(20);
+   text(cues[currentIndex], width/2, height/2);
+   textSize(15);
+   text(`Click to continue >>`, 2*width/5, 4*height/5);
+   pop();
+}
+
 function checkFail(){
   for (let i = 0; i < creatures.length; i ++){
     let creature = creatures[i];
     if (!creature.active){
       console.log(`fail`);
     }
+  }
+}
+
+function keyPressed(){
+  if (keyCode === 27){
+  // state = `intro`;
+  }
+  else if (keyCode === 84){ ///?
+    diplayTips();
+  }
+}
+
+function mousePressed(){
+  currentIndex = currentIndex + 1;
+  if (currentIndex === cues.length){
+    currentIndex = 0;
   }
 }
