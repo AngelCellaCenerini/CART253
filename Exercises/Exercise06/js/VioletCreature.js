@@ -1,7 +1,7 @@
 class VioletCreature extends Creature{
   constructor(x, y){
     super(x, y);
-    this.speed = 0.5;
+    this.speed = 1.2;
   }
 
   display(){

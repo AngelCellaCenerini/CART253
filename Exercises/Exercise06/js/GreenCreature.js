@@ -1,7 +1,7 @@
 class GreenCreature extends Creature{
   constructor(x, y){
     super(x, y);
-    this.speed = 0.6;
+    this.speed = 1;
   }
 
   display(){

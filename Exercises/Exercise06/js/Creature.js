@@ -19,16 +19,26 @@ class Creature{
     this.vx = random(-this.speed, this.speed);
     this.vy = random(-this.speed, this.speed);
   }
+
   }
 
   wrap(){
 
-    if ( this.x < 11*width/25 ){
-      this.x += 11*width/25;
-    }
-    else if ( this.x > 12*width/25 ){
-      this.x -= 12*width/25;
-    }
+    // // Horizontally
+    // if ( this.x < 11*width/26){
+    //   this.x += 11*width/26;
+    // }
+    // else if ( this.x > 14*width/25){
+    //   this.x -= 14*width/25;
+    // }
+    //
+    // // Top of the Screen
+    // if ( this.y < height/5 ){
+    //   this.y +- height/5;
+    // }
+
+    constrain(this.x, 11*width/26, 14*width/25);
+
   }
 
   display(){

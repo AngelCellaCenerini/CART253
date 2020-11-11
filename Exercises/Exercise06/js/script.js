@@ -7,17 +7,34 @@ Angel Cella Cenerini
 
 User will guide displyed object(s) through the tone of their voice in order to avoid hitting the obstacles.
 **************************************************/
+let myFont;
 
 let creatures = [];
 let numVioletCreatures = 1; // Might use more in the final project
 let numBlueCreatures = 1;
 let numGreenCreatures = 1;
 
+let button = {
+  x: 0,
+  y: 0,
+  width: 300,
+  height: 150,
+  radius: 15
+}
+
+function preload(){
+  myFont = loadFont('assets/BigShouldersStencilDisplay-Regular.otf');
+}
+
 // setup()
 //
 // Description of setup() goes here.
 function setup() {
 createCanvas(windowWidth, windowHeight);
+rectMode(CENTER);
+textFont(myFont);
+textSize(70);
+textAlign(CENTER, CENTER);
 
 // Violet Creature - could be subjected to change
 for(let i = 0; i < numVioletCreatures; i ++){
@@ -57,6 +74,7 @@ background(0);
 for(let i = 0; i < creatures.length; i ++){
   let creature = creatures[i];
   creature.move();
+  creature.wrap();
   creature.display();
 }
 
@@ -71,85 +89,41 @@ line(8*width/25, 0, 8*width/25, height);
 line(17*width/25, 0, 17*width/25, height);
 pop();
 
-// // Winged Creature
-// // Wings
-// // Left Wing
-// push();
-// noStroke();
-// fill(189, 195, 248);
-// triangle(width/2 - 60, height/2 + 10, width/2 - 35, height/2 - 30, width/2, height/2);
-// pop();
-//
-// push();
-// noStroke();
-// fill(235, 217, 255);
-// triangle(width/2 - 90, height/2 - 10, width/2 - 35, height/2 - 30, width/2, height/2);
-// pop();
-//
-// push();
-// noStroke();
-// fill(255);
-// triangle(width/2 - 108, height/2 - 30, width/2 - 35, height/2 - 30, width/2, height/2);
-// pop();
-//
-// // Right Wing
-// push();
-// noStroke();
-// fill(189, 195, 248);
-// triangle(width/2 + 60, height/2 + 10, width/2 + 35, height/2 - 30, width/2, height/2);
-// pop();
-//
-// push();
-// noStroke();
-// fill(235, 217, 255);
-// triangle(width/2 + 90, height/2 - 10, width/2 + 35, height/2 - 30, width/2, height/2);
-// pop();
-//
-// push();
-// noStroke();
-// fill(255);
-// triangle(width/2 + 108, height/2 - 30, width/2 + 35, height/2 - 30, width/2, height/2);
-// pop();
-//
-// // Deer Horns
-// push();
-// stroke(255);
-// strokeWeight(3);
-// // Left Horn
-// line(width/2 - 15, height/2, width/2 - 15, height/2 - 40);
-// line(width/2 - 30, height/2 - 40, width/2, height/2 - 40);
-// line(width/2 - 30, height/2 - 40, width/2 - 30, height/2 - 60);
-//
-// // Right Horn
-// line(width/2 + 15, height/2, width/2 + 15, height/2 - 50);
-// line(width/2 + 15, height/2 - 50, width/2 + 30, height/2 - 50);
-// line(width/2 + 30, height/2 - 50, width/2 + 30, height/2 - 60);
-//
-// strokeWeight(1.5);
-// // Left Horn
-// line(width/2 + 1, height/2 - 40, width/2 + 1, height/2 - 50);
-// line(width/2 - 30, height/2 - 50, width/2 - 20, height/2 - 50);
-//
-// // Right Horn
-// line(width/2 + 20, height/2 - 50, width/2 + 20, height/2 - 60);
-// pop();
-//
-// // Body
-// push();
-// noStroke();
-// fill(255);
-// ellipse(width/2, height/2, 60);
-// fill(0);
-// ellipse(width/2, height/2 - 15, 15, 10);
-// ellipse(width/2, height/2, 20, 10);
-// fill(255);
-// ellipse(width/2, height/2 + 4, 20, 10);
-// fill(0);
-// ellipse(width/2, height/2, 6);
-// pop();
+crypticButtons();
+
+}
 
 
+function crypticButtons(){
+  // Cryptict Buttons
+  // Positive Space
+  button.x = width/6;
+  button.y = height/2;
 
+  push();
+  noStroke();
+  fill(255);
+  rect(button.x, button.y, button.width, button.height, button.radius, button.radius, button.radius, button.radius);
+  pop();
+  // Black Text
+  push();
+  fill(random(0, 255));
+  text(`POTS`, width/6, height/2);
+  pop();
 
+  // Negative Space
+  button.x = 5*width/6;
+  button.y = height/2;
 
+  push();
+  stroke(255);
+  strokeWeight(8);
+  noFill();
+  rect(button.x, button.y, button.width, button.height, button.radius, button.radius, button.radius, button.radius);
+  pop();
+  // White Text
+  push();
+  fill(random(0, 255));
+  text(`POTS`, 5*width/6, height/2);
+  pop();
 }

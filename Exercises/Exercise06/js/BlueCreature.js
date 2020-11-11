@@ -1,7 +1,7 @@
 class BlueCreature extends Creature{
   constructor(x, y){
     super(x, y);
-    this.speed = 0.7;
+    this.speed = 0.8;
   }
 
   display(){
