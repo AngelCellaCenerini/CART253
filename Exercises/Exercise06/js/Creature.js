@@ -5,11 +5,17 @@ class Creature{
     this.size = 60;
     this.vx = 0;
     this.vy = 0;
+    this.ax = 0;
+    this.ay = 0;
     this.speed = undefined;
     this.active = true;
   }
 
   move(){
+
+  // Acceleration
+  this.vx = this.vx + this.ax;
+  this.vy = this.vy + this.ay;
   // this.x = this.x + random(-4, 4);
   // this.y = this.y + random(-0.5, 0.5);
  this.x = this.x + this.vx;
@@ -40,6 +46,10 @@ class Creature{
 
     constrain(this.x, 11*width/26, 14*width/25);
 
+  }
+
+  gravity(force){
+    this.ay = this.ay + force;
   }
 
   checkImpact(){

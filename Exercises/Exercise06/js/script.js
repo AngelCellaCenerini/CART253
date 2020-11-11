@@ -14,6 +14,9 @@ let numVioletCreatures = 1; // Might use more in the final project
 let numBlueCreatures = 1;
 let numGreenCreatures = 1;
 
+// Declaring Gravity
+let gravityForce = 0.0025;
+
 let button = {
   x: 0,
   y: 0,
@@ -76,6 +79,7 @@ for(let i = 0; i < creatures.length; i ++){
   if (creature.active){
     creature.move();
     creature.wrap();
+    creature.gravity(gravityForce);
     creature.display();
     creature.checkImpact();
   }
