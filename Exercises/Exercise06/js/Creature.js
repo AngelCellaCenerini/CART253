@@ -6,6 +6,7 @@ class Creature{
     this.vx = 0;
     this.vy = 0;
     this.speed = undefined;
+    this.active = true;
   }
 
   move(){
@@ -39,6 +40,12 @@ class Creature{
 
     constrain(this.x, 11*width/26, 14*width/25);
 
+  }
+
+  checkImpact(){
+    if ((this.y + this.size/2) > 5*height/7){
+        this.active = false;
+    }
   }
 
   display(){

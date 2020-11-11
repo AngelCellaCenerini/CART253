@@ -73,10 +73,20 @@ background(0);
 
 for(let i = 0; i < creatures.length; i ++){
   let creature = creatures[i];
-  creature.move();
-  creature.wrap();
-  creature.display();
+  if (creature.active){
+    creature.move();
+    creature.wrap();
+    creature.display();
+    creature.checkImpact();
+  }
 }
+
+// Orange Line                              // JS Object??????
+push();
+stroke(255, 151, 46);
+strokeWeight(4);
+line(width/3, 5*height/7, 2*width/3, 5*height/7);
+pop();
 
 // White Lines
 push();
@@ -91,6 +101,7 @@ pop();
 
 crypticButtons();
 
+checkFail();
 }
 
 
@@ -126,4 +137,13 @@ function crypticButtons(){
   fill(random(0, 255));
   text(`POTS`, 5*width/6, height/2);
   pop();
+}
+
+function checkFail(){
+  for (let i = 0; i < creatures.length; i ++){
+    let creature = creatures[i];
+    if (!creature.active){
+      console.log(`fail`);
+    }
+  }
 }
