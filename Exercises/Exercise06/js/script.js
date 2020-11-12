@@ -1,16 +1,18 @@
 "use strict";
 
 /**************************************************
-Exercise 06: "Make Some Noise!"
+Exercise 06: "Make Some Noise!" / Intended as Level for Final Project
 Template p5 project by CART253 Course
 Angel Cella Cenerini
 
-User will guide displyed object(s) through the tone of their voice in order to avoid hitting the obstacles.
+User will guide displyed object(s) through the tone of their voice in order to avoid hitting the orange line. Three possible endings.
 **************************************************/
 let myFontA;
 let myFontB;
 
 // Level State
+// Timer - User can surpass level without necessarily win it
+let timer = 50;
 // Soundtrack
 let synth;
 let notes = [`C#1`, `A1`, `Ab4`, `Bb4`, `Db4`];
@@ -26,7 +28,7 @@ let numGreenCreatures = 1;
 let mic;
 
 // Declaring Gravity
-let gravityForce = 0.0025;
+let gravityForce = 0.002;
 
 // "POTS" Buttons
 let button = {
@@ -79,17 +81,13 @@ function setup() {
 createCanvas(windowWidth, windowHeight);
 // Graphics
 rectMode(CENTER);
+textFont(myFontA);
 textSize(70);
 textAlign(CENTER, CENTER);
 // Sounds
 userStartAudio();
 // Soundtrack
 synth = new p5.PolySynth();
-// Changing Synth Type
-  for (let i = 0; i < synth.audiovoices.length; i++) {
-    let voice = synth.audiovoices[i];
-    voice.oscillator.setType(`square`);
-  }
 // Mic Input
 mic = new p5.AudioIn();
 mic.start();
@@ -140,7 +138,7 @@ else if (state === `level`){
 
      // Mic Input Lifts Creatures
      let level = mic.getLevel();
-     let liftAmount = map(level, 0, 1, 0, -12); //change name
+     let liftAmount = map(level, 0, 1, - 1, -20);
 
      // Winged Creatures
      for(let i = 0; i < creatures.length; i ++){
@@ -157,7 +155,7 @@ else if (state === `level`){
 
      orangeLine();
 
-     delimitingWalls();
+     delimitingWalls(); // white
 
      // Flickering White and Black Buttons
      crypticButtons();
@@ -165,12 +163,11 @@ else if (state === `level`){
      // Display Tips Table - User can open/close table containing cues, if necessary
      tips();
 
+     // Check which Keys User is typing
      checkInputProgress();
 
      // Check if any of the Creatures fall below Orange Line
      checkFail();
-
-
 
      }
 //
@@ -195,7 +192,6 @@ else if (state === `success`){
 function textIntro(){
   // (White) Title and Instructions
   push();
-  textFont(myFontA);
   fill(255);
   textSize(50);
   text(`Final Project: 1/7 Level Draft`, width/2, height/4);
@@ -213,13 +209,25 @@ function textIntro(){
 
 // Level State
 
+function levelCountdown(){
+  // Level Countdown (50 sec) - amount may change; current version has to be tested
+  if ((frameCount % 60 === 0) && (timer > 0) && (state === `level`)){
+    timer--;
+  }
+  if ( timer === 0 ){
+    state === `pass`;
+  }
+}
+
+
 function playRandomNote(){
+  // Play Notes Randomly
   let note = random(notes);
   synth.play(note, 1, 1, 1);
 }
 
 function orangeLine(){
-  // Orange Line                              // JS Object??????
+  // Orange Line
   push();
   stroke(255, 151, 46);
   strokeWeight(4);
@@ -242,7 +250,6 @@ function delimitingWalls(){
 
 function crypticButtons(){
   // Cryptict Buttons
-  textFont(myFontB);
   // Positive Space
   button.x = width/6;
   button.y = height/2;
@@ -254,6 +261,7 @@ function crypticButtons(){
   pop();
   // Black Text
   push();
+  textFont(myFontB);
   fill(random(0, 255));
   text(`POTS`, width/6, height/2);
   pop();
@@ -270,13 +278,14 @@ function crypticButtons(){
   pop();
   // White Text
   push();
+  textFont(myFontB);
   fill(random(0, 255));
   text(`POTS`, 5*width/6, height/2);
   pop();
 }
 
 function tips(){
-
+   // Tips Table to guess mystery word
    if(!tipsTable.active){
      return;
    }
@@ -292,7 +301,6 @@ function tips(){
    rect(tipsTable.x, tipsTable.y, tipsTable.size);
    // Display Tips Table White Text
    fill(255);
-   textFont(myFontA);
    textAlign(CENTER, LEFT);
    textSize(20);
    text(cues[currentIndex], width/2, height/2);
@@ -318,7 +326,6 @@ function checkInputProgress(){
   push();
   fill(255);
   textSize(30);
-  textFont(myFontA);
   // Check if Word Inserted is Correct
   let correct = checkInput();
   // Display Current Input from User
@@ -332,6 +339,7 @@ function checkFail(){
     let creature = creatures[i];
     if (!creature.active){
       state = `intro`;
+      synth.dispose();
     }
   }
 }
@@ -341,7 +349,6 @@ function checkFail(){
 function textPass(){
   // White Text
   push();
-  textFont(myFontA);
   fill(255);
   textSize(40);
   text(`You did good.
@@ -357,7 +364,6 @@ function textPass(){
 function textSuccess(){
   // White Text
   push();
-  textFont(myFontA);
   fill(255);
   textSize(40);
   text(`Success! You achieved ???? (yet to be decided).`, width/2, height/2);
@@ -413,3 +419,4 @@ function mousePressed(){
     }
   }
 }
+//
