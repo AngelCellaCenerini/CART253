@@ -133,11 +133,16 @@ if (state === `intro`){
 // Level
 else if (state === `level`){
 
+     // Mic Input Lifts Creatures
+     let level = mic.getLevel();
+     let liftAmount = map(level, 0, 1, 0, -10); //change name
+
      // Winged Creatures
      for(let i = 0; i < creatures.length; i ++){
      let creature = creatures[i];
      if (creature.active){
        creature.move();
+       creature.lift(liftAmount);
        creature.wrap();
        creature.gravity(gravityForce);
        creature.display();
@@ -160,9 +165,7 @@ else if (state === `level`){
      // Check if any of the Creatures fall below Orange Line
      checkFail();
 
-     // Mic Input Lifts Creatures
-     let level = mic.getLevel();
-     let lift = map(level, 0, 1, height, height/6);
+
 
      }
 //
@@ -268,6 +271,10 @@ function crypticButtons(){
 }
 
 function tips(){
+
+   if(!tipsTable.active){
+     return;
+   }
 
    // Positioning Tips Table
    tipsTable.x = width/2;
@@ -388,7 +395,8 @@ function keyPressed(){
 }
 
 function keyTyped() {
-  if (state === `level`){
+  if (keyCode !== 13 && state === `level`){
+    console.log(`typed`);
     currentInput += key;
   }
 }

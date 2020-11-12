@@ -16,16 +16,20 @@ class Creature{
   // Acceleration
   this.vx = this.vx + this.ax;
   this.vy = this.vy + this.ay;
-  // this.x = this.x + random(-4, 4);
-  // this.y = this.y + random(-0.5, 0.5);
- this.x = this.x + this.vx;
- this.y = this.y + this.vy;
+  // Velocity
+  this.x = this.x + this.vx;
+  this.y = this.y + this.vy;
 
   let change = random(0, 1);
   if (change < 0.05){
     this.vx = random(-this.speed, this.speed);
     this.vy = random(-this.speed, this.speed);
   }
+
+  }
+
+  lift(amount){
+  this.vy = this.vy + amount;
 
   }
 
@@ -44,7 +48,8 @@ class Creature{
     //   this.y +- height/5;
     // }
 
-    constrain(this.x, 11*width/26, 14*width/25);
+    this.x = constrain(this.x, 11*width/26, 14*width/25);
+    this.y = constrain(this.y, this.size/2, height);
 
   }
 
