@@ -10,11 +10,15 @@ User will guide displyed object(s) through the tone of their voice in order to a
 let myFontA;
 let myFontB;
 
+// Level State
 // Winged Creatures
 let creatures = [];
 let numVioletCreatures = 1; // Might use more in the final project
 let numBlueCreatures = 1;
 let numGreenCreatures = 1;
+
+//Mic Input
+let mic;
 
 // Declaring Gravity
 let gravityForce = 0.0025;
@@ -35,6 +39,7 @@ let tipsTable = {
   size: 600,
   active: false
 }
+//
 
 // Tips: Ordered Sequence      - might be too cryptict, feedback is more than welcome pls!
 let cues = [
@@ -46,15 +51,15 @@ let cues = [
   `4. Try me backwards.`,
   `5. Did you get it yet? Type me!`
 ];
+// Guessing Answer ("stop")
 let currentIndex = 0;
-
 // Word User has to type in order to surpass level
 let answer = `stop`;
 // Keeping Track of User's Input
 let currentInput = ``;
+//
 
-
-// States (to be modified for Final Project)
+// States (will be slightly modified for Final Project)
 let state = `intro` // Intro, Level, Pass, Success
 
 function preload(){
@@ -67,9 +72,14 @@ function preload(){
 // Description of setup() goes here.
 function setup() {
 createCanvas(windowWidth, windowHeight);
+// Graphics
 rectMode(CENTER);
 textSize(70);
 textAlign(CENTER, CENTER);
+// Sounds
+userStartAudio();
+mic = new p5.AudioIn();
+mic.start();
 
 // Violet Creature - could be subjected to change
 for(let i = 0; i < numVioletCreatures; i ++){
@@ -161,16 +171,22 @@ else if (state === `level`){
 
      // Check if Creatures fall below Orange Line
      checkFail();
+
+     // Mic Input - Impacts Force behind lifitng Creatures
+     let level = mic.getLevel();
+     let lift = map(level, 0, 1, height, height/6);
+
+
      }
 //
 
-// Pass
+// Pass - User doesn't let Winged Creatures fall below orange line, yet fails to guess the word.
 else if (state === `pass`){
   textPass();
 }
 //
 
-// Success
+// Success - User guesses Word and Achives Item (Floating Light)
 else if (state === `success`){
   textSuccess();
 }

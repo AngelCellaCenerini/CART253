@@ -11,7 +11,7 @@ class Creature{
     this.active = true;
   }
 
-  move(){
+  move(){ //move(lift)?
 
   // Acceleration
   this.vx = this.vx + this.ax;
