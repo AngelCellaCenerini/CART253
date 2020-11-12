@@ -69,7 +69,7 @@ function preload(){
 
 // setup()
 //
-// Description of setup() goes here.
+// General Settings + Creating Creature Objects
 function setup() {
 createCanvas(windowWidth, windowHeight);
 // Graphics
@@ -112,9 +112,9 @@ for(let i = 0; i < numGreenCreatures; i ++){
 
 // draw()
 //
-// Description of draw() goes here.
+// States: Intro, Level, Pass, Success
 function draw() {
-background(0);
+  background(0);
 
 // Intro
 if (state === `intro`){
@@ -125,6 +125,7 @@ if (state === `intro`){
 // Level
 else if (state === `level`){
 
+     // Winged Creatures
      for(let i = 0; i < creatures.length; i ++){
      let creature = creatures[i];
      if (creature.active){
@@ -136,57 +137,35 @@ else if (state === `level`){
      }
      }
 
-     // Orange Line                              // JS Object??????
-     push();
-     stroke(255, 151, 46);
-     strokeWeight(4);
-     line(width/3, 5*height/7, 2*width/3, 5*height/7);
-     pop();
+     orangeLine();
 
-     // White Lines
-     push();
-     stroke(255);
-     strokeWeight(15);
-     line(width/3, 0, width/3, height);
-     line(2*width/3, 0, 2*width/3, height);
-     strokeWeight(8);
-     line(8*width/25, 0, 8*width/25, height);
-     line(17*width/25, 0, 17*width/25, height);
-     pop();
+     delimitingWalls();
 
+     // Flickering White and Black Buttons
      crypticButtons();
 
+     // Display Tips Table - User can open/close table containing cues, if necessary
      tips();
 
-     // Current Input Settings
-     push();
-     fill(255);
-     textSize(30);
-     textFont(myFontA);
-     // Check if Word Inserted is Correct
-     let correct = checkInput();
-     // Display Current Input from User
-     text(currentInput, width/2, 3*height/5);
-     pop();
+     checkInputProgress();
 
-     // Check if Creatures fall below Orange Line
+     // Check if any of the Creatures fall below Orange Line
      checkFail();
 
-     // Mic Input - Impacts Force behind lifitng Creatures
+     // Mic Input Lifts Creatures
      let level = mic.getLevel();
      let lift = map(level, 0, 1, height, height/6);
-
 
      }
 //
 
-// Pass - User doesn't let Winged Creatures fall below orange line, yet fails to guess the word.
+// Pass - User  fails to guess the word in time
 else if (state === `pass`){
   textPass();
 }
 //
 
-// Success - User guesses Word and Achives Item (Floating Light)
+// Success - User guesses Word and Achives Item
 else if (state === `success`){
   textSuccess();
 }
@@ -196,7 +175,7 @@ else if (state === `success`){
 
 
 // Functions
-// Intro
+// Intro State
 function textIntro(){
   // (White) Title and Instructions
   push();
@@ -216,7 +195,29 @@ function textIntro(){
 }
 //
 
-// Level
+// Level State
+
+function orangeLine(){
+  // Orange Line                              // JS Object??????
+  push();
+  stroke(255, 151, 46);
+  strokeWeight(4);
+  line(width/3, 5*height/7, 2*width/3, 5*height/7);
+  pop();
+}
+
+function delimitingWalls(){
+  // White Lines/Walls
+  push();
+  stroke(255);
+  strokeWeight(15);
+  line(width/3, 0, width/3, height);
+  line(2*width/3, 0, 2*width/3, height);
+  strokeWeight(8);
+  line(8*width/25, 0, 8*width/25, height);
+  line(17*width/25, 0, 17*width/25, height);
+  pop();
+}
 
 function crypticButtons(){
   // Cryptict Buttons
@@ -287,7 +288,21 @@ function checkInput() {
   }
 }
 
+function checkInputProgress(){
+  // Current Input Settings
+  push();
+  fill(255);
+  textSize(30);
+  textFont(myFontA);
+  // Check if Word Inserted is Correct
+  let correct = checkInput();
+  // Display Current Input from User
+  text(currentInput, width/2, 3*height/5);
+  pop();
+}
+
 function checkFail(){
+  // Check if any Creature falls below Orange Line
   for (let i = 0; i < creatures.length; i ++){
     let creature = creatures[i];
     if (!creature.active){
@@ -297,8 +312,9 @@ function checkFail(){
 }
 //
 
-// Pass
+// Pass State
 function textPass(){
+  // White Text
   push();
   textFont(myFontA);
   fill(255);
@@ -312,8 +328,9 @@ function textPass(){
 }
 //
 
-// Success
+// Success State
 function textSuccess(){
+  // White Text
   push();
   textFont(myFontA);
   fill(255);
@@ -326,14 +343,15 @@ function textSuccess(){
 }
 //
 
+// p5 Events
 function keyPressed(){
   if (keyCode === 13 && state === `intro`){
     state = `level`;
   }
-  // else if (keyCode === 27 || state === `level`){
-  //   state = `intro`;
-  // }
-  else if (keyCode === 16 && state === `level`){ ///?
+
+  else if (keyCode === 16 && state === `level`){
+    // Tips Table appearing/disappearing when User presses SHIFT
+     ///?
     if(tipsTable.active === false){
       tipsTable.active = true;
     }
@@ -341,8 +359,9 @@ function keyPressed(){
       tipsTable.active = false;
     }
   }
+
   else if (keyCode === 8 && state === `level`) {
-    // User can Reset Inserted Input
+    // User Resets Inserted Input
     currentInput = ``;
   }
 
