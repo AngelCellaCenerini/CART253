@@ -11,6 +11,11 @@ let myFontA;
 let myFontB;
 
 // Level State
+// Soundtrack
+let synth;
+let notes = [`C#1`, `A1`, `Ab4`, `Bb4`, `Db4`];
+let interval;
+
 // Winged Creatures
 let creatures = [];
 let numVioletCreatures = 1; // Might use more in the final project
@@ -78,6 +83,9 @@ textSize(70);
 textAlign(CENTER, CENTER);
 // Sounds
 userStartAudio();
+// Soundtrack
+synth = new p5.PolySynth();
+// Mic Input
 mic = new p5.AudioIn();
 mic.start();
 
@@ -196,6 +204,11 @@ function textIntro(){
 //
 
 // Level State
+
+function playRandomNote(){
+  let note = random(notes);
+  synth.play(note, 1, 1, 1);
+}
 
 function orangeLine(){
   // Orange Line                              // JS Object??????
@@ -347,6 +360,13 @@ function textSuccess(){
 function keyPressed(){
   if (keyCode === 13 && state === `intro`){
     state = `level`;
+    if (interval === undefined) {
+      interval = setInterval(playRandomNote, 500);
+    }
+    else {
+      clearInterval(interval);
+      interval = undefined;
+    }
   }
 
   else if (keyCode === 16 && state === `level`){
@@ -355,7 +375,7 @@ function keyPressed(){
     if(tipsTable.active === false){
       tipsTable.active = true;
     }
-    else if (tipsTable.active === true && state === `level`){
+    else {
       tipsTable.active = false;
     }
   }
