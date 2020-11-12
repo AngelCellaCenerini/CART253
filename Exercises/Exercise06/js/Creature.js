@@ -11,7 +11,7 @@ class Creature{
     this.active = true;
   }
 
-  move(){ //move(lift)?
+  move(){
 
   // Acceleration
   this.vx = this.vx + this.ax;
@@ -29,27 +29,15 @@ class Creature{
   }
 
   lift(amount){
-  this.vy = this.vy + amount;
 
+  this.vy = this.vy + amount;
+  
   }
 
-  wrap(){
-
-    // // Horizontally
-    // if ( this.x < 11*width/26){
-    //   this.x += 11*width/26;
-    // }
-    // else if ( this.x > 14*width/25){
-    //   this.x -= 14*width/25;
-    // }
-    //
-    // // Top of the Screen
-    // if ( this.y < height/5 ){
-    //   this.y +- height/5;
-    // }
+  constraining(){
 
     this.x = constrain(this.x, 11*width/26, 14*width/25);
-    this.y = constrain(this.y, this.size/2, height);
+    this.y = constrain(this.y, 3*this.size/2, height);
 
   }
 

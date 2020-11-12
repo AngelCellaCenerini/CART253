@@ -85,6 +85,11 @@ textAlign(CENTER, CENTER);
 userStartAudio();
 // Soundtrack
 synth = new p5.PolySynth();
+// Changing Synth Type
+  for (let i = 0; i < synth.audiovoices.length; i++) {
+    let voice = synth.audiovoices[i];
+    voice.oscillator.setType(`square`);
+  }
 // Mic Input
 mic = new p5.AudioIn();
 mic.start();
@@ -135,7 +140,7 @@ else if (state === `level`){
 
      // Mic Input Lifts Creatures
      let level = mic.getLevel();
-     let liftAmount = map(level, 0, 1, 0, -10); //change name
+     let liftAmount = map(level, 0, 1, 0, -12); //change name
 
      // Winged Creatures
      for(let i = 0; i < creatures.length; i ++){
@@ -143,7 +148,7 @@ else if (state === `level`){
      if (creature.active){
        creature.move();
        creature.lift(liftAmount);
-       creature.wrap();
+       creature.constraining();
        creature.gravity(gravityForce);
        creature.display();
        creature.checkImpact();
@@ -197,7 +202,7 @@ function textIntro(){
   textSize(20);
   text(`Use your voice to uplift the creatures so that they don't fall below the orange line.
   If you have the time, try even surpassing the level.
-  Press SHIFT anytime to open the Tips Table.
+  Press SPACEBAR anytime to open the Tips Table.
 
   You will be automatically brought back to the Title Screen in case you fail to save the creatures.
 
@@ -326,7 +331,7 @@ function checkFail(){
   for (let i = 0; i < creatures.length; i ++){
     let creature = creatures[i];
     if (!creature.active){
-      console.log(`fail`);
+      state = `intro`;
     }
   }
 }
@@ -376,9 +381,8 @@ function keyPressed(){
     }
   }
 
-  else if (keyCode === 16 && state === `level`){
+  else if (keyCode === 32 && state === `level`){
     // Tips Table appearing/disappearing when User presses SHIFT
-     ///?
     if(tipsTable.active === false){
       tipsTable.active = true;
     }
