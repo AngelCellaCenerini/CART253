@@ -28,16 +28,23 @@ let button = {
   radius: 15
 };
 
+// Tips Table - Appears/disappears when User presses SHIFT
+let tipsTable = {
+  x: 0,
+  y: 0,
+  size: 600,
+  active: false
+}
+
 // Tips: Ordered Sequence      - might be too cryptict, feedback is more than welcome pls!
 let cues = [
   ``,
   `1. What a lovely keyboard you have there,
   lying on your desk.`,
-  `2. I am not falling.`,
-  `3. I am flickering.`,
-  `4. Don't read me like that.`,
-  `5. Try me backwards.`,
-  `6. Did you get it yet? Type me!`
+  `2. I am flickering.`,
+  `3. Don't read me like that.`,
+  `4. Try me backwards.`,
+  `5. Did you get it yet? Type me!`
 ];
 let currentIndex = 0;
 
@@ -46,6 +53,9 @@ let answer = `stop`;
 // Keeping Track of User's Input
 let currentInput = ``;
 
+
+// States (to be modified for Final Project)
+let state = `intro` // Intro, Level, Pass, Success
 
 function preload(){
   myFontA = loadFont('assets/AnonymousPro-Regular.otf');
@@ -96,54 +106,101 @@ for(let i = 0; i < numGreenCreatures; i ++){
 function draw() {
 background(0);
 
-for(let i = 0; i < creatures.length; i ++){
-  let creature = creatures[i];
-  if (creature.active){
-    creature.move();
-    creature.wrap();
-    creature.gravity(gravityForce);
-    creature.display();
-    creature.checkImpact();
-  }
+// Intro
+if (state === `intro`){
+   textIntro();
+}
+//
+
+// Level
+else if (state === `level`){
+
+     for(let i = 0; i < creatures.length; i ++){
+     let creature = creatures[i];
+     if (creature.active){
+       creature.move();
+       creature.wrap();
+       creature.gravity(gravityForce);
+       creature.display();
+       creature.checkImpact();
+     }
+     }
+
+     // Orange Line                              // JS Object??????
+     push();
+     stroke(255, 151, 46);
+     strokeWeight(4);
+     line(width/3, 5*height/7, 2*width/3, 5*height/7);
+     pop();
+
+     // White Lines
+     push();
+     stroke(255);
+     strokeWeight(15);
+     line(width/3, 0, width/3, height);
+     line(2*width/3, 0, 2*width/3, height);
+     strokeWeight(8);
+     line(8*width/25, 0, 8*width/25, height);
+     line(17*width/25, 0, 17*width/25, height);
+     pop();
+
+     crypticButtons();
+
+     tips();
+
+     // Current Input Settings
+     push();
+     fill(255);
+     textSize(30);
+     textFont(myFontA);
+     // Check if Word Inserted is Correct
+     let correct = checkInput();
+     // Display Current Input from User
+     text(currentInput, width/2, 3*height/5);
+     pop();
+
+     // Check if Creatures fall below Orange Line
+     checkFail();
+     }
+//
+
+// Pass
+else if (state === `pass`){
+  textPass();
+}
+//
+
+// Success
+else if (state === `success`){
+  textSuccess();
+}
+//
+
 }
 
-// Orange Line                              // JS Object??????
-push();
-stroke(255, 151, 46);
-strokeWeight(4);
-line(width/3, 5*height/7, 2*width/3, 5*height/7);
-pop();
 
-// White Lines
-push();
-stroke(255);
-strokeWeight(15);
-line(width/3, 0, width/3, height);
-line(2*width/3, 0, 2*width/3, height);
-strokeWeight(8);
-line(8*width/25, 0, 8*width/25, height);
-line(17*width/25, 0, 17*width/25, height);
-pop();
+// Functions
+// Intro
+function textIntro(){
+  // (White) Title and Instructions
+  push();
+  textFont(myFontA);
+  fill(255);
+  textSize(50);
+  text(`Final Project: 1/7 Level Draft`, width/2, height/4);
+  textSize(20);
+  text(`Use your voice to uplift the creatures so that they don't fall below the orange line.
+  If you have the time, try even surpassing the level.
+  Press SHIFT anytime to open the Tips Table.
 
-crypticButtons();
+  You will be automatically brought back to the Title Screen in case you fail to save the creatures.
 
-tips();
-
-// Current Input Settings
-push();
-fill(255);
-textSize(30);
-textFont(myFontA);
-// Check if Word Inserted is Correct
-  let correct = checkInput();
-// Display Current Input from User
-text(currentInput, width/2, 3*height/5);
-pop();
-
-
-checkFail();
+  Press ENTER to start.`, width/2, height/2);
+  pop();
 }
+//
 
+// Level
 
 function crypticButtons(){
   // Cryptict Buttons
@@ -181,10 +238,17 @@ function crypticButtons(){
 }
 
 function tips(){
+
+   // Positioning Tips Table
+   tipsTable.x = width/2;
+   tipsTable.y = height/2;
+
    push();
    noStroke();
+   // Diplay Transparent Tips Table
    fill(255, 255, 255, 120);
-   rect(width/2, height/2, 600);
+   rect(tipsTable.x, tipsTable.y, tipsTable.size);
+   // Display Tips Table White Text
    fill(255);
    textFont(myFontA);
    textAlign(CENTER, LEFT);
@@ -200,7 +264,7 @@ function checkInput() {
   let lowerCaseInput = currentInput.toLowerCase();
   // Check if the Converted Input corrisponds to Answer
   if (lowerCaseInput === answer) {
-    console.log(`yes!`);
+    state = `success`;
   }
   else {
     return false;
@@ -215,27 +279,70 @@ function checkFail(){
     }
   }
 }
+//
+
+// Pass
+function textPass(){
+  push();
+  textFont(myFontA);
+  fill(255);
+  textSize(40);
+  text(`You did good.
+  Yet, not good enough.`, width/2, height/3);
+  textSize(20);
+  text(`Press ???? to proceed to the next level.
+  (That's a lie; the next level doesn't exist yet).`, width/2, 2*height/3);
+  pop();
+}
+//
+
+// Success
+function textSuccess(){
+  push();
+  textFont(myFontA);
+  fill(255);
+  textSize(40);
+  text(`Success! You achieved ???? (yet to be decided).`, width/2, height/2);
+  textSize(20);
+  text(`Press ???? to proceed to the next level.
+  (That's a lie; the next level doesn't exist yet).`, width/2, 2*height/3);
+  pop();
+}
+//
 
 function keyPressed(){
-  if (keyCode === 27){
-  // state = `intro`;
+  if (keyCode === 13 && state === `intro`){
+    state = `level`;
   }
-  else if (keyCode === 84){ ///?
-    diplayTips();
+  // else if (keyCode === 27 || state === `level`){
+  //   state = `intro`;
+  // }
+  else if (keyCode === 16 && state === `level`){ ///?
+    if(tipsTable.active === false){
+      tipsTable.active = true;
+    }
+    else if (tipsTable.active === true && state === `level`){
+      tipsTable.active = false;
+    }
   }
-  else if (keyCode === 8) {
+  else if (keyCode === 8 && state === `level`) {
     // User can Reset Inserted Input
     currentInput = ``;
   }
+
 }
 
 function keyTyped() {
-  currentInput += key;
+  if (state === `level`){
+    currentInput += key;
+  }
 }
 
 function mousePressed(){
-  currentIndex = currentIndex + 1;
-  if (currentIndex === cues.length){
-    currentIndex = 0;
+  if (state === `level`){
+    currentIndex = currentIndex + 1;
+    if (currentIndex === cues.length){
+        currentIndex = 0;
+    }
   }
 }
