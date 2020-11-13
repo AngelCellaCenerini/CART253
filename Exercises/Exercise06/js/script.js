@@ -88,6 +88,10 @@ textAlign(CENTER, CENTER);
 userStartAudio();
 // Soundtrack
 synth = new p5.PolySynth();
+  for (let i = 0; i < synth.audiovoices.length; i++) {
+    let voice = synth.audiovoices[i];
+    voice.oscillator.setType(`triangle`);
+  }
 // Mic Input
 mic = new p5.AudioIn();
 mic.start();
@@ -138,7 +142,7 @@ else if (state === `level`){
 
      // Mic Input Lifts Creatures
      let level = mic.getLevel();
-     let liftAmount = map(level, 0, 1, - 1, -20);
+     let liftAmount = map(level, 0, 1, - 1, -15);
 
      // Winged Creatures
      for(let i = 0; i < creatures.length; i ++){
