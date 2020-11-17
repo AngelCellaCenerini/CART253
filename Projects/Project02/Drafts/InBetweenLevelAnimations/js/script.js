@@ -6,13 +6,14 @@ Angel Cella Cenerini
 Template p5 project by CART253 Course
 
 
-Here is a description of this template p5 project.
+If User successfully surpasses level, they achieve one of the collectable items; this will also trigger a "cutscene" of sorts
 **************************************************/
 
 // setup()
 //
 // Description of setup() goes here.
 function setup() {
+  createCanvas(windowWidth, windowHeight);
 
 }
 
@@ -20,5 +21,6 @@ function setup() {
 //
 // Description of draw() goes here.
 function draw() {
+  background(0);
 
 }
