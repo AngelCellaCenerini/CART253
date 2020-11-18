@@ -7,22 +7,39 @@ class Mirror{
     this.shadowY = shadowY;
     this.width = 350;
     this.height = 435;
+    this.vx = 2;
+    this.vy = 2;
+    this.maxSpeed = 4;
     this.outlineWidth = 375;
     this.outlineHeight = 460;
     this.handleWidth = 280;
     this.handleHeight = 140;
     this.shadowWidth = 180;
     this.shadowHeight = 70;
-    this.vx = 0;
-    this.vy = 2;
+    this.altitude = -2;
     this.start = 0;
     this.stop = PI
   }
 
   float(){
-  this.shadowX = this.shadowX + this.vx;
-  this.shadowY = this.shadowY - this.vy;
+  this.shadowY = this.shadowY + this.altitude;
   }
+
+  tremble(){
+    let r = random(0, 1);
+    if (r < 0.1) {
+      this.vx = random(-this.maxSpeed, this.maxSpeed);
+      this.vy = random(-this.maxSpeed, this.maxSpeed);
+    }
+  }
+
+  move(){
+    // Move the ghost
+    this.x += this.vx;
+    this.y += this.vy;
+  }
+
+
 
   display(){
     // Mirror "Handle"
