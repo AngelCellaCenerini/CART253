@@ -229,6 +229,8 @@ else if (state === `level`){
   projector.y = 5*height/6;
   rect(projector.x, projector.y, projector.height, projector.width, projector.radius, projector.radius, projector.radius, projector.radius);
   pop();
+
+  checkProjectorChoice();
 }
 // Pass - User  fails to solve the puzzle
 else if (state === `pass`){
@@ -326,7 +328,19 @@ function textSuccess(){
   (That's a lie; the next level doesn't exist yet).`, width/2, 2*height/3);
   pop();
 }
-//
+
+function checkProjectorChoice(){
+  // Check which Projector User selects
+  let d1 = dist(mouseX, mouseY, projector.x, projector.y);
+  let d2 = dist(mouseX, mouseY, projector.x, projector.y);   //Solve issue with projectors first
+  if ((d1 < projector.size/2) && (state === `level`)){ // mouseX && mouseY?
+    state = `intro`;
+  }
+  else if((d2 < projector.size/2) && (state === `level`)){
+    state = `success`;
+  }
+}
+// //
 
 // p5 Events
 function keyPressed(){
