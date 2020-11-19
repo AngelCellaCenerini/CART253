@@ -39,6 +39,14 @@ let projector = {
 // Eye
 let eye;
 
+// Tips Table - Appears/disappears when User presses SPACEBAR
+let tipsTable = {
+  x: 0,
+  y: 0,
+  size: 400,
+  active: false
+}
+
 // States
 let state = `intro`; // Intro, Level, Pass, Success
 
@@ -108,6 +116,11 @@ if (state === `intro`){
 }
 // Level
 else if (state === `level`){
+
+  levelCountdown();
+
+  // Display Tips Table - User can open/close table containing cues, if necessary
+  tips();
 
   // Soundtrack
   angle += angleIncrease;
@@ -219,6 +232,7 @@ else if (state === `pass`){
 else if (state === `success`){
   textSuccess();
 }
+
 }
 
 // Functions
@@ -250,6 +264,28 @@ function levelCountdown(){
   if ( timer === 0 ){
     state === `pass`;
   }
+}
+function tips(){
+   // Tips Table to guess mystery word
+   if(!tipsTable.active){
+     return;
+   }
+
+   // Positioning Tips Table
+   tipsTable.x = width/2;
+   tipsTable.y = height/2;
+
+   push();
+   noStroke();
+   // Diplay Transparent Tips Table
+   fill(255, 255, 255, 120);
+   rect(tipsTable.x, tipsTable.y, tipsTable.size);
+   // Display Tips Table White Text
+   fill(255);
+   textAlign(CENTER, CENTER);
+   textSize(20);
+   text(`S h u t   i t   o f f .`, width/2, height/2);
+   pop();
 }
 //
 
@@ -289,4 +325,13 @@ function keyPressed(){
     soundtrack.start();
     soundtrack2.start();
   }
+  else if (keyCode === 32 && state === `level`){
+  // Tips Table appearing/disappearing when User presses SPACEBAR
+  if(tipsTable.active === false){
+     tipsTable.active = true;
+  }
+  else {
+     tipsTable.active = false;
+  }
+}
 }
