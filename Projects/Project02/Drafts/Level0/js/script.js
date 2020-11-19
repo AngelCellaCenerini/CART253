@@ -29,13 +29,6 @@ let frame = {
 
 // Projector
 let projectors = [];
-// let projector = {
-//   x: 0,
-//   y: 0,
-//   width: 50,
-//   height: 80,
-//   radius: 5
-// }
 
 // Eye
 let eye;
@@ -48,10 +41,10 @@ let tipsTable = {
   active: false
 }
 // TIPS
-// 1. User has to shut off lights by clicking specific projector
-// 2. The sun rises in the East; when looking towards it("gaze"),
-// we have the South at our right. The correct projector to click is the one at the bottom of the white frame.
-// This is less obvious than the previous level draft, for I would like for the levels to become more challenging.
+// 1. User has to shut off lights by clicking specific projector.
+// 2. The sun rises in the East; when looking towards it("gaze"), we have the South at our right.
+// Therefore, the correct projector to click is the one at the bottom of the white frame.
+// This is less obvious than the previous level draft, for I would like for the levels to become more challenging overtime.
 let cues = [
   ``,
   `1. S h u t   i t   o f f .`,
@@ -65,7 +58,7 @@ let state = `intro`; // Intro, Level, Pass, Success
 
 // setup()
 //
-// Description of setup() goes here.
+// Basic Set Up; Introducing Audio and Classes.
 function setup() {
 createCanvas(windowWidth, windowHeight);
 rectMode(CENTER);
@@ -116,7 +109,7 @@ projectors.push(rightProjector);
 
 // draw()
 //
-// Description of draw() goes here.
+// States, functions.
 function draw() {
   background(0);
 
@@ -124,6 +117,7 @@ function draw() {
 if (state === `intro`){
    textIntro();
 }
+
 // Level
 else if (state === `level`){
 
@@ -141,30 +135,10 @@ else if (state === `level`){
 
 
   // Laser Lights
-  for(let i=0; i<12;i++){
-    let x1 = random(frame.x - frame.width/2, frame.x + frame.width/2);
-    let y1 = random (frame.y - frame.height/2, frame.y + frame.height/2);
-    let x2 = random(frame.x - frame.width/2, frame.x + frame.width/2);
-    let y2 = random (frame.y - frame.height/2, frame.y + frame.height/2);
-    push();
-    let r = random(100, 255);
-    let g = random(100, 255);
-    let b = random(100, 255);
-    stroke(r, g, b);
-    strokeWeight(4);
-    line(x1,y1,x2,y2);
-    pop();
-  }
+  laserLights();
 
   // White Frame
-  push();
-  noFill();
-  stroke(255);
-  strokeWeight(3);
-  frame.x = width/2;
-  frame.y = height/2;
-  rect(frame.x, frame.y, frame.width, frame.height);
-  pop();
+  whiteFrame();
 
   // Mic Input Calling Eye back to Focus
   let level = mic.getLevel();
@@ -185,7 +159,8 @@ else if (state === `level`){
   tips();
 
 }
-// Pass - User  fails to solve the puzzle
+
+// Pass - User  fails to solve puzzle
 else if (state === `pass`){
   textPass();
 }
@@ -198,6 +173,7 @@ else if (state === `success`){
 }
 
 // Functions
+//
 // Intro State
 function textIntro(){
   // (White) Title and Instructions
@@ -227,6 +203,38 @@ function levelCountdown(){
     state === `pass`;
   }
 }
+
+function laserLights(){
+  // Laser Lights
+  for(let i=0; i<12;i++){
+    let x1 = random(frame.x - frame.width/2, frame.x + frame.width/2);
+    let y1 = random (frame.y - frame.height/2, frame.y + frame.height/2);
+    let x2 = random(frame.x - frame.width/2, frame.x + frame.width/2);
+    let y2 = random (frame.y - frame.height/2, frame.y + frame.height/2);
+    push();
+    let r = random(100, 255);
+    let g = random(100, 255);
+    let b = random(100, 255);
+    stroke(r, g, b);
+    strokeWeight(4);
+    line(x1,y1,x2,y2);
+    pop();
+  }
+
+}
+
+function whiteFrame(){
+  // White Frame
+  push();
+  noFill();
+  stroke(255);
+  strokeWeight(3);
+  frame.x = width/2;
+  frame.y = height/2;
+  rect(frame.x, frame.y, frame.width, frame.height);
+  pop();
+}
+
 function tips(){
    // Tips Table to guess mystery word
    if(!tipsTable.active){
@@ -252,7 +260,6 @@ function tips(){
    text(`Click for more tips >>`, 2*width/5, 4*height/5);
    pop();
 }
-
 //
 
 // Pass State
@@ -282,7 +289,6 @@ function textSuccess(){
   (That's a lie; the next level doesn't exist yet).`, width/2, 2*height/3);
   pop();
 }
-
 //
 
 // p5 Events
@@ -318,3 +324,4 @@ function mousePressed(){
   }
 
 }
+//

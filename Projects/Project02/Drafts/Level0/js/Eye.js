@@ -34,16 +34,17 @@ class Eye {
     }
 
   focus(level){
-    this.wonderTime++;
+    // Time Pupil spends darting around
+    this.dartingTime++;
 
-    // Recenter Pupil
+    // Recenter Pupil via Mic Input
     if (level > 0.1){
-      this.wonderTime = 0;
+      this.dartingTime = 0;
       this.x = this.positionX;
       this.y = this.positionY;
 
     }
-    if (this.wonderTime > 5*60){
+    if (this.dartingTime > 5*60){
       state = `intro`;
       soundtrack.stop();
       soundtrack2.stop();
@@ -67,13 +68,13 @@ class Eye {
     ellipse(this.positionX, this.positionY, this.size);
     pop();
 
-    // Pupil
+    // Blue-Green Pupil
     push();
     fill(58, 255, 220);
     ellipse(this.x, this.y, this.pupilSize);
     pop();
 
-    // Pupil Ring
+    // Gloden Pupil Ring
     push();
     noFill();
     stroke(255, 204, 0);

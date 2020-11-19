@@ -13,6 +13,7 @@ class BottomProjector extends Projector{
   }
 
   mousePressed(){
+    // Bottom Projector is the correct item User has to click to surpass level
     let d1 = dist(mouseX, mouseY, this.x, this.y);
     if ( (d1 < this.height/2 || d1 < this.width/2) && (state === `level`)){
       state = `success`;
