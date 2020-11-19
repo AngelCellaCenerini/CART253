@@ -2,14 +2,13 @@ class Eye {
   constructor(x, y, positionX, positionY){
     this.x = x;
     this.y = y;
-    this.positionX = positionX;    // Distinguishing from this.x for only pupil will move
-    this.positionY = positionY;    // Distinguishing from this.x for only pupil will move
+    this.positionX = positionX;    // Distinguishing from this.x, which only applies to pupil
+    this.positionY = positionY;    // Distinguishing from this.x, which only applies to pupil
     this.size = 170;
     this.pupilSize = 60;
     this.vx = 4;
     this.vy = 4;
     this.maxSpeed = 6;
-    this.acceleration = 2;
     this.wonderTime = 0;
 
   }
@@ -19,7 +18,7 @@ class Eye {
     this.y = this.y + this.vy;
 
     let direction = random(0, 1);
-    if (direction < 0.1){
+    if (direction < 0.15){
       this.vx = random(-this.maxSpeed, this.maxSpeed);
       this.vy = random(-this.maxSpeed, this.maxSpeed);
     }
@@ -28,9 +27,9 @@ class Eye {
   restrict(){
       // Restricting Pupil within Eye
       // Horizontally
-      this.x = constrain(this.x, this.positionX - this.size/4, this.positionX + this.size/4);
+      this.x = constrain(this.x, this.positionX - this.size/5, this.positionX + this.size/5);
       // Vertically
-      this.y = constrain(this.y, this.positionY - this.size/4, this.positionY + this.size/4);
+      this.y = constrain(this.y, this.positionY - this.size/5, this.positionY + this.size/5);
 
     }
 
@@ -44,8 +43,8 @@ class Eye {
       this.y = this.positionY;
 
     }
-    if (this.wonderTime > 6*60){
-      console.log(`fail`);
+    if (this.wonderTime > 5*60){
+      state = `intro`;
     }
 
 
