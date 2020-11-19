@@ -6,13 +6,29 @@ Template p5 project by CART 253
 
 User must
 **************************************************/
+// Soundtrack
+let soundtrack;
+let soundtrack2;
+let angle = 0;
+let angleIncrease = 0.25;
+
+// White Frame
+let frame = {
+  x: 0,
+  y: 0,
+  width: 1100,
+  height: 700
+}
+
+// Projector
 let projector = {
-  x: undefined,
-  y: undefined,
+  x: 0,
+  y: 0,
   width: 50,
   height: 80,
   radius: 5
 }
+
 // setup()
 //
 // Description of setup() goes here.
@@ -20,6 +36,36 @@ function setup() {
 createCanvas(windowWidth, windowHeight);
 rectMode(CENTER);
 noStroke();
+userStartAudio();
+
+
+soundtrack = new p5.Oscillator(0, `tan`);
+soundtrack.amp(0.04);
+soundtrack2 = new p5.Oscillator(`triangle`);
+soundtrack.amp(0.02);
+
+// // Laser Lights Projectors
+// // Top Projector
+// let x = width/2;
+// let y = height/6;
+// let horizontalProjector = new HorizontalProjector(x, y);
+// projectors.push(horizontalProjector);
+// // Bottom Projector
+// let x = width/2;
+// let y = 5*height/6;
+// let horizontalProjector = new HorizontalProjector(x, y);
+// projectors.push(horizontalProjector);
+// // Left Projector
+// let x = width/4;
+// let y = height/2;
+// let verticalProjector = new VerticalProjector(x, y);
+// projectors.push(verticalProjector);
+// // Right Projector
+// let x = 3*width/4;
+// let y = height/2;
+// let verticalProjector = new VerticalProjector(x, y);
+// projectors.push(verticalProjector);
+
 }
 
 // draw()
@@ -28,12 +74,41 @@ noStroke();
 function draw() {
   background(0);
 
+  // Soundtrack
+  angle += angleIncrease;
+  let tanAngle = tan(angle);
+  let newFreq = map(tanAngle, -1, 1, 420, 680);
+  soundtrack.freq(newFreq);
+
+  let randomValue = random(0, 1);
+  let newFrequency = map(randomValue, 0, 1, 200, 300);
+  soundtrack2.freq(newFrequency);
+
+
+  // Laser Lights
+  for(let i=0; i<12;i++){
+    let x1 = random(frame.x - frame.width/2, frame.x + frame.width/2);
+    let y1 = random (frame.y - frame.height/2, frame.y + frame.height/2);
+    let x2 = random(frame.x - frame.width/2, frame.x + frame.width/2);
+    let y2 = random (frame.y - frame.height/2, frame.y + frame.height/2);
+    push();
+    let r = random(100, 255);
+    let g = random(100, 255);
+    let b = random(100, 255);
+    stroke(r, g, b);
+    strokeWeight(4);
+    line(x1,y1,x2,y2);
+    pop();
+}
+
   // White Frame
   push();
   noFill();
   stroke(255);
   strokeWeight(3);
-  rect(width/2, height/2, 1100, 700);
+  frame.x = width/2;
+  frame.y = height/2;
+  rect(frame.x, frame.y, frame.width, frame.height);
   pop();
 
   // Eye Red Corners
@@ -63,7 +138,13 @@ function draw() {
   ellipse(width/2, height/2, 20);
   pop();
 
-  // Laser Lights Projectors
+  // Laser Light Projector
+  // for (let i = 0; i < projectors.length; i ++){
+  // let projector = projectors[i];
+  // projector.display();
+  // }
+
+
   push();
   stroke(0);
   strokeWeight(2);
@@ -82,4 +163,9 @@ function draw() {
   rect(projector.x, projector.y, projector.height, projector.width, projector.radius, projector.radius, projector.radius, projector.radius);
   pop();
 
+}
+
+function mousePressed() {
+  soundtrack.start();
+  soundtrack2.start();
 }
