@@ -28,13 +28,14 @@ let frame = {
 }
 
 // Projector
-let projector = {
-  x: 0,
-  y: 0,
-  width: 50,
-  height: 80,
-  radius: 5
-}
+let projectors = [];
+// let projector = {
+//   x: 0,
+//   y: 0,
+//   width: 50,
+//   height: 80,
+//   radius: 5
+// }
 
 // Eye
 let eye;
@@ -43,16 +44,21 @@ let eye;
 let tipsTable = {
   x: 0,
   y: 0,
-  size: 500,
+  size: 600,
   active: false
 }
+// TIPS
+// 1. User has to shut off lights by clicking specific projector
+// 2. The sun rises in the East; when looking towards it("gaze"),
+// we have the South at our right. The correct projector to click is the one at the bottom of the white frame.
+// This is less obvious than the previous level draft, for I would like for the levels to become more challenging.
 let cues = [
   ``,
-  `1. S h u t   i t   o f f .`,  // User has to shut off lights by clicking specific projector
-  `2. I stand to your right when you gaze at the rising sun.`,  // The sun rises in the East; when looking towards it("gaze"),
-  // we have the South at our right. The correct projector to click is the one at the bottom of the white frame.
-  // This is less obvious than the previous level draft, for I would like for the levels to become more challenging.
+  `1. S h u t   i t   o f f .`,
+  `2. I stand to your right when you gaze at the rising sun.`,
 ];
+// Scrolling Tips List
+let currentIndex = 0;
 
 // States
 let state = `intro`; // Intro, Level, Pass, Success
@@ -84,27 +90,27 @@ let positionY = height/2;
 eye = new Eye(x, y, positionX, positionY);
 
 
-// // Laser Lights Projectors
-// // Top Projector
-// let x = width/2;
-// let y = height/6;
-// let horizontalProjector = new HorizontalProjector(x, y);
-// projectors.push(horizontalProjector);
-// // Bottom Projector
-// let x = width/2;
-// let y = 5*height/6;
-// let horizontalProjector = new HorizontalProjector(x, y);
-// projectors.push(horizontalProjector);
-// // Left Projector
-// let x = width/4;
-// let y = height/2;
-// let verticalProjector = new VerticalProjector(x, y);
-// projectors.push(verticalProjector);
-// // Right Projector
-// let x = 3*width/4;
-// let y = height/2;
-// let verticalProjector = new VerticalProjector(x, y);
-// projectors.push(verticalProjector);
+// Laser Lights Projectors
+// Top Projector
+x = width/2;
+y = height/6;
+let topProjector = new TopProjector(x, y);
+projectors.push(topProjector);
+// Bottom Projector
+x = width/2;
+y = 5*height/6;
+let bottomProjector = new BottomProjector(x, y);
+projectors.push(bottomProjector);
+// Left Projector
+x = width/4;
+y = height/2;
+let leftProjector = new LeftProjector(x, y);
+projectors.push(leftProjector);
+// Right Projector
+x = 3*width/4;
+y = height/2;
+let rightProjector = new RightProjector(x, y);
+projectors.push(rightProjector);
 
 }
 
@@ -113,22 +119,15 @@ eye = new Eye(x, y, positionX, positionY);
 // Description of draw() goes here.
 function draw() {
   background(0);
-  
+
 // Intro
 if (state === `intro`){
    textIntro();
-   if(soundtrack.play === true && soundtrack2.play === true){ //?????????????
-     soundtrack.stop();
-     soundtrack2.stop();
-   }
 }
 // Level
 else if (state === `level`){
 
   levelCountdown();
-
-  // Display Tips Table - User can open/close table containing cues, if necessary
-  tips();
 
   // Soundtrack
   angle += angleIncrease;
@@ -176,32 +175,15 @@ else if (state === `level`){
   eye.focus(level);
   eye.display();
 
-  // Laser Light Projector
-  // for (let i = 0; i < projectors.length; i ++){
-  // let projector = projectors[i];
-  // projector.display();
-  // }
+  // Laser Light Projectors
+  for (let i = 0; i < projectors.length; i ++){
+  let projector = projectors[i];
+  projector.display();
+  }
 
+  // Display Tips Table - User can open/close table containing cues, if necessary
+  tips();
 
-  push();
-  stroke(0);
-  strokeWeight(2);
-  fill(255);
-  projector.x = width/4;
-  projector.y = height/2;
-  rect(projector.x, projector.y, projector.width, projector.height, projector.radius, projector.radius, projector.radius, projector.radius);
-  projector.x = 3*width/4;
-  projector.y = height/2;
-  rect(projector.x, projector.y, projector.width, projector.height, projector.radius, projector.radius, projector.radius, projector.radius);
-  projector.x = width/2;
-  projector.y = height/6;
-  rect(projector.x, projector.y, projector.height, projector.width, projector.radius, projector.radius, projector.radius, projector.radius);
-  projector.x = width/2;
-  projector.y = 5*height/6;
-  rect(projector.x, projector.y, projector.height, projector.width, projector.radius, projector.radius, projector.radius, projector.radius);
-  pop();
-
-  checkProjectorChoice();
 }
 // Pass - User  fails to solve the puzzle
 else if (state === `pass`){
@@ -258,13 +240,14 @@ function tips(){
    push();
    noStroke();
    // Diplay Transparent Tips Table
-   fill(255, 255, 255, 120);
+   fill(255, 255, 255, 150);
    rect(tipsTable.x, tipsTable.y, tipsTable.size);
    // Display Tips Table White Text
-   fill(255);
+   fill(0);
    textAlign(CENTER, CENTER);
    textSize(20);
    text(cues[currentIndex], width/2, height/2);
+   fill(255);
    textSize(15);
    text(`Click for more tips >>`, 2*width/5, 4*height/5);
    pop();
@@ -300,18 +283,7 @@ function textSuccess(){
   pop();
 }
 
-function checkProjectorChoice(){
-  // Check which Projector User selects
-  let d1 = dist(mouseX, mouseY, projector.x, projector.y);
-  let d2 = dist(mouseX, mouseY, projector.x, projector.y);   //Solve issue with projectors first
-  if ((d1 < projector.size/2) && (state === `level`)){ // mouseX && mouseY?
-    state = `intro`;
-  }
-  else if((d2 < projector.size/2) && (state === `level`)){
-    state = `success`;
-  }
-}
-// //
+//
 
 // p5 Events
 function keyPressed(){
@@ -338,4 +310,11 @@ function mousePressed(){
         currentIndex = 0;
     }
   }
+
+  // Laser Light Projector
+  for (let i = 0; i < projectors.length; i ++){
+  let projector = projectors[i];
+  projector.mousePressed();
+  }
+
 }

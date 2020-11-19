@@ -9,4 +9,7 @@ class Projector{
   display(){
     // Specified in Subclasses
   }
+  mousePressed(){
+    // Specified in Subclasses
+  }
 }

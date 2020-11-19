@@ -45,6 +45,8 @@ class Eye {
     }
     if (this.wonderTime > 5*60){
       state = `intro`;
+      soundtrack.stop();
+      soundtrack2.stop();
     }
 
 
