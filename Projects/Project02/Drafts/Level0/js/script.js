@@ -43,9 +43,16 @@ let eye;
 let tipsTable = {
   x: 0,
   y: 0,
-  size: 400,
+  size: 500,
   active: false
 }
+let cues = [
+  ``,
+  `1. S h u t   i t   o f f .`,  // User has to shut off lights by clicking specific projector
+  `2. I stand to your right when you gaze at the rising sun.`,  // The sun rises in the East; when looking towards it("gaze"),
+  // we have the South at our right. The correct projector to click is the one at the bottom of the white frame.
+  // This is less obvious than the previous level draft, for I would like for the levels to become more challenging.
+];
 
 // States
 let state = `intro`; // Intro, Level, Pass, Success
@@ -284,9 +291,12 @@ function tips(){
    fill(255);
    textAlign(CENTER, CENTER);
    textSize(20);
-   text(`S h u t   i t   o f f .`, width/2, height/2);
+   text(cues[currentIndex], width/2, height/2);
+   textSize(15);
+   text(`Click for more tips >>`, 2*width/5, 4*height/5);
    pop();
 }
+
 //
 
 // Pass State
@@ -334,4 +344,13 @@ function keyPressed(){
      tipsTable.active = false;
   }
 }
+}
+
+function mousePressed(){
+  if (state === `level`){
+    currentIndex = currentIndex + 1;
+    if (currentIndex === cues.length){
+        currentIndex = 0;
+    }
+  }
 }
