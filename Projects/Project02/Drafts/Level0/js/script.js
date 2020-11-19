@@ -2,9 +2,10 @@
 
 /**************************************************
 Project02 Draft: Level0
+Angel Cella Cenerini
 Template p5 project by CART 253
 
-User must
+User must grab and keep eye's attention to pass level; user must switch off lights to surpass level.
 **************************************************/
 // Timer
 let timer = 50;
@@ -38,6 +39,9 @@ let projector = {
 // Eye
 let eye;
 
+// States
+let state = `intro`; // Intro, Level, Pass, Success
+
 // setup()
 //
 // Description of setup() goes here.
@@ -46,6 +50,7 @@ createCanvas(windowWidth, windowHeight);
 rectMode(CENTER);
 noStroke();
 userStartAudio();
+textAlign(LEFT, RIGHT);
 
 // Soundtrack
 soundtrack = new p5.Oscillator(0, `tan`);
@@ -93,6 +98,16 @@ let eye = new Eye(x, y, positionX, positionY);
 // Description of draw() goes here.
 function draw() {
   background(0);
+  // Intro
+if (state === `intro`){
+   textIntro();
+   if(soundtrack.play === true && soundtrack2.play === true){ //?????????????
+     soundtrack.stop();
+     soundtrack2.stop();
+   }
+}
+// Level
+else if (state === `level`){
 
   // Soundtrack
   angle += angleIncrease;
@@ -119,7 +134,7 @@ function draw() {
     strokeWeight(4);
     line(x1,y1,x2,y2);
     pop();
-}
+  }
 
   // White Frame
   push();
@@ -194,9 +209,39 @@ function draw() {
   projector.y = 5*height/6;
   rect(projector.x, projector.y, projector.height, projector.width, projector.radius, projector.radius, projector.radius, projector.radius);
   pop();
-
+}
+// Pass - User  fails to solve the puzzle
+else if (state === `pass`){
+  textPass();
 }
 
+// Success - User solves puzzle and achives Item
+else if (state === `success`){
+  textSuccess();
+}
+}
+
+// Functions
+// Intro State
+function textIntro(){
+  // (White) Title and Instructions
+  push();
+  fill(255);
+  textSize(50);
+  text(`Final Project: 2/7 Level Draft`, width/2, height/4);
+  textSize(20);
+  text(`  Use your voice to grab the eye's attention; don't let it dart around for too long!
+  If you have the time, try even surpassing the level.
+  Press SPACEBAR anytime to open the Tips Table.
+
+  You will be automatically brought back to the Title Screen in case you fail the level.
+
+  Press ENTER to start.`, width/2, height/2);
+  pop();
+}
+//
+
+//Level
 function levelCountdown(){
   // Level Countdown (50 sec) - amount may change; current version has to be tested
   if ((frameCount % 60 === 0) && (timer > 0) && (state === `level`)){
@@ -206,8 +251,42 @@ function levelCountdown(){
     state === `pass`;
   }
 }
+//
 
-function mousePressed() {
-  soundtrack.start();
-  soundtrack2.start();
+// Pass State
+function textPass(){
+  // White Text
+  push();
+  fill(255);
+  textSize(40);
+  text(`You did good.
+  Yet, not good enough.`, width/2, height/3);
+  textSize(20);
+  text(`Press ???? to proceed to the next level.
+  (That's a lie; the next level doesn't exist yet).`, width/2, 2*height/3);
+  pop();
+}
+//
+
+// Success State
+function textSuccess(){
+  // White Text
+  push();
+  fill(255);
+  textSize(40);
+  text(`Success! You achieved ???? (yet to be decided).`, width/2, height/2);
+  textSize(20);
+  text(`Press ???? to proceed to the next level.
+  (That's a lie; the next level doesn't exist yet).`, width/2, 2*height/3);
+  pop();
+}
+//
+
+// p5 Events
+function keyPressed(){
+  if (keyCode === 13 && state === `intro`){
+    state = `level`;
+    soundtrack.start();
+    soundtrack2.start();
+  }
 }
