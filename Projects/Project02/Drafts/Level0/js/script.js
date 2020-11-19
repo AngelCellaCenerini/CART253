@@ -6,6 +6,9 @@ Template p5 project by CART 253
 
 User must
 **************************************************/
+//Mic Input
+let mic;
+
 // Soundtrack
 let soundtrack;
 let soundtrack2;
@@ -41,10 +44,14 @@ rectMode(CENTER);
 noStroke();
 userStartAudio();
 
-
+// Soundtrack
 soundtrack = new p5.Oscillator(0, `tan`);
 soundtrack2 = new p5.Oscillator(`triangle`);
 soundtrack.amp(0.02);
+
+// Mic Input
+mic = new p5.AudioIn();
+mic.start();
 
 // Eye
 let x = width/2;
@@ -125,8 +132,13 @@ function draw() {
   eye.move();
   eye.acceleration();
   eye.restrict();
-  eye.focus();
+  eye.focus(call);
   eye.display();
+
+
+  // Mic Input Calling Eye back to Focus
+  let level = mic.getLevel();
+  let call = map(level, 0, 1, 0, -10);
 
   // // Eye Red Corners
   // push();
