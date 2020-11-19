@@ -29,6 +29,9 @@ let projector = {
   radius: 5
 }
 
+// Eye
+let eye;
+
 // setup()
 //
 // Description of setup() goes here.
@@ -40,9 +43,16 @@ userStartAudio();
 
 
 soundtrack = new p5.Oscillator(0, `tan`);
-soundtrack.amp(0.04);
 soundtrack2 = new p5.Oscillator(`triangle`);
 soundtrack.amp(0.02);
+
+// Eye
+let x = width/2;
+let y = height/2;
+let positionX = width/2;
+let positionY = height/2;
+let eye = new Eye (x, y, positionX, positionY);
+
 
 // // Laser Lights Projectors
 // // Top Projector
@@ -111,32 +121,39 @@ function draw() {
   rect(frame.x, frame.y, frame.width, frame.height);
   pop();
 
-  // Eye Red Corners
-  push();
-  fill(255, 69, 0);
-  triangle(width/2 - 127, height/2, width/2, height/2 - 68, width/2, height/2 + 68);
-  triangle(width/2 + 127, height/2, width/2, height/2 - 68, width/2, height/2 + 68);
-  pop();
-
   // Eye
-  push();
-  fill(255);
-  ellipse(width/2, height/2, 170);
-  pop();
+  eye.move();
+  eye.acceleration();
+  eye.restrict();
+  eye.focus();
+  eye.display();
 
-  // Pupil
-  push();
-  fill(58, 255, 220);
-  ellipse(width/2, height/2, 60);
-  pop();
-
-  // Pupil Ring
-  push();
-  noFill();
-  stroke(255, 204, 0);
-  strokeWeight(2);
-  ellipse(width/2, height/2, 20);
-  pop();
+  // // Eye Red Corners
+  // push();
+  // fill(255, 69, 0);
+  // triangle(width/2 - 127, height/2, width/2, height/2 - 68, width/2, height/2 + 68);
+  // triangle(width/2 + 127, height/2, width/2, height/2 - 68, width/2, height/2 + 68);
+  // pop();
+  //
+  // // Eye
+  // push();
+  // fill(255);
+  // ellipse(width/2, height/2, 170);
+  // pop();
+  //
+  // // Pupil
+  // push();
+  // fill(58, 255, 220);
+  // ellipse(width/2, height/2, 60);
+  // pop();
+  //
+  // // Pupil Ring
+  // push();
+  // noFill();
+  // stroke(255, 204, 0);
+  // strokeWeight(2);
+  // ellipse(width/2, height/2, 20);
+  // pop();
 
   // Laser Light Projector
   // for (let i = 0; i < projectors.length; i ++){
