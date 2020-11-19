@@ -6,6 +6,9 @@ Template p5 project by CART 253
 
 User must
 **************************************************/
+// Timer
+let timer = 50;
+
 //Mic Input
 let mic;
 
@@ -58,7 +61,7 @@ let x = width/2;
 let y = height/2;
 let positionX = width/2;
 let positionY = height/2;
-let eye = new Eye (x, y, positionX, positionY);
+let eye = new Eye(x, y, positionX, positionY);
 
 
 // // Laser Lights Projectors
@@ -192,6 +195,16 @@ function draw() {
   rect(projector.x, projector.y, projector.height, projector.width, projector.radius, projector.radius, projector.radius, projector.radius);
   pop();
 
+}
+
+function levelCountdown(){
+  // Level Countdown (50 sec) - amount may change; current version has to be tested
+  if ((frameCount % 60 === 0) && (timer > 0) && (state === `level`)){
+    timer--;
+  }
+  if ( timer === 0 ){
+    state === `pass`;
+  }
 }
 
 function mousePressed() {
