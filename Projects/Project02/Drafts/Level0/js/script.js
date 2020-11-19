@@ -81,7 +81,7 @@ let x = width/2;
 let y = height/2;
 let positionX = width/2;
 let positionY = height/2;
-let eye = new Eye(x, y, positionX, positionY);
+eye = new Eye(x, y, positionX, positionY);
 
 
 // // Laser Lights Projectors
@@ -113,7 +113,8 @@ let eye = new Eye(x, y, positionX, positionY);
 // Description of draw() goes here.
 function draw() {
   background(0);
-  // Intro
+  
+// Intro
 if (state === `intro`){
    textIntro();
    if(soundtrack.play === true && soundtrack2.play === true){ //?????????????
@@ -166,44 +167,14 @@ else if (state === `level`){
   rect(frame.x, frame.y, frame.width, frame.height);
   pop();
 
-  // Eye
-  eye.move();
-  eye.acceleration();
-  eye.restrict();
-  eye.focus(call);
-  eye.display();
-
-
   // Mic Input Calling Eye back to Focus
   let level = mic.getLevel();
-  let call = map(level, 0, 1, 0, -10);
 
-  // // Eye Red Corners
-  // push();
-  // fill(255, 69, 0);
-  // triangle(width/2 - 127, height/2, width/2, height/2 - 68, width/2, height/2 + 68);
-  // triangle(width/2 + 127, height/2, width/2, height/2 - 68, width/2, height/2 + 68);
-  // pop();
-  //
-  // // Eye
-  // push();
-  // fill(255);
-  // ellipse(width/2, height/2, 170);
-  // pop();
-  //
-  // // Pupil
-  // push();
-  // fill(58, 255, 220);
-  // ellipse(width/2, height/2, 60);
-  // pop();
-  //
-  // // Pupil Ring
-  // push();
-  // noFill();
-  // stroke(255, 204, 0);
-  // strokeWeight(2);
-  // ellipse(width/2, height/2, 20);
-  // pop();
+  // Eye
+  eye.move();
+  eye.restrict();
+  eye.focus(level);
+  eye.display();
 
   // Laser Light Projector
   // for (let i = 0; i < projectors.length; i ++){
