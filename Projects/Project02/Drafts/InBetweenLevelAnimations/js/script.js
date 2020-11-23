@@ -9,10 +9,11 @@ Template p5 project by CART253 Course
 If User successfully surpasses level, they achieve one of the collectable items; this will also trigger a "cutscene" of sorts
 **************************************************/
 let mirror;
+//
+// let lights = [];
+// let pinkLight;
 
-let lights = [];
-
-let pinkLight;
+// let pinkLight;
 
 let state = `Lv01`; // Lv01, Lv02, Lv03, Lv04, Lv05
 
@@ -23,10 +24,10 @@ function setup() {
   createCanvas(windowWidth, windowHeight);
   rectMode(CENTER);
 
-  let x = random(0, width);
-  let y = random(0, height);
-  let pinkLight = new PinkLight(x, y);
-  lights.push(pinkLight);
+  // let x = random(0, width);
+  // let y = random(0, height);
+  // pinkLight = new PinkLight(x, y);
+  // lights.push(pinkLight);
 
 }
 
@@ -41,16 +42,20 @@ function draw() {
   let handleY = 2*height/3;
   let shadowX = width/2;
   let shadowY = 7*height/8;
-  let mirror = new Mirror(x, y, handleY, shadowX, shadowY);
+  mirror = new Mirror(x, y, handleY, shadowX, shadowY);
 
   mirror.display();
   mirror.float();
   mirror.tremble();
   mirror.move();
 
-  light.move();
-  light.wrap();
-  light.move();
+  // for(let i = 0; i < lights.lenght; i++){
+  //   let light = lights[i];
+  //   light.move();
+  //   light.wrap();
+  // }
+
+
 
 
 

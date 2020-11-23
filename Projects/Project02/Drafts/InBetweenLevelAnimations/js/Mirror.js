@@ -22,8 +22,12 @@ class Mirror{
   }
 
   float(){
-  this.shadowY = this.shadowY + this.altitude;
-  }
+    let change = random(0, 1);
+    if (change < 0.1) {
+      this.altitude = random(-this.maxSpeed, this.maxSpeed);
+    }
+    this.shadowY = this.shadowY + this.altitude;
+}
 
   tremble(){
     let r = random(0, 1);
