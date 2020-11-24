@@ -3,8 +3,9 @@ class Wave{
    this.x = x;
    this.y = y;
    this.size = 50;
+   this.originalSize = 50;
    this.growth = 30;
-   this.maxSize = 400;
+   this.maxSize = 2000;
    this.active = false;
 
   }
@@ -18,10 +19,14 @@ class Wave{
   }
 
   grow(){
-    this.size += this.growth;
-    // Disappear
-    if(this.size > this.maxSize){
-      this.active = false;
+
+    if(this.active){
+      this.size += this.growth;
+      // Disappear
+      if(this.size > this.maxSize){
+        this.active = false;
+        this.size = this.originalSize;
+      }
     }
   }
 
