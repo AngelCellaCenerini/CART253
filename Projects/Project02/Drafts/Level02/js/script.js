@@ -14,6 +14,8 @@ let blueMoon;
 let school = [];
 let fish;
 
+let wave;
+
 
 // setup()
 //
@@ -23,6 +25,7 @@ function setup() {
   noStroke();
   rectMode(CENTER);
 
+  // Create Red Moon
   let x = 0;
   let y = height/3;
   let positionX = 0;
@@ -30,6 +33,7 @@ function setup() {
   redMoon = new RedMoon (x, y, positionX, positionY);
   moons.push(redMoon);
 
+  // Create Blue Moon
   x = width;
   y = height/3;
   positionX = width;
@@ -37,10 +41,16 @@ function setup() {
   blueMoon = new BlueMoon (x, y, positionX, positionY);
   moons.push(blueMoon);
 
+  // Create School
   x = random(width/4, 9*width/10);
   y = random(height/9, 10*height/11);
   fish = new Fish (x, y);
   school.push(fish);
+
+  // Create Water Waves
+  x = mouseX;
+  y = mouseY;
+  wave = new Wave (x, y);
 
 }
 
@@ -63,6 +73,10 @@ function draw() {
     // fish.move();
     fish.hunt();
     fish.react();
+
+    wave.appear();
+    wave.grow();
+    wave.display();
   }
 
 // push();
@@ -84,4 +98,6 @@ function mouseIsPressed(){
     let fish = school[i];
     fish.react();
   }
+
+  wave.appear();
 }
