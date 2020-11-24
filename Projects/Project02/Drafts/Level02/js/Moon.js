@@ -4,8 +4,8 @@ class Moon{
     this.x = x;
     this.y = y;
     this.size = 450;
-    this.positionX = positionX;
-    this.positionY = positionY;
+    this.positionX = positionX;   // seperate coordinates: moons remain still, only reflections move
+    this.positionY = positionY;   // seperate coordinates: moons remain still, only reflections move
     this.radius = 5;
     this.red = undefined;
     this.green = undefined;
@@ -37,9 +37,9 @@ class Moon{
     // Water Reflection
     push();
     fill(255, 253, 243);
-    rect(rhis.positionX, this.positionY + 7*this.size/9, 2*this.size/3, this.size/30, this.radius, this.radius, this.radius, this.radius);
-    rect(rhis.positionX + this.size/8, this.positionY + 8*this.size/9, 2*this.size/9, this.size/30, this.radius, this.radius, this.radius, this.radius);
-    rect(rhis.positionX, this.positionY + 19*this.size/18, this.size/3, this.size/30, this.radius, this.radius, this.radius, this.radius);
+    rect(this.positionX, this.positionY + 7*this.size/9, 2*this.size/3, this.size/30, this.radius, this.radius, this.radius, this.radius);
+    rect(this.positionX + this.size/8, this.positionY + 8*this.size/9, 2*this.size/9, this.size/30, this.radius, this.radius, this.radius, this.radius);
+    rect(this.positionX, this.positionY + 19*this.size/18, this.size/3, this.size/30, this.radius, this.radius, this.radius, this.radius);
     pop();
 
   }
