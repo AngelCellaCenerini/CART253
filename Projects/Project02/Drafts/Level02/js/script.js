@@ -25,6 +25,26 @@ let notes = [`F5`, `G4`, `Ab3`];
 let currentNote = 0;
 let interval;
 
+// Tips Table - Appears/disappears when User presses SPACEBAR
+let tipsTable = {
+  x: 0,
+  y: 0,
+  size: 600,
+  active: false
+}
+// TIPS
+// Obviously, the fish are going for the moons; that is beacuse they're hungry.
+// Yet, they're not really after the moons ('confused'). There are only two types of elements on screen:
+// the fish, and the moons. If it's not the latter...try clicking the former. It's part of mother nature.
+let cues = [
+  ``,
+  `1. They're hungry.`,
+  `2. They're confused; they don't really want the moons.`,
+  `3. They're  h u n g r y .`,
+  `3. Don't be scared to play with Mother Nature.`,
+];
+// Scrolling Tips List
+let currentIndex = 0;
 
 // setup()
 //
@@ -92,19 +112,11 @@ function draw() {
     wave.grow();
     wave.display();
 
-
+    // Display Tips Table - User can open/close table containing cues, if necessary
+    tips();
 }
 
-function mousePressed() {
-  if (interval === undefined) {
-    interval = setInterval(playNextNote, 500);
-  }
-  else {
-    clearInterval(interval);
-    interval = undefined;
-  }
-}
-
+// Level
 function playNextNote() {
   // Chose the note at the current position
   let note = notes[currentNote];
@@ -115,4 +127,56 @@ function playNextNote() {
   if (currentNote === notes.length) {
     currentNote = 0;
   }
+}
+
+function tips(){
+   // Tips Table to guess mystery word
+   if(!tipsTable.active){
+     return;
+   }
+
+   // Positioning Tips Table
+   tipsTable.x = width/2;
+   tipsTable.y = height/2;
+
+   push();
+   noStroke();
+   // Diplay Transparent Tips Table
+   fill(255, 255, 255, 150);
+   rect(tipsTable.x, tipsTable.y, tipsTable.size);
+   // Display Tips Table White Text
+   fill(255);
+   textAlign(CENTER, CENTER);
+   textSize(20);
+   text(cues[currentIndex], width/2, height/2);
+   fill(255);
+   textSize(15);
+   text(`Click for more tips >>`, 2*width/5, 4*height/5);
+   pop();
+}
+//
+
+function mousePressed() {
+  if (interval === undefined) {
+    interval = setInterval(playNextNote, 500);
+  }
+
+  if (tipsTable.active){
+  currentIndex = currentIndex + 1;
+  if (currentIndex === cues.length){
+      currentIndex = 0;
+  }
+}
+}
+
+function keyPressed(){
+  if (keyCode === 32){
+  // Tips Table appearing/disappearing when User presses SPACEBAR
+  if(tipsTable.active === false){
+     tipsTable.active = true;
+  }
+  else {
+     tipsTable.active = false;
+  }
+}
 }
