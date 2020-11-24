@@ -7,6 +7,7 @@ class Fish{
     this.vx = 3;
     this.vy = 3;
     this.speed = 3;
+    this.eatingTime = 0;
   }
 
   rotate(){
@@ -52,7 +53,7 @@ class Fish{
   }
 
   react(){
-    if (mouseIsPressed){
+    if (mouseIsPressed){ //others don't wok
 
       let distX = this.x - mouseX;
       let distY = this.y - mouseY;
@@ -74,7 +75,25 @@ class Fish{
     }
     }
 
+  eat(){
+
+    this.eatingTime++;
+    let d = dist(this.x,this.y, redMoon.positionX, redMoon.positionY);
+
+    if ((redMoon.active) && ((d < this.width/2 + redMoon.size/2) || (d < this.height/2 + redMoon.size/2))){
+      this.eatingTime = 0;
+    }
+
+    if (this.eatingTime > 5*60){
+        redMoon.active = false;
+    }
+
+  }
+
   display(){
+
+    let angle = 0;
+    rotate(angle);
     // Fish Fins and Tail
     push();
     fill(246, 73, 76);
@@ -84,6 +103,7 @@ class Fish{
     fill(0);
     stroke(0);
     triangle(this.x - 7*this.width/15, this.y - 12*this.height/11, this.x + 7*this.width/15, this.y - 12*this.height/11, this.x, this.y - 10*this.height/11);
+    angle = angle + 0.05;
     pop();
 
     // Fish Body
@@ -107,5 +127,7 @@ class Fish{
     fill(0);
     arc(this.x, this.y + 6*this.height/11, 2*this.width/3,  6*this.height/11, 0, PI , CHORD);
     pop();
+
+
   }
 }

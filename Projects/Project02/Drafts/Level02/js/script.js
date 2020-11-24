@@ -70,7 +70,7 @@ function draw() {
     let fish = school[i];
     fish.display();
     fish.rotate();
-    // fish.move();
+    fish.eat();
     fish.hunt();
     fish.react();
 
@@ -93,11 +93,10 @@ function draw() {
 
 }
 
-function mouseIsPressed(){
+function mouseReleased(){
   for (let i = 0; i < school.length; i ++){
     let fish = school[i];
-    fish.react();
+    // fish.react();
   }
-
   wave.appear();
 }

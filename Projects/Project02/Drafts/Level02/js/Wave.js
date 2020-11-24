@@ -14,9 +14,6 @@ class Wave{
       if(!this.active){
         this.active = true;
       }
-      else {
-        return;
-      }
     }
   }
 
@@ -28,14 +25,17 @@ class Wave{
     }
   }
 
+
   display(){
-    push();
-    noFill();
-    stroke(251, 207, 115);
-    strokeWeight(3);
-    ellipse(this.x, this.y, this.size/50);
-    ellipse(this.x, this.y, this.size/10);
-    ellipse(this.x, this.y, this.size/2);
-    pop();
+    if(this.active){
+      push();
+      noFill();
+      stroke(251, 207, 115);
+      strokeWeight(3);
+      ellipse(this.x, this.y, this.size/50);
+      ellipse(this.x, this.y, this.size/10);
+      ellipse(this.x, this.y, this.size/2);
+      pop();
+    }
   }
 }
