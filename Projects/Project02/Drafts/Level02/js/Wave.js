@@ -19,7 +19,7 @@ class Wave{
 
   grow(){
     this.size += this.growth;
-    // Constrain
+    // Disappear
     if(this.size > this.maxSize){
       this.active = false;
     }

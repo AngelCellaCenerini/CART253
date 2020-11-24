@@ -70,33 +70,22 @@ function draw() {
     let fish = school[i];
     fish.display();
     fish.rotate();
-    fish.eat();
-    fish.hunt();
+    // fish.chase(moon);
+    // fish.eat(moon);
     fish.react();
+  }
 
     wave.appear();
     wave.grow();
     wave.display();
-  }
-
-// push();
-// noFill();
-// stroke(251, 207, 115);
-// strokeWeight(3);
-// ellipse(width/2, height/2, 50);
-// ellipse(width/2, height/2, 80);
-// ellipse(width/2, height/2, 140);
-// ellipse(width/2, height/2, 240);
-// ellipse(width/2, height/2, 400);
-// pop();
 
 
 }
 
 function mouseReleased(){
-  for (let i = 0; i < school.length; i ++){
-    let fish = school[i];
-    // fish.react();
-  }
-  wave.appear();
+  // for (let i = 0; i < school.length; i ++){
+  //   let fish = school[i];
+  //   // fish.react();
+  // }
+  // wave.appear();
 }

@@ -29,28 +29,44 @@ class Fish{
   //   this.y = this.y + this.vy;
   // }
 
-  hunt(){
-
-    this.x = this.x + this.vx;
-    this.y = this.y + this.vy;
-
-    let dx = this.x - (redMoon.x + redMoon.size/2);
-    let dy = this.y - (redMoon.y + redMoon.size/2);
-
-    if (dx < 0){
-      this.vx = this.speed;
-    }
-    else if(dx > 0){
-      this.vx = -this.speed;
-    }
-
-    if (dy < 0){
-      this.vy = this.speed;
-    }
-    else if(dy > 0){
-      this.vy = -this.speed;
-    }
-  }
+  // chase(moon){
+  //
+  //   this.x = this.x + this.vx;
+  //   this.y = this.y + this.vy;
+  //
+  //   let dx = this.x - (moon.x + moon.size/2);
+  //   let dy = this.y - (moon.y + moon.size/2);
+  //
+  //   if (dx < 0){
+  //     this.vx = this.speed;
+  //   }
+  //   else if(dx > 0){
+  //     this.vx = -this.speed;
+  //   }
+  //
+  //   if (dy < 0){
+  //     this.vy = this.speed;
+  //   }
+  //   else if(dy > 0){
+  //     this.vy = -this.speed;
+  //   }
+  // }
+  //
+  // eat(moon){
+  //
+  //   let d = dist(this.x,this.y, moon.positionX, moon.positionY);
+  //
+  //   if ((moon.active) && ((d < this.width/2 + moon.size/2) || (d < this.height/2 + moon.size/2))){
+  //     this.eatingTime = 0;
+  //   }
+  //
+  //   this.eatingTime++;
+  //
+  //   if (this.eatingTime > 5*60){
+  //       moon.active = false;
+  //   }
+  //
+  // }
 
   react(){
     if (mouseIsPressed){ //others don't wok
@@ -75,20 +91,7 @@ class Fish{
     }
     }
 
-  eat(){
 
-    this.eatingTime++;
-    let d = dist(this.x,this.y, redMoon.positionX, redMoon.positionY);
-
-    if ((redMoon.active) && ((d < this.width/2 + redMoon.size/2) || (d < this.height/2 + redMoon.size/2))){
-      this.eatingTime = 0;
-    }
-
-    if (this.eatingTime > 5*60){
-        redMoon.active = false;
-    }
-
-  }
 
   display(){
 
