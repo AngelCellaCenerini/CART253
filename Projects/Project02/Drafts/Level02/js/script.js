@@ -41,7 +41,8 @@ let cues = [
   `1. They're hungry.`,
   `2. They're confused; they don't really want the moons.`,
   `3. They're  h u n g r y .`,
-  `3. Don't be scared to play with Mother Nature.`,
+  `4. If they're not after the moons...`,
+  `5. Don't be scared to play with Mother Nature.`,
 ];
 // Scrolling Tips List
 let currentIndex = 0;
