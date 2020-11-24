@@ -7,14 +7,23 @@ Template p5 project by CART253 Course
 
 Here is a description of this template p5 project.
 **************************************************/
+// Moon(s)
 let moons = [];
 let redMoon;
 let blueMoon;
 
+// School of fish
 let school = [];
 let fish;
 
+// Wave(s)
 let wave;
+
+// Sound
+let synth;
+let notes = [`F5`, `G4`, `Ab3`];
+let currentNote = 0;
+let interval;
 
 
 // setup()
@@ -24,6 +33,10 @@ function setup() {
   createCanvas(windowWidth, windowHeight);
   noStroke();
   rectMode(CENTER);
+  userStartAudio();
+
+  // Soundtrack
+  synth = new p5.PolySynth();
 
   // Create Red Moon
   let x = 0;
@@ -82,10 +95,24 @@ function draw() {
 
 }
 
-function mouseReleased(){
-  // for (let i = 0; i < school.length; i ++){
-  //   let fish = school[i];
-  //   // fish.react();
-  // }
-  // wave.appear();
+function mousePressed() {
+  if (interval === undefined) {
+    interval = setInterval(playNextNote, 500);
+  }
+  else {
+    clearInterval(interval);
+    interval = undefined;
+  }
+}
+
+function playNextNote() {
+  // Chose the note at the current position
+  let note = notes[currentNote];
+  // Play it
+  synth.play(note, 0.1, 0, 0.1);
+  // Increase the current position and go back to 0 when we reach the end
+  currentNote = currentNote + 1;
+  if (currentNote === notes.length) {
+    currentNote = 0;
+  }
 }

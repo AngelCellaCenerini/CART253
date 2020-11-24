@@ -5,12 +5,12 @@ class Wave{
    this.size = 50;
    this.originalSize = 50;
    this.growth = 30;
-   this.maxSize = 2000;
+   this.maxSize = 2200;
    this.active = false;
 
   }
 
-  appear(){
+  appear(note){
     if(mouseIsPressed){
       if(!this.active){
         this.active = true;
@@ -26,9 +26,12 @@ class Wave{
       if(this.size > this.maxSize){
         this.active = false;
         this.size = this.originalSize;
+
       }
     }
   }
+
+
 
 
   display(){
