@@ -10,6 +10,7 @@ Here is a description of this template p5 project.
 //
 // Description of setup() goes here.
 function setup() {
+  createCanvas(windowWidth, windowHeight);
 
 }
 
@@ -17,5 +18,6 @@ function setup() {
 //
 // Description of draw() goes here.
 function draw() {
+  background(0);
 
 }
