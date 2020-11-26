@@ -46,7 +46,9 @@ function draw() {
 
   // Frog
   frog.display();
-  // frog.grow();
+  frog.grow();
+
+  // frog.wound(compass);
   //
 
 
@@ -55,8 +57,12 @@ function draw() {
     let compass = compasses[i];
     compass.chase(frog);
     compass.display();
+    // compass.attack();
   }
 
+  // if(compass.sting){
+  //   frog.wound();
+  // }
 
   // Hole
   // push();

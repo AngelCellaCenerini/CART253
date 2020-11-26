@@ -9,6 +9,7 @@ class Compass{
     this.vy = 3;
     this.speed = 5;
     this.stallingTime = 0;
+    // this.sting = false;
   }
 
 
@@ -20,8 +21,8 @@ class Compass{
       this.x = this.x + this.vx;
       this.y = this.y + this.vy;
 
-      let dx = this.x - frog.x;
-      let dy = this.y - frog.y;
+      let dx = this.x - (frog.x);
+      let dy = this.y - (frog.y);
 
       if (dx < 0){
       this.vx = this.speed;
@@ -37,6 +38,11 @@ class Compass{
         this.vy = -this.speed;
       }
     }
+
+    // if((dx = 0) && (dy = 0) && (this.size > this.originalSize)){
+    //   this.sting = true;
+    // }
+
   }
 
   display(){
