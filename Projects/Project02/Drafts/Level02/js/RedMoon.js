@@ -1,7 +1,7 @@
 class RedMoon extends Moon{
-  constructor(x, y, positionX, positionY, chaseX, chaseY){
+  constructor(x, y, positionX, positionY){
 
-    super(x, y, positionX, positionY, chaseX, chaseY);
+    super(x, y, positionX, positionY);
     this.red = 246;
     this.green = 73;
     this.blue = 76;

@@ -1,13 +1,11 @@
 class Moon{
-  constructor(x, y, positionX, positionY, chaseX, chaseY){
+  constructor(x, y, positionX, positionY){
 
     this.x = x;
     this.y = y;
     this.size = 450;
     this.positionX = positionX;   // seperate coordinates: moons remain still, only reflections move
     this.positionY = positionY;   // seperate coordinates: moons remain still, only reflections move
-    this.chaseX = chaseX;
-    this.chaseY = chaseY;
     this.radius = 5;
     this.vx = 3;
     this.vy = 0;

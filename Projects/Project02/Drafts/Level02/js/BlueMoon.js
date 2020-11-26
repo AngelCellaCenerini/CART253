@@ -1,7 +1,7 @@
 class BlueMoon extends Moon{
-  constructor(x, y, positionX, positionY, chaseX, chaseY){
+  constructor(x, y, positionX, positionY){
 
-    super(x, y, positionX, positionY, chaseX, chaseY);
+    super(x, y, positionX, positionY);
     this.red = 2;
     this.green = 179;
     this.blue = 237;
@@ -11,10 +11,10 @@ class BlueMoon extends Moon{
 
   }
 
-  display(moon){
+  display(){
 
     super.display();
-    if(moon.active){
+
     // Mirroring Moon Details
     // Moon Spots
     push();
@@ -30,6 +30,6 @@ class BlueMoon extends Moon{
     fill(255, 253, 243);
     rect(this.positionX - this.size/8, this.positionY + 8*this.size/9, 2*this.size/9, this.size/30, this.radius, this.radius, this.radius, this.radius);
     pop();
-  }
+
   }
 }

@@ -14,7 +14,7 @@ let blueMoon;
 
 // School of fish
 let school = [];
-let numberFish = 5;
+let fish;
 
 // Wave(s)
 let wave;
@@ -59,17 +59,12 @@ function setup() {
   // Soundtrack
   synth = new p5.PolySynth();
 
-
-
   // Create Red Moon
   let x = 0;
   let y = height/3;
   let positionX = 0;
   let positionY = height/3;
-  let chaseX;
-  let chaseY = positionY;
-  redMoon = new RedMoon (x, y, positionX, positionY, chaseX, chaseY);
-  redMoon.chaseX = redMoon.x + redMoon.size/3;
+  redMoon = new RedMoon (x, y, positionX, positionY);
   moons.push(redMoon);
 
   // Create Blue Moon
@@ -77,29 +72,19 @@ function setup() {
   y = height/3;
   positionX = width;
   positionY = height/3;
-  chaseX = undefined;
-  chaseY = positionY;
-  blueMoon = new BlueMoon (x, y, positionX, positionY, chaseX, chaseY);
-  blueMoon.chaseX = blueMoon.x - blueMoon.size/3;
+  blueMoon = new BlueMoon (x, y, positionX, positionY);
   moons.push(blueMoon);
 
+  // Create School
+  x = random(width/4, 9*width/10);
+  y = random(height/9, 10*height/11);
+  fish = new Fish (x, y);
+  school.push(fish);
 
   // Create Water Waves
   x = mouseX;
   y = mouseY;
   wave = new Wave (x, y);
-
-  // Create School
-  for(let i = 0; i < numberFish; i ++){
-    x = random(width/4, 9*width/10);
-    y = random(height/9, 10*height/11);
-    let moon = random(moons);
-    // let wave = wave; //???????????
-    let fish = new Fish (x, y, moon);
-    school.push(fish);
-  }
-
-
 
 }
 
@@ -111,7 +96,7 @@ function draw() {
 
   for(let i = 0; i < moons.length; i++){
     let moon = moons[i];
-    moon.display(moon);
+    moon.display();
     moon.move();
   }
 
@@ -119,13 +104,12 @@ function draw() {
     let fish = school[i];
     fish.display();
     fish.rotate();
-    fish.chase();
-    fish.eat();
-    // fish.react();
-    // fish.isClicked();
+    // fish.chase(moon);
+    // fish.eat(moon);
+    fish.react();
   }
 
-
+    wave.appear();
     wave.grow();
     wave.display();
 
@@ -178,36 +162,12 @@ function mousePressed() {
     interval = setInterval(playNextNote, 500);
   }
 
-  let createdWave = wave.mousePressed();
-  if(createdWave){
-    for(let i = 0; i < school.length; i++){
-      let fish = school[i];
-      fish.target = wave;
-    }
-  }
-
-
-  for(let i = 0; i < school.length; i++){
-    let fish = school[i];
-    if(fish.isClicked()){
-      wave.active = false;
-      for(let j = 0; j < school.length; j++){
-        let otherFish = school[j];
-        if(otherFish !== fish){
-          otherFish.target = fish;
-        }
-      }
-      break;
-    }
-  }
-
   if (tipsTable.active){
   currentIndex = currentIndex + 1;
   if (currentIndex === cues.length){
       currentIndex = 0;
   }
 }
-
 }
 
 function keyPressed(){
