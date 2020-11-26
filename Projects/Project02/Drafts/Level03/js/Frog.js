@@ -9,18 +9,18 @@ class Frog{
     this.size = 55;
     this.growth = 0.3;
     this.originalSize = 55;
-    this.maxSize = 140;
+    this.maxSize = 160;
     this.width = 130;
     this.height = 210;
 
   }
 
-  grow(){
-    this.size += this.growth;
-    if(this.size > this.maxSize){
-      this.size = this.originalSize;
-    }
-  }
+  // grow(){
+  //   this.size += this.growth;
+  //   if(this.size > this.maxSize){
+  //     this.size = this.originalSize;
+  //   }
+  // }
 
   display(){
     // Frog Chin

@@ -7,6 +7,9 @@ Here is a description of this template p5 project.
 **************************************************/
 let frog;
 
+let compasses = [];
+let numCompasses = 12;
+
 // setup()
 //
 // Description of setup() goes here.
@@ -15,11 +18,24 @@ function setup() {
   rectMode(CENTER);
   noStroke();
 
+  // Frog
   let x = width/2;
   let y = 3*height/4;
   let positionX = width/2;
   let positionY = 3*height/4;
   frog = new Frog(x, y, positionX, positionY);
+
+  // Compasses
+  for (let i = 0; i < numCompasses; i ++){
+  let x = random(0, width);
+  let y = random(0, height);
+  let positionX = x;
+  let positionY = y;
+  let size = random(70, 160);
+  let compass = new Compass(x, y, positionX, positionY, size);
+  compasses.push(compass);
+  // Overlapping >> while()?
+}
 }
 
 // draw()
@@ -28,44 +44,19 @@ function setup() {
 function draw() {
   background(0);
 
+  // Frog
   frog.display();
-  frog.grow();
+  // frog.grow();
   //
-  // // Frog Chin
-  // push();
-  // fill(254, 254, 191);
-  // rect(width/2 + 26, 3*height/4 + 42, 130, 130, 5, 5, 5, 5);
-  // pop();
-  //
-  // // Frog Body
-  // push();
-  // translate(width/2, 3*height/4);
-  // rotate(PI / 4.0);
-  // fill(79, 124, 247);
-  // rect(0, 0, 130, 210, 5, 5, 5, 5);
-  // pop();
-  //
-  // // Frog Leg
-  // push();
-  // fill(70, 104, 238);
-  // triangle(width/2 - 130, 3*height/4 + 105, width/2 - 148, 3*height/4 - 21, width/2 + 20, 3*height/4 + 105 );
-  // fill(0);
-  // rect(width/2, 3*height/4 + 115, 200, 20);
-  // pop();
-  //
-  // // Frog Eye
-  // push();
-  // fill(173, 170, 255);
-  // ellipse(width/2 + 32, 3*height/4 - 52, 40);
-  // fill(0);
-  // rect(width/2 + 32, 3*height/4 - 52, 25, 5);
-  // pop();
-  //
-  // // Frog Cheek
-  // push();
-  // fill(255, 153, 51);
-  // ellipse(width/2 , 3*height/4, 55);
-  // pop();
+
+
+  // Compass(es)
+  for (let i = 0; i < compasses.length; i++){
+    let compass = compasses[i];
+    compass.chase(frog);
+    compass.display();
+  }
+
 
   // Hole
   // push();
@@ -74,5 +65,39 @@ function draw() {
   // fill(0);
   // ellipse(width/2 + 26, 3*height/4, 55);
   // pop();
+
+  // // Compass
+  // push();
+  // noFill();
+  // stroke(255);
+  // strokeWeight(6);
+  // ellipse(width/2, height/2, 160);
+  // pop();
+  //
+  // // Cardinal Directions
+  // push();
+  // fill(255);
+  // ellipse(width/2, height/2 - 53, 6.6);
+  // ellipse(width/2, height/2 + 53, 6.6);
+  // ellipse(width/2 - 53, height/2, 6.6);
+  // ellipse(width/2 + 53, height/2, 6.6);
+  // pop();
+  //
+  // // Hook
+  // push();
+  // noFill();
+  // stroke(255);
+  // strokeWeight(4);
+  // ellipse(width/2, height/2 - 80, 32);
+  // pop();
+  //
+  // //Needle
+  // push();
+  // fill(255, 52, 150);
+  // triangle(width/2, height/2 - 40, width/2 + 6.6, height/2 - 8, width/2, height/2 + 40);
+  // fill(255, 52, 150);
+  // triangle(width/2, height/2 - 40, width/2 - 6.6, height/2 - 8, width/2, height/2 + 40);
+  // pop();
+
 
 }
