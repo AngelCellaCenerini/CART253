@@ -43,6 +43,11 @@ class Moon{
 
   }
 
+  // checkPassEnding(moon){
+  //   if(!this.active){
+  //     state = `intro`;
+  //   }
+  // }
 
   display(){
 

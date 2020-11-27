@@ -65,6 +65,9 @@ class Fish{
 
    if (this.eatingTime > 3*60){
        this.target.active = false;
+       if(!this.active){
+         state = `success`;
+       }
        this.eatingTime = 0;
    }
 

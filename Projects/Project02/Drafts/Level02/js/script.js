@@ -7,6 +7,9 @@ Template p5 project by CART253 Course
 
 Here is a description of this template p5 project.
 **************************************************/
+// level
+// Timer
+let timer = 3;
 // Moon(s)
 let moons = [];
 let redMoon;
@@ -46,6 +49,9 @@ let cues = [
 ];
 // Scrolling Tips List
 let currentIndex = 0;
+
+// States
+let state = `intro`; // Intro, Level, Pass, Success
 
 // setup()
 //
@@ -109,11 +115,28 @@ function setup() {
 function draw() {
   background(0);
 
+  // Intro
+if (state === `intro`){
+   textIntro();
+}
+
+// Level
+else if (state === `level`){
+
+  timer = 0;
+
+  levelCountdown();
+
   for(let i = 0; i < moons.length; i++){
     let moon = moons[i];
     moon.display(moon);
     moon.move();
+    // moon.checkPassEnding(moon);
+    if(!moon.active){
+      state = `intro`;
+    }
   }
+
 
   for(let i = 0; i < school.length; i++){
     let fish = school[i];
@@ -121,8 +144,6 @@ function draw() {
     fish.rotate();
     fish.chase();
     fish.eat();
-    // fish.react();
-    // fish.isClicked();
   }
 
 
@@ -131,9 +152,51 @@ function draw() {
 
     // Display Tips Table - User can open/close table containing cues, if necessary
     tips();
+
+  }
+
+// Pass - User  fails to solve puzzle
+else if (state === `pass`){
+textPass();
+}
+
+// Success - User solves puzzle and achives Item
+else if (state === `success`){
+textSuccess();
+}
+
+}
+
+// Functions
+//
+// Intro State
+function textIntro(){
+  // (White) Title and Instructions
+  push();
+  fill(255);
+  textSize(50);
+  text(`Final Project: 2/7 Level Draft`, width/2, height/4);
+  textSize(20);
+  text(`  Use your voice to grab the eye's attention; don't let it dart around for too long!
+  If you have the time, try even surpassing the level.
+  Press SPACEBAR anytime to open the Tips Table.
+
+  You will be automatically brought back to the Title Screen in case you fail the level.
+
+  Press ENTER to start.`, width/2, height/2);
+  pop();
 }
 
 // Level
+function levelCountdown(){
+  // Level Countdown (50 sec) - amount may change; current version has to be tested
+  if ((frameCount % 60 === 0) && (timer > 0) && (state === `level`)){
+    timer--;
+  }
+  if ( timer === 0 ){
+    state === `intro`;
+  }
+}
 function playNextNote() {
   // Chose the note at the current position
   let note = notes[currentNote];
@@ -173,10 +236,44 @@ function tips(){
 }
 //
 
+
+// Pass State
+function textPass(){
+  // White Text
+  push();
+  fill(255);
+  textSize(40);
+  text(`You did good.
+Yet, not good enough.`, width/2, height/3);
+  textSize(20);
+  text(`Press ???? to proceed to the next level.
+(That's a lie; the next level doesn't exist yet).`, width/2, 2*height/3);
+  pop();
+}
+//
+
+// Success State
+function textSuccess(){
+  // White Text
+  push();
+  fill(255);
+  textSize(40);
+  text(`Success! You achieved ???? (yet to be decided).`, width/2, height/2);
+  textSize(20);
+  text(`Press ???? to proceed to the next level.
+  (That's a lie; the next level doesn't exist yet).`, width/2, 2*height/3);
+  pop();
+}
+//
+
+// p5 Events
 function mousePressed() {
-  if (interval === undefined) {
-    interval = setInterval(playNextNote, 500);
+  if(state === `level`){
+    if (interval === undefined) {
+      interval = setInterval(playNextNote, 500);
+    }
   }
+
 
   let createdWave = wave.mousePressed();
   if(createdWave){
@@ -211,7 +308,10 @@ function mousePressed() {
 }
 
 function keyPressed(){
-  if (keyCode === 32){
+  if (keyCode === 13 && state === `intro`){
+    state = `level`;
+  }
+  if (keyCode === 32 && state === `level`){
   // Tips Table appearing/disappearing when User presses SPACEBAR
   if(tipsTable.active === false){
      tipsTable.active = true;
