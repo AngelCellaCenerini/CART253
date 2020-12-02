@@ -9,7 +9,8 @@ Here is a description of this template p5 project.
 **************************************************/
 // level
 // Timer
-let timer = 3;
+let timer = 0;
+let timerLevel = 1;
 // Moon(s)
 let moons = [];
 let redMoon;
@@ -123,7 +124,7 @@ if (state === `intro`){
 // Level
 else if (state === `level`){
 
-  timer = 0;
+
 
   levelCountdown();
 
@@ -134,6 +135,7 @@ else if (state === `level`){
     // moon.checkPassEnding(moon);
     if(!moon.active){
       state = `intro`;
+
     }
   }
 
@@ -194,7 +196,8 @@ function levelCountdown(){
     timer--;
   }
   if ( timer === 0 ){
-    state === `intro`;
+    state = `intro`;
+    timer = 0;
   }
 }
 function playNextNote() {
@@ -310,6 +313,7 @@ function mousePressed() {
 function keyPressed(){
   if (keyCode === 13 && state === `intro`){
     state = `level`;
+    timer = timerLevel;
   }
   if (keyCode === 32 && state === `level`){
   // Tips Table appearing/disappearing when User presses SPACEBAR
