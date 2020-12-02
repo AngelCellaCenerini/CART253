@@ -110,10 +110,14 @@ function draw() {
 
 }
 
+function success(){
+  console.log(`success`);
+}
+
 function keyPressed(){
   for (let i = 0; i < compasses.length; i++){
     let compass = compasses[i];
     compass.keyPressed();
-
+    setTimeout(success, 5000);
   }
 }

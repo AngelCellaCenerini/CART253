@@ -72,6 +72,7 @@ class Compass{
     }
   }
 
+
   display(){
     // Compass
     push();
