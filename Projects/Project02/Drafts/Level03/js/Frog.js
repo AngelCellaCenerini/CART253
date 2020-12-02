@@ -7,7 +7,6 @@ class Frog{
     this.positionY = positionY;   // Only orange Cheek will change
     this.radius = 5;
     this.size = 55;
-    this.woundSize = 55;
     this.stallingTime = 0;
     this.growth = 0.2;
     this.originalSize = 55;
@@ -15,6 +14,7 @@ class Frog{
     // this.transparency = 255;
     this.width = 130;
     this.height = 210;
+    this.wounded = false;
 
 
   }
@@ -63,23 +63,24 @@ display(){
   rect(this.positionX + this.width/4, this.positionY - this.height/4, 5*this.width/26, this.width/26);
   pop();
 
-  // Frog Cheek
-  push();
-  // let t = map(this.transparency, 255, 100, this.originalSize, this.maxSize);
-  // fill(255, 153, 51, t);
-  fill(255, 153, 51);
-  ellipse(this.x, this.y, this.size);
-  pop();
-
+  if(!this.wounded){
+    // Frog Cheek
+    push();
+    // let t = map(this.transparency, 255, 100, this.originalSize, this.maxSize);
+    // fill(255, 153, 51, t);
+    fill(255, 153, 51);
+    ellipse(this.x, this.y, this.size);
+    pop();
+  }
+  else{
+    // Hole
+    push();
+    fill(255, 135, 117);
+    ellipse(this.positionX + this.width/5, this.positionY + this.height/105, this.originalSize);
+    fill(0);
+    ellipse(this.positionX + this.width/5, this.positionY, this.originalSize);
+    pop();
+  }
   }
 
-displayWound(){
-      // Hole
-      push();
-      fill(255, 135, 117);
-      ellipse(this.positionX + this.width/5, this.positionY + this.height/105, this.woundSize);
-      fill(0);
-      ellipse(this.positionX + this.width/5, this.positionY, this.woundSize);
-      pop();
-  }
 }

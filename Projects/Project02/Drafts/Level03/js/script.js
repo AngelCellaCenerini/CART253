@@ -32,7 +32,7 @@ function setup() {
   let positionX = x;
   let positionY = y;
   let size = random(70, 160);
-  let compass = new Compass(x, y, positionX, positionY, size);
+  let compass = new Compass(x, y, positionX, positionY, size, frog);
   compasses.push(compass);
   // Overlapping >> while()?
 }
@@ -57,6 +57,8 @@ function draw() {
     let compass = compasses[i];
     compass.chase(frog);
     compass.display();
+    compass.rotate();
+    compass.impact(frog);
     // compass.attack();
   }
 
@@ -106,4 +108,12 @@ function draw() {
   // pop();
 
 
+}
+
+function keyPressed(){
+  for (let i = 0; i < compasses.length; i++){
+    let compass = compasses[i];
+    compass.keyPressed();
+
+  }
 }

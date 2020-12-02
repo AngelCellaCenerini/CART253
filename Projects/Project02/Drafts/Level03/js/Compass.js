@@ -9,6 +9,7 @@ class Compass{
     this.vy = 3;
     this.speed = 5;
     this.stallingTime = 0;
+    this.angle = 0;
     // this.sting = false;
   }
 
@@ -45,6 +46,32 @@ class Compass{
 
   }
 
+  rotate(){
+    this.angle = this.angle + 0.03;
+  }
+
+  impact(){
+    let dx = this.x - (frog.x);
+    let dy = this.y - (frog.y);
+    if(dx === 0 || dy === 0){
+      console.log(`yep`);
+      if((this.frog.size > 3*this.frog.originalSize/2) || (this.frog.size > this.frog.maxSize)){
+        this.frog.wounded = true;
+      }
+    }
+
+  }
+
+  keyPressed(){
+    if(keyCode === UP_ARROW){
+      let dx = 0;
+      let dy = 0;
+      this.x = this.x - this.vx;
+      this.y = this.y - this.vy;
+
+    }
+  }
+
   display(){
     // Compass
     push();
@@ -73,10 +100,12 @@ class Compass{
 
     //Needle
     push();
+    translate(this.x, this.y);
+    rotate(this.angle);
     fill(255, 52, 150);
-    triangle(this.x, this.y - this.size/4, this.x + this.size/24, this.y - this.size/20, this.x, this.y + this.size/4);
+    triangle(0, 0 - this.size/4, 0 + this.size/24, 0 - this.size/20, 0, 0 + this.size/4);
     fill(255, 52, 150);
-    triangle(this.x, this.y - this.size/4, this.x - this.size/24, this.y - this.size/20, this.x, this.y + this.size/4);
+    triangle(0, 0 - this.size/4, 0 - this.size/24, 0 - this.size/20, 0, 0 + this.size/4);
     pop();
   }
 }
