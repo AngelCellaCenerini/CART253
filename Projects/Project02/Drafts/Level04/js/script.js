@@ -1,14 +1,16 @@
 /**************************************************
-Template p5 project
-Pippin Barr
+Project02 - Drafts: Level04
+Angel Cella Cenerini
 
-Here is a description of this template p5 project.
+Template by CART253 course
+Level04
 **************************************************/
 
 // setup()
 //
 // Description of setup() goes here.
 function setup() {
+  createCanvas(windowWidth, windowHeight);
 
 }
 
@@ -16,5 +18,5 @@ function setup() {
 //
 // Description of draw() goes here.
 function draw() {
-
+background(0);
 }
