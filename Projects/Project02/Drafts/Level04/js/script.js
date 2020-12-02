@@ -7,7 +7,7 @@ Level04
 **************************************************/
 // Arrow(s)
 let arrows = [];
-let numArrows = 7;
+let numArrows = 6;
 
 // Bunny
 let bunnies = [];
@@ -24,7 +24,7 @@ function setup() {
   // Arrow(s)
   for (let i = 0; i < numArrows; i++){
     let x = random(0, width);
-    let y = random(0, height);
+    let y = random(3*height/2, height);
     let arrow = new Arrow(x, y);
     arrows.push(arrow);
   }
@@ -54,6 +54,8 @@ background(0);
 for (let i = 0; i < arrows.length; i++){
   let arrow = arrows[i];
   arrow.display();
+  arrow.move();
+  arrow.hit();
 }
 
 // Bunnies

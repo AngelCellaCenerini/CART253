@@ -5,6 +5,25 @@ class Arrow{
     this.width = 3;
     this.height = 150;
     this.active = true;
+    this.vx = 0;
+    this.vy = -5;
+  }
+
+  move(){
+    this.x = this.x + this.vx;
+    this.y = this.y + this.vy;
+
+    // // Respawn Arrow when off-screen              //?????
+    // if((this.y + this.height/2) > 0){
+    //   this.y = height;
+    // }
+  }
+
+  hit(){
+    let d = dist(this.x, this.y, this.bunny.x, this.bunny.y);        // ???
+    if(bunny.mobile && d < this.width/2 + this.bunny.size/2){
+      console.log(`fail`);
+    }
   }
 
   display(){
