@@ -5,22 +5,37 @@ class Compass{
     this.positionX = positionX;
     this.positionY = positionY;
     this.size = size;
-    this.vx = 3;
-    this.vy = 3;
+    this.vx = 0;
+    this.vy = 0;
     this.speed = 5;
     this.stallingTime = 0;
     this.angle = 0;
+    this.chasing = true;
     // this.sting = false;
   }
 
+  update(frog,level){
+    if(this.chasing){
+      this.chase(frog);
+      this.impact(frog);
+    }
+
+    this.move();
+    this.display();
+    this.rotate();
+    this.withdraw(level);
+  }
+
+  move(){
+    this.x = this.x + this.vx;
+    this.y = this.y + this.vy;
+  }
 
   chase(frog){
     // Start tracking Time
     this.stallingTime++;
     // Wait 2 secs before letting Needles chase the Frog's Cheeck
     if (this.stallingTime > 2*60){
-      this.x = this.x + this.vx;
-      this.y = this.y + this.vy;
 
       let dx = this.x - (frog.x);
       let dy = this.y - (frog.y);
@@ -51,10 +66,8 @@ class Compass{
   }
 
   impact(frog){
-    let dx = this.x - (frog.x);
-    let dy = this.y - (frog.y);
-    if(dx === 0 || dy === 0){   //yikes
-      console.log(`yep`);
+
+    if(dist(this.x, this.y, frog.x, frog.y) < frog.size/2){   //yikes
       if(frog.size > frog.maxSize/3){
         frog.wounded = true;
       }
@@ -85,11 +98,11 @@ class Compass{
   }
 
   keyPressed(){
+
     if(keyCode === UP_ARROW){
-      let dx = 0;
-      let dy = 0;
-      this.x = this.x - this.vx;
-      this.y = this.y - this.vy;
+      this.chasing = false;
+      this.vx = 0;
+      this.vy = -this.speed;
 
     }
   }

@@ -34,6 +34,10 @@ function setup() {
   for (let i = 0; i < numCompasses; i ++){
   let x = random(0, width);  //random(random(0, width/2), random(3*width/4, width))?
   let y = random(0, height);
+  while(dist(x, y, frog.x, frog.y) < frog.height){
+    x = random(0, width);
+    y = random(0, height);
+  }
   let positionX = x;
   let positionY = y;
   let size = random(70, 160);
@@ -63,11 +67,7 @@ function draw() {
   // Compass(es)
   for (let i = 0; i < compasses.length; i++){
     let compass = compasses[i];
-    compass.chase(frog);
-    compass.display();
-    compass.rotate();
-    compass.impact(frog);
-    compass.withdraw(level);
+    compass.update(frog, level);
     // compass.attack();
   }
 

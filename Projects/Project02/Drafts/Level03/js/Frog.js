@@ -11,7 +11,7 @@ class Frog{
     this.growth = 0.2;
     this.originalSize = 55;
     this.maxSize = 190;
-    // this.transparency = 255;
+    this.transparency = 255;
     this.width = 130;
     this.height = 210;
     this.wounded = false;
@@ -66,9 +66,8 @@ display(){
   if(!this.wounded){
     // Frog Cheek
     push();
-    // let t = map(this.transparency, 255, 100, this.originalSize, this.maxSize);
-    // fill(255, 153, 51, t);
-    fill(255, 153, 51);
+    let t = map(this.size, this.originalSize, this.maxSize, 255, 0);
+    fill(255, 153, 51, t);
     ellipse(this.x, this.y, this.size);
     pop();
   }
