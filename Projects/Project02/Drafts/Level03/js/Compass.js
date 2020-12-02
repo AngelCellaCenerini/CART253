@@ -50,16 +50,38 @@ class Compass{
     this.angle = this.angle + 0.03;
   }
 
-  impact(){
+  impact(frog){
     let dx = this.x - (frog.x);
     let dy = this.y - (frog.y);
-    if(dx === 0 || dy === 0){
+    if(dx === 0 || dy === 0){   //yikes
       console.log(`yep`);
-      if((this.frog.size > 3*this.frog.originalSize/2) || (this.frog.size > this.frog.maxSize)){
-        this.frog.wounded = true;
+      if(frog.size > frog.maxSize/3){
+        frog.wounded = true;
       }
     }
 
+  }
+
+  withdraw(level){
+
+   if (level > 0.05){
+     let dx = this.x - (7*frog.x);
+     let dy = this.y - (7*frog.y);
+
+     if (dx < 0){
+     this.vx = -this.speed;
+     }
+     else if(dx > 0){
+       this.vx = this.speed;
+     }
+
+     if (dy < 0){
+       this.vy = -this.speed;
+     }
+     else if(dy > 0){
+       this.vy = this.speed;
+     }
+   }
   }
 
   keyPressed(){

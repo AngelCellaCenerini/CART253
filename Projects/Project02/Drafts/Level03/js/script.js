@@ -17,6 +17,11 @@ function setup() {
   createCanvas(windowWidth, windowHeight);
   rectMode(CENTER);
   noStroke();
+  userStartAudio();
+
+  // Mic Input
+  mic = new p5.AudioIn();
+  mic.start();
 
   // Frog
   let x = width/2;
@@ -27,7 +32,7 @@ function setup() {
 
   // Compasses
   for (let i = 0; i < numCompasses; i ++){
-  let x = random(0, width);
+  let x = random(0, width);  //random(random(0, width/2), random(3*width/4, width))?
   let y = random(0, height);
   let positionX = x;
   let positionY = y;
@@ -44,6 +49,9 @@ function setup() {
 function draw() {
   background(0);
 
+  // Mic Input pushing away Needles
+  let level = mic.getLevel();
+
   // Frog
   frog.display();
   frog.grow();
@@ -59,65 +67,20 @@ function draw() {
     compass.display();
     compass.rotate();
     compass.impact(frog);
+    compass.withdraw(level);
     // compass.attack();
   }
-
-  // if(compass.sting){
-  //   frog.wound();
-  // }
-
-  // Hole
-  // push();
-  // fill(255, 135, 117);
-  // ellipse(width/2 + 26, 3*height/4 + 2, 55);
-  // fill(0);
-  // ellipse(width/2 + 26, 3*height/4, 55);
-  // pop();
-
-  // // Compass
-  // push();
-  // noFill();
-  // stroke(255);
-  // strokeWeight(6);
-  // ellipse(width/2, height/2, 160);
-  // pop();
-  //
-  // // Cardinal Directions
-  // push();
-  // fill(255);
-  // ellipse(width/2, height/2 - 53, 6.6);
-  // ellipse(width/2, height/2 + 53, 6.6);
-  // ellipse(width/2 - 53, height/2, 6.6);
-  // ellipse(width/2 + 53, height/2, 6.6);
-  // pop();
-  //
-  // // Hook
-  // push();
-  // noFill();
-  // stroke(255);
-  // strokeWeight(4);
-  // ellipse(width/2, height/2 - 80, 32);
-  // pop();
-  //
-  // //Needle
-  // push();
-  // fill(255, 52, 150);
-  // triangle(width/2, height/2 - 40, width/2 + 6.6, height/2 - 8, width/2, height/2 + 40);
-  // fill(255, 52, 150);
-  // triangle(width/2, height/2 - 40, width/2 - 6.6, height/2 - 8, width/2, height/2 + 40);
-  // pop();
-
 
 }
 
 function success(){
-  console.log(`success`);
+  console.log(`success`);                       // Object????
 }
 
 function keyPressed(){
   for (let i = 0; i < compasses.length; i++){
     let compass = compasses[i];
     compass.keyPressed();
-    setTimeout(success, 5000);
+    setTimeout(success, 5000);                      // Object????
   }
 }
