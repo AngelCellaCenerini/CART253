@@ -7,6 +7,40 @@ class Bunny{
     this.g = 229;
     this.b = 46;
     this.active = true;
+    this.mobile = true;
+    this.vx = 5;
+    this.vy = 5;
+  }
+
+  move(){
+    // Move Yellow Bunny with A, W, S, D keys
+    if(this.mobile){
+      if(keyIsDown(65)){
+        this.x -= this.vx;
+      }
+      if(keyIsDown(68)){
+        this.x += this.vx;
+      }
+      if(keyIsDown(87)){
+        this.y -= this.vy;
+      }
+      if(keyIsDown(83)){
+        this.y += this.vy;
+      }
+
+      // let dx = dist();
+      // let dy = dist();
+      // if(){
+      //
+      // }
+
+      // Prevent Yellow Bunny from getting near Purple Bunny
+      // this.x = constrain(this.x, 0, this.purpleBunny.x - this.purpleBunny.size);    // ????
+      // this.x = constrain(this.x, this.purpleBunny.x + this.purpleBunny.size, width);    // ????
+      // Constrain Yellow Bunny to Canvas
+      this.x = constrain(this.x, 0, width);    // ????
+      this.y = constrain(this.y, 0, height);
+    }
   }
 
   display(){

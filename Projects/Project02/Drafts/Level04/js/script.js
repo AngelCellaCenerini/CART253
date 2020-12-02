@@ -60,6 +60,7 @@ for (let i = 0; i < arrows.length; i++){
 for (let i = 0; i < bunnies.length; i++){
   let bunny= bunnies[i];
   bunny.display();
+  bunny.move();
 }
 
 // // Arrow
