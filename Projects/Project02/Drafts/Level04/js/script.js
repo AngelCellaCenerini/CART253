@@ -5,8 +5,13 @@ Angel Cella Cenerini
 Template by CART253 course
 Level04
 **************************************************/
+// Arrow(s)
 let arrows = [];
 let numArrows = 7;
+
+// Bunny
+let bunnies = [];
+
 
 // setup()
 //
@@ -24,6 +29,19 @@ function setup() {
     arrows.push(arrow);
   }
 
+  // Yellow Bunny
+  let x = width/3;
+  let y = 2*height/3;
+  let yellowBunny = new Bunny(x, y);
+  bunnies.push(yellowBunny);
+
+  // Purple Bunny
+  x = width/2;
+  y = height/2;
+  let purpleBunny = new PurpleBunny(x, y);
+  bunnies.push(purpleBunny);
+
+
 }
 
 // draw()
@@ -32,9 +50,16 @@ function setup() {
 function draw() {
 background(0);
 
+// Arrows
 for (let i = 0; i < arrows.length; i++){
   let arrow = arrows[i];
   arrow.display();
+}
+
+// Bunnies
+for (let i = 0; i < bunnies.length; i++){
+  let bunny= bunnies[i];
+  bunny.display();
 }
 
 // // Arrow
@@ -64,5 +89,29 @@ for (let i = 0; i < arrows.length; i++){
 // line(width/2 + 15, height/2 + 120, width/2, height/2 + 95);
 // pop();
 
+
+// // Bunny
+// //Body
+// push();
+// fill(242, 229, 46);
+// ellipse(width/2, height/2, 130, 120);
+// // Ears
+// fill(242, 229, 46);
+// ellipse(width/2 - 6, height/2 - 40, 30, 120);
+// ellipse(width/2 + 20, height/2 - 40, 30, 120);
+// // Face
+// fill(255);
+// ellipse(width/2 + 6, height/2, 60);
+// // Eyes
+// fill(0);
+// ellipse(width/2 - 3, height/2 + 3, 6);
+// ellipse(width/2 + 22, height/2 + 3, 6);
+// // Pink "Stripes"
+// fill(255, 69, 183);
+// rect(width/2 - 3, height/2 + 12, 6);
+// rect(width/2 + 22, height/2 + 12, 6);
+// rect(width/2 - 3, height/2 - 6, 6);
+// rect(width/2 + 22, height/2 - 6, 6);
+// pop();
 
 }
