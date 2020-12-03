@@ -22,7 +22,7 @@ class Bunny{
         this.x += this.vx;
       }
       if(keyIsDown(UP_ARROW)){
-        this.y -= this.vy;
+        this.y -= this.vy; 
       }
       if(keyIsDown(DOWN_ARROW)){
         this.y += this.vy;

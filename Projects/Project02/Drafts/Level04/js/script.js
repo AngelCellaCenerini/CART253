@@ -63,6 +63,7 @@ for (let i = 0; i < bunnies.length; i++){
   bunny.display();
   bunny.move();
   // bunny.block(purpleBunny);
+  // purpleBunny.devour();  // just subclass
 }
 
 // Arrows
