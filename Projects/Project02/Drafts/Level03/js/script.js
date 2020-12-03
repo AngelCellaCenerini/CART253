@@ -5,8 +5,10 @@ Template p5 project by CART253 course
 
 Here is a description of this template p5 project.
 **************************************************/
+// Frog
 let frog;
 
+// Compass(es)
 let compasses = [];
 let numCompasses = 12;
 
@@ -32,8 +34,9 @@ function setup() {
 
   // Compasses
   for (let i = 0; i < numCompasses; i ++){
-  let x = random(0, width);  //random(random(0, width/2), random(3*width/4, width))?
+  let x = random(0, width);
   let y = random(0, height);
+  // Avoid overlapping between Frog and Compass(es)
   while(dist(x, y, frog.x, frog.y) < frog.height){
     x = random(0, width);
     y = random(0, height);
@@ -43,7 +46,6 @@ function setup() {
   let size = random(70, 160);
   let compass = new Compass(x, y, positionX, positionY, size, frog);
   compasses.push(compass);
-  // Overlapping >> while()?
 }
 }
 
@@ -60,15 +62,10 @@ function draw() {
   frog.display();
   frog.grow();
 
-  // frog.wound(compass);
-  //
-
-
   // Compass(es)
   for (let i = 0; i < compasses.length; i++){
     let compass = compasses[i];
     compass.update(frog, level);
-    // compass.attack();
   }
 
 }

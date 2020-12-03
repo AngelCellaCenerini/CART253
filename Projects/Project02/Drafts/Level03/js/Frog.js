@@ -3,8 +3,8 @@ class Frog{
 
     this.x = x;
     this.y = y;
-    this.positionX = positionX;   // Only orange Cheek will change
-    this.positionY = positionY;   // Only orange Cheek will change
+    this.positionX = positionX;   // Only orange Cheek will change throughout time
+    this.positionY = positionY;   // Only orange Cheek will change throughout time
     this.radius = 5;
     this.size = 55;
     this.stallingTime = 0;
@@ -14,19 +14,18 @@ class Frog{
     this.transparency = 255;
     this.width = 130;
     this.height = 210;
-    this.wounded = false;
+    this.wounded = false;  // Cheek is wounded by Needles
 
 
   }
 
   grow(){
+    // Increase Cheek's size
     this.stallingTime++;
     if (this.stallingTime > 1*60){
     this.size += this.growth;
     if(this.size > this.maxSize){
       this.size = this.originalSize;
-
-      // let t = map(this.transparency, 255, 0, this.originalSize, this.maxSize);
 
     }
   }
@@ -66,7 +65,7 @@ display(){
   if(!this.wounded){
     // Frog Cheek
     push();
-    let t = map(this.size, this.originalSize, this.maxSize, 255, 0);
+    let t = map(this.size, this.originalSize, this.maxSize, 255, 130);
     fill(255, 153, 51, t);
     ellipse(this.x, this.y, this.size);
     pop();

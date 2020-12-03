@@ -10,20 +10,21 @@ class Compass{
     this.speed = 5;
     this.stallingTime = 0;
     this.angle = 0;
-    this.chasing = true;
-    // this.sting = false;
+    this.chasing = true;  // Compass's Needle is chasing Frog's Cheek (its center)
   }
 
   update(frog,level){
+    // Keeping track of all Needle's methods
     if(this.chasing){
       this.chase(frog);
       this.impact(frog);
     }
 
     this.move();
-    this.display();
     this.rotate();
     this.withdraw(level);
+    this.display();
+
   }
 
   move(){
@@ -34,7 +35,7 @@ class Compass{
   chase(frog){
     // Start tracking Time
     this.stallingTime++;
-    // Wait 2 secs before letting Needles chase the Frog's Cheeck
+    // Wait 2 secs before letting Needles chase the Frog's Cheek
     if (this.stallingTime > 2*60){
 
       let dx = this.x - (frog.x);
@@ -55,9 +56,6 @@ class Compass{
       }
     }
 
-    // if((dx = 0) && (dy = 0) && (this.size > this.originalSize)){
-    //   this.sting = true;
-    // }
 
   }
 
@@ -66,18 +64,19 @@ class Compass{
   }
 
   impact(frog){
-
-    if(dist(this.x, this.y, frog.x, frog.y) < frog.size/2){   //yikes
-      if(frog.size > frog.maxSize/3){
+    // Needle reaches Frog's Cheek center; level may end depending on Cheek's current size
+    if(dist(this.x, this.y, frog.x, frog.y) < frog.size/2){
+      if(frog.size > frog.maxSize/2){
         frog.wounded = true;
+        console.log(`fail`);
       }
     }
 
   }
 
   withdraw(level){
-
-   if (level > 0.05){
+    // Drive away Needles through Mic Input
+   if (level > 0.04){
      let dx = this.x - (7*frog.x);
      let dy = this.y - (7*frog.y);
 
@@ -97,8 +96,9 @@ class Compass{
    }
   }
 
-  keyPressed(){
 
+  keyPressed(){
+  // Change Needle tendency to Upwards-movement
     if(keyCode === UP_ARROW){
       this.chasing = false;
       this.vx = 0;
