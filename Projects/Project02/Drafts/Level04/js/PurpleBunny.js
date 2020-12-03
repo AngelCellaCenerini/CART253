@@ -5,7 +5,7 @@ class PurpleBunny extends Bunny{
     this.r = 78;
     this.g = 75;
     this.b = 191;
-    this.active = false;
+    this.active = true;
     this.mobile = false;
   }
 }

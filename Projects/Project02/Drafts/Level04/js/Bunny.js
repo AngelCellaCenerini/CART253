@@ -15,16 +15,16 @@ class Bunny{
   move(){
     // Move Yellow Bunny with A, W, S, D keys
     if(this.mobile){
-      if(keyIsDown(65)){
+      if(keyIsDown(LEFT_ARROW)){
         this.x -= this.vx;
       }
-      if(keyIsDown(68)){
+      if(keyIsDown(RIGHT_ARROW)){
         this.x += this.vx;
       }
-      if(keyIsDown(87)){
+      if(keyIsDown(UP_ARROW)){
         this.y -= this.vy;
       }
-      if(keyIsDown(83)){
+      if(keyIsDown(DOWN_ARROW)){
         this.y += this.vy;
       }
 

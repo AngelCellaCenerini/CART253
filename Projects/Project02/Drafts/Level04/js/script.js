@@ -12,6 +12,10 @@ let numArrows = 6;
 // Bunny
 let bunnies = [];
 
+// Word User has to type in order to surpass level
+let answer = `parent`;
+// Keeping Track of User's Input
+let currentInput = ``;
 
 // setup()
 //
@@ -67,4 +71,46 @@ for (let i = 0; i < arrows.length; i++){
   arrow.track();
 }
 
+checkInputProgress();
+
+}
+
+// Level
+function checkInputProgress(){
+  // Current Input Settings
+  push();
+  fill(255);
+  textSize(30);
+  // Check if Word Inserted is Correct
+  let correct = checkInput();
+  // Display Current Input from User
+  text(currentInput, width/2, 3*height/5);
+  pop();
+}
+
+function checkInput() {
+  // Converting Input to Lower Case
+  let lowerCaseInput = currentInput.toLowerCase();
+  // Check if the Converted Input corrisponds to Answer
+  if (lowerCaseInput === answer) {
+    console.log(`success`);
+    arrow.active = false;
+  }
+  else {
+    return false;
+  }
+}
+
+// p5 Events
+function keyPressed(){
+  if (keyCode === 8) {
+    // User Resets Inserted Input
+    currentInput = ``;
+  }
+}
+
+function keyTyped() {
+  if (keyCode !== 13){
+    currentInput += key;
+  }
 }
