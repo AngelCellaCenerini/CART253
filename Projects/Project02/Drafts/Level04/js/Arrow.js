@@ -9,26 +9,38 @@ class Arrow{
     this.vy = -5;
   }
 
+  track(){
+    // Track Arrow status/methods
+    if(this.active){
+      this.move();
+      this.respawn();
+      // this.hit(bunny);
+    }
+    this.display();
+  }
+
   move(){
     this.x = this.x + this.vx;
     this.y = this.y + this.vy;
-
-    // // Respawn Arrow when off-screen              //?????
-    // if((this.y + this.height/2) > 0){
-    //   this.y = height;
-    // }
   }
 
-  hit(){
-    let d = dist(this.x, this.y, this.bunny.x, this.bunny.y);        // ???
-    if(bunny.mobile && d < this.width/2 + this.bunny.size/2){
-      console.log(`fail`);
+  respawn(){
+    // Reset Arrow at bottom of screen once off-screen
+    if(this.y + height/2 < 0){
+      this.x = random(0, width);
+      this.y = random(3*height/2, height);
     }
+  }
+
+  hit(bunny){
+    // let d = dist(this.x, this.y, bunny.x, bunny.y);        // ???
+    // if(bunny.mobile && d < this.width/2 + bunny.size/2){
+    //   console.log(`fail`);
+    // }
   }
 
   display(){
 
-    if(this.active){
       // Arrow
       // Body
       push();
@@ -55,6 +67,6 @@ class Arrow{
       line(this.x - 5*this.width, this.y + 4*this.height/5, this.x, this.y + 19*this.height/30);
       line(this.x + 5*this.width, this.y + 4*this.height/5, this.x, this.y + 19*this.height/30);
       pop();
-    }
+
   }
 }

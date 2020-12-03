@@ -6,8 +6,8 @@ class Bunny{
     this.r = 242;
     this.g = 229;
     this.b = 46;
-    this.active = true;
-    this.mobile = true;
+    this.active = true;  // PurplecBunny(subclass)'s ears/face/eyes do not show from the beginning
+    this.mobile = true;  // Only Yellow Bunny(class) moves
     this.vx = 5;
     this.vy = 5;
   }
@@ -28,20 +28,17 @@ class Bunny{
         this.y += this.vy;
       }
 
-      // let dx = dist();
-      // let dy = dist();
-      // if(){
-      //
-      // }
-
-      // Prevent Yellow Bunny from getting near Purple Bunny
-      // this.x = constrain(this.x, 0, this.purpleBunny.x - this.purpleBunny.size);    // ????
-      // this.x = constrain(this.x, this.purpleBunny.x + this.purpleBunny.size, width);    // ????
-      // Constrain Yellow Bunny to Canvas
-      this.x = constrain(this.x, 0, width);    // ????
+      this.x = constrain(this.x, 0, width);
       this.y = constrain(this.y, 0, height);
     }
   }
+
+  // block(purpleBunny){
+  //   let d = dist(this.x, this.y, purpleBunny.x, purpleBunny.y);
+  //   if(d < this.size/2 + purpleBunny.size){
+  //        this.vx = 0;
+  //   }
+  // }
 
   display(){
     // Bunny
