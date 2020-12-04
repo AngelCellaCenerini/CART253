@@ -9,8 +9,9 @@ Level04
 let arrows = [];
 let numArrows = 6;
 
-// Bunny
-let bunnies = [];
+// Bunnies
+let yellowBunny;
+let purpleBunny;
 
 // Word User has to type in order to surpass level
 let answer = `parent`;
@@ -29,14 +30,15 @@ function setup() {
   // Yellow Bunny
   let x = width/3;
   let y = 2*height/3;
-  let yellowBunny = new Bunny(x, y);
-  bunnies.push(yellowBunny);
+  yellowBunny = new YellowBunny(x, y);
 
   // Purple Bunny
   x = width/2;
   y = height/2;
-  let purpleBunny = new PurpleBunny(x, y);
-  bunnies.push(purpleBunny);
+  let positionX = width/2;
+  let positionY = height/2;
+  let mouthY = height/2;
+  purpleBunny = new PurpleBunny(x, y, positionX, positionY);
 
   // Arrow(s)
   for (let i = 0; i < numArrows; i++){
@@ -58,18 +60,23 @@ background(0);
 
 
 // Bunnies
-for (let i = 0; i < bunnies.length; i++){
-  let bunny= bunnies[i];
-  bunny.display();
-  bunny.move();
-  // bunny.block(purpleBunny);
-  // purpleBunny.devour();  // just subclass
-}
+// Yellow
+yellowBunny.move();
+yellowBunny.withdraw(purpleBunny);
+yellowBunny.display();
+
+// Purple
+purpleBunny.hunger();
+purpleBunny.devour();
+purpleBunny.display();
+
+
+
 
 // Arrows
 for (let i = 0; i < arrows.length; i++){
   let arrow = arrows[i];
-  arrow.track();
+  arrow.track(yellowBunny);
 }
 
 checkInputProgress();
@@ -85,18 +92,28 @@ function checkInputProgress(){
   // Check if Word Inserted is Correct
   let correct = checkInput();
   // Display Current Input from User
-  text(currentInput, width/2, 3*height/5);
+  text(currentInput, width/7, height/2);
   pop();
 }
 
 function checkInput() {
   // Converting Input to Lower Case
   let lowerCaseInput = currentInput.toLowerCase();
-  // Check if the Converted Input corrisponds to Answer
+  // Check if Converted Input corrisponds to Answer
   if (lowerCaseInput === answer) {
+
     console.log(`success`);
-    arrow.active = false;
+
+    // Freez Arrows
+    for (let i = 0; i < arrows.length; i++){
+      let arrow = arrows[i];
+          arrow.active = false;
+    }
+
+    // Display Purple Bunny's face/ears
+    purpleBunny.active = true;
   }
+
   else {
     return false;
   }

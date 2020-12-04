@@ -9,12 +9,12 @@ class Arrow{
     this.vy = -5;
   }
 
-  track(){
+  track(bunny){
     // Track Arrow status/methods
     if(this.active){
       this.move();
       this.respawn();
-      // this.hit(bunny);
+      this.hit(bunny);
       this.check();
     }
     this.display();
@@ -33,11 +33,11 @@ class Arrow{
     }
   }
 
-  hit(bunny){
-    // let d = dist(this.x, this.y, bunny.x, bunny.y);        // ???
-    // if(bunny.mobile && d < this.width/2 + bunny.size/2){
-    //   console.log(`fail`);
-    // }
+  hit(yellowBunny){
+    let d = dist(this.x, this.y, yellowBunny.x, yellowBunny.y);        // ???
+    if(yellowBunny.mobile && d < this.width/2 + yellowBunny.size/2){
+      console.log(`fail`);
+    }
   }
 
   check(){   //state?
