@@ -27,18 +27,20 @@ function setup() {
   rectMode(CENTER);
 
 
-  // Yellow Bunny
-  let x = width/3;
-  let y = 2*height/3;
-  yellowBunny = new YellowBunny(x, y);
+
 
   // Purple Bunny
-  x = width/2;
-  y = height/2;
+  let x = width/2;
+  let y = height/2;
   let positionX = width/2;
   let positionY = height/2;
   let mouthY = height/2;
   purpleBunny = new PurpleBunny(x, y, positionX, positionY);
+
+  // Yellow Bunny
+  x = width/3;
+  y = 2*height/3;
+  yellowBunny = new YellowBunny(x, y);
 
   // Arrow(s)
   for (let i = 0; i < numArrows; i++){
@@ -60,15 +62,18 @@ background(0);
 
 
 // Bunnies
-// Yellow
-yellowBunny.move();
-yellowBunny.withdraw(purpleBunny);
-yellowBunny.display();
-
 // Purple
 purpleBunny.hunger();
 purpleBunny.devour();
+purpleBunny.close(yellowBunny);
 purpleBunny.display();
+
+// Yellow
+yellowBunny.move();
+yellowBunny.guide();
+yellowBunny.withdraw(purpleBunny);
+yellowBunny.trapped(purpleBunny);
+yellowBunny.display();
 
 
 
@@ -101,8 +106,6 @@ function checkInput() {
   let lowerCaseInput = currentInput.toLowerCase();
   // Check if Converted Input corrisponds to Answer
   if (lowerCaseInput === answer) {
-
-    console.log(`success`);
 
     // Freez Arrows
     for (let i = 0; i < arrows.length; i++){
