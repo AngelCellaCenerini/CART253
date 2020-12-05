@@ -6,19 +6,14 @@ class YellowBunny{
     this.vy = 0;
     this.speed = 5;
     this.size = 120;
-    this.active = true;
-    this.restarined = false;
-    this.stallingTime = 0;
+    this.active = true;     // display Yellow Bunny if true
+    this.free = true;       // Yellow Bunny is free, not yet caught by Purple Bunny
+    this.stallingTime = 0;  // wait 2 secs beofre disappearing
 
   }
 
   move(){
-    this.x += this.vx;
-    this.y += this.vy;
-  }
-
-  guide(){
-    if(!this.restarined){
+    if(this.free){
       // Move Yellow Bunny with arrow keys
         if(keyIsDown(LEFT_ARROW)){
           this.vx = -this.speed;
@@ -39,27 +34,31 @@ class YellowBunny{
         else{
           this.vy = 0;
         }
-
-        this.x = constrain(this.x, 0, width);
-        this.y = constrain(this.y, 0, height);
       }
+
+      this.x += this.vx;
+      this.y += this.vy;
+
+      // Constrain Bunny to canvas
+      this.x = constrain(this.x, 0, width);
+      this.y = constrain(this.y, 0, height);
     }
 
   withdraw(purpleBunny){
-    if(this.restarined){
+    // Block Yellow Bunny from touching Purple Bunny
+    if(this.free){
       let d = dist(this.x, this.y, purpleBunny.x, purpleBunny.y);
-      if(d < this.size/2 + purpleBunny.size){
+      if(d < (this.size/2 + 3*purpleBunny.size/4)){
            this.x -= this.vx;  // hence why "withdraw"
            this.y -= this.vy;
       }
+
     }
   }
 
   trapped(purpleBunny){
-    if(purpleBunny.widening === 0){
-
-      this.restarined = false;
-
+  // Lead to Purple Bunny's mouth (technically YellowBunny is the one actively going there...semantics XD)
+    if(!this.free){
       let dx = this.x - (purpleBunny.positionX);
       let dy = this.y - (purpleBunny.positionY + purpleBunny.size/7);
 
@@ -76,14 +75,15 @@ class YellowBunny{
       else if(dy > 0){
         this.vy = -this.speed;
       }
-    }
 
-    if(this.x === purpleBunny.positionX){
-      this.stallingTime++;
+      // Disappear once at the center of Purple Bunny's mouth (again, semantics)
+      if(this.x === purpleBunny.positionX){
+        this.stallingTime++;
       if (this.stallingTime > 0.6*60){
         this.active = false;
+       }
+      }
      }
-    }
     }
 
   display(){

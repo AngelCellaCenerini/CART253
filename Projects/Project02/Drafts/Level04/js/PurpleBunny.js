@@ -7,23 +7,24 @@ class PurpleBunny{
     this.vx = 0;
     this.vy = 0;
     this.speed = 1.4;
-    this.size = 250;         // body
+    this.size = 250;
     this.maxSize = 420;
     this.growth = 3;
-    this.mouthSize = 10;     // mouth
+    this.mouthSize = 10;
     this.closedMouthSize = 2;
     this.maxMouthSize = 250;
-    this.height = 125;       // face (starts as circle, develops into ellipse)
-    this.width = 125;        // face
+    this.height = 125;       // face height (starts as circle, develops into ellipse)
+    this.width = 125;        // face width
     this.widening = 3;
     this.shrinking = -4;
-    this.active = false;      // display face/ears
-    this.hungry = false;      // start devouring
-    this.stallingTime = 0;
+    this.active = false;          // face/ears are not displaying when false
+    this.hungry = false;          // bunny does not make any action if false
+    this.stallingTime = 0;        // stalling time between the displayment of the PurpleBunny and its actions
+    this.delayedSwitchTime = 0;   // 2 secs delay before ending level; starts when PurpleBunny's mouth "closes"
 
   }
 
-  hunger(){
+  feelHunger(){
     // Once "activated", Purple Bunny will wait 2 secs before "devouring" Yellow Bunny
     if(this.active){
 
@@ -34,13 +35,13 @@ class PurpleBunny{
   }
   }
 
-  devour(){
+  devour(yellowBunny){
     // Purple Bunny devours Yellow Bunny >:)
     if(this.hungry){
       this.move();
       this.grow();  // Entire body grows
       this.face();  // The face grows -differently from rest of the body to accomdate mouth's growth
-      this.open();  // The mouth opens; again, differnt growth from rest of the body
+      this.open(yellowBunny);  // The mouth opens; again, differnt growth from rest of the body
     }
   }
 
@@ -71,11 +72,13 @@ class PurpleBunny{
 
   }
 
-  open(){
+  open(yellowBunny){
     // Mouth opening/widening
     this.mouthSize = this.mouthSize + this.widening;
     if(this.mouthSize > this.maxMouthSize){
       this.widening = 0;
+      yellowBunny.free = false;
+
     }
   }
 
@@ -87,10 +90,16 @@ class PurpleBunny{
   }
 
   shrink(){
-    // Mouth shrinking aka closing
+    // Mouth shrinking (aka "closing")
     this.mouthSize = this.mouthSize + this.shrinking;
     if(this.mouthSize < this.closedMouthSize){
       this.shrinking = 0;
+      this.delayedSwitchTime ++;
+    }
+
+    // Countdown (level ends 2 secs after Purple Bunny's mouth is fully closed)
+    if(this.delayedSwitchTime > 2*60){
+      console.log(`success`);
     }
   }
 

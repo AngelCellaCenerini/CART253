@@ -4,18 +4,18 @@ class Arrow{
     this.y = y;
     this.width = 3;
     this.height = 150;
-    this.active = true;
+    this.active = true;  // arrow(s) freez(es) if not active
     this.vx = 0;
-    this.vy = -5;
+    this.vy = 0;
+    this.speed = -9;
   }
 
-  track(bunny){
+  track(yellowBunny){
     // Track Arrow status/methods
     if(this.active){
       this.move();
       this.respawn();
-      this.hit(bunny);
-      this.check();
+      this.hit(yellowBunny);
     }
     this.display();
   }
@@ -23,6 +23,8 @@ class Arrow{
   move(){
     this.x = this.x + this.vx;
     this.y = this.y + this.vy;
+
+    this.vy = this.speed;
   }
 
   respawn(){
@@ -34,16 +36,11 @@ class Arrow{
   }
 
   hit(yellowBunny){
-    let d = dist(this.x, this.y, yellowBunny.x, yellowBunny.y);        // ???
-    if(yellowBunny.mobile && d < this.width/2 + yellowBunny.size/2){
+    // Hit Yellow Bunny; User loses level
+    let d = dist(this.x, this.y, yellowBunny.x, yellowBunny.y);
+    if(yellowBunny.free && d < this.width/2 + yellowBunny.size/2){
       console.log(`fail`);
     }
-  }
-
-  check(){   //state?
-    // if(){
-    //   this.active = false;
-    // }
   }
 
   display(){

@@ -7,7 +7,7 @@ Level04
 **************************************************/
 // Arrow(s)
 let arrows = [];
-let numArrows = 6;
+let numArrows = 9;
 
 // Bunnies
 let yellowBunny;
@@ -63,14 +63,13 @@ background(0);
 
 // Bunnies
 // Purple
-purpleBunny.hunger();
-purpleBunny.devour();
+purpleBunny.feelHunger();
+purpleBunny.devour(yellowBunny);
 purpleBunny.close(yellowBunny);
 purpleBunny.display();
 
 // Yellow
 yellowBunny.move();
-yellowBunny.guide();
 yellowBunny.withdraw(purpleBunny);
 yellowBunny.trapped(purpleBunny);
 yellowBunny.display();
@@ -115,6 +114,7 @@ function checkInput() {
 
     // Display Purple Bunny's face/ears
     purpleBunny.active = true;
+
   }
 
   else {
@@ -132,6 +132,7 @@ function keyPressed(){
 
 function keyTyped() {
   if (keyCode !== 13){
+    // Type User Input
     currentInput += key;
   }
 }
