@@ -69,6 +69,8 @@ class Compass{
       if(frog.size > frog.maxSize/2){
         frog.wounded = true;
         console.log(`fail`);
+        clearInterval(interval);
+        interval = undefined;
       }
     }
 
