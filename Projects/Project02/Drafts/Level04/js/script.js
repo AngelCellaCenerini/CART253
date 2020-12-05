@@ -5,6 +5,15 @@ Angel Cella Cenerini
 Template by CART253 course
 Level04
 **************************************************/
+// Background Music
+let synth;
+let notes = [`E5`, `E5`, `F5`, `E#5`, `F5`, `Eb5`];
+// Current played note
+let currentNote = 0;
+// Track interval between note
+let interval;
+
+
 // Arrow(s)
 let arrows = [];
 let numArrows = 9;
@@ -25,8 +34,18 @@ function setup() {
   createCanvas(windowWidth, windowHeight);
   noStroke();
   rectMode(CENTER);
+  userStartAudio();
 
-
+  // Background Music
+  // General Soundtrack
+  synth = new p5.PolySynth();
+  for (let i = 0; i < synth.audiovoices.length; i++) {
+    let voice = synth.audiovoices[i];
+    voice.oscillator.setType(`triangle`);
+  }
+  // Ending soundtrack
+  oscillator = new p5.Oscillator(440, `sawtooth`);
+  oscillator.amp(0.05);
 
 
   // Purple Bunny
@@ -59,7 +78,11 @@ function setup() {
 function draw() {
 background(0);
 
-
+// Random Value
+let r = random(0, 1);
+// Map to Frequency Range
+let newFreq = map(r, 0, 1, 440, 880);
+oscillator.freq(newFreq);
 
 // Bunnies
 // Purple
@@ -114,6 +137,9 @@ function checkInput() {
 
     // Display Purple Bunny's face/ears
     purpleBunny.active = true;
+    clearInterval(interval);
+    interval = undefined;
+    oscillator.start();
 
   }
 
@@ -122,7 +148,26 @@ function checkInput() {
   }
 }
 
+
+function playNextNote() {
+  // PLay noyes
+  let note = notes[currentNote];
+  synth.play(note, 0.2, 0.1, 0.1);
+  currentNote = currentNote + 1;
+  if (currentNote === notes.length) {
+    currentNote = 0;
+  }
+}
+
 // p5 Events
+function mousePressed() {
+  // Check music sin't already playing
+  if (interval === undefined) {
+    interval = setInterval(playNextNote, 500);
+  }
+}
+
+
 function keyPressed(){
   if (keyCode === 8) {
     // User Resets Inserted Input
