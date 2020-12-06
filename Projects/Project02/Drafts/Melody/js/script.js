@@ -10,8 +10,18 @@ P02DM: Creating Melody for Final Project via p5.sound
 **************************************************/
 let synth;
 let synth2;
-let notes = [`F3`, `E3`, `D3`];
-let notes2 = [`A2`, `A#2`, `Ab2`];
+// let notes = [`D4`, `F4`,`A5`,`G4`]; //1
+// let notes2 = [`F4`, `E4`,`C4`,`D4`]; //2
+// let notes2 = [`D4`, `F4`,`A5`,`D5`, `D5`, `Db5`,`D5`,`A6`]; //3
+// let notes = [`A6`,`G#5`,`A6`, `Bb6`,`A6`,`G5`,`E6`, `Db6`, `A5`]; //4
+let notes = [`A3`,`D2`]; //SX
+// let notes2 = [`F4`]; 5
+// let notes2 = [ `E4`, `F4`, `G4`, `A5`]; //6
+// let notes = [ `E4`, `F4`, `G4`, `A5`];
+// let notes2 = [ `E4`, `C4`];  8
+let notes2 = [`D4`]; //9
+// let notes2 = [`G2`]; MANO SX?
+// let notes2 = [`C4`, `D4`, `E4`, `F4`,`G4`,`A5`, `B5`, `C5` ];
 let currentNote = 0;
 let currentNote2 = 0;
 let interval;
@@ -51,7 +61,7 @@ function playNextNote() {
   // Chose the note at the current position
   let note = notes[currentNote];
   // Play it
-  synth.play(note, 0.6, 0, 0.4);
+  synth.play(note,  0.6, 0, 0.4);
   // Increase the current position and go back to 0 when we reach the end
   currentNote = currentNote + 1;
   if (currentNote === notes.length) {
