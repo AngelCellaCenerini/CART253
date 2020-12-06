@@ -3,7 +3,7 @@ class Madeleine{
     this.x = x;
     this.y = y;
     this.width = 100;
-    this.height = 310;
+    this.height = 330;
   }
 
   display(){
