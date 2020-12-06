@@ -9,7 +9,10 @@ Template p5 project by CART253 Course
 If User successfully surpasses level, they achieve one of the collectable items; this will also trigger a "cutscene" of sorts
 **************************************************/
 
-// MIirror
+// Fading Effect
+let fading;
+
+// Mirror
 let mirror;
 
 // Lights
@@ -26,6 +29,7 @@ function setup() {
   rectMode(CENTER);
   noStroke();
 
+
   // Lights
   for(let i = 0; i < numLights; i++){
     let x = width/2;
@@ -39,6 +43,13 @@ function setup() {
   let x = width/2;
   let y = height/2;
   mirror = new Mirror(x, y);
+
+  // Fading Effect
+  x = width/2;
+  y = height/2;
+  let widthF = windowWidth;
+  let heightF = windowHeight;
+  fading = new Fading(x, y, width, height);
 
 }
 
@@ -60,5 +71,9 @@ function draw() {
   mirror.move();
   mirror.tremble();
   mirror.display();
+
+  // Fading Effect
+  fading.fade();
+  fading.display();
 
 }

@@ -28,12 +28,14 @@ class Light {
   }
 
   explode(){
+
     this.explosionTime++;
 
-    if(this.explosionTime > 10*60){
+    if(this.explosionTime > 12*60){
     this.size = this.size + this.growth;
     }
     if(this.size > this.maxSize){
+      this.growth = 0;
       console.log(`fin`);
     }
   }
