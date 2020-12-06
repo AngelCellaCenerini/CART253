@@ -7,7 +7,8 @@ class Mirror{
     this.vx = 0;
     this.vy = 0;
     this.maxSpeed = 4;
-    this.broken = true;
+    this.broken = true;  // display cracks
+    this.active = true;  // move mirror
     this.start = 0;  // needed to draw Arc (line 42)
     this.stop = PI   // needed to draw Arc (line 42)
   }
@@ -21,13 +22,14 @@ class Mirror{
 
   tremble(){
 
-    // Lights gently floating around screen
-    let change = random(0, 1);
-    if (change < 5){
-      this.vx = random(-this.maxSpeed, this.maxSpeed);
+    if(this.active){
+      // Lights gently floating around screen
+      let change = random(0, 1);
+      if (change < 6){
+        this.vx = random(-this.maxSpeed, this.maxSpeed);
+      }
+      this.x = constrain( this.x, 16*width/33, 17*width/33);
     }
-    this.x = constrain( this.x, 16*width/33, 17*width/33);
-
   }
 
 
