@@ -65,7 +65,7 @@ class Fish{
 
    if (this.eatingTime > 3*60){
        this.target.active = false;
-       if(!this.active){
+       if(this.target !== this.moon && this.target !== this.wave){
          state = `success`;
          console.log(`success`);
        }
