@@ -7,7 +7,7 @@ class TipsTable{
   this.size = 600;
   this.active = false;
   this.keyCode = undefined;   // SPACEBAR
-  this.tips = cues;
+  this.tips = cues;  //this.cues = [];
    // Guessing Answer
    this.currentIndex = 0;
    this.answer = `stop`;    // Word User has to type in order to surpass level
@@ -62,7 +62,7 @@ class TipsTable{
    fill(0);
    textAlign(CENTER, CENTER);
    textSize(20);
-   text(this.tips, this.x, this.y);
+   text(this.tips, this.x, this.y);  // this.cues[currentIndex];
    fill(255);
    textSize(15);
    text(`Click for more tips >>`,this.positionX, this.positionY);
