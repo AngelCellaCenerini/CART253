@@ -1,5 +1,5 @@
 class TipsTable{
-  constructor(x, y, positionX, positionY, tips){
+  constructor(x, y, positionX, positionY, cues){
   this.x = x;
   this.y = y;
   this.positionX = positionX;
@@ -44,7 +44,7 @@ class TipsTable{
    keyTyped() {
      // Type Input
      if (this.keyCode !== 13){  // && state === `level`
-     this.currentInput += key;
+     this.currentInput += key; // key >> main script?
      }
    }
 

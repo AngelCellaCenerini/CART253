@@ -22,6 +22,7 @@ createCanvas(windowWidth, windowHeight);
 noStroke();
 rectMode(CENTER);
 
+TipsTable
 let x = width/2;
 let y = height/2;
 let positionX = 2*width/5;
