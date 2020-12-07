@@ -144,8 +144,12 @@ else if (state === `level`){
     moon.move();
     // moon.checkPassEnding(moon);
     if(!moon.active){
-      state = `intro`;
-
+      for(let j = 0; j < moons.length; j++){
+        let otherMoon = moons[j];
+        if(otherMoon !== moon && !otherMoon.active){
+         state = `intro`;
+        }
+      }
     }
   }
 
