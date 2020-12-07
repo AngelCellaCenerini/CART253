@@ -22,7 +22,7 @@ class Compass{
 
     this.move();
     this.rotate();
-    this.withdraw(level);
+    this.withdraw(frog, level);
     this.display();
 
   }
@@ -76,9 +76,10 @@ class Compass{
 
   }
 
-  withdraw(level){
+  withdraw(frog, level){
     // Drive away Needles through Mic Input
-   if (level > 0.04){
+   if (level > 0.2){
+     
      let dx = this.x - (7*frog.x);
      let dy = this.y - (7*frog.y);
 
