@@ -17,7 +17,6 @@ let synth2;
 let notes = [`A3`,`D2`]; //SX
 // let notes2 = [`F4`]; 5
 // let notes2 = [ `E4`, `F4`, `G4`, `A5`]; //6
-// let notes = [ `E4`, `F4`, `G4`, `A5`];
 // let notes2 = [ `E4`, `C4`];  8
 let notes2 = [`D4`]; //9
 // let notes2 = [`G2`]; MANO SX?

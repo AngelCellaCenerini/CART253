@@ -117,19 +117,14 @@ function draw() {
     textAlign(RIGHT);
     text(`Script:
 
-    A
-    A
-    W
-    S
-    D
-    D
-    W
-    S
-    D
-    D
-    A
-    S
-    W`, width/10, 2*height/5);
+    G
+    F
+    H
+    T
+    B
+    V
+    R
+    D`, width/10, 2*height/5);
     pop();
 
 
