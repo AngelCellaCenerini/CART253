@@ -28,6 +28,8 @@ let synth;
 let notes = [`F5`, `G4`, `Ab3`];
 let currentNote = 0;
 let interval;
+// Eating Soundtrack
+let oscillator;
 
 // Tips Table - Appears/disappears when User presses SPACEBAR
 let tipsTable = {
@@ -65,6 +67,9 @@ function setup() {
 
   // Soundtrack
   synth = new p5.PolySynth();
+  // Eating Soundtrack
+  oscillator = new p5.Oscillator(400, `sine`);
+  oscillator.amp(0.05);
 
 
 
@@ -124,7 +129,12 @@ if (state === `intro`){
 // Level
 else if (state === `level`){
 
-
+  // Eating Soundtrack
+  // Random Value
+  let r = random(0, 1);
+  // Map to Frequency Range
+  let newFreq = map(r, 0, 1, 240, 480);
+  oscillator.freq(newFreq);
 
   levelCountdown();
 
@@ -295,6 +305,10 @@ function mousePressed() {
         let otherFish = school[j];
         if(otherFish !== fish){
           otherFish.target = fish;
+          fish.speed = 0;  // targeted fish frezzes (cretaes better experience this way)
+          clearInterval(interval);
+          interval = undefined;
+          oscillator.start();
         }
       }
       break;

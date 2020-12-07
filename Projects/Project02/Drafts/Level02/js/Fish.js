@@ -67,6 +67,7 @@ class Fish{
        this.target.active = false;
        if(!this.active){
          state = `success`;
+         console.log(`success`);
        }
        this.eatingTime = 0;
    }
