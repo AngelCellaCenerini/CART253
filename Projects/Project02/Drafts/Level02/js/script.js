@@ -10,7 +10,7 @@ Here is a description of this template p5 project.
 // level
 // Timer
 let timer = 0;
-let timerLevel = 1;
+let timerLevel = 40;
 // Moon(s)
 let moons = [];
 let redMoon;
