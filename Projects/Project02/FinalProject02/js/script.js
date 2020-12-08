@@ -35,8 +35,8 @@ let lights = [];
 let numLights = 20;
 
 // States
-let state = `passed`       // Title, Instructions, Intro, Level01, Level02, Level03, Level04, Level05, PLay (User plays Melody)
-                             // Lost (User looses), Passed (User passes level withouth solving it), Surpassed,  Ending01, Ending02.
+let state = `surpassedS`       // Title, Instructions, Intro, Level01, Level02, Level03, Level04, Level05, PLay (User plays Melody)
+                             // Lost (User looses), Passed (User passes level withouth solving it), Surpassed (Achieved Voice or Script),  Ending01, Ending02.
 
 // Load Fonts
 function preload(){
@@ -96,7 +96,6 @@ function draw() {
 
   // Title
   if ( state === `title`){
-
     titleText();
     madeleine.display();
   }
@@ -153,8 +152,21 @@ function draw() {
   }
 
   // Surpassed
-  else if ( state === `surpassed`){
+  // Achieved Voice
+  else if ( state === `surpassedV`){
+    textSurpassedVoice();
 
+    // Display Single Light
+    lights.length = 1;
+    for (let i = 0; i < lights.length; i++){
+      let light = lights[i];
+      light.move();
+      light.display();
+    }
+  }
+  // Achieved Script Shred
+  else if ( state === `surpassedS`){
+    textSurpassedScript();
   }
 
   // Ending 01
@@ -225,7 +237,6 @@ function textInstructions(){
 //
 
 // Passed
-// Pass State
 function textPassed(){
   // White Text
   push();
@@ -238,6 +249,33 @@ function textPassed(){
   pop();
 }
 //
+
+// Surpassed
+// Achieved Voice
+function textSurpassedVoice(){
+  // White Text
+  push();
+  fill(255);
+  textSize(40);
+  text(`Success! You achieved a Voice.`, width/2, height/2);
+  textSize(20);
+  text(`Press ENTER to proceed to the next level.`, width/2, 2*height/3);
+  pop();
+}
+
+function textSurpassedScript(){
+  // Achieved Script
+  // White Text
+  push();
+  fill(255);
+  textSize(40);
+  text(`Success! You achieved a Script Shred.`, width/2, height/2);
+  textSize(20);
+  text(`Press ENTER to proceed to the next level.`, width/2, 2*height/3);
+  pop();
+}
+//
+
 
 // Ending01
 // Switch to Title Screen
