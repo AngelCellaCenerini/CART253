@@ -54,8 +54,8 @@ let lights = [];
 let numLights = 20;
 
 // States
-let state = `level01`        // Title, Instructions, Intro, Level01, Level02, Level03, Level04, Level05, PLay (User plays Melody)
-                             // Lost (User looses), Passed (User passes level withouth solving it), Surpassed (Achieved Voice or Script),  Ending01, Ending02.
+let state = `fail`        // Title, Instructions, Intro, Level01, Level02, Level03, Level04, Level05, PLay (User plays Melody)
+                             // Fail (User looses), Pass (User passes level withouth solving it), Success (Achieved Voice or Script),  Ending01, Ending02.
 
 // Load Fonts
 function preload(){
@@ -203,20 +203,20 @@ function draw() {
 
   }
 
-  // Lost
-  else if ( state === `lost`){
-
+  // Fail
+  else if ( state === `fail`){
+    textFail();
   }
 
-  // Passed
-  else if ( state === `passed`){
-    textPassed();
+  // Pass
+  else if ( state === `pass`){
+    textPass();
   }
 
-  // Surpassed
+  // Success
   // Achieved Voice
-  else if ( state === `surpassedV`){
-    textSurpassedVoice();
+  else if ( state === `successV`){
+    textSuccessVoice();
 
     // Display Single Light
     lights.length = 1;
@@ -227,8 +227,8 @@ function draw() {
     }
   }
   // Achieved Script Shred
-  else if ( state === `surpassedS`){
-    textSurpassedScript();
+  else if ( state === `successS`){
+    textSuccessScript();
   }
 
   // Ending 01
@@ -362,8 +362,21 @@ function crypticButtons(){
 }
 //
 
-// Passed
-function textPassed(){
+// Fail
+function textFail(){
+  // White Text
+  push();
+  fill(255);
+  textSize(40);
+  text(`Yikes. Try again?`, width/2, height/3);
+  textSize(20);
+  text(`Press SHIFT to retry.`, width/2, 2*height/3);
+  pop();
+}
+//
+
+// Pass
+function textPass(){
   // White Text
   push();
   fill(255);
@@ -376,9 +389,9 @@ function textPassed(){
 }
 //
 
-// Surpassed
+// Success
 // Achieved Voice
-function textSurpassedVoice(){
+function textSuccessVoice(){
   // White Text
   push();
   fill(255);
@@ -389,7 +402,7 @@ function textSurpassedVoice(){
   pop();
 }
 
-function textSurpassedScript(){
+function textSuccessScript(){
   // Achieved Script
   // White Text
   push();
