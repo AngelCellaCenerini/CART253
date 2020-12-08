@@ -27,11 +27,16 @@ let madeleine;
 
 // Intro
 // Mirror
-let mirror;
+let mirror;  // also used in Ending01, Ending02
+
+// Ending02
+// Lights
+let lights = [];
+let numLights = 20;
 
 // States
-let state = `intro` // Title, Instructions, Intro, Level01, Level02, Level03, Level04, Level05, PLay (User plays Melody)
-                    // Lost (User looses), Passed (User passes level withouth solving it), Surpassed,  Ending01, Ending02.
+let state = `ending01`       // Title, Instructions, Intro, Level01, Level02, Level03, Level04, Level05, PLay (User plays Melody)
+                             // Lost (User looses), Passed (User passes level withouth solving it), Surpassed,  Ending01, Ending02.
 
 // Load Fonts
 function preload(){
@@ -66,7 +71,18 @@ function setup() {
   // Mirror
   x = width/2;
   y = height/2;
-  mirror = new Mirror(x, y);
+  mirror = new Mirror(x, y);   // also used in Ending01, Ending02
+
+  // Ending02
+  // Lights
+  for(let i = 0; i < numLights; i++){
+    let x = width/2;
+    let y = 2*height/5;
+    let size = random(5, 50);
+    let light = new Light(x, y, size);
+    lights.push(light);
+  }
+
 
 
 }
@@ -143,12 +159,31 @@ function draw() {
 
   // Ending 01
   else if ( state === `ending01`){
-
+    // Mirror
+    mirror.active = true;
+    mirror.move();
+    mirror.tremble();
+    mirror.display();
+    // Go back to Title Screen
+    setTimeout(switchToTitle, 8000);
   }
 
   // Ending02
   else if ( state === `ending02`){
+    // Mirror
+    mirror.active = true;
+    mirror.broken = false;
+    mirror.move();
+    mirror.tremble();
+    mirror.display();
 
+    // Lights
+    for (let i = 0; i < lights.length; i++){
+      let light = lights[i];
+      light.move();
+      light.explode();
+      light.display();
+    }
   }
 
 }
@@ -186,6 +221,13 @@ function textInstructions(){
     For your own safety, please keep your volume on the medium-lower end.
     Or blast the volume bar up and enjoy bleeding ears; it is your choice, after all.`, width/8, height/3);
     pop();
+}
+//
+
+// Ending01
+// Switch to Title Screen
+function switchToTitle(){
+state = `title`;
 }
 //
 
