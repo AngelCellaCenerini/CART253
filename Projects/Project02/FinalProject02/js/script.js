@@ -264,6 +264,11 @@ function draw() {
       compass.update(frog, level03);
       compass.switchToEnding();
     }
+
+    // Soundtrack
+    if (interval03 === undefined) {
+     interval03 = setInterval(playNextNote, 500);
+    }
   }
 
   // Level04

@@ -117,6 +117,8 @@ class Compass{
       this.delayTime ++;
       if (this.delayTime > 3*60){
         state = `successV`;
+        clearInterval(interval03);
+        interval03 = undefined;
       }
     }
     // this.delayTime ++;
