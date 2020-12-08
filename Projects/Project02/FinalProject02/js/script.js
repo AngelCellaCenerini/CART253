@@ -21,6 +21,10 @@ Further technical and conceptual details are provided in the README.md file.
 let myFontA;
 let myFontB;
 
+// Title
+// Madeleine Logo/Icon
+let madeleine;
+
 // States
 let state = `title` // Title, Instructions, Intro, Level01, Level02, Level03, Level04, Level05, PLay (User plays Melody)
                     // Lost (User looses), Passed (User passes level withouth solving it), Surpassed,  Ending01, Ending02.
@@ -42,10 +46,18 @@ function setup() {
   rectMode(CENTER);
   // Texts
   textFont(myFontA);
-  textSize(70);
+  textSize(20);
   textAlign(CENTER, CENTER);
   // Audio
   userStartAudio();
+
+
+  // Title
+  // Madeleine "Logo/Icon" (a bit abstract)
+  let x = width/2;
+  let y = 3*height/5;
+  madeleine = new Madeleine(x, y);
+
 
 }
 
@@ -59,6 +71,8 @@ function draw() {
   // Title
   if ( state === `title`){
 
+    titleText();
+    madeleine.display();
   }
 
   // Instructions
@@ -66,7 +80,7 @@ function draw() {
 
   }
 
-  // Instructions
+  // Intro
   else if ( state === `intro`){
 
   }
@@ -126,4 +140,15 @@ function draw() {
 
   }
 
+}
+
+// Functions
+// Title
+function titleText(){
+  push();
+  fill(255);
+  text(`Press ENTER to start.`, width/2, 7*height/8);
+  textSize(60);
+  text(`MADELEINE`, width/2, height/4);
+  pop();
 }
