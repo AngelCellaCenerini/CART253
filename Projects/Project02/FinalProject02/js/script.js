@@ -52,13 +52,29 @@ let synth01;
 let notes01 = [`C#1`, `A1`, `Ab4`, `Bb4`, `Db4`];
 let interval01;
 
+// Level03
+// Frog
+let frog;
+// Compass(es)
+let compasses = [];
+let numCompasses = 12;
+// Mic Input
+let mic03;
+// Soundtrack
+let synth03;
+let notes03 = [`D2`, `G4`, `D4`, `D2`, `F4`, `D4`];
+// Current played note
+let currentNote03 = 0;
+// Track interval between note
+let interval03;
+
 // Ending02
 // Lights
 let lights = [];
 let numLights = 20;
 
 // States
-let state = `title`        // Title, Instructions, Intro, Level01, Level02, Level03, Level04, Level05, PLay (User plays Melody)
+let state = `level03`        // Title, Instructions, Intro, Level01, Level02, Level03, Level04, Level05, PLay (User plays Melody)
                              // Fail (User looses), Pass (User passes level withouth solving it), Success (Achieved Voice or Script),  Ending01, Ending02.
 
 // Load Fonts
@@ -70,7 +86,7 @@ function preload(){
 
 // setup()
 //
-// Description of setup() goes here.
+// Description o3 setup() goes here.
 function setup() {
   createCanvas(windowWidth, windowHeight);
   // Graphics
@@ -98,9 +114,6 @@ function setup() {
 
 
   // Level01
-  // Mic Input
-  mic01 = new p5.AudioIn();
-  mic01.start();
   // Creatures
   // Violet Creature
   x = random(11*width/25, 14*width/25,);
@@ -117,12 +130,48 @@ function setup() {
   y = random(height/6, height/2);
   greenCreature = new GreenCreature(x, y);
   creatures.push(greenCreature);
+
   // Soundtrack
   synth01 = new p5.PolySynth();
     for (let i = 0; i < synth01.audiovoices.length; i++) {
       let voice01 = synth01.audiovoices[i];
       voice01.oscillator.setType(`triangle`);
     }
+
+  // Level03
+  // Frog
+  x = width/2;
+  y = 3*height/4;
+  let positionX = width/2;
+  let positionY = 3*height/4;
+  frog = new Frog(x, y, positionX, positionY);
+
+  // Compasses
+  for (let i = 0; i < numCompasses; i ++){
+   let x = random(0, width);
+   let y = random(0, height);
+   // Avoid overlapping between Frog and Compass(es)
+   while(dist(x, y, frog.x, frog.y) < frog.height){
+     x = random(0, width);
+     y = random(0, height);
+   }
+   let positionX = x;
+   let positionY = y;
+   let size = random(70, 160);
+   let compass = new Compass(x, y, positionX, positionY, size, frog);
+   compasses.push(compass);
+  }
+  // Mic Input
+  mic03 = new p5.AudioIn();
+  mic03.start();
+  // Soundtrack
+  synth03 = new p5.PolySynth();
+  for (let i = 0; i < synth03.audiovoices.length; i++) {
+    let voice03 = synth03.audiovoices[i];
+    voice03.oscillator.setType(`triangle`);
+  }
+
+
 
 
   // Ending02
@@ -202,7 +251,19 @@ function draw() {
 
   // Level03
   else if ( state === `level03`){
+    // Mic Input pushing away Needles
+    let level03 = mic03.getLevel();
 
+    // Frog
+    frog.display();
+    frog.grow();
+
+    // Compass(es)
+    for (let i = 0; i < compasses.length; i++){
+      let compass = compasses[i];
+      compass.update(frog, level03);
+      compass.switchToEnding();
+    }
   }
 
   // Level04
@@ -452,6 +513,21 @@ function playRandomNote(){
 
 }
 
+function playNextNote() {
+
+  // level03
+  if (state === `level03`){
+    // PLay noyes
+    let note03 = notes03[currentNote03];
+    synth03.play(note03, 0.1, 1, 1);
+    currentNote03 = currentNote03 + 1;
+    if (currentNote03 === notes03.length) {
+      currentNote03 = 0;
+    }
+  }
+}
+//
+
 // p5 Events
 function keyPressed(){
 if(keyCode === 13){
@@ -460,6 +536,14 @@ if(keyCode === 13){
   }
   else if (state === `instructions`){
     state = `intro`;
+  }
+}
+
+if (state === `level03`){
+  for (let i = 0; i < compasses.length; i++){
+    let compass = compasses[i];
+    compass.keyPressed();
+    compass.switchToEnding();
   }
 }
 }
