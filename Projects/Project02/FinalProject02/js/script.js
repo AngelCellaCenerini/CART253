@@ -26,7 +26,7 @@ let myFontB;
 let madeleine;
 
 // States
-let state = `title` // Title, Instructions, Intro, Level01, Level02, Level03, Level04, Level05, PLay (User plays Melody)
+let state = `instructions` // Title, Instructions, Intro, Level01, Level02, Level03, Level04, Level05, PLay (User plays Melody)
                     // Lost (User looses), Passed (User passes level withouth solving it), Surpassed,  Ending01, Ending02.
 
 // Load Fonts
@@ -77,7 +77,7 @@ function draw() {
 
   // Instructions
   else if ( state === `instructions`){
-
+    textInstructions();
   }
 
   // Intro
@@ -152,3 +152,32 @@ function titleText(){
   text(`MADELEINE`, width/2, height/4);
   pop();
 }
+//
+
+// Instructions
+function textInstructions(){
+  push();
+    fill(255);
+    textAlign(LEFT, RIGHT);
+    text(`Welcome to 'Madeleine'.
+
+
+
+
+    Survive the levels to pass on to the next challenge.
+    Solve the puzzles to surpass them.
+
+    When in a level, press SPACEBAR at anytime to open up the Tips Table.
+    Certain levels require your microphone input, therefore choose wisely whether
+    or not to allow the web page access to your audio :)
+    Remember, all levels are timed.
+
+    For your own safety, please keep your volume on the medium-lower end.
+    Or blast the volume bar up and enjoy bleeding ears; it is your choice, after all.`, width/8, height/3);
+    pop();
+}
+//
+
+
+// p5 Events
+//
