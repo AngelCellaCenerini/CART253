@@ -35,7 +35,7 @@ let lights = [];
 let numLights = 20;
 
 // States
-let state = `surpassedS`       // Title, Instructions, Intro, Level01, Level02, Level03, Level04, Level05, PLay (User plays Melody)
+let state = `title`       // Title, Instructions, Intro, Level01, Level02, Level03, Level04, Level05, PLay (User plays Melody)
                              // Lost (User looses), Passed (User passes level withouth solving it), Surpassed (Achieved Voice or Script),  Ending01, Ending02.
 
 // Load Fonts
@@ -231,7 +231,9 @@ function textInstructions(){
     Remember, all levels are timed.
 
     For your own safety, please keep your volume on the medium-lower end.
-    Or blast the volume bar up and enjoy bleeding ears; it is your choice, after all.`, width/8, height/3);
+    Or blast the volume bar up and enjoy bleeding ears; it is your choice, after all.
+
+    Press ENTER to continue.`, width/8, height/3);
     pop();
 }
 //
@@ -286,4 +288,17 @@ state = `title`;
 
 
 // p5 Events
+function keyPressed(){
+if(keyCode === 13){
+  if(state === `title`){
+    state = `instructions`;
+  }
+  else if (state === `instructions`){
+    state = `intro`;
+  }
+  else if (state === `intro`){
+    state = `level01`;
+  }
+}
+}
 //
