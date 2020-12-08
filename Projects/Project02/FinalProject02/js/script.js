@@ -35,7 +35,7 @@ let lights = [];
 let numLights = 20;
 
 // States
-let state = `ending01`       // Title, Instructions, Intro, Level01, Level02, Level03, Level04, Level05, PLay (User plays Melody)
+let state = `passed`       // Title, Instructions, Intro, Level01, Level02, Level03, Level04, Level05, PLay (User plays Melody)
                              // Lost (User looses), Passed (User passes level withouth solving it), Surpassed,  Ending01, Ending02.
 
 // Load Fonts
@@ -149,7 +149,7 @@ function draw() {
 
   // Passed
   else if ( state === `passed`){
-
+    textPassed();
   }
 
   // Surpassed
@@ -221,6 +221,21 @@ function textInstructions(){
     For your own safety, please keep your volume on the medium-lower end.
     Or blast the volume bar up and enjoy bleeding ears; it is your choice, after all.`, width/8, height/3);
     pop();
+}
+//
+
+// Passed
+// Pass State
+function textPassed(){
+  // White Text
+  push();
+  fill(255);
+  textSize(40);
+  text(`You did good.
+  Yet, not good enough.`, width/2, height/3);
+  textSize(20);
+  text(`Press ENTER to proceed to the next level.`, width/2, 2*height/3);
+  pop();
 }
 //
 
