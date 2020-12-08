@@ -29,13 +29,32 @@ let madeleine;
 // Mirror
 let mirror;  // also used in Ending01, Ending02
 
+// Level01
+// Winged Creatures
+let creatures = [];
+let violetCreature;
+let blueCreature;
+let greenCreature;
+// Declaring Gravity
+let gravityForce = 0.002;
+// "POTS" Buttons
+let button = {
+  x: 0,
+  y: 0,
+  width: 300,
+  height: 150,
+  radius: 15
+};
+//Mic Input
+let mic01;
+
 // Ending02
 // Lights
 let lights = [];
 let numLights = 20;
 
 // States
-let state = `title`       // Title, Instructions, Intro, Level01, Level02, Level03, Level04, Level05, PLay (User plays Melody)
+let state = `level01`        // Title, Instructions, Intro, Level01, Level02, Level03, Level04, Level05, PLay (User plays Melody)
                              // Lost (User looses), Passed (User passes level withouth solving it), Surpassed (Achieved Voice or Script),  Ending01, Ending02.
 
 // Load Fonts
@@ -72,6 +91,29 @@ function setup() {
   x = width/2;
   y = height/2;
   mirror = new Mirror(x, y);   // also used in Ending01, Ending02
+
+
+  // Level01
+  // Mic Input
+  mic01 = new p5.AudioIn();
+  mic01.start();
+  // Creatures
+  // Violet Creature
+  x = random(11*width/25, 14*width/25,);
+  y = random(height/6, height/2);
+  violetCreature = new VioletCreature(x, y);
+  creatures.push(violetCreature);
+  // Blue Creature
+  x = random(11*width/25, 14*width/25,);
+  y = random(height/6, height/2);
+  blueCreature = new BlueCreature(x, y);
+  creatures.push(blueCreature);
+  // Green Creature
+  x = random(11*width/25, 14*width/25,);
+  y = random(height/6, height/2);
+  greenCreature = new GreenCreature(x, y);
+  creatures.push(greenCreature);
+
 
   // Ending02
   // Lights
@@ -114,6 +156,26 @@ function draw() {
   // Level01
   else if ( state === `level01`){
 
+    // Mic Input Lifts Creatures
+    let level01 = mic01.getLevel();
+    let liftAmount = map(level01, 0, 1, - 1, -15);  // creatures initially float; this is intentionl, for different 'liftAmout' values would make it impossible for User to last
+
+    // Winged Creatures
+    for(let i = 0; i < creatures.length; i ++){
+    let creature = creatures[i];
+      if (creature.active){
+        creature.move();
+        creature.lift(liftAmount);
+        creature.constrain();
+        creature.gravity(gravityForce);
+        creature.display();
+        creature.checkImpact();
+      }
+    }
+
+    orangeLine();
+    delimitingWalls(); // White
+    crypticButtons();  // Flickering White and Black Buttons
   }
 
   // Level02
@@ -235,6 +297,68 @@ function textInstructions(){
 
     Press ENTER to continue.`, width/8, height/3);
     pop();
+}
+//
+
+// Level01
+function orangeLine(){
+  // Orange Line
+  push();
+  stroke(255, 151, 46);
+  strokeWeight(4);
+  line(width/3, 5*height/7, 2*width/3, 5*height/7);
+  pop();
+}
+
+function delimitingWalls(){
+  // White Lines/Walls
+  push();
+  stroke(255);
+  strokeWeight(15);
+  line(width/3, 0, width/3, height);
+  line(2*width/3, 0, 2*width/3, height);
+  strokeWeight(8);
+  line(8*width/25, 0, 8*width/25, height);
+  line(17*width/25, 0, 17*width/25, height);
+  pop();
+}
+
+function crypticButtons(){
+  // Cryptict Buttons
+  // Positive
+  button.x = width/6;
+  button.y = height/2;
+
+  push();
+  noStroke();
+  fill(255);
+  rect(button.x, button.y, button.width, button.height, button.radius, button.radius, button.radius, button.radius);
+  pop();
+  // Black Text
+  push();
+  textSize(70);
+  textFont(myFontB);
+  fill(random(0, 255));
+  text(`POTS`, width/6, height/2);
+  pop();
+
+  // Negative
+  button.x = 5*width/6;
+  button.y = height/2;
+
+  push();
+  stroke(255);
+  strokeWeight(8);
+  noFill();
+  rect(button.x, button.y, button.width, button.height, button.radius, button.radius, button.radius, button.radius);
+  pop();
+  // White Text
+  push();
+  textFont(myFontB);
+  textSize(70);
+  fill(random(0, 255));
+  text(`POTS`, 5*width/6, height/2);
+  pop();
 }
 //
 

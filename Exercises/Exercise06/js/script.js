@@ -342,7 +342,7 @@ function checkFail(){
   for (let i = 0; i < creatures.length; i ++){
     let creature = creatures[i];
     if (!creature.active){
-      state = `intro`;
+      state = `loss`;
       synth.dispose();
     }
   }
