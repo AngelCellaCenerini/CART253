@@ -55,7 +55,7 @@ class Creature{
   checkImpact(){
     if ((this.y + this.size/2) > 5*height/7){
         this.active = false;
-        state = `loss`;
+        state = `fail`;
         // synth.dispose();
     }
   }

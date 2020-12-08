@@ -54,7 +54,7 @@ let lights = [];
 let numLights = 20;
 
 // States
-let state = `fail`        // Title, Instructions, Intro, Level01, Level02, Level03, Level04, Level05, PLay (User plays Melody)
+let state = `title`        // Title, Instructions, Intro, Level01, Level02, Level03, Level04, Level05, PLay (User plays Melody)
                              // Fail (User looses), Pass (User passes level withouth solving it), Success (Achieved Voice or Script),  Ending01, Ending02.
 
 // Load Fonts
@@ -285,14 +285,14 @@ function textInstructions(){
 
 
     Survive the levels to pass on to the next challenge.
-    Solve the puzzles to surpass them.
+    Solve the puzzles to surpass the level and achieve the collectable items.
 
     When in a level, press SPACEBAR at anytime to open up the Tips Table.
     Certain levels require your microphone input, therefore choose wisely whether
     or not to allow the web page access to your audio :)
     Remember, all levels are timed.
 
-    For your own safety, please keep your volume on the medium-lower end.
+    For your own safety, please keep the volume on the medium-lower end.
     Or blast the volume bar up and enjoy bleeding ears; it is your choice, after all.
 
     Press ENTER to continue.`, width/8, height/3);
@@ -432,9 +432,6 @@ if(keyCode === 13){
   }
   else if (state === `instructions`){
     state = `intro`;
-  }
-  else if (state === `intro`){
-    state = `level01`;
   }
 }
 }
