@@ -17,14 +17,32 @@ Depending on how well the User performs, in the end they will be able to play a 
 
 Further technical and conceptual details are provided in the README.md file.
 **************************************************/
+// Fonts
+let myFontA;
+let myFontB;
+
+
+
+// Load Fonts
+function preload(){
+  myFontA = loadFont('assets/AnonymousPro-Regular.otf');
+  myFontB = loadFont('assets/BigShouldersStencilDisplay-Regular.otf');
+}
+
 
 // setup()
 //
 // Description of setup() goes here.
 function setup() {
   createCanvas(windowWidth, windowHeight);
+  // Graphics
   noStroke();
   rectMode(CENTER);
+  // Texts
+  textFont(myFontA);
+  textSize(70);
+  textAlign(CENTER, CENTER);
+  // Audio
   userStartAudio();
 
 }
