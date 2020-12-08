@@ -47,6 +47,10 @@ let button = {
 };
 //Mic Input
 let mic01;
+// Soundtrack
+let synth01;
+let notes01 = [`C#1`, `A1`, `Ab4`, `Bb4`, `Db4`];
+let interval01;
 
 // Ending02
 // Lights
@@ -113,6 +117,12 @@ function setup() {
   y = random(height/6, height/2);
   greenCreature = new GreenCreature(x, y);
   creatures.push(greenCreature);
+  // Soundtrack
+  synth01 = new p5.PolySynth();
+    for (let i = 0; i < synth01.audiovoices.length; i++) {
+      let voice01 = synth01.audiovoices[i];
+      voice01.oscillator.setType(`triangle`);
+    }
 
 
   // Ending02
@@ -176,7 +186,14 @@ function draw() {
     orangeLine();
     delimitingWalls(); // White
     crypticButtons();  // Flickering White and Black Buttons
+
+    // Soundtrack
+    if (interval01 === undefined) {
+    interval01 = setInterval(playRandomNote, 500);
+    }
+
   }
+
 
   // Level02
   else if ( state === `level02`){
@@ -423,6 +440,17 @@ state = `title`;
 }
 //
 
+// Soundstracks
+function playRandomNote(){
+
+  // level01
+  if (state === `level01`){
+    // Play Notes Randomly
+    let note01 = random(notes01);
+    synth01.play(note01, 1, 1, 1);
+  }
+
+}
 
 // p5 Events
 function keyPressed(){
