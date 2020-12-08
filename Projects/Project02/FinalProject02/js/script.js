@@ -52,6 +52,7 @@ let synth01;
 let notes01 = [`C#1`, `A1`, `Ab4`, `Bb4`, `Db4`];
 let interval01;
 
+
 // Level03
 // Frog
 let frog;
@@ -67,6 +68,7 @@ let notes03 = [`D2`, `G4`, `D4`, `D2`, `F4`, `D4`];
 let currentNote03 = 0;
 // Track interval between note
 let interval03;
+
 
 // Level04
 // Moon(s)
@@ -85,6 +87,21 @@ let currentNote04 = 0;
 let interval04;
 // Eating Soundtrack
 let oscillator04;
+
+
+// Level05
+// Arrow(s)
+let arrows = [];
+let numArrows = 9;
+// Bunnies
+let yellowBunny;
+let purpleBunny;
+// Soundtrack
+let synth05;
+let notes05 = [`E5`, `E5`, `F5`, `E#5`, `F5`, `Eb5`];
+let currentNote05 = 0;
+let interval05;
+
 
 // Ending02
 // Lights
@@ -190,6 +207,7 @@ function setup() {
     voice03.oscillator.setType(`triangle`);
   }
 
+
   // level04
   // Moons
   // Create Red Moon
@@ -232,6 +250,38 @@ function setup() {
   // Eating Soundtrack
   oscillator04 = new p5.Oscillator(400, `sine`);
   oscillator04.amp(0.05);
+
+
+  // Level05
+  // Purple Bunny
+  x = width/2;
+  y = height/2;
+  positionX = width/2;
+  positionY = height/2;
+  purpleBunny = new PurpleBunny(x, y, positionX, positionY);
+
+  // Yellow Bunny
+  x = width/3;
+  y = 2*height/3;
+  yellowBunny = new YellowBunny(x, y);
+
+  // Arrow(s)
+  for (let i = 0; i < numArrows; i++){
+    let x = random(0, width);
+    let y = random(3*height/2, height);
+    let arrow = new Arrow(x, y);
+    arrows.push(arrow);
+  }
+
+  // Soundtrack
+  synth05 = new p5.PolySynth();
+  for (let i = 0; i < synth05.audiovoices.length; i++) {
+    let voice05 = synth05.audiovoices[i];
+    voice05.oscillator.setType(`triangle`);
+  }
+  // Ending soundtrack
+  oscillator05 = new p5.Oscillator(440, `sawtooth`);
+  oscillator05.amp(0.05);
 
 
   // Ending02
@@ -334,46 +384,73 @@ function draw() {
   // Level04
   else if ( state === `level04`){
 
-  // Moons
-  for(let i = 0; i < moons.length; i++){
-    let moon = moons[i];
-    moon.display(moon);
-    moon.move();
-    // Check if both Moons are active >> Switching State
-    if(!moon.active){
-      for(let j = 0; j < moons.length; j++){
-        let otherMoon = moons[j];
-        if(otherMoon !== moon && !otherMoon.active){
-           state = `fail`;
-           clearInterval(interval04);
-           interval04 = undefined;
+    // Moons
+    for(let i = 0; i < moons.length; i++){
+      let moon = moons[i];
+      moon.display(moon);
+      moon.move();
+      // Check if both Moons are active >> Switching State
+      if(!moon.active){
+        for(let j = 0; j < moons.length; j++){
+          let otherMoon = moons[j];
+          if(otherMoon !== moon && !otherMoon.active){
+             state = `fail`;
+             clearInterval(interval04);
+             interval04 = undefined;
+           }
          }
        }
      }
-   }
 
-  // School of fish
-  for(let i = 0; i < school.length; i++){
-    let fish = school
-    fish.rotate();
-    fish.chase();
-    fish.eat();
-    fish.display();
-  }
+    // School of fish
+    for(let i = 0; i < school.length; i++){
+      let fish = school
+      fish.rotate();
+      fish.chase();
+      fish.eat();
+      fish.display();
+    }
 
-  // Waves
-  wave.grow();
-  wave.display();
+    // Waves
+    wave.grow();
+    wave.display();
 
-  // Eating Soundtrack
-  let r = random(0, 1);
-  let newFreq04 = map(r, 0, 1, 240, 480);
-  oscillator04.freq(newFreq04);
+    // Eating Soundtrack
+    let r = random(0, 1);
+    let newFreq04 = map(r, 0, 1, 240, 480);
+    oscillator04.freq(newFreq04);
   }
 
   // Level05
   else if ( state === `level05`){
+    // Random Frequencies Values
+    let r05 = random(0, 1);
+    let newFreq05 = map(r05, 0, 1, 440, 880);
+    oscillator05.freq(newFreq05);
 
+    // Bunnies
+    // Purple
+    purpleBunny.feelHunger();
+    purpleBunny.devour(yellowBunny);
+    purpleBunny.close(yellowBunny);
+    purpleBunny.display();
+
+    // Yellow
+    yellowBunny.move();
+    yellowBunny.withdraw(purpleBunny);
+    yellowBunny.trapped(purpleBunny);
+    yellowBunny.display();
+
+    // Arrows
+    for (let i = 0; i < arrows.length; i++){
+      let arrow = arrows[i];
+      arrow.track(yellowBunny);
+    }
+
+    // Soundtrack
+    if (interval05 === undefined) {
+      interval05 = setInterval(playNextNote, 500);
+    }
   }
 
   // Play
@@ -634,6 +711,17 @@ function playNextNote() {
     currentNote04 = currentNote04 + 1;
     if (currentNote04 === notes04.length) {
       currentNote04 = 0;
+    }
+  }
+
+  // Level05
+  if (state === `level05`){
+    // PLay noyes
+    let note05 = notes05[currentNote05];
+    synth05.play(note05, 0.2, 0.1, 0.1);
+    currentNote05 = currentNote05 + 1;
+    if (currentNote05 === notes05.length) {
+      currentNote05 = 0;
     }
   }
 }
