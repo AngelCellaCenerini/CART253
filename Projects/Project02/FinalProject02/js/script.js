@@ -21,7 +21,9 @@ Further technical and conceptual details are provided in the README.md file.
 let myFontA;
 let myFontB;
 
-
+// States
+let state = `title` // Title, Instructions, Intro, Level01, Level02, Level03, Level04, Level05, PLay (User plays Melody)
+                    // Lost (User looses), Passed (User passes level withouth solving it), Surpassed,  Ending01, Ending02.
 
 // Load Fonts
 function preload(){
@@ -53,5 +55,75 @@ function setup() {
 function draw() {
 
   background(0); // black
+
+  // Title
+  if ( state === `title`){
+
+  }
+
+  // Instructions
+  else if ( state === `instructions`){
+
+  }
+
+  // Instructions
+  else if ( state === `intro`){
+
+  }
+
+  // Level01
+  else if ( state === `level01`){
+
+  }
+
+  // Level02
+  else if ( state === `level02`){
+
+  }
+
+  // Level03
+  else if ( state === `level03`){
+
+  }
+
+  // Level04
+  else if ( state === `level04`){
+
+  }
+
+  // Level05
+  else if ( state === `level05`){
+
+  }
+
+  // Play
+  else if ( state === `play`){
+
+  }
+
+  // Lost
+  else if ( state === `lost`){
+
+  }
+
+  // Passed
+  else if ( state === `passed`){
+
+  }
+
+  // Surpassed
+  else if ( state === `surpassed`){
+
+  }
+
+  // Ending 01
+  else if ( state === `ending01`){
+
+  }
+
+  // Ending02
+  else if ( state === `ending02`){
+
+  }
 
 }
