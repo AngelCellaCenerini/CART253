@@ -25,8 +25,12 @@ let myFontB;
 // Madeleine Logo/Icon
 let madeleine;
 
+// Intro
+// Mirror
+let mirror;
+
 // States
-let state = `instructions` // Title, Instructions, Intro, Level01, Level02, Level03, Level04, Level05, PLay (User plays Melody)
+let state = `intro` // Title, Instructions, Intro, Level01, Level02, Level03, Level04, Level05, PLay (User plays Melody)
                     // Lost (User looses), Passed (User passes level withouth solving it), Surpassed,  Ending01, Ending02.
 
 // Load Fonts
@@ -58,6 +62,12 @@ function setup() {
   let y = 3*height/5;
   madeleine = new Madeleine(x, y);
 
+  // Intro
+  // Mirror
+  x = width/2;
+  y = height/2;
+  mirror = new Mirror(x, y);
+
 
 }
 
@@ -82,7 +92,8 @@ function draw() {
 
   // Intro
   else if ( state === `intro`){
-
+    // Mirror
+    mirror.display();
   }
 
   // Level01
