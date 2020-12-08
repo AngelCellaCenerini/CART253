@@ -68,13 +68,31 @@ let currentNote03 = 0;
 // Track interval between note
 let interval03;
 
+// Level04
+// Moon(s)
+let moons = [];
+let redMoon;
+let blueMoon;
+// School of fish
+let school = [];
+let numberFish = 5;
+// Wave(s)
+let wave;
+// Soundtrack
+let synth04;
+let notes04 = [`F5`, `G4`, `Ab3`];
+let currentNote04 = 0;
+let interval04;
+// Eating Soundtrack
+let oscillator04;
+
 // Ending02
 // Lights
 let lights = [];
 let numLights = 20;
 
 // States
-let state = `level03`        // Title, Instructions, Intro, Level01, Level02, Level03, Level04, Level05, PLay (User plays Melody)
+let state = `level04`        // Title, Instructions, Intro, Level01, Level02, Level03, Level04, Level05, PLay (User plays Melody)
                              // Fail (User looses), Pass (User passes level withouth solving it), Success (Achieved Voice or Script),  Ending01, Ending02.
 
 // Load Fonts
@@ -138,6 +156,7 @@ function setup() {
       voice01.oscillator.setType(`triangle`);
     }
 
+
   // Level03
   // Frog
   x = width/2;
@@ -171,7 +190,48 @@ function setup() {
     voice03.oscillator.setType(`triangle`);
   }
 
+  // level04
+  // Moons
+  // Create Red Moon
+  x = 0;
+  y = height/3;
+  positionX = 0;
+  positionY = height/3;
+  let chaseX;
+  let chaseY = positionY;
+  redMoon = new RedMoon (x, y, positionX, positionY, chaseX, chaseY);
+  redMoon.chaseX = redMoon.x + redMoon.size/3;
+  moons.push(redMoon);
+  // Create Blue Moon
+  x = width;
+  y = height/3;
+  positionX = width;
+  positionY = height/3;
+  chaseX = undefined;
+  chaseY = positionY;
+  blueMoon = new BlueMoon (x, y, positionX, positionY, chaseX, chaseY);
+  blueMoon.chaseX = blueMoon.x - blueMoon.size/3;
+  moons.push(blueMoon);
 
+  // Create Water Waves
+  x = mouseX;
+  y = mouseY;
+  wave = new Wave (x, y);
+
+  // Create School
+  for(let i = 0; i < numberFish; i ++){
+    x = random(width/4, 9*width/10);
+    y = random(height/9, 10*height/11);
+    let moon = random(moons);
+    let fish = new Fish (x, y, moon); //, wave?
+    school.push(fish);
+  }
+
+  // Soundtrack
+  synth04 = new p5.PolySynth();
+  // Eating Soundtrack
+  oscillator04 = new p5.Oscillator(400, `sine`);
+  oscillator04.amp(0.05);
 
 
   // Ending02
@@ -274,6 +334,41 @@ function draw() {
   // Level04
   else if ( state === `level04`){
 
+  // Moons
+  for(let i = 0; i < moons.length; i++){
+    let moon = moons[i];
+    moon.display(moon);
+    moon.move();
+    // Check if both Moons are active >> Switching State
+    if(!moon.active){
+      for(let j = 0; j < moons.length; j++){
+        let otherMoon = moons[j];
+        if(otherMoon !== moon && !otherMoon.active){
+           state = `fail`;
+           clearInterval(interval04);
+           interval04 = undefined;
+         }
+       }
+     }
+   }
+
+  // School of fish
+  for(let i = 0; i < school.length; i++){
+    let fish = school
+    fish.rotate();
+    fish.chase();
+    fish.eat();
+    fish.display();
+  }
+
+  // Waves
+  wave.grow();
+  wave.display();
+
+  // Eating Soundtrack
+  let r = random(0, 1);
+  let newFreq04 = map(r, 0, 1, 240, 480);
+  oscillator04.freq(newFreq04);
   }
 
   // Level05
@@ -530,6 +625,17 @@ function playNextNote() {
       currentNote03 = 0;
     }
   }
+
+  // Level04
+  if (state === `level04`){
+    let note04 = notes04[currentNote04];
+    // Play notes
+    synth04.play(note04, 0.1, 0, 0.1);
+    currentNote04 = currentNote04 + 1;
+    if (currentNote04 === notes04.length) {
+      currentNote04 = 0;
+    }
+  }
 }
 //
 
@@ -551,5 +657,40 @@ if (state === `level03`){
     compass.switchToEnding();
   }
 }
+}
+
+function mousePressed() {
+  if(state === `level04`){
+
+    if (interval04 === undefined) {
+      interval04 = setInterval(playNextNote, 500);
+    }
+    // Create Waves
+    let createdWave = wave.mousePressed();
+    if(createdWave){
+      for(let i = 0; i < school.length; i++){
+        let fish = school[i];
+        fish.target = wave;
+      }
+    }
+    // Make Clicked Fish as the School's target
+    for(let i = 0; i < school.length; i++){
+      let fish = school[i];
+      if(fish.isClicked()){
+        wave.active = false;
+        for(let j = 0; j < school.length; j++){
+          let otherFish = school[j];
+          if(otherFish !== fish){
+            otherFish.target = fish;
+            fish.speed = 0;  // targeted fish frezzes (cretaes better experience this way)
+            clearInterval(interval04);
+            interval04 = undefined;
+            oscillator04.start();
+          }
+        }
+        break;
+      }
+    }
+  }
 }
 //
