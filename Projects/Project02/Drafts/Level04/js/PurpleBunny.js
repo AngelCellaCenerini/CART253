@@ -101,6 +101,7 @@ class PurpleBunny{
     if(this.delayedSwitchTime > 2*60){
       console.log(`success`);
       oscillator.stop();
+      this.delayedSwitchTime = 0;
     }
   }
 
