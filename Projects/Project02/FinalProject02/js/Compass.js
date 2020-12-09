@@ -56,6 +56,7 @@ class Compass{
       else if(dy > 0){
         this.vy = -this.speed;
       }
+      this.stallingTime = 0;
     }
 
 
@@ -102,6 +103,7 @@ class Compass{
      else if(dy > 0){
        this.vy = this.speed;
      }
+     this.stallingTime = 0;
    }
   }
 }

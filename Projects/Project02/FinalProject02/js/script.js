@@ -139,7 +139,7 @@ let lights = [];
 let numLights = 20;
 
 // States
-let state = `level01`        // Title, Instructions, Intro, Level01, Level02, Level03, Level04, Level05, PLay (User plays Melody)
+let state = `level05`        // Title, Instructions, Intro, Level01, Level02, Level03, Level04, Level05, PLay (User plays Melody)
                              // Fail (User looses), Pass (User passes level withouth solving it), Success (Achieved Voice or Script),  Ending01, Ending02.
 
 // Load Fonts
@@ -337,7 +337,7 @@ function setup() {
 
   // Yellow Bunny
   x = width/3;
-  y = 2*height/3;
+  y = height/3;
   yellowBunny = new YellowBunny(x, y);
 
   // Arrow(s)
@@ -527,8 +527,7 @@ function draw() {
           if(otherMoon !== moon && !otherMoon.active){
              state = `fail`;
              clearInterval(interval04);
-             interval04 = undefined;
-           }
+             interval04 = undefined;           }
          }
        }
      }

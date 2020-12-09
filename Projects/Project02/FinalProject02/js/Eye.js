@@ -48,6 +48,7 @@ class Eye {
       state = `fail`;
       oscillator02.stop();
       oscillator202.stop();
+      this.dartingTime = 0;
     }
 
 

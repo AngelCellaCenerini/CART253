@@ -26,6 +26,7 @@ class Frog{
     this.size += this.growth;
     if(this.size > this.maxSize){
       this.size = this.originalSize;
+      this.stallingTime = 0;
 
     }
   }
