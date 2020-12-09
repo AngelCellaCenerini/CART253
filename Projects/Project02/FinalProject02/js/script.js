@@ -53,6 +53,27 @@ let notes01 = [`C#1`, `A1`, `Ab4`, `Bb4`, `Db4`];
 let interval01;
 
 
+// Level02
+// White Frame
+let frame = {
+  x: 0,
+  y: 0,
+  width: 1100,
+  height: 700
+}
+// Projector
+let projectors = [];
+// Eye
+let eye;
+//Mic Input
+let mic02;
+// Soundtracks
+let oscillator02;
+let oscillator202;
+let angle = 0;
+let angleIncrease = 0.25;
+
+
 // Level03
 // Frog
 let frog;
@@ -172,6 +193,45 @@ function setup() {
       let voice01 = synth01.audiovoices[i];
       voice01.oscillator.setType(`triangle`);
     }
+
+
+  // Level02
+  // Eye
+  let x = width/2;
+  let y = height/2;
+  let positionX = width/2;
+  let positionY = height/2;
+  eye = new Eye(x, y, positionX, positionY);
+
+  // Laser Lights Projectors
+  // Top Projector
+  x = width/2;
+  y = height/6;
+  let topProjector = new Projector(x, y);
+  projectors.push(topProjector);
+  // Bottom Projector
+  x = width/2;
+  y = 5*height/6;
+  let bottomProjector = new Projector(x, y);
+  projectors.push(bottomProjector);
+  // Left Projector
+  x = width/4;
+  y = height/2;
+  let leftProjector = new Projector(x, y);
+  projectors.push(leftProjector);
+  // Right Projector
+  x = 3*width/4;
+  y = height/2;
+  let rightProjector = new Projector(x, y);
+  projectors.push(rightProjector);
+
+  // Mic Input
+  mic02 = new p5.AudioIn();
+  mic02.start();
+  // Soundtrack
+  soundtrack02 = new p5.Oscillator(0, `tan`);
+  soundtrack202 = new p5.Oscillator(`triangle`);
+  soundtrack02.amp(0.02);
 
 
   // Level03
@@ -356,6 +416,38 @@ function draw() {
 
   // Level02
   else if ( state === `level02`){
+
+    // Mic Input Calling Eye back to Focus
+    let level02 = mic02.getLevel();
+
+    // Laser Lights
+    laserLights();
+    // White Frame
+    whiteFrame();
+
+    // Eye
+    eye.move();
+    eye.restrict();
+    eye.focus(level02);
+    eye.display();
+
+    // Laser Light Projectors
+    for (let i = 0; i < projectors.length; i ++){
+      let projector = projectors[i];
+      projector.display();
+    }
+
+    // Soundtrack
+    angle += angleIncrease;
+    let tanAngle = tan(angle);
+    let newFreq = map(tanAngle, -1, 1, 420, 680);
+    oscillator02.freq(newFreq);
+    oscillator02.start();
+
+    let randomValue = random(0, 1);
+    let newFrequency = map(randomValue, 0, 1, 200, 300);
+    oscillator202.freq(newFrequency);
+    oscillator202.start();
 
   }
 
@@ -617,6 +709,38 @@ function crypticButtons(){
 }
 //
 
+// Level02
+function laserLights(){
+  // Laser Lights
+  for(let i=0; i<12;i++){
+    let x1 = random(frame.x - frame.width/2, frame.x + frame.width/2);
+    let y1 = random (frame.y - frame.height/2, frame.y + frame.height/2);
+    let x2 = random(frame.x - frame.width/2, frame.x + frame.width/2);
+    let y2 = random (frame.y - frame.height/2, frame.y + frame.height/2);
+    push();
+    let r = random(100, 255);
+    let g = random(100, 255);
+    let b = random(100, 255);
+    stroke(r, g, b);
+    strokeWeight(4);
+    line(x1,y1,x2,y2);
+    pop();
+  }
+}
+
+function whiteFrame(){
+  // White Frame
+  push();
+  noFill();
+  stroke(255);
+  strokeWeight(3);
+  frame.x = width/2;
+  frame.y = height/2;
+  rect(frame.x, frame.y, frame.width, frame.height);
+  pop();
+}
+//
+
 // Fail
 function textFail(){
   // White Text
@@ -748,6 +872,15 @@ if (state === `level03`){
 }
 
 function mousePressed() {
+
+  if(state === level02){
+    // Laser Light Projector
+    for (let i = 0; i < projectors.length; i ++){
+      let projector = projectors[i];
+      projector.mousePressed();
+    }
+  }
+
   if(state === `level04`){
 
     if (interval04 === undefined) {
