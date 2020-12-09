@@ -117,11 +117,12 @@ let numArrows = 9;
 // Bunnies
 let yellowBunny;
 let purpleBunny;
-// Soundtrack
+// Soundtracks
 let synth05;
 let notes05 = [`E5`, `E5`, `F5`, `E#5`, `F5`, `Eb5`];
 let currentNote05 = 0;
 let interval05;
+let oscillator05;
 
 
 // Ending02
@@ -130,7 +131,7 @@ let lights = [];
 let numLights = 20;
 
 // States
-let state = `level04`        // Title, Instructions, Intro, Level01, Level02, Level03, Level04, Level05, PLay (User plays Melody)
+let state = `level02`        // Title, Instructions, Intro, Level01, Level02, Level03, Level04, Level05, PLay (User plays Melody)
                              // Fail (User looses), Pass (User passes level withouth solving it), Success (Achieved Voice or Script),  Ending01, Ending02.
 
 // Load Fonts
@@ -197,8 +198,8 @@ function setup() {
 
   // Level02
   // Eye
-  let x = width/2;
-  let y = height/2;
+  x = width/2;
+  y = height/2;
   let positionX = width/2;
   let positionY = height/2;
   eye = new Eye(x, y, positionX, positionY);
@@ -229,17 +230,17 @@ function setup() {
   mic02 = new p5.AudioIn();
   mic02.start();
   // Soundtrack
-  soundtrack02 = new p5.Oscillator(0, `tan`);
-  soundtrack202 = new p5.Oscillator(`triangle`);
-  soundtrack02.amp(0.02);
+  oscillator02 = new p5.Oscillator(0, `tan`);
+  oscillator202 = new p5.Oscillator(`triangle`);
+  oscillator02.amp(0.02);
 
 
   // Level03
   // Frog
   x = width/2;
   y = 3*height/4;
-  let positionX = width/2;
-  let positionY = 3*height/4;
+  positionX = width/2;
+  positionY = 3*height/4;
   frog = new Frog(x, y, positionX, positionY);
 
   // Compasses
