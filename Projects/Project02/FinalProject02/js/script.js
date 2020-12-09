@@ -28,6 +28,8 @@ let madeleine;
 // Intro
 // Mirror
 let mirror;  // also used in Ending01, Ending02
+// Fading Effect
+let fading;
 
 // Level01
 // Winged Creatures
@@ -131,7 +133,7 @@ let lights = [];
 let numLights = 20;
 
 // States
-let state = `level02`        // Title, Instructions, Intro, Level01, Level02, Level03, Level04, Level05, PLay (User plays Melody)
+let state = `intro`        // Title, Instructions, Intro, Level01, Level02, Level03, Level04, Level05, PLay (User plays Melody)
                              // Fail (User looses), Pass (User passes level withouth solving it), Success (Achieved Voice or Script),  Ending01, Ending02.
 
 // Load Fonts
@@ -168,6 +170,12 @@ function setup() {
   x = width/2;
   y = height/2;
   mirror = new Mirror(x, y);   // also used in Ending01, Ending02
+  // Fading Effect
+  x = width/2;
+  y = height/2;
+  let widthF = windowWidth;
+  let heightF = windowHeight;
+  fading = new Fading(x, y, width, height);
 
 
   // Level01
@@ -381,6 +389,9 @@ function draw() {
   else if ( state === `intro`){
     // Mirror
     mirror.display();
+    // Fading Effect
+    fading.fade();
+    fading.display();
   }
 
   // Level01

@@ -46,8 +46,8 @@ class Eye {
     }
     if (this.dartingTime > 4*60){
       state = `fail`;
-      soundtrack.stop();
-      soundtrack2.stop();
+      oscillator02.stop();
+      oscillator202.stop();
     }
 
 

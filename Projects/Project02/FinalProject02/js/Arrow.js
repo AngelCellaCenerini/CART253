@@ -40,7 +40,7 @@ class Arrow{
     let d = dist(this.x, this.y, yellowBunny.x, yellowBunny.y);
     if(yellowBunny.free && d < this.width/2 + yellowBunny.size/2){
       state = `fail`;
-      oscillator.stop();
+      oscillator05.stop();
     }
   }
 
