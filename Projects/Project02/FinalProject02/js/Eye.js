@@ -33,12 +33,12 @@ class Eye {
 
     }
 
-  focus(level02){
+  focus(lv02){
     // Time Pupil spends darting around
     this.dartingTime++;
 
     // Recenter Pupil via Mic Input
-    if (level02 > 0.1){
+    if (lv02 > 0.1){
       this.dartingTime = 0;
       this.x = this.positionX;
       this.y = this.positionY;

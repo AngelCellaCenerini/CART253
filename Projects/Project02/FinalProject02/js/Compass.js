@@ -14,12 +14,20 @@ class Compass{
     this.chasing = true;  // Compass's Needle is chasing Frog's Cheek (its center)
   }
 
-  update(frog,level03){
+  update(frog,lv03){
     // Keeping track of all Needle's methods
     if(this.chasing){
       this.chase(frog);
       this.impact(frog);
-      this.withdraw(frog, level03);
+      this.withdraw(frog, lv03);
+    }
+    else{
+      this.delayTime ++;
+      if (this.delayTime > 3*60){
+        state = `successV`;
+        clearInterval(interval03);
+        interval03 = undefined;
+      }
     }
 
     this.move();
@@ -79,13 +87,13 @@ class Compass{
 
   }
 
-  withdraw(frog, level03){
+  withdraw(frog, lv03){
   // Start tracking Time
    this.stallingTime++;
   // Wait 4 secs before "ativating"
   if (this.stallingTime > 4*60){
    // Psuh away Needles from Frog's Cheek through Mic Input
-   if (level03 > 0.05){
+   if (lv03 > 0.05){
 
      let dx = this.x - (7*frog.x);
      let dy = this.y - (7*frog.y);
@@ -116,19 +124,24 @@ class Compass{
       this.chasing = false;
       this.vx = 0;
       this.vy = -this.speed;
-      this.delayTime ++;
-      if (this.delayTime > 3*60){
-        state = `successV`;
-        clearInterval(interval03);
-        interval03 = undefined;
-      }
+      // // this.delayTime ++;
+      // if (this.delayTime > 3*60){
+      //   state = `successV`;
+      //   clearInterval(interval03);
+      //   interval03 = undefined;
+      // }
     }
     // this.delayTime ++;
 
   }
 
   switchToEnding(){
-    // State switches 3 secs after User solves puzzles (presses Up Arrow Key)
+    // // this.delayTime ++;
+    // if (this.delayTime > 3*60){
+    //   state = `successV`;
+    //   clearInterval(interval03);
+    //   interval03 = undefined;
+    // }
 
   }
 

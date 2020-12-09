@@ -24,7 +24,7 @@ let myFontB;
 // Timers
 let timer = 0;
 let timerIntro = 10;
-let timerLevel = 5;
+// let timerLevel = 5;
 
 // Title
 // Madeleine Logo/Icon
@@ -139,7 +139,7 @@ let lights = [];
 let numLights = 20;
 
 // States
-let state = `level05`        // Title, Instructions, Intro, Level01, Level02, Level03, Level04, Level05, PLay (User plays Melody)
+let state = `level04`        // Title, Instructions, Intro, Level01, Level02, Level03, Level04, Level05, PLay (User plays Melody)
                              // Fail (User looses), Pass (User passes level withouth solving it), Success (Achieved Voice or Script),  Ending01, Ending02.
 
 // Load Fonts
@@ -208,6 +208,9 @@ function setup() {
       let voice01 = synth01.audiovoices[i];
       voice01.oscillator.setType(`triangle`);
     }
+    // Mic Input
+    mic01 = new p5.AudioIn();
+    mic01.start();
 
 
   // Level02
@@ -412,8 +415,8 @@ function draw() {
     // countdown();
 
     // Mic Input Lifts Creatures
-    let level01 = mic01.getLevel();
-    let liftAmount = map(level01, 0, 1, - 1, -15);  // creatures initially float; this is intentionl, for different 'liftAmout' values would make it impossible for User to last
+    let lv01 = mic01.getLevel();
+    let liftAmount = map(lv01, 0, 1, - 1, -15);  // creatures initially float; this is intentionl, for different 'liftAmout' values would make it impossible for User to last
 
     // Winged Creatures
     for(let i = 0; i < creatures.length; i ++){
@@ -443,12 +446,12 @@ function draw() {
   // Level02
   else if ( state === `level02`){
 
-    // Countdown
-    timer = timerLevel;
-    countdown();
+    // // Countdown
+    // timer = timerLevel;
+    // countdown();
 
     // Mic Input Calling Eye back to Focus
-    let level02 = mic02.getLevel();
+    let lv02 = mic02.getLevel();
 
     // Laser Lights
     laserLights();
@@ -458,7 +461,7 @@ function draw() {
     // Eye
     eye.move();
     eye.restrict();
-    eye.focus(level02);
+    eye.focus(lv02);
     eye.display();
 
     // Laser Light Projectors
@@ -484,12 +487,12 @@ function draw() {
   // Level03
   else if ( state === `level03`){
 
-    // Countdown
-    timer = timerLevel;
-    countdown();
+    // // Countdown
+    // timer = timerLevel;
+    // countdown();
 
     // Mic Input pushing away Needles
-    let level03 = mic03.getLevel();
+    let lv03 = mic03.getLevel();
 
     // Frog
     frog.display();
@@ -498,7 +501,7 @@ function draw() {
     // Compass(es)
     for (let i = 0; i < compasses.length; i++){
       let compass = compasses[i];
-      compass.update(frog, level03);
+      compass.update(frog, lv03);
       compass.switchToEnding();
     }
 
@@ -511,9 +514,9 @@ function draw() {
   // Level04
   else if ( state === `level04`){
 
-    // Countdown
-    timer = timerLevel;
-    countdown();
+    // // Countdown
+    // timer = timerLevel;
+    // countdown();
 
     // Moons
     for(let i = 0; i < moons.length; i++){
@@ -534,7 +537,7 @@ function draw() {
 
     // School of fish
     for(let i = 0; i < school.length; i++){
-      let fish = school
+      let fish = school [i];
       fish.rotate();
       fish.chase();
       fish.eat();
@@ -554,9 +557,9 @@ function draw() {
   // Level05
   else if ( state === `level05`){
 
-    // Countdown
-    timer = timerLevel;
-    countdown();
+    // // Countdown
+    // timer = timerLevel;
+    // countdown();
 
     // Random Frequencies Values
     let r05 = random(0, 1);
@@ -663,7 +666,7 @@ function countdown(){
     if ( timer === 0 ){
       state = `level01`;
       timer = 0;
-      timer = timerLevel;
+      // timer = timerLevel;
     }
   }
 
