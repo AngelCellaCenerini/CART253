@@ -145,14 +145,16 @@ else if (state === `level`){
   // White Frame
   whiteFrame();
 
-  // Mic Input Calling Eye back to Focus
-  let level = mic.getLevel();
+
 
   // Eye
   eye.move();
   eye.restrict();
   eye.focus(level);
   eye.display();
+
+  // Mic Input Calling Eye back to Focus
+  let level = mic.getLevel();
 
   // Laser Light Projectors
   for (let i = 0; i < projectors.length; i ++){
