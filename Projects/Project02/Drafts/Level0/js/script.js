@@ -51,8 +51,13 @@ let cues = [
   `2. I stand to your right when you gaze at the rising sun.`,
 ];
 // Scrolling Tips List
+// Guessing Answer ("stop")
 let currentIndex = 0;
-
+// Word User has to type in order to surpass level
+let answer = `stop`;
+// Keeping Track of User's Input
+let currentInput = ``;
+//
 // States
 let state = `intro`; // Intro, Level, Pass, Success
 
@@ -87,22 +92,22 @@ eye = new Eye(x, y, positionX, positionY);
 // Top Projector
 x = width/2;
 y = height/6;
-let topProjector = new TopProjector(x, y);
+let topProjector = new Projector(x, y);
 projectors.push(topProjector);
 // Bottom Projector
 x = width/2;
 y = 5*height/6;
-let bottomProjector = new BottomProjector(x, y);
+let bottomProjector = new Projector(x, y);
 projectors.push(bottomProjector);
 // Left Projector
 x = width/4;
 y = height/2;
-let leftProjector = new LeftProjector(x, y);
+let leftProjector = new Projector(x, y);
 projectors.push(leftProjector);
 // Right Projector
 x = 3*width/4;
 y = height/2;
-let rightProjector = new RightProjector(x, y);
+let rightProjector = new Projector(x, y);
 projectors.push(rightProjector);
 
 }
@@ -158,6 +163,8 @@ else if (state === `level`){
   // Display Tips Table - User can open/close table containing cues, if necessary
   tips();
 
+  // Check which Keys User is typing
+       checkInputProgress();
 }
 
 // Pass - User  fails to solve puzzle
@@ -307,6 +314,45 @@ function keyPressed(){
      tipsTable.active = false;
   }
 }
+else if (keyCode === 8 && state === `level`) {
+  // User Resets Inserted Input
+  currentInput = ``;
+}
+
+}
+
+function keyTyped() {
+if (keyCode !== 13 && state === `level`){
+  console.log(`typed`);
+  currentInput += key;
+}
+}
+
+function checkInput() {
+  // Converting Input to Lower Case
+  let lowerCaseInput = currentInput.toLowerCase();
+  // Check if the Converted Input corrisponds to Answer
+  if (lowerCaseInput === answer) {
+    for (let i = 0; i < projectors.length; i ++){
+    let projector = projectors[i];
+    projector.active = true;
+    }
+  }
+  else {
+    return false;
+  }
+}
+
+function checkInputProgress(){
+  // Current Input Settings
+  push();
+  fill(255);
+  textSize(30);
+  // Check if Word Inserted is Correct
+  let correct = checkInput();
+  // Display Current Input from User
+  text(currentInput, width/2, 3*height/5);
+  pop();
 }
 
 function mousePressed(){

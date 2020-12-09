@@ -44,7 +44,7 @@ class Eye {
       this.y = this.positionY;
 
     }
-    if (this.dartingTime > 5*60){
+    if (this.dartingTime > 4*60){
       state = `intro`;
       soundtrack.stop();
       soundtrack2.stop();
