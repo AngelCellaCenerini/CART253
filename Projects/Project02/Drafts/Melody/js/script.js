@@ -9,6 +9,7 @@ Template p5 project by CART253 Course
 P02DM: Creating Melody for Final Project via p5.sound
 **************************************************/
 let melody;
+let synth;
 
 // let synth;
 // let synth2;
@@ -50,11 +51,11 @@ function setup() {
   userStartAudio();
   rectMode(CENTER);
 
-  // synth = new p5.PolySynth();
-  //   for (let i = 0; i < synth.audiovoices.length; i++) {
-  //     let voice = synth.audiovoices[i];
-  //     voice.oscillator.setType(`triangle`);
-  //   }
+  synth = new p5.PolySynth();
+    for (let i = 0; i < synth.audiovoices.length; i++) {
+      let voice = synth.audiovoices[i];
+      voice.oscillator.setType(`triangle`);
+    }
 
     // synth2 = new p5.PolySynth();
     //   for (let i = 0; i < synth2.audiovoices.length; i++) {
@@ -76,7 +77,7 @@ function setup() {
       let x = width/8;
       let y = height/2;
       // let notes = //defined in class
-      melody = new Melody(x, y);
+      melody = new Melody(x, y, sequences);
 }
 
 // draw()
@@ -89,4 +90,8 @@ function draw() {
   melody.display();
 
 
+}
+
+function keyPressed(){
+  melody.keyPressed();
 }

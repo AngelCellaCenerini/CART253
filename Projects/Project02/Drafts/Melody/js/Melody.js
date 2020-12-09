@@ -1,12 +1,12 @@
 class Melody{
-  constructor(x, y, positionX, positionY, sequences, notes){
+  constructor(x, y, sequences){
     this.x = x;
     this.y = y;
     this.width = 300;
     this.height = 600;
     this.durationTime = 0;
     this.sequences = sequences;
-    this.notes = notes;  //?
+    this.notes = undefined;  //?
     this.note = undefined;
     this.command = undefined;
     this.keyCode = undefined;
@@ -18,9 +18,10 @@ class Melody{
 
   keyPressed(){
     let notes = this.sequences[key];
+    console.log(notes);
     if (notes !== undefined) {
       this.notes = notes;
-      this.currentCurrent = 0;
+      this.currentNote = 0;
       this.playNextNote();
     }
 
@@ -63,11 +64,14 @@ class Melody{
         // Chose the note at the current position
     this.note = this.notes[this.currentNote];
     // Play it
-    synth.play(note,  0.6, 0, 0.4);  // SYNTH? diff velocites
+    synth.play(this.note,  0.6, 0, 0.4);  // SYNTH? diff velocites
     // Increase the current position and go back to 0 when we reach the end
     this.currentNote = this.currentNote + 1;
     if (this.currentNote === this.notes.length) {
       this.currentNote = 0;
+    }
+    else{
+      setTimeout(this.playNextNote.bind(this), 500);
     }
 
   }
