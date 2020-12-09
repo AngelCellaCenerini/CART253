@@ -21,6 +21,11 @@ Further technical and conceptual details are provided in the README.md file.
 let myFontA;
 let myFontB;
 
+// Timers
+let timer = 0;
+let timerIntro = 10;
+let timerLevel = 5;
+
 // Title
 // Madeleine Logo/Icon
 let madeleine;
@@ -30,6 +35,7 @@ let madeleine;
 let mirror;  // also used in Ending01, Ending02
 // Fading Effect
 let fading;
+
 
 // Level01
 // Winged Creatures
@@ -133,7 +139,7 @@ let lights = [];
 let numLights = 20;
 
 // States
-let state = `intro`        // Title, Instructions, Intro, Level01, Level02, Level03, Level04, Level05, PLay (User plays Melody)
+let state = `level01`        // Title, Instructions, Intro, Level01, Level02, Level03, Level04, Level05, PLay (User plays Melody)
                              // Fail (User looses), Pass (User passes level withouth solving it), Success (Achieved Voice or Script),  Ending01, Ending02.
 
 // Load Fonts
@@ -387,15 +393,23 @@ function draw() {
 
   // Intro
   else if ( state === `intro`){
+
+    // Countdown
+    countdown();
+
     // Mirror
     mirror.display();
     // Fading Effect
     fading.fade();
     fading.display();
+
   }
 
   // Level01
   else if ( state === `level01`){
+
+    // // Countdown
+    // countdown();
 
     // Mic Input Lifts Creatures
     let level01 = mic01.getLevel();
@@ -428,6 +442,10 @@ function draw() {
 
   // Level02
   else if ( state === `level02`){
+
+    // Countdown
+    timer = timerLevel;
+    countdown();
 
     // Mic Input Calling Eye back to Focus
     let level02 = mic02.getLevel();
@@ -465,6 +483,11 @@ function draw() {
 
   // Level03
   else if ( state === `level03`){
+
+    // Countdown
+    timer = timerLevel;
+    countdown();
+
     // Mic Input pushing away Needles
     let level03 = mic03.getLevel();
 
@@ -487,6 +510,10 @@ function draw() {
 
   // Level04
   else if ( state === `level04`){
+
+    // Countdown
+    timer = timerLevel;
+    countdown();
 
     // Moons
     for(let i = 0; i < moons.length; i++){
@@ -527,6 +554,11 @@ function draw() {
 
   // Level05
   else if ( state === `level05`){
+
+    // Countdown
+    timer = timerLevel;
+    countdown();
+
     // Random Frequencies Values
     let r05 = random(0, 1);
     let newFreq05 = map(r05, 0, 1, 440, 880);
@@ -622,6 +654,34 @@ function draw() {
 }
 
 // Functions
+// Timers
+function countdown(){
+  // Intro Countdown (10 sec)
+  if( state === `intro`){
+    if ((frameCount % 60 === 0) && (timer > 0)){
+      timer--;
+    }
+    if ( timer === 0 ){
+      state = `level01`;
+      timer = 0;
+      timer = timerLevel;
+    }
+  }
+
+  // // Level Countdown (50 sec)
+  // if( state === `level01` || state === `level02` || state === `level03` || state === `level04` || state === `level05` ){
+  //   if ((frameCount % 60 === 0) && (timer > 0)){
+  //     timer--;
+  //   }
+  //   if ( timer === 0 ){
+  //     state = `pass`;
+  //     timer = 0;
+  //   }
+  // }
+
+}
+//
+
 // Title
 function titleText(){
   push();
@@ -871,6 +931,7 @@ if(keyCode === 13){
   }
   else if (state === `instructions`){
     state = `intro`;
+    timer = timerIntro;
   }
 }
 
@@ -885,7 +946,7 @@ if (state === `level03`){
 
 function mousePressed() {
 
-  if(state === level02){
+  if(state === `level02`){
     // Laser Light Projector
     for (let i = 0; i < projectors.length; i ++){
       let projector = projectors[i];
