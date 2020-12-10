@@ -961,7 +961,50 @@ function textFail(){
   text(`Press R to retry.`, width/2, 2*height/3);
   pop();
 }
+//
 
+// Pass
+function textPass(){
+  // White Text
+  push();
+  fill(255);
+  textSize(40);
+  text(`You did good.
+  Yet, not good enough.`, width/2, height/3);
+  textSize(20);
+  text(`Press ENTER to proceed to the next level.`, width/2, 2*height/3);
+  pop();
+}
+//
+
+// Success
+// Achieved Voice
+function textSuccessVoice(){
+  // White Text
+  push();
+  fill(255);
+  textSize(40);
+  text(`Success! You achieved a Voice.`, width/2, height/2);
+  textSize(20);
+  text(`Press ENTER to proceed to the next level.`, width/2, 2*height/3);
+  pop();
+}
+
+function textSuccessScript(){
+  // Achieved Script
+  // White Text
+  push();
+  fill(255);
+  textSize(40);
+  text(`Success! You achieved a Script Shred.`, width/2, height/2);
+  textSize(20);
+  text(`Press ENTER to proceed to the next level.`, width/2, 2*height/3);
+  pop();
+}
+//
+
+// Switch Between levels
+// After failing Level
 function resetLevel(){
   // Reset Level
   if(currentState === `firstLevel`){
@@ -1035,21 +1078,8 @@ function resetLevel(){
 
   }
 }
-//
 
-// Pass
-function textPass(){
-  // White Text
-  push();
-  fill(255);
-  textSize(40);
-  text(`You did good.
-  Yet, not good enough.`, width/2, height/3);
-  textSize(20);
-  text(`Press ENTER to proceed to the next level.`, width/2, 2*height/3);
-  pop();
-}
-
+// After passing/surpassing Level (level05 excluded)
 // Proceed to Next Level
 function nextLevel(){
   if (nextState === `level2`){
@@ -1064,32 +1094,6 @@ function nextLevel(){
   else if (nextState === `level5`){
     state = `level05`;
   }
-}
-//
-
-// Success
-// Achieved Voice
-function textSuccessVoice(){
-  // White Text
-  push();
-  fill(255);
-  textSize(40);
-  text(`Success! You achieved a Voice.`, width/2, height/2);
-  textSize(20);
-  text(`Press ENTER to proceed to the next level.`, width/2, 2*height/3);
-  pop();
-}
-
-function textSuccessScript(){
-  // Achieved Script
-  // White Text
-  push();
-  fill(255);
-  textSize(40);
-  text(`Success! You achieved a Script Shred.`, width/2, height/2);
-  textSize(20);
-  text(`Press ENTER to proceed to the next level.`, width/2, 2*height/3);
-  pop();
 }
 //
 
