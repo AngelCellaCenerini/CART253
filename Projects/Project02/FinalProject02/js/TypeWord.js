@@ -23,7 +23,7 @@ class TypeWord{
     }
   }
 
-  checkInput(projector, purpleBunny){
+  checkInput(projector, purpleBunny, arrow){
    // Converting Input to Lower Case
    this.lowerCaseInput = this.currentInput.toLowerCase();
    // Check if Converted Input corrisponds to Answer

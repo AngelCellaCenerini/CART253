@@ -245,6 +245,7 @@ let won = false;
 // Ending02
 // Lights
 // States
+timer = timerLevel;
 let state = `level03`        // Title, Instructions, Intro, Level01, Level02, Level03, Level04, Level05, PLay (User plays Melody)
                           // Fail (User looses), Pass (User passes level withouth solving it), Success (Achieved Voice or Script),  Ending01, Ending02.
 
@@ -599,7 +600,7 @@ function draw() {
     nextState = `level2`;
 
     // // Countdown
-    //countdown();
+    countdown();
 
     // Mic Input Lifts Creatures
     let lv01 = mic.getLevel();
@@ -638,7 +639,7 @@ function draw() {
     nextState = `level3`;
 
     // Countdown
-    //countdown();
+    countdown();
 
     // Mic Input Calling Eye back to Focus
     let lv02 = mic.getLevel();
@@ -686,7 +687,7 @@ function draw() {
     nextState = `level4`;
 
     // Countdown
-    //countdown();
+    countdown();
 
     // Mic Input pushing away Needles
     let lv03 = mic.getLevel();
@@ -714,7 +715,7 @@ function draw() {
     nextState = `level5`;
 
     // Countdown
-    //countdown();
+    countdown();
 
     // Moons
     for(let i = 0; i < moons.length; i++){
@@ -763,7 +764,7 @@ function draw() {
     nextState = `playMelody`;
 
     // Countdown
-    //countdown();
+    countdown();
 
     // Random Frequencies Values
     let r05 = random(0, 1);
@@ -871,7 +872,7 @@ function draw() {
   // Achieved Script Shred
   else if ( state === `successS`){
     // Reset Timer
-    timer = 0;
+    // timer = 0;
 
     textSuccessScript();
 
@@ -938,6 +939,7 @@ function countdown(){
   }
 
   // Level Countdown (50 sec)
+  console.log(timerLevel, timer);
   if( state === `level01` || state === `level02` || state === `level03` || state === `level04` || state === `level05`){
     if ((frameCount % 60 === 0) && (timer > 0)){
       timer--;
@@ -1145,6 +1147,10 @@ function resetLevel(){
       let creature = creatures[i];
       creature.x = random(11*width/25, 14*width/25);
       creature.y = random(height/10, height/5);
+      creature.vx = 0;
+      creature.vy = 0;
+      creature.ax = 0;
+      creature.ay = 0;
       creature.active = true;
     }
       // creature.ay = 0;
@@ -1184,9 +1190,11 @@ function resetLevel(){
      while(dist(compass.x,compass. y, frog.x, frog.y) < 3*frog.height/2){
        compass.x = random(0, width);
        compass.y = random(0, height);
-       compass.positionX = compass.x;
-       compass.positionY = compass.y;
      }
+     compass.positionX = compass.x;
+     compass.positionY = compass.y;
+     compass.vx = 0;
+     compass.vy = 0;
      compass.size = random(70, 160);
      compass.stallingTime = 0;
    }
@@ -1408,11 +1416,12 @@ typeWord.keyPressed();
 
 if (state === `play`){
 
-  // Orange Lights react to Keyboard Input
-  for (let i = 0; i < chimingLights.length; i ++){
-  let chimingLight = chimingLights[i];
-  melody.keyPressed(chimingLight);
-  }
+  // // Orange Lights react to Keyboard Input
+  // for (let i = 0; i < chimingLights.length; i ++){
+  // let chimingLight = chimingLights[i];
+  // melody.keyPressed(chimingLight);
+  // }
+  melody.keyPressed(chimingLights);
 
   // Store keys pressed by User
   insertedKeys.push(keyCode);

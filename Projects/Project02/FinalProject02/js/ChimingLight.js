@@ -7,7 +7,7 @@ class ChimingLight extends Light {
     this.g = 178;
     this.b = 22;
     this.active = false;
-    this.reset = false;
+    // this.reset = false;
   }
 
   grow(){
@@ -17,16 +17,16 @@ class ChimingLight extends Light {
       if (this.size > this.maxSize){
         this.growth = 0;
         this.returnOriginalSize();
-        this.reset = true;
+        // this.reset = true;
       }
     }
   }
 
   returnOriginalSize(){
-    if(this.reset){
+    // if(this.reset){
       this.size = this.originalSize;
       this.active = false;
-      this.reset = false;
-    }
+      // this.reset = false;
+    // }
     }
 }

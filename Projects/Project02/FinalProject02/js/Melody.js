@@ -22,8 +22,8 @@ class Melody{
   keyPressed(chimingLight){
 
     let notes = this.sequences[key];
-    chimingLight.active = true;
     if (notes !== undefined) {
+      chimingLight.active = true;
       this.notes = notes;
       this.currentNote = 0;
       this.playNextNote();
@@ -39,9 +39,6 @@ class Melody{
     this.currentNote = this.currentNote + 1;
     if (this.currentNote === this.notes.length) {
       this.currentNote = 0;
-      if(!chimingLight.active){
-        chimingLight.active = true;
-      }
     }
     else{
       setTimeout(this.playNextNote.bind(this), 500);
