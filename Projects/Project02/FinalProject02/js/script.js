@@ -251,7 +251,7 @@ let won = false;
 // Lights
 // States
 timer = timerLevel;
-let state = `level02`        // Title, Instructions, Intro, Level01, Level02, Level03, Level04, Level05, PLay (User plays Melody)
+let state = `level03`        // Title, Instructions, Intro, Level01, Level02, Level03, Level04, Level05, PLay (User plays Melody)
                           // Fail (User looses), Pass (User passes level withouth solving it), Success (Achieved Voice or Script),  Ending01, Ending02.
 
 // Load Fonts
@@ -1210,6 +1210,7 @@ function resetLevel(){
      compass.vy = 0;
      compass.size = random(70, 160);
      compass.stallingTime = 0;
+     compass.switchTime = 0;
    }
    // Restore Frog
    frog.wounded = false;

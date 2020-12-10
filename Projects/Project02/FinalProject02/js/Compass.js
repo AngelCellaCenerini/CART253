@@ -10,6 +10,7 @@ class Compass{
     this.speed = 5;
     this.stallingTime = 0;
     this.delayTime = 0;
+    this.switchTime = 0;
     this.angle = 0;
     this.chasing = true;  // Compass's Needle is chasing Frog's Cheek (its center)
   }
@@ -79,17 +80,13 @@ class Compass{
     if(dist(this.x, this.y, frog.x, frog.y) < frog.size/2){
       if(frog.size > 3*frog.maxSize/5){
         frog.wounded = true;
-        this.delayTime = 0;
+        this.switchTime = 0;
       }
     }
     if (frog.wounded){
-      this.delayTime++;
-      if(this.delayTime > 4*60){
+      this.switchTime++;
+      if(this.switchTime > 3*60){
         state = `fail`;
-        // this.stallingTime = 0;
-        // frog.stallingTime = 0;
-        // frog.wounded = false;
-        // frog.size = frog.originalSize;
         clearInterval(interval03);
         interval03 = undefined;
       }
