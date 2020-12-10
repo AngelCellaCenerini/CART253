@@ -1,36 +1,25 @@
 class TipsTable{
-  constructor(x, y, positionX, positionY, cues){
+  constructor(x, y, tips){
   this.x = x;
   this.y = y;
-  this.positionX = positionX;
-  this.positionY = positionY;
   this.size = 600;
   this.active = false;
-  this.keyCode = undefined;   // SPACEBAR
-  this.tips = cues;  //this.cues = [];
-   // Guessing Answer
-   this.currentIndex = 0;
-   this.answer = `stop`;    // Word User has to type in order to surpass level
-   this.currentInput = ``;  // Keeping Track of User's Input
-   this.state = undefined;
-   }
-
-   keyPressed(){
-     // Tips Table appearing/disappearing when User presses SPACEBAR
-     if (this.keyCode === 32){
-     if(tipsTable.active === false){
-        tipsTable.active = true;
-     }
-     else {
-        tipsTable.active = false;
-     }
-    }
-
-    else if (this.keyCode === 8 ) { //&& state === `level`
-    // User Resets Inserted Input
-    this.currentInput = ``;
+  this.keyCode = 32;   // SPACEBAR
+  this.tips = tips;
+  this.currentIndex = 0;
   }
+
+  keyPressed(){
+   // Tips Table appearing/disappearing when User presses SPACEBAR
+   if (this.keyCode){
+    if(this.active === false){
+       this.active = true;
+    }
+    else {
+       this.active = false;
+    }
    }
+  }
 
    mousePressed(){
    // if (state === `level`){
@@ -41,12 +30,12 @@ class TipsTable{
      }
    }
 
-   keyTyped() {
-     // Type Input
-     if (this.keyCode !== 13){  // && state === `level`
-     this.currentInput += key; // key >> main script?
-     }
-   }
+   // keyTyped() {
+   //   // Type Input
+   //   if (this.keyCode !== 13){  // && state === `level`
+   //   this.currentInput += key; // key >> main script?
+   //   }
+   // }
 
   display(){
    // Tips Table to guess mystery word
@@ -59,13 +48,12 @@ class TipsTable{
    fill(255, 255, 255, 150);
    rect(this.x, this.y, this.size);
    // Display Tips Table White Text
-   fill(0);
+   fill(255);
    textAlign(CENTER, CENTER);
    textSize(20);
-   text(this.tips, this.x, this.y);  // this.cues[currentIndex];
-   fill(255);
+   text(this.tips[this.currentIndex], this.x, this.y);  // this.cues[currentIndex];
    textSize(15);
-   text(`Click for more tips >>`,this.positionX, this.positionY);
+   text(`Click for more tips >>`,this.x - this.size/4, this.y + this.size/3);
    pop();
 }
 }
