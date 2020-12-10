@@ -16,59 +16,29 @@ class Melody{
   }
 
 
-  keyPressed(){
+  keyPressed(chimingLight){
+
     let notes = this.sequences[key];
-    console.log(notes);
+    chimingLight.active = true;
     if (notes !== undefined) {
       this.notes = notes;
       this.currentNote = 0;
       this.playNextNote();
     }
-
-    //
-    // if(this.keyCode === 71){  // Pressing 'G'
-    //    this.notes;
-    //    this.playNextNote();
-    // }
-    // else if(this.keyCode === 70){  // Pressing 'F'
-    //    this.notes = [];
-    //    this.playNextNote();
-    // }
-    // else if(this.keyCode === 72){  // Pressing 'H'
-    //    this.notes = [];
-    //    this.playNextNote();
-    // }
-    // else if(this.keyCode === 84){  // Pressing 'T'
-    //    this.notes = [];
-    //    this.playNextNote();
-    // }
-    // else if(this.keyCode === 66){  // Pressing 'B'
-    //    this.notes = [];
-    //    this.playNextNote();
-    // }
-    // else if(this.keyCode === 86){  // Pressing 'V'
-    //    this.notes = [];
-    //    this.playNextNote();
-    // }
-    // else if(this.keyCode === 82){  // Pressing 'R'
-    //    this.notes = [];
-    //    this.playNextNote();
-    // }
-    // else if(this.keyCode === 68){  // Pressing 'D'
-    //    this.notes = [];
-    //    this.playNextNote();
-    // }
   }
 
-  playNextNote() {
-        // Chose the note at the current position
+  playNextNote(chimingLight) {
+    // Chose Note
     this.note = this.notes[this.currentNote];
-    // Play it
-    synth.play(this.note,  0.6, 0, 0.4);  // SYNTH? diff velocites
-    // Increase the current position and go back to 0 when we reach the end
+    // Play Note
+    synth.play(this.note,  0.6, 0, 0.5);
+    // Next Note
     this.currentNote = this.currentNote + 1;
     if (this.currentNote === this.notes.length) {
       this.currentNote = 0;
+      if(!chimingLight.active){
+        chimingLight.active = true;
+      }
     }
     else{
       setTimeout(this.playNextNote.bind(this), 500);
