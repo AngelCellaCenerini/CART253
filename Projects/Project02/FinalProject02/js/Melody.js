@@ -1,5 +1,5 @@
 class Melody{
-  constructor(x, y, sequences, insertedKeys, correctKeySequence){
+  constructor(x, y, sequences, insertedKeys, correctKeySequence, incomplete){
     this.x = x;
     this.y = y;
     this.width = 300;
@@ -13,7 +13,7 @@ class Melody{
     this.currentNote = 0;
     this.insertedKey = insertedKeys;
     this.correctKeySequence = correctKeySequence;
-
+    this.incomplete = incomplete;
 
   }
 
@@ -54,9 +54,14 @@ class Melody{
         if(this.insertedKey[i] !== this.correctKeySequence[i]){
         state = `fail`;
         }
-        // else{
-        //   state = `success`;
-        // }
+        else{
+          if(won){
+            state = `ending02`;
+          }
+          else{
+            state = `ending01`;
+          }
+        }
       }
    }
   }
@@ -64,21 +69,23 @@ class Melody{
   display(){
     // Display Script
     push();
-    fill(255, 255, 255, 50);
+    fill(255, 255, 255, 70);
     rect(this.x, this.y, this.width, this.height);
     fill(255);
-    textSize(20);
-    textAlign(CENTER, CENTER);
     text(`Follow the script:
+
 
     G
     F
     H
-    T
-    B
-    V
-    R
-    D`, this.x, this.y);
-    pop();
+    T`, this.x, this.y - this.height/6);
+    if(!this.incomplete){
+      text(`
+      B
+      V
+      R
+      D`, this.x, this.y + this.height/9);
+      pop();
+    }
   }
 }

@@ -136,15 +136,17 @@ let notes05 = [`E5`, `E5`, `F5`, `E#5`, `F5`, `Eb5`];
 let currentNote05 = 0;
 let interval05;
 let oscillator05;
+// Check User Accomplishments
+let incomplete;
 
 
 // All Levels
 // Collected Items
-// let collectedItems = [];
-// let collectedScriptShreds = [];
-// let collectedScriptShred;
-// let collectedVoices = [];
-// let collectedVoice;
+let collectedItems = [];
+let collectedScriptShreds = [];
+let collectedScriptShred;
+let collectedVoices = [];
+let collectedVoice;
 
 // State Status (necessary since same Fail/Pass/Success states are being used for all levels)
 let currentState;
@@ -232,6 +234,11 @@ let sequences = {
 // Assembling "Melody" aka a Set Sequence of Keys for User to follow
 let correctKeySequence = [65,65, 87, 83, 68, 68, 87, 83, 68, 68, 65, 83, 87];
 let insertedKeys = [];
+
+
+// Establish Ending
+let won = false;
+
 
 
 // Ending02
@@ -516,7 +523,7 @@ function setup() {
   x = width/8;
   y = height/2;
   // let notes = //defined in class
-  melody = new Melody(x, y, sequences, insertedKeys, correctKeySequence);
+  melody = new Melody(x, y, sequences, insertedKeys, correctKeySequence, incomplete);
 
   // Melody
   synthM = new p5.PolySynth();
@@ -787,10 +794,16 @@ function draw() {
     // Guess/Type Word
     guessWord();
 
+    // Check Collected Items
+    checkUserAccomplishments();
+
   }
 
   // Play
   else if ( state === `play`){
+
+  currentState = `playing`;
+
   //  Atmospheric Lights
   for (let i = 0; i < atmosphericLights.length; i ++){
     let atmosphericLight = atmosphericLights[i];
@@ -811,7 +824,12 @@ function draw() {
     chimingLight.display();
   }
 
+  // Display "Script"
   melody.display();
+
+  // Establish Ending
+  determineEnding();
+
   }
 
   // Fail
@@ -843,6 +861,11 @@ function draw() {
       atmosphericLight.move();
       atmosphericLight.display();
     }
+
+    // Store Voice
+    collectedVoices.push(collectedVoice);
+    collectedItems.push(collectedVoice);
+
   }
   // Achieved Script Shred
   else if ( state === `successS`){
@@ -850,6 +873,11 @@ function draw() {
     timer = 0;
 
     textSuccessScript();
+
+    // Store Voice
+    collectedScriptShreds.push(collectedScriptShred);
+    collectedItems.push(collectedVoice);
+
   }
 
   // Ending 01
@@ -1202,6 +1230,10 @@ function resetLevel(){
     typeWord.currentInput = ``;
 
   }
+  else if(currentState === `playing`){
+    state = `play`;
+    insertedKeys = [];
+  }
 }
 
 // After passing/surpassing Level
@@ -1247,13 +1279,28 @@ function nextLevel(){
 
   }
 }
+
+function checkUserAccomplishments(){
+  //Check if User is missing pieces
+  if(collectedScriptShreds.lenght < 2){
+    incomplete = true;
+  }
+  else{
+    incomplete = false;
+  }
+}
 //
 
 // Determine Ending
-// function determineEnding(){
+function determineEnding(){
   // Choose Ending (01 or 02) considering items collected by User
-
-// }
+  if (collectedItems.length >= 4){
+    won = true;
+  }
+  else{
+    won = false;
+  }
+}
 //
 
 
