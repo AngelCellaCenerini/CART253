@@ -3,13 +3,12 @@ class Light {
     this.x = x;
     this.y = y;
     this.size = size;
-    this.maxSize = 2000;
-    this.growth = 5;
     this.vx = 0;
     this.vy = 0;
-    this.speed = 2;
-    this.explosionTime = 0;  // I know, such a charming name
-    // this.chime = chime;
+    this.speed = 1.8;
+    this.r = 250;
+    this.g = 250;
+    this.b = 250;
   }
 
   move(){
@@ -23,8 +22,24 @@ class Light {
     }
     this.x = constrain( this.x, 0, width);
     this.y = constrain( this.y, 0, height);
+  }
 
-
+  wrap(){
+    // Redirecting (almost)offscreen object
+    // Horizontally
+    if (this.x > width) {
+      this.x -= width;
+    }
+    else if(this.x < 0){
+      this.x += width;
+    }
+    // Vertically
+    if (this.y > height) {
+      this.y -= height;
+    }
+    else if(this.y < 0){
+      this.y += height;
+    }
   }
 
   explode(){
@@ -37,17 +52,21 @@ class Light {
     if(this.size > this.maxSize){
       this.growth = 0;
       state = `title`;
+      if (intervalHeartbeat !== undefined) {
+        clearInterval(intervalHeartbeat);
+        intervalHeartbeat = undefined;
+      }
     }
   }
 
 
-
   display(){
     push();
-    fill(250);
+    fill(this.r, this.g, this.b);
     ellipse(this.x, this.y, this.size)
-    fill(250, 250, 250, 100);
-    ellipse(this.x, this.y, 2*this.size);
+    fill(this.r, this.g, this.b, 100);
+    ellipse(this.x, this.y, 3*this.size/2);
     pop();
   }
+
 }

@@ -6,7 +6,7 @@ class Mirror{
     this.height = 435;
     this.vx = 0;
     this.vy = 0;
-    this.maxSpeed = 4;
+    this.maxSpeed = 6;
     this.broken = true;  // display cracks
     this.active = false;  // move mirror
     this.start = 0;  // needed to draw Arc (line 42)

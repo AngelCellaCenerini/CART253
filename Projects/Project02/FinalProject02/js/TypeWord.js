@@ -28,7 +28,7 @@ class TypeWord{
    this.lowerCaseInput = this.currentInput.toLowerCase();
    // Check if Converted Input corrisponds to Answer
    if (this.lowerCaseInput === this.answer) {
-     
+
      // Restore Input for next Levels
      this.currentInput = ``;
 
@@ -40,6 +40,7 @@ class TypeWord{
      }
      else if(state === `level05`){
          purpleBunny.hungry = true;
+         arrow.active = false;
          oscillator05.start();
      }
    }

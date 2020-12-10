@@ -209,14 +209,35 @@ let cues05 = [
 // Guessing/Typing Word (Level01, Level02, Level03)
 let typeWord;
 
+// PLay
+// Lights
+let atmosphericLights = [];
+let numAtmosphericLights = 20;
+let chimingLights = [];
+let numChimingLights = 6;
+// Melody
+let melody;
+let synthM;
+let sequences = {
+  g: [`D4`, `F4`,`A5`,`G4`],
+  f: [`F4`, `E4`,`C4`,`D4`],
+  h: [`D4`, `F4`,`A5`,`D5`, `D5`, `Db5`,`D5`,`A6`],
+  t: [`A6`,`G#5`,`A6`, `Bb6`,`A6`,`G5`,`E6`, `Db6`, `A5`],
+  c: [`A3`,`D2`],  // sx
+  b: [`F4`],
+  v: [`E4`, `F4`, `G4`, `A5`],
+  r: [`E4`, `C4`],
+  d: [`D4`]
+};
+// Assembling "Melody" aka a Set Sequence of Keys for User to follow
+let correctKeySequence = [65,65, 87, 83, 68, 68, 87, 83, 68, 68, 65, 83, 87];
+let insertedKeys = [];
+
 
 // Ending02
 // Lights
-let lights = [];
-let numLights = 20;
-
 // States
-let state = `level05`        // Title, Instructions, Intro, Level01, Level02, Level03, Level04, Level05, PLay (User plays Melody)
+let state = `play`        // Title, Instructions, Intro, Level01, Level02, Level03, Level04, Level05, PLay (User plays Melody)
                              // Fail (User looses), Pass (User passes level withouth solving it), Success (Achieved Voice or Script),  Ending01, Ending02.
 
 // Load Fonts
@@ -435,6 +456,7 @@ function setup() {
   oscillator05 = new p5.Oscillator(440, `sawtooth`);
   oscillator05.amp(0.05);
 
+
   // All Levels
   // TipsTable
   // TipsTable Lv01
@@ -469,17 +491,45 @@ function setup() {
   typeWord = new TypeWord(x, y);
 
 
-  // Ending02
-  // Lights
-  for(let i = 0; i < numLights; i++){
-    let x = width/2;
+  // Play
+  // Atmospheric Lights  - ALso in Ending02
+  for(let i = 0; i < numAtmosphericLights; i++){
+    let x =  width/2;
     let y = 2*height/5;
-    let size = random(5, 50);
-    let light = new Light(x, y, size);
-    lights.push(light);
+    // let x = random(0, width);
+    // let y = random(0, height);
+    let size = random(5, 35);
+    let atmosphericLight = new Light(x, y, size);
+    atmosphericLights.push(atmosphericLight);
   }
 
+  // Chiming Lights
+  for (let i = 0; i < numChimingLights; i ++){
+    let x = random(0, width);
+    let y = random(0, height);
+    let size = random(30, 60);
+    let chimingLight = new ChimingLight(x, y, size);
+    chimingLights.push(chimingLight);
+  }
 
+  // Melody (Script + Playing)
+  x = width/8;
+  y = height/2;
+  // let notes = //defined in class
+  melody = new Melody(x, y, sequences, insertedKeys, correctKeySequence);
+
+  // Melody
+  synthM = new p5.PolySynth();
+
+
+  // Ending02
+  // Atmospheric Lights  - ALso in Ending02
+  // for(let i = 0; i < numAtmosphericLights; i++){
+  //
+  //   let size = random(5, 50);
+  //   let atmosphericLight = new AtmosphericLight(x, y, size);
+  //   atmosphericLights.push(atmosphericLight);
+  // }
 
 }
 
@@ -625,7 +675,7 @@ function draw() {
   else if ( state === `level03`){
 
     currentState = `thirdLevel`;
-      nextState = `level4`;
+    nextState = `level4`;
 
     // Countdown
     //countdown();
@@ -702,6 +752,7 @@ function draw() {
   else if ( state === `level05`){
 
     currentState = `fifthLevel`;
+    nextState = `playMelody`;
 
     // Countdown
     //countdown();
@@ -740,7 +791,27 @@ function draw() {
 
   // Play
   else if ( state === `play`){
+  //  Atmospheric Lights
+  for (let i = 0; i < atmosphericLights.length; i ++){
+    let atmosphericLight = atmosphericLights[i];
+    let x = random(0, width);
+    let y = random(0, height);
+    let size = random(5, 30);
+    atmosphericLight.move();
+    atmosphericLight.wrap();
+    atmosphericLight.display();
+  }
+  //  Chiming Lights
+  for (let i = 0; i < chimingLights.length; i ++){
+    let chimingLight = chimingLights[i];
+    chimingLight.move();
+    chimingLight.wrap();
+    chimingLight.grow();
+    chimingLight.returnOriginalSize();
+    chimingLight.display();
+  }
 
+  melody.display();
   }
 
   // Fail
@@ -764,11 +835,13 @@ function draw() {
     textSuccessVoice();
 
     // Display Single Light
-    lights.length = 1;
-    for (let i = 0; i < lights.length; i++){
-      let light = lights[i];
-      light.move();
-      light.display();
+    atmosphericLights.length = 1;
+    // atmosphericLights.x = width/2;
+    // atmosphericLights.y = 2*height/5;
+    for (let i = 0; i < atmosphericLights.length; i++){
+      let atmosphericLight = atmosphericLights[i];
+      atmosphericLight.move();
+      atmosphericLight.display();
     }
   }
   // Achieved Script Shred
@@ -800,11 +873,12 @@ function draw() {
     mirror.display();
 
     // Lights
-    for (let i = 0; i < lights.length; i++){
-      let light = lights[i];
-      light.move();
-      light.explode();
-      light.display();
+    for (let i = 0; i < atmosphericLights.length; i++){
+      let atmosphericLight = atmosphericLights[i];
+      atmosphericLight.move();
+      atmosphericLight.explode();
+      atmosphericLight.display();
+
     }
   }
 
@@ -1272,7 +1346,7 @@ function guessWord(){ // parameters?
   typeWord.checkAnswer();
   for (let i = 0; i < projectors.length; i ++){
     let projector = projectors[i];
-    typeWord.checkInput(projector, purpleBunny);
+    typeWord.checkInput(projector, purpleBunny, arrow);
   }
 
   typeWord.checkInputProgress();
@@ -1282,6 +1356,21 @@ function guessWord(){ // parameters?
 function keyPressed(){
 
 typeWord.keyPressed();
+
+if (state === `play`){
+
+  // Orange Lights react to Keyboard Input
+  for (let i = 0; i < chimingLights.length; i ++){
+  let chimingLight = chimingLights[i];
+  melody.keyPressed(chimingLight);
+  }
+
+  // Store keys pressed by User
+  insertedKeys.push(keyCode);
+
+  // Check if User follows Script
+  melody.adhereToScript();
+}
 
 if(keyCode === 13){
   if(state === `title`){    // User presses ENTER
