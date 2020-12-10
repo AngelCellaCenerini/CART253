@@ -54,7 +54,7 @@ let button = {
   radius: 15
 };
 //Mic Input
-let mic01;
+let mic;
 // Soundtrack
 let synth01;
 let notes01 = [`C#1`, `A1`, `Ab4`, `Bb4`, `Db4`];
@@ -132,6 +132,55 @@ let currentNote05 = 0;
 let interval05;
 let oscillator05;
 
+// TipsTable(s) - All Levels
+let tipsTables = [];
+let tipsTable01;
+let tipsTable02;
+let tipsTable03;
+let tipsTable04;
+let tipsTable05;
+// Tips Arrays - All Levels
+let cues01 = [
+  ``,
+  `1. What a lovely keyboard you have there,
+  lying on your desk.`,
+  `2. I am flickering.`,
+  `3. Don't read me like that.`,
+  `4. Try me backwards.`,
+  `5. Did you get it yet? Type me!`
+];
+let cues02 = [
+  ``,
+  `1. I see you still have your keyboard with you. Good.`,
+  `2. I stand to your right when you gaze at the rising sun.`,
+  `3. Typing me is not enough.`,
+  `4. You only have one attempt.`,
+  `5. S h u t   i t   o f f .`
+];
+let cues03 = [
+  ``,
+  `1. I see you still have your keyboard with you. Good.`,
+  `2. Poor frog.
+   If only you could somehow distract the needles form attacking it.`,
+  `3. What does a compass yearn for?.`
+];
+let cues04 = [
+  ``,
+  `1. They're hungry.`,
+  `2. They're confused;
+      they don't really want the moons.`,
+  `3. They're  h u n g r y .`,
+  `4. If they're not after the moons...`,
+  `5. Don't be scared to play with Mother Nature.`,
+];
+let cues05 = [
+  ``,
+  `1. I see you still have your keyboard with you. Good.`,
+  `2. We each have our own.`,
+  `3. Our point of origin, where we derive from.`,
+  `4. It is neither father nor mother.`,
+  `5. Not plural.`
+];
 
 // Ending02
 // Lights
@@ -139,7 +188,7 @@ let lights = [];
 let numLights = 20;
 
 // States
-let state = `level04`        // Title, Instructions, Intro, Level01, Level02, Level03, Level04, Level05, PLay (User plays Melody)
+let state = `level03`        // Title, Instructions, Intro, Level01, Level02, Level03, Level04, Level05, PLay (User plays Melody)
                              // Fail (User looses), Pass (User passes level withouth solving it), Success (Achieved Voice or Script),  Ending01, Ending02.
 
 // Load Fonts
@@ -209,8 +258,8 @@ function setup() {
       voice01.oscillator.setType(`triangle`);
     }
     // Mic Input
-    mic01 = new p5.AudioIn();
-    mic01.start();
+    mic = new p5.AudioIn();
+    mic.start();
 
 
   // Level02
@@ -244,8 +293,8 @@ function setup() {
   projectors.push(rightProjector);
 
   // Mic Input
-  mic02 = new p5.AudioIn();
-  mic02.start();
+  // mic = new p5.AudioIn();
+  // mic.start();
   // Soundtrack
   oscillator02 = new p5.Oscillator(0, `tan`);
   oscillator202 = new p5.Oscillator(`triangle`);
@@ -276,8 +325,8 @@ function setup() {
    compasses.push(compass);
   }
   // Mic Input
-  mic03 = new p5.AudioIn();
-  mic03.start();
+  // mic03 = new p5.AudioIn();
+  // mic03.start();
   // Soundtrack
   synth03 = new p5.PolySynth();
   for (let i = 0; i < synth03.audiovoices.length; i++) {
@@ -361,6 +410,33 @@ function setup() {
   oscillator05 = new p5.Oscillator(440, `sawtooth`);
   oscillator05.amp(0.05);
 
+  // TipsTable (All Levels)
+  // TipsTable Lv01
+  x = width/2;
+  y = height/2;
+  tipsTable01 = new TipsTable(x, y, cues01);
+  tipsTables.push(tipsTable01);
+  // TipsTable Lv02
+  x = width/4;
+  y = height/2;
+  tipsTable02 = new TipsTable(x, y, cues02);
+  tipsTables.push(tipsTable02);
+  // TipsTable Lv03
+  x = width/2;
+  y = height/2;
+  tipsTable03 = new TipsTable(x, y, cues03);
+  tipsTables.push(tipsTable03);
+  // TipsTable Lv04
+  x = width/2;
+  y = height/2;
+  tipsTable04 = new TipsTable(x, y, cues04);
+  tipsTables.push(tipsTable04);
+  // TipsTable Lv05
+  x = width/2;
+  y = height/2;
+  tipsTable05 = new TipsTable(x, y, cues05);
+  tipsTables.push(tipsTable05);
+
 
   // Ending02
   // Lights
@@ -387,11 +463,24 @@ function draw() {
   if ( state === `title`){
     titleText();
     madeleine.display();
+
+    // Make sure User cannot trigger TipsTable outside Levels
+    for(let i = 0; i < tipsTables.length; i ++){
+      let tipsTable = tipsTables[i];
+      tipsTable.active = false;
+    }
+
   }
 
   // Instructions
   else if ( state === `instructions`){
     textInstructions();
+
+    // Make sure User cannot trigger TipsTable outside Levels
+    for(let i = 0; i < tipsTables.length; i ++){
+      let tipsTable = tipsTables[i];
+      tipsTable.active = false;
+    }
   }
 
   // Intro
@@ -406,6 +495,12 @@ function draw() {
     fading.fade();
     fading.display();
 
+    // Make sure User cannot trigger TipsTable outside Levels
+    for(let i = 0; i < tipsTables.length; i ++){
+      let tipsTable = tipsTables[i];
+      tipsTable.active = false;
+    }
+
   }
 
   // Level01
@@ -415,7 +510,7 @@ function draw() {
     // countdown();
 
     // Mic Input Lifts Creatures
-    let lv01 = mic01.getLevel();
+    let lv01 = mic.getLevel();
     let liftAmount = map(lv01, 0, 1, - 1, -15);  // creatures initially float; this is intentionl, for different 'liftAmout' values would make it impossible for User to last
 
     // Winged Creatures
@@ -435,6 +530,9 @@ function draw() {
     delimitingWalls(); // White
     crypticButtons();  // Flickering White and Black Buttons
 
+    // TipsTable
+    tipsTable01.display();
+
     // Soundtrack
     if (interval01 === undefined) {
     interval01 = setInterval(playRandomNote, 500);
@@ -451,7 +549,7 @@ function draw() {
     // countdown();
 
     // Mic Input Calling Eye back to Focus
-    let lv02 = mic02.getLevel();
+    let lv02 = mic.getLevel();
 
     // Laser Lights
     laserLights();
@@ -469,6 +567,9 @@ function draw() {
       let projector = projectors[i];
       projector.display();
     }
+
+    // TipsTable
+    tipsTable02.display();
 
     // Soundtrack
     angle += angleIncrease;
@@ -492,7 +593,7 @@ function draw() {
     // countdown();
 
     // Mic Input pushing away Needles
-    let lv03 = mic03.getLevel();
+    let lv03 = mic.getLevel();
 
     // Frog
     frog.display();
@@ -504,6 +605,9 @@ function draw() {
       compass.update(frog, lv03);
       compass.switchToEnding();
     }
+
+    // TipsTable
+    tipsTable03.display();
 
     // Soundtrack
     if (interval03 === undefined) {
@@ -523,7 +627,7 @@ function draw() {
       let moon = moons[i];
       moon.display(moon);
       moon.move();
-      // Check if both Moons are active >> Switching State
+      // Check if both Moons have been "eaten" >> Switching State
       if(!moon.active){
         for(let j = 0; j < moons.length; j++){
           let otherMoon = moons[j];
@@ -547,6 +651,9 @@ function draw() {
     // Waves
     wave.grow();
     wave.display();
+
+    // TipsTable
+    tipsTable04.display();
 
     // Eating Soundtrack
     let r = random(0, 1);
@@ -584,6 +691,9 @@ function draw() {
       let arrow = arrows[i];
       arrow.track(yellowBunny);
     }
+
+    // TipsTable
+    tipsTable05.display();
 
     // Soundtrack
     if (interval05 === undefined) {
@@ -944,6 +1054,14 @@ if (state === `level03`){
     compass.switchToEnding();
   }
 }
+
+// TipsTable(s)
+tipsTable01.keyPressed();
+tipsTable02.keyPressed();
+tipsTable03.keyPressed();
+tipsTable04.keyPressed();
+tipsTable05.keyPressed();
+
 }
 
 function mousePressed() {
@@ -988,5 +1106,13 @@ function mousePressed() {
       }
     }
   }
+
+  // TipsTable(s)
+  tipsTable01.mousePressed();
+  tipsTable02.mousePressed();
+  tipsTable03.mousePressed();
+  tipsTable04.mousePressed();
+  tipsTable05.mousePressed();
+
 }
 //
