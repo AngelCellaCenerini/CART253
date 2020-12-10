@@ -1,5 +1,5 @@
 class Melody{
-  constructor(x, y, sequences, insertedKeys, correctKeySequence, incomplete){
+  constructor(x, y, sequences, insertedKeys, correctKeySequence,  correctKeySequence2){ //, incomplete
     this.x = x;
     this.y = y;
     this.width = 300;
@@ -13,7 +13,8 @@ class Melody{
     this.currentNote = 0;
     this.insertedKey = insertedKeys;
     this.correctKeySequence = correctKeySequence;
-    this.incomplete = incomplete;
+    this.correctKeySequence2 = correctKeySequence2;
+    // this.incomplete = incomplete;
 
   }
 
@@ -47,26 +48,46 @@ class Melody{
     }
   }
 
-  adhereToScript(){
-  // Check if User is following Script (Key Sequence stored in Array)
-  if (this.insertedKey.length === this.correctKeySequence.length){
-      for(let i = 0; i < this.correctKeySequence.length; i ++){
-        if(this.insertedKey[i] !== this.correctKeySequence[i]){
-        state = `fail`;
-        }
-        else{
-          if(won){
-            state = `ending02`;
+  adhereToScript(incomplete){
+    if (!incomplete){
+      // Check if User is following Script (Key Sequence stored in Array)
+      if (this.insertedKey.length === this.correctKeySequence.length){
+          for(let i = 0; i < this.correctKeySequence.length; i ++){
+            if(this.insertedKey[i] !== this.correctKeySequence[i]){
+            state = `fail`;
+            }
+            else{
+              if(won){
+                state = `ending02`;
+              }
+              else{
+                state = `ending01`;
+              }
+            }
           }
-          else{
-            state = `ending01`;
-          }
-        }
+       }
+    }
+    else {
+     if (this.insertedKey.length === this.correctKeySequence2.length){
+         for(let i = 0; i < this.correctKeySequence2.length; i ++){
+           if(this.insertedKey[i] !== this.correctKeySequence2[i]){
+           state = `fail`;
+           }
+           else{
+             if(won){
+               state = `ending02`;
+             }
+             else{
+               state = `ending01`;
+             }
+           }
+         }
       }
-   }
+    }
+
   }
 
-  display(){
+  display(incomplete){
     // Display Script
     push();
     fill(255, 255, 255, 70);
@@ -79,7 +100,7 @@ class Melody{
     F
     H
     T`, this.x, this.y - this.height/6);
-    if(!this.incomplete){
+    if(!incomplete){
       text(`
       B
       V

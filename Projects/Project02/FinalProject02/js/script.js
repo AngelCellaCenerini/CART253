@@ -233,6 +233,7 @@ let sequences = {
 };
 // Assembling "Melody" aka a Set Sequence of Keys for User to follow
 let correctKeySequence = [65,65, 87, 83, 68, 68, 87, 83, 68, 68, 65, 83, 87];
+let correctKeySequence2 = [65,65, 87, 83, 68, 68, 87];
 let insertedKeys = [];
 
 
@@ -244,8 +245,8 @@ let won = false;
 // Ending02
 // Lights
 // States
-let state = `play`        // Title, Instructions, Intro, Level01, Level02, Level03, Level04, Level05, PLay (User plays Melody)
-                             // Fail (User looses), Pass (User passes level withouth solving it), Success (Achieved Voice or Script),  Ending01, Ending02.
+let state = `level03`        // Title, Instructions, Intro, Level01, Level02, Level03, Level04, Level05, PLay (User plays Melody)
+                          // Fail (User looses), Pass (User passes level withouth solving it), Success (Achieved Voice or Script),  Ending01, Ending02.
 
 // Load Fonts
 function preload(){
@@ -825,7 +826,7 @@ function draw() {
   }
 
   // Display "Script"
-  melody.display();
+  melody.display(incomplete);
 
   // Establish Ending
   determineEnding();
@@ -1139,6 +1140,18 @@ function resetLevel(){
   // Reset Level
   if(currentState === `firstLevel`){
     state = `level01`;
+    // Restore Creature(s)
+    for(let i = 0; i < creatures.length; i++){
+      let creature = creatures[i];
+      creature.x = random(11*width/25, 14*width/25);
+      creature.y = random(height/10, height/5);
+      creature.active = true;
+    }
+      // creature.ay = 0;
+      // // Reset Mic Input + Gravity Force
+      // lv01 = mic.getLevel();
+      // liftAmount = map(lv01, 0, 1, - 1, -15);
+      // gravityForce = 0.002;
     // Deleting any Typed Input
     typeWord.currentInput = ``;
   }
@@ -1147,22 +1160,11 @@ function resetLevel(){
     // Soundtracks
     oscillator02.start();
     oscillator202.start();
-    // Restore Creature(s)
-    for(let i = 0; i < creatures.length; i++){
-      let creature = creatures[i];
-      creature.x = random(11*width/25, 14*width/25);
-      creature.y = random(height/10, height/5);
-      creature.active = true;
-      creature.ay = 0;
-      // // Reset Mic Input + Gravity Force
-      // lv01 = mic.getLevel();
-      // liftAmount = map(lv01, 0, 1, - 1, -15);
-      // gravityForce = 0.002;
 
       // Deleting any Typed Input
       typeWord.currentInput = ``;
 
-    }
+
 
   }
   else if(currentState === `thirdLevel`){
@@ -1416,7 +1418,7 @@ if (state === `play`){
   insertedKeys.push(keyCode);
 
   // Check if User follows Script
-  melody.adhereToScript();
+  melody.adhereToScript(incomplete);
 }
 
 if(keyCode === 13){
