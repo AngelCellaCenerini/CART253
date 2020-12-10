@@ -1,29 +1,17 @@
-class TypeWord{
+class TypeWord01{
   constructor(x, y){
 
-    this.x = x;
-    this.y = y;
+    this.x = x;  // where text will appear
+    this.y = y;  // where text will appear
     this.currentIndex = 0;
-    this.answer = undefined;    // Word User has to type in order to surpass level
+    this.answer = `stop`;    // Word User has to type in order to surpass level
     this.currentInput = ``;     // Keeping Track of User's Input
     this.lowerCaseInput = undefined;
     this.correct = undefined;
 
   }
 
-  checkAnswer(){
-    if(state === `level01`){
-      this.answer = `stop`;
-    }
-    else if (state === `level02`){
-      this.answer = `south`;
-    }
-    else if (state === `level05`){
-      this.answer = `parent`;
-    }
-  }
-
-  checkInput(projector, purpleBunny, arrow){
+  checkInput(){
    // Converting Input to Lower Case
    this.lowerCaseInput = this.currentInput.toLowerCase();
    // Check if Converted Input corrisponds to Answer
@@ -31,18 +19,7 @@ class TypeWord{
 
      // Restore Input for next Levels
      this.currentInput = ``;
-
-     if (state === `level01`){
-        state = `successV`;
-     }
-     else if(state === `level02`){
-         projector.active = true;
-     }
-     else if(state === `level05`){
-         purpleBunny.hungry = true;
-         arrow.active = false;
-         oscillator05.start();
-     }
+     state = `successV`;
    }
    else {
      return false;
@@ -63,7 +40,7 @@ class TypeWord{
 
 keyPressed(){
   if (keyCode === 8) {
-    if( state === `level01` || state === `level02` || state === `level05` ){
+    if( state === `level01`){
       // User Resets Inserted Input
       this.currentInput = ``;
     }
@@ -72,7 +49,7 @@ keyPressed(){
 
 keyTyped(){
   if (keyCode !== 13 && keyCode !== 32){
-      if( state === `level01` || state === `level02` || state === `level05` ){
+      if( state === `level01`){
           this.currentInput += key;
       }
   }

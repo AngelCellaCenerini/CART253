@@ -24,7 +24,7 @@ let myFontB;
 // Timers
 let timer = 0;
 let timerIntro = 10;
-let timerLevel = 2;
+let timerLevel = 60;
 
 // Title
 // Madeleine Logo/Icon
@@ -64,6 +64,8 @@ let button = {
 let synth01;
 let notes01 = [`C#1`, `A1`, `Ab4`, `Bb4`, `Db4`];
 let interval01;
+// Guessing/Typing Word (Level01, Level02, Level05)
+let typeWord01;
 
 
 // Level02
@@ -85,6 +87,8 @@ let oscillator02;
 let oscillator202;
 let angle = 0;
 let angleIncrease = 0.25;
+// Guessing/Typing Word
+let typeWord02;
 
 
 // Level03
@@ -136,6 +140,8 @@ let notes05 = [`E5`, `E5`, `F5`, `E#5`, `F5`, `Eb5`];
 let currentNote05 = 0;
 let interval05;
 let oscillator05;
+// Guessing/Typing Word
+let typeWord05;
 // Check User Accomplishments
 let incomplete;
 
@@ -208,8 +214,7 @@ let cues05 = [
   `4. It is neither father nor mother.`,
   `5. Not plural.`
 ];
-// Guessing/Typing Word (Level01, Level02, Level03)
-let typeWord;
+
 
 // PLay
 // Lights
@@ -246,7 +251,7 @@ let won = false;
 // Lights
 // States
 timer = timerLevel;
-let state = `level03`        // Title, Instructions, Intro, Level01, Level02, Level03, Level04, Level05, PLay (User plays Melody)
+let state = `level02`        // Title, Instructions, Intro, Level01, Level02, Level03, Level04, Level05, PLay (User plays Melody)
                           // Fail (User looses), Pass (User passes level withouth solving it), Success (Achieved Voice or Script),  Ending01, Ending02.
 
 // Load Fonts
@@ -495,9 +500,18 @@ function setup() {
   tipsTables.push(tipsTable05);
 
   // Type Word
+  // Level01
+  x = width/2;
+  y = height/3;
+  typeWord01 = new TypeWord01(x, y);
+  // Level02
   x = width/2;
   y = height/4;
-  typeWord = new TypeWord(x, y);
+  typeWord02 = new TypeWord02(x, y);
+  // Level05
+  x = width/2;
+  y = height/5;
+  typeWord05 = new TypeWord05(x, y);
 
 
   // Play
@@ -939,7 +953,6 @@ function countdown(){
   }
 
   // Level Countdown (50 sec)
-  console.log(timerLevel, timer);
   if( state === `level01` || state === `level02` || state === `level03` || state === `level04` || state === `level05`){
     if ((frameCount % 60 === 0) && (timer > 0)){
       timer--;
@@ -1159,7 +1172,7 @@ function resetLevel(){
       // liftAmount = map(lv01, 0, 1, - 1, -15);
       // gravityForce = 0.002;
     // Deleting any Typed Input
-    typeWord.currentInput = ``;
+    typeWord01.currentInput = ``;
   }
   else if(currentState === `secondLevel`){
     state = `level02`;
@@ -1168,7 +1181,7 @@ function resetLevel(){
     oscillator202.start();
 
       // Deleting any Typed Input
-      typeWord.currentInput = ``;
+      typeWord02.currentInput = ``;
 
 
 
@@ -1237,7 +1250,7 @@ function resetLevel(){
     }
 
     // Deleting any Typed Input
-    typeWord.currentInput = ``;
+    typeWord05.currentInput = ``;
 
   }
   else if(currentState === `playing`){
@@ -1399,20 +1412,35 @@ function playNextNote() {
 //
 
 // Guessing/Typing Word - Level01, Level02, Level05
-function guessWord(){ // parameters?
-  typeWord.checkAnswer();
-  for (let i = 0; i < projectors.length; i ++){
-    let projector = projectors[i];
-    typeWord.checkInput(projector, purpleBunny, arrow);
+function guessWord(){
+  if (state === `level01`){
+    for (let i = 0; i < projectors.length; i ++){
+      let projector = projectors[i];
+      typeWord01.checkInput();
+    }
+    typeWord01.checkInputProgress();
+
+  }
+  else if (state === `level02`){
+    typeWord02.checkInput();
+    typeWord02.checkInputProgress();
+
+  }
+  else if (state === `level05`){
+
+    typeWord05.checkInput(purpleBunny); // arrows[] dealt with in TypeWord05 class
+    typeWord05.checkInputProgress();
+
   }
 
-  typeWord.checkInputProgress();
 }
 
 // p5 Events
 function keyPressed(){
 
-typeWord.keyPressed();
+typeWord01.keyPressed();
+typeWord02.keyPressed();
+typeWord05.keyPressed();
 
 if (state === `play`){
 
@@ -1469,7 +1497,9 @@ if (state === `level03`){
 }
 
 function keyTyped() {
-  typeWord.keyTyped();
+  typeWord01.keyTyped();
+  typeWord02.keyTyped();
+  typeWord05.keyTyped();
 }
 
 function mousePressed() {

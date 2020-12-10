@@ -90,7 +90,6 @@ class PurpleBunny{
   }
 
   shrink(){
-    console.log(`shrink`);
     // Mouth shrinking (aka "closing")
     this.mouthSize = this.mouthSize + this.shrinking;
     if(this.mouthSize < this.closedMouthSize){
