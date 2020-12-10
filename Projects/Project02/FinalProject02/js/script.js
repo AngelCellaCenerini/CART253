@@ -24,7 +24,7 @@ let myFontB;
 // Timers
 let timer = 0;
 let timerIntro = 10;
-// let timerLevel = 5;
+let timerLevel = 2;
 
 // Title
 // Madeleine Logo/Icon
@@ -142,7 +142,9 @@ let oscillator05;
 // Collected Items
 // let collectedItems = [];
 // let collectedScriptShreds = [];
+// let collectedScriptShred;
 // let collectedVoices = [];
+// let collectedVoice;
 
 // State Status (necessary since same Fail/Pass/Success states are being used for all levels)
 let currentState;
@@ -204,6 +206,8 @@ let cues05 = [
   `4. It is neither father nor mother.`,
   `5. Not plural.`
 ];
+// Guessing/Typing Word (Level01, Level02, Level03)
+let typeWord;
 
 
 // Ending02
@@ -212,7 +216,7 @@ let lights = [];
 let numLights = 20;
 
 // States
-let state = `ending02`        // Title, Instructions, Intro, Level01, Level02, Level03, Level04, Level05, PLay (User plays Melody)
+let state = `level05`        // Title, Instructions, Intro, Level01, Level02, Level03, Level04, Level05, PLay (User plays Melody)
                              // Fail (User looses), Pass (User passes level withouth solving it), Success (Achieved Voice or Script),  Ending01, Ending02.
 
 // Load Fonts
@@ -318,9 +322,6 @@ function setup() {
   let rightProjector = new Projector(x, y);
   projectors.push(rightProjector);
 
-  // Mic Input
-  // mic = new p5.AudioIn();
-  // mic.start();
   // Soundtrack
   oscillator02 = new p5.Oscillator(0, `tan`);
   oscillator202 = new p5.Oscillator(`triangle`);
@@ -350,9 +351,7 @@ function setup() {
    let compass = new Compass(x, y, positionX, positionY, size, frog);
    compasses.push(compass);
   }
-  // Mic Input
-  // mic03 = new p5.AudioIn();
-  // mic03.start();
+
   // Soundtrack
   synth03 = new p5.PolySynth();
   for (let i = 0; i < synth03.audiovoices.length; i++) {
@@ -436,7 +435,8 @@ function setup() {
   oscillator05 = new p5.Oscillator(440, `sawtooth`);
   oscillator05.amp(0.05);
 
-  // TipsTable (All Levels)
+  // All Levels
+  // TipsTable
   // TipsTable Lv01
   x = width/2;
   y = height/2;
@@ -462,6 +462,11 @@ function setup() {
   y = height/2;
   tipsTable05 = new TipsTable(x, y, cues05);
   tipsTables.push(tipsTable05);
+
+  // Type Word
+  x = width/2;
+  y = height/4;
+  typeWord = new TypeWord(x, y);
 
 
   // Ending02
@@ -536,7 +541,7 @@ function draw() {
     nextState = `level2`;
 
     // // Countdown
-    // countdown();
+    //countdown();
 
     // Mic Input Lifts Creatures
     let lv01 = mic.getLevel();
@@ -562,6 +567,9 @@ function draw() {
     // TipsTable
     tipsTable01.display();
 
+    // Guess/Type Word
+    guessWord();
+
   }
 
 
@@ -571,9 +579,8 @@ function draw() {
     currentState = `secondLevel`;
     nextState = `level3`;
 
-    // // Countdown
-    // timer = timerLevel;
-    // countdown();
+    // Countdown
+    //countdown();
 
     // Mic Input Calling Eye back to Focus
     let lv02 = mic.getLevel();
@@ -598,6 +605,9 @@ function draw() {
     // TipsTable
     tipsTable02.display();
 
+    // Guess/Type Word
+    guessWord();
+
     // Soundtrack
     angle += angleIncrease;
     let tanAngle = tan(angle);
@@ -617,9 +627,8 @@ function draw() {
     currentState = `thirdLevel`;
       nextState = `level4`;
 
-    // // Countdown
-    // timer = timerLevel;
-    // countdown();
+    // Countdown
+    //countdown();
 
     // Mic Input pushing away Needles
     let lv03 = mic.getLevel();
@@ -646,9 +655,8 @@ function draw() {
     currentState = `fourthLevel`;
     nextState = `level5`;
 
-    // // Countdown
-    // timer = timerLevel;
-    // countdown();
+    // Countdown
+    //countdown();
 
     // Moons
     for(let i = 0; i < moons.length; i++){
@@ -695,9 +703,8 @@ function draw() {
 
     currentState = `fifthLevel`;
 
-    // // Countdown
-    // timer = timerLevel;
-    // countdown();
+    // Countdown
+    //countdown();
 
     // Random Frequencies Values
     let r05 = random(0, 1);
@@ -726,6 +733,9 @@ function draw() {
     // TipsTable
     tipsTable05.display();
 
+    // Guess/Type Word
+    guessWord();
+
   }
 
   // Play
@@ -740,12 +750,17 @@ function draw() {
 
   // Pass
   else if ( state === `pass`){
+    // Reset Timer
+    timer = 0;
     textPass();
   }
 
   // Success
   // Achieved Voice
   else if ( state === `successV`){
+    // Reset Timer
+    timer = 0;
+
     textSuccessVoice();
 
     // Display Single Light
@@ -758,6 +773,9 @@ function draw() {
   }
   // Achieved Script Shred
   else if ( state === `successS`){
+    // Reset Timer
+    timer = 0;
+
     textSuccessScript();
   }
 
@@ -812,20 +830,19 @@ function countdown(){
       interval01 = setInterval(playRandomNote, 500);
       }
       timer = 0;
-      // timer = timerLevel;
+      timer = timerLevel;
     }
   }
 
-  // // Level Countdown (50 sec)
-  // if( state === `level01` || state === `level02` || state === `level03` || state === `level04` || state === `level05` ){
-  //   if ((frameCount % 60 === 0) && (timer > 0)){
-  //     timer--;
-  //   }
-  //   if ( timer === 0 ){
-  //     state = `pass`;
-  //     timer = 0;
-  //   }
-  // }
+  // Level Countdown (50 sec)
+  if( state === `level01` || state === `level02` || state === `level03` || state === `level04` || state === `level05`){
+    if ((frameCount % 60 === 0) && (timer > 0)){
+      timer--;
+    }
+    if ( timer === 0 ){
+      state = `pass`;
+    }
+  }
 
 }
 //
@@ -1020,6 +1037,8 @@ function resetLevel(){
   // Reset Level
   if(currentState === `firstLevel`){
     state = `level01`;
+    // Deleting any Typed Input
+    typeWord.currentInput = ``;
   }
   else if(currentState === `secondLevel`){
     state = `level02`;
@@ -1037,6 +1056,9 @@ function resetLevel(){
       // lv01 = mic.getLevel();
       // liftAmount = map(lv01, 0, 1, - 1, -15);
       // gravityForce = 0.002;
+
+      // Deleting any Typed Input
+      typeWord.currentInput = ``;
 
     }
 
@@ -1102,6 +1124,9 @@ function resetLevel(){
       arrow.y = random(3*height/2, height);
     }
 
+    // Deleting any Typed Input
+    typeWord.currentInput = ``;
+
   }
 }
 
@@ -1110,12 +1135,16 @@ function resetLevel(){
 function nextLevel(){
   if (nextState === `level2`){
     state = `level02`;
+    // Start Timer
+    timer = timerLevel;
     // Soundtracks
     oscillator02.start();
     oscillator202.start();
   }
   else if (nextState === `level3`){
     state = `level03`;
+    // Start Timer
+    timer = timerLevel;
     // Soundtrack
     if (interval03 === undefined) {
      interval03 = setInterval(playNextNote, 500);
@@ -1123,6 +1152,8 @@ function nextLevel(){
   }
   else if (nextState === `level4`){
     state = `level04`;
+    // Start Timer
+    timer = timerLevel;
     // // Soundtrack
     // if (interval04 === undefined) {
     //   interval04 = setInterval(playNextNote, 500);
@@ -1130,6 +1161,8 @@ function nextLevel(){
   }
   else if (nextState === `level5`){
     state = `level05`;
+    // Start Timer
+    timer = timerLevel;
     // Soundtrack
     if (interval05 === undefined) {
       interval05 = setInterval(playNextNote, 500);
@@ -1137,11 +1170,17 @@ function nextLevel(){
   }
   else if (nextState === `playMelody`){
     state = `play`;
+
   }
 }
 //
 
 // Determine Ending
+// function determineEnding(){
+  // Choose Ending (01 or 02) considering items collected by User
+
+// }
+//
 
 
 // Ending01
@@ -1228,8 +1267,21 @@ function playNextNote() {
 }
 //
 
+// Guessing/Typing Word - Level01, Level02, Level05
+function guessWord(){ // parameters?
+  typeWord.checkAnswer();
+  for (let i = 0; i < projectors.length; i ++){
+    let projector = projectors[i];
+    typeWord.checkInput(projector, purpleBunny);
+  }
+
+  typeWord.checkInputProgress();
+}
+
 // p5 Events
 function keyPressed(){
+
+typeWord.keyPressed();
 
 if(keyCode === 13){
   if(state === `title`){    // User presses ENTER
@@ -1267,9 +1319,10 @@ if (state === `level03`){
     compass.switchToEnding();
   }
 }
+}
 
-
-
+function keyTyped() {
+  typeWord.keyTyped();
 }
 
 function mousePressed() {
