@@ -58,6 +58,13 @@ class Creature{
         state = `fail`;
         clearInterval(interval01);
         interval01 = undefined;
+        // this.x =  random(11*width/25, 14*width/25);
+        // this.y = random(height/6, height/2);
+        // amount = 0;
+        // force = 0;
+
+        // x = random(11*width/25, 14*width/25);
+        // y = random(height/6, height/2);
     }
   }
 

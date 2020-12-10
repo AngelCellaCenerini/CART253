@@ -8,7 +8,7 @@ class Eye {
     this.vx = 0;
     this.vy = 0;
     this.maxSpeed = 6;
-    this.wonderTime = 0;
+    this.dartingTime = 0;
     this.stillTime = 0;
     this.moving = true;
 
@@ -24,8 +24,6 @@ class Eye {
       this.x = this.x + this.vx;
       this.y = this.y + this.vy;
 
-      // Time Pupil spends darting around
-      this.dartingTime++;
     }
     else{
       // Eye stills for 2 secs before going back to wondering around
@@ -58,13 +56,17 @@ class Eye {
 
     }
 
-    if (this.dartingTime > 4*60){
-      state = `fail`;
-      oscillator02.stop();
-      oscillator202.stop();
-      this.dartingTime = 0;
+    if(this.moving){
+      // Time Pupil spends darting around
+      this.dartingTime++;
+      if (this.dartingTime > 4*60 && this.moving === true){
+        state = `fail`;
+        oscillator02.stop();
+        oscillator202.stop();
+        this.dartingTime = 0;
+        this.stillgTime = 0;
+      }
     }
-
 
   }
 

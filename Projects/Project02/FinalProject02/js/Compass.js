@@ -23,7 +23,7 @@ class Compass{
     }
     else{
       this.delayTime ++;
-      if (this.delayTime > 3*60){
+      if (this.delayTime > 4*60){
         state = `successV`;
         clearInterval(interval03);
         interval03 = undefined;
@@ -64,10 +64,8 @@ class Compass{
       else if(dy > 0){
         this.vy = -this.speed;
       }
-      this.stallingTime = 0;
+      // this.stallingTime = 0;
     }
-
-
   }
 
   rotate(){
@@ -79,7 +77,17 @@ class Compass{
     if(dist(this.x, this.y, frog.x, frog.y) < frog.size/2){
       if(frog.size > 3*frog.maxSize/5){
         frog.wounded = true;
-        state = `fail`
+        this.delayTime = 0;
+      }
+    }
+    if (frog.wounded){
+      this.delayTime++;
+      if(this.delayTime > 4*60){
+        state = `fail`;
+        // this.stallingTime = 0;
+        // frog.stallingTime = 0;
+        // frog.wounded = false;
+        // frog.size = frog.originalSize;
         clearInterval(interval03);
         interval03 = undefined;
       }

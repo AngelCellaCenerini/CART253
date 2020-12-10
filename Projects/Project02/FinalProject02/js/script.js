@@ -40,9 +40,7 @@ let fading;
 // Level01
 // Winged Creatures
 let creatures = [];
-let violetCreature;
-let blueCreature;
-let greenCreature;
+let creature;
 // Declaring Gravity
 let gravityForce = 0.002;
 // "POTS" Buttons
@@ -53,8 +51,6 @@ let button = {
   height: 150,
   radius: 15
 };
-//Mic Input
-let mic;
 // Soundtrack
 let synth01;
 let notes01 = [`C#1`, `A1`, `Ab4`, `Bb4`, `Db4`];
@@ -132,14 +128,23 @@ let currentNote05 = 0;
 let interval05;
 let oscillator05;
 
-// TipsTable(s) - All Levels
-let tipsTables = [];
+
+// All Levels
+//Mic Input
+let mic;
+
+// State Status (necessary since same Fail/Pass/Success states are being used for all levels)
+let currentState;
+let nextState;
+
+// TipsTable(s)
+let tipsTables = [];  // for "deactivating" TipsTable when not in a level
 let tipsTable01;
 let tipsTable02;
 let tipsTable03;
 let tipsTable04;
 let tipsTable05;
-// Tips Arrays - All Levels
+// Tips Arrays
 let cues01 = [
   ``,
   `1. What a lovely keyboard you have there,
@@ -185,6 +190,7 @@ let cues05 = [
   `4. It is neither father nor mother.`,
   `5. Not plural.`
 ];
+
 
 // Ending02
 // Lights
@@ -240,20 +246,20 @@ function setup() {
   // Level01
   // Creatures
   // Violet Creature
-  x = random(11*width/25, 14*width/25,);
+  x = random(11*width/25, 14*width/25);
   y = random(height/6, height/2);
-  violetCreature = new VioletCreature(x, y);
-  creatures.push(violetCreature);
+  creature = new VioletCreature(x, y);
+  creatures.push(creature);
   // Blue Creature
   x = random(11*width/25, 14*width/25,);
   y = random(height/6, height/2);
-  blueCreature = new BlueCreature(x, y);
-  creatures.push(blueCreature);
+  creature = new BlueCreature(x, y);
+  creatures.push(creature);
   // Green Creature
   x = random(11*width/25, 14*width/25,);
   y = random(height/6, height/2);
-  greenCreature = new GreenCreature(x, y);
-  creatures.push(greenCreature);
+  creature = new GreenCreature(x, y);
+  creatures.push(creature);
 
   // Soundtrack
   synth01 = new p5.PolySynth();
@@ -372,7 +378,7 @@ function setup() {
     x = random(width/4, 9*width/10);
     y = random(height/9, 10*height/11);
     let moon = random(moons);
-    let fish = new Fish (x, y, moon); //, wave?
+    let fish = new Fish (x, y, moon);
     school.push(fish);
   }
 
@@ -392,7 +398,7 @@ function setup() {
   purpleBunny = new PurpleBunny(x, y, positionX, positionY);
 
   // Yellow Bunny
-  x = width/3;
+  x = width/6;
   y = height/3;
   yellowBunny = new YellowBunny(x, y);
 
@@ -510,6 +516,8 @@ function draw() {
   // Level01
   else if ( state === `level01`){
 
+    currentState = `firstLevel`;
+
     // // Countdown
     // countdown();
 
@@ -547,6 +555,8 @@ function draw() {
 
   // Level02
   else if ( state === `level02`){
+
+    currentState = `secondLevel`;
 
     // // Countdown
     // timer = timerLevel;
@@ -592,6 +602,8 @@ function draw() {
   // Level03
   else if ( state === `level03`){
 
+    currentState = `thirdLevel`;
+
     // // Countdown
     // timer = timerLevel;
     // countdown();
@@ -622,6 +634,8 @@ function draw() {
   // Level04
   else if ( state === `level04`){
 
+    currentState = `fourthLevel`;
+
     // // Countdown
     // timer = timerLevel;
     // countdown();
@@ -638,7 +652,8 @@ function draw() {
           if(otherMoon !== moon && !otherMoon.active){
              state = `fail`;
              clearInterval(interval04);
-             interval04 = undefined;           }
+             interval04 = undefined;
+           }
          }
        }
      }
@@ -667,6 +682,8 @@ function draw() {
 
   // Level05
   else if ( state === `level05`){
+
+    currentState = `fifthLevel`;
 
     // // Countdown
     // timer = timerLevel;
@@ -937,8 +954,82 @@ function textFail(){
   textSize(40);
   text(`Yikes. Try again?`, width/2, height/3);
   textSize(20);
-  text(`Press SHIFT to retry.`, width/2, 2*height/3);
+  text(`Press R to retry.`, width/2, 2*height/3);
   pop();
+}
+
+function resetLevel(){
+  // Reset Level
+  if(currentState === `firstLevel`){
+    state = `level01`;
+  }
+  else if(currentState === `secondLevel`){
+    state = `level02`;
+    // Restore Creature(s)
+    for(let i = 0; i < creatures.length; i++){
+      let creature = creatures[i];
+      creature.x = random(11*width/25, 14*width/25);
+      creature.y = random(height/10, height/5);
+      creature.active = true;
+      creature.ay = 0;
+      // // Reset Mic Input + Gravity Force
+      // lv01 = mic.getLevel();
+      // liftAmount = map(lv01, 0, 1, - 1, -15);
+      // gravityForce = 0.002;
+
+    }
+
+  }
+  else if(currentState === `thirdLevel`){
+    state = `level03`;
+
+    // Restore Compass(es)
+    for (let i = 0; i < compasses.length; i ++){
+     let compass = compasses[i];
+     compass.x = random(0, width);
+     compass.y = random(0, height);
+     // Avoid overlapping between Frog and Compass(es)
+     while(dist(compass.x,compass. y, frog.x, frog.y) < 3*frog.height/2){
+       compass.x = random(0, width);
+       compass.y = random(0, height);
+       compass.positionX = compass.x;
+       compass.positionY = compass.y;
+     }
+     compass.size = random(70, 160);
+     compass.stallingTime = 0;
+   }
+   // Restore Frog
+   frog.wounded = false;
+   frog.size = frog.originalSize;
+}
+  else if(currentState === `fourthLevel`){
+    state = `level04`;
+    // Restore Moons
+    for(let i = 0; i < moons.length; i++){
+      let moon = moons[i];
+      moon.active = true;
+    }
+    // Restore Fish
+    for(let i = 0; i < school.length; i++){
+      let fish = school[i];
+      fish.x = random(width/4, 9*width/10);
+      fish.y = random(height/9, 10*height/11);
+      fish.moon = random(moons);
+    }
+  }
+  else if(currentState === `fifthLevel`){
+    state = `level05`;
+    // Restore Yellow Bunny
+    yellowBunny.x = width/6;
+    yellowBunny.y= height/3;
+    // Restore Arrows
+    for(let i = 0; i < arrows.length; i++){
+      let arrow = arrows[i];
+      arrow.x = random(0, width);
+      arrow.y = random(3*height/2, height);
+    }
+
+  }
 }
 //
 
@@ -1057,6 +1148,11 @@ else if (keyCode === 32){
   tipsTable03.keyPressed();
   tipsTable04.keyPressed();
   tipsTable05.keyPressed();
+}
+else if (keyCode === 82){  // User presses R to Reset Level
+  if( state === `fail`){
+    resetLevel();
+  }
 }
 
 if (state === `level03`){
