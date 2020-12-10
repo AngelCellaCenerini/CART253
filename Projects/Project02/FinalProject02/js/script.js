@@ -31,6 +31,15 @@ let timerIntro = 10;
 let madeleine;
 
 // Intro
+// Heartbeat
+let synthHeartbeat;   // also used in Ending01, Ending02
+let notesHeartbeat = [`G4`, `G4`];
+// Play current Note
+let currentNoteHeartbeat = 0;
+// Track progress
+let intervalHeartbeat;
+let heartrate = 0;
+let volume = 0.04;
 // Mirror
 let mirror;  // also used in Ending01, Ending02
 // Fading Effect
@@ -130,12 +139,17 @@ let oscillator05;
 
 
 // All Levels
-//Mic Input
-let mic;
+// Collected Items
+// let collectedItems = [];
+// let collectedScriptShreds = [];
+// let collectedVoices = [];
 
 // State Status (necessary since same Fail/Pass/Success states are being used for all levels)
 let currentState;
 let nextState;
+
+//Mic Input
+let mic;
 
 // TipsTable(s)
 let tipsTables = [];  // for "deactivating" TipsTable when not in a level
@@ -170,7 +184,7 @@ let cues03 = [
   Good.`,
   `2. Poor frog. If only you could somehow
    distract the needles form attacking it.`,
-  `3. What does a compass yearn for?.`
+  `3. What does a compass yearn for?`
 ];
 let cues04 = [
   ``,
@@ -198,7 +212,7 @@ let lights = [];
 let numLights = 20;
 
 // States
-let state = `level03`        // Title, Instructions, Intro, Level01, Level02, Level03, Level04, Level05, PLay (User plays Melody)
+let state = `ending02`        // Title, Instructions, Intro, Level01, Level02, Level03, Level04, Level05, PLay (User plays Melody)
                              // Fail (User looses), Pass (User passes level withouth solving it), Success (Achieved Voice or Script),  Ending01, Ending02.
 
 // Load Fonts
@@ -231,6 +245,8 @@ function setup() {
   madeleine = new Madeleine(x, y);
 
   // Intro
+  // Heartbeats
+  synthHeartbeat = new p5.PolySynth();
   // Mirror
   x = width/2;
   y = height/2;
@@ -546,11 +562,6 @@ function draw() {
     // TipsTable
     tipsTable01.display();
 
-    // Soundtrack
-    if (interval01 === undefined) {
-    interval01 = setInterval(playRandomNote, 500);
-    }
-
   }
 
 
@@ -592,12 +603,11 @@ function draw() {
     let tanAngle = tan(angle);
     let newFreq = map(tanAngle, -1, 1, 420, 680);
     oscillator02.freq(newFreq);
-    oscillator02.start();
 
     let randomValue = random(0, 1);
     let newFrequency = map(randomValue, 0, 1, 200, 300);
     oscillator202.freq(newFrequency);
-    oscillator202.start();
+
 
   }
 
@@ -628,10 +638,6 @@ function draw() {
     // TipsTable
     tipsTable03.display();
 
-    // Soundtrack
-    if (interval03 === undefined) {
-     interval03 = setInterval(playNextNote, 500);
-    }
   }
 
   // Level04
@@ -655,8 +661,8 @@ function draw() {
           let otherMoon = moons[j];
           if(otherMoon !== moon && !otherMoon.active){
              state = `fail`;
-             clearInterval(interval04);
-             interval04 = undefined;
+               clearInterval(interval04);
+               interval04 = undefined;
            }
          }
        }
@@ -720,10 +726,6 @@ function draw() {
     // TipsTable
     tipsTable05.display();
 
-    // Soundtrack
-    if (interval05 === undefined) {
-      interval05 = setInterval(playNextNote, 500);
-    }
   }
 
   // Play
@@ -799,7 +801,16 @@ function countdown(){
       timer--;
     }
     if ( timer === 0 ){
+      // Stop "Heartbeats" SFX
+      if (intervalHeartbeat !== undefined) {
+        clearInterval(intervalHeartbeat);
+        intervalHeartbeat = undefined;
+      }
       state = `level01`;
+      // Soundtrack
+      if (interval01 === undefined) {
+      interval01 = setInterval(playRandomNote, 500);
+      }
       timer = 0;
       // timer = timerLevel;
     }
@@ -1012,6 +1023,9 @@ function resetLevel(){
   }
   else if(currentState === `secondLevel`){
     state = `level02`;
+    // Soundtracks
+    oscillator02.start();
+    oscillator202.start();
     // Restore Creature(s)
     for(let i = 0; i < creatures.length; i++){
       let creature = creatures[i];
@@ -1029,6 +1043,11 @@ function resetLevel(){
   }
   else if(currentState === `thirdLevel`){
     state = `level03`;
+
+    // Soundtrack
+    if (interval03 === undefined) {
+     interval03 = setInterval(playNextNote, 500);
+    }
 
     // Restore Compass(es)
     for (let i = 0; i < compasses.length; i ++){
@@ -1051,6 +1070,13 @@ function resetLevel(){
 }
   else if(currentState === `fourthLevel`){
     state = `level04`;
+
+    // Restore Soundtrack
+    if (interval04 !== undefined){
+     clearInterval(interval04);
+     interval04 = undefined;
+    }
+
     // Restore Moons
     for(let i = 0; i < moons.length; i++){
       let moon = moons[i];
@@ -1079,29 +1105,54 @@ function resetLevel(){
   }
 }
 
-// After passing/surpassing Level (level05 excluded)
+// After passing/surpassing Level
 // Proceed to Next Level
 function nextLevel(){
   if (nextState === `level2`){
     state = `level02`;
+    // Soundtracks
+    oscillator02.start();
+    oscillator202.start();
   }
   else if (nextState === `level3`){
     state = `level03`;
+    // Soundtrack
+    if (interval03 === undefined) {
+     interval03 = setInterval(playNextNote, 500);
+    }
   }
   else if (nextState === `level4`){
     state = `level04`;
+    // // Soundtrack
+    // if (interval04 === undefined) {
+    //   interval04 = setInterval(playNextNote, 500);
+    // }
   }
   else if (nextState === `level5`){
     state = `level05`;
+    // Soundtrack
+    if (interval05 === undefined) {
+      interval05 = setInterval(playNextNote, 500);
+    }
+  }
+  else if (nextState === `playMelody`){
+    state = `play`;
   }
 }
 //
+
+// Determine Ending
 
 
 // Ending01
 // Switch to Title Screen
 function switchToTitle(){
 state = `title`;
+// Stop "Heartbeat" SFX
+if (intervalHeartbeat !== undefined) {
+  clearInterval(intervalHeartbeat);
+  intervalHeartbeat = undefined;
+}
 }
 //
 
@@ -1119,9 +1170,32 @@ function playRandomNote(){
 
 function playNextNote() {
 
+  // Intro, Ending01, Ending02
+  if (state === `intro` || state === `ending01` || state === `ending02`){
+    // Play notes
+    let noteHeartbeat = notesHeartbeat[currentNoteHeartbeat];
+    heartrate = heartrate + volume;
+    synthHeartbeat.play(noteHeartbeat, heartrate, 0, 0.3);
+    // Scroll through notes + reset index
+    currentNoteHeartbeat = currentNoteHeartbeat + 1;
+    if (currentNoteHeartbeat === notesHeartbeat.length) {
+      currentNoteHeartbeat = 0;
+    }
+
+    if (state === `ending01`){
+      heartrate = 0.8;
+      heartrate = heartrate - volume;
+    }
+
+    if (state === `ending02`){
+      volume = 0.8;
+    }
+  }
+
+
   // level03
   if (state === `level03`){
-    // PLay noyes
+    // PLay notes
     let note03 = notes03[currentNote03];
     synth03.play(note03, 0.1, 1, 1);
     currentNote03 = currentNote03 + 1;
@@ -1164,6 +1238,9 @@ if(keyCode === 13){
   else if (state === `instructions`){
     state = `intro`;
     timer = timerIntro;
+    if (intervalHeartbeat === undefined) {
+     intervalHeartbeat = setInterval(playNextNote, 900);
+    }
   }
   else if( state === `pass` || state === `successV`|| state === `successS`){
     nextLevel();
@@ -1207,9 +1284,11 @@ function mousePressed() {
 
   if(state === `level04`){
 
+    // Soundtrack
     if (interval04 === undefined) {
       interval04 = setInterval(playNextNote, 500);
     }
+
     // Create Waves
     let createdWave = wave.mousePressed();
     if(createdWave){

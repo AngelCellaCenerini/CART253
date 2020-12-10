@@ -56,8 +56,11 @@ class Creature{
     if ((this.y + this.size/2) > 5*height/7){
         this.active = false;
         state = `fail`;
-        clearInterval(interval01);
-        interval01 = undefined;
+         if (interval01 !== undefined){
+           clearInterval(interval01);
+           interval01 = undefined;
+         }
+
         // this.x =  random(11*width/25, 14*width/25);
         // this.y = random(height/6, height/2);
         // amount = 0;
