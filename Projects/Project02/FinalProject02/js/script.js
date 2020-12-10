@@ -198,7 +198,7 @@ let lights = [];
 let numLights = 20;
 
 // States
-let state = `level02`        // Title, Instructions, Intro, Level01, Level02, Level03, Level04, Level05, PLay (User plays Melody)
+let state = `level03`        // Title, Instructions, Intro, Level01, Level02, Level03, Level04, Level05, PLay (User plays Melody)
                              // Fail (User looses), Pass (User passes level withouth solving it), Success (Achieved Voice or Script),  Ending01, Ending02.
 
 // Load Fonts
@@ -517,6 +517,7 @@ function draw() {
   else if ( state === `level01`){
 
     currentState = `firstLevel`;
+    nextState = `level2`;
 
     // // Countdown
     // countdown();
@@ -557,6 +558,7 @@ function draw() {
   else if ( state === `level02`){
 
     currentState = `secondLevel`;
+    nextState = `level3`;
 
     // // Countdown
     // timer = timerLevel;
@@ -603,6 +605,7 @@ function draw() {
   else if ( state === `level03`){
 
     currentState = `thirdLevel`;
+      nextState = `level4`;
 
     // // Countdown
     // timer = timerLevel;
@@ -635,6 +638,7 @@ function draw() {
   else if ( state === `level04`){
 
     currentState = `fourthLevel`;
+    nextState = `level5`;
 
     // // Countdown
     // timer = timerLevel;
@@ -1045,6 +1049,22 @@ function textPass(){
   text(`Press ENTER to proceed to the next level.`, width/2, 2*height/3);
   pop();
 }
+
+// Proceed to Next Level
+function nextLevel(){
+  if (nextState === `level2`){
+    state = `level02`;
+  }
+  else if (nextState === `level3`){
+    state = `level03`;
+  }
+  else if (nextState === `level4`){
+    state = `level04`;
+  }
+  else if (nextState === `level5`){
+    state = `level05`;
+  }
+}
 //
 
 // Success
@@ -1132,16 +1152,20 @@ function playNextNote() {
 
 // p5 Events
 function keyPressed(){
+
 if(keyCode === 13){
-  if(state === `title`){
+  if(state === `title`){    // User presses ENTER
     state = `instructions`;
   }
   else if (state === `instructions`){
     state = `intro`;
     timer = timerIntro;
   }
+  else if( state === `pass` || state === `successV`|| state === `successS`){
+    nextLevel();
+  }
 }
-else if (keyCode === 32){
+else if (keyCode === 32){   // User presses SPACEBAR
   // TipsTable(s)
   tipsTable01.keyPressed();
   tipsTable02.keyPressed();
