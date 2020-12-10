@@ -151,17 +151,20 @@ let cues01 = [
 ];
 let cues02 = [
   ``,
-  `1. I see you still have your keyboard with you. Good.`,
-  `2. I stand to your right when you gaze at the rising sun.`,
+  `1. I see you still have your keyboard with you.
+  Good.`,
+  `2. I stand to your right
+  when you gaze at the rising sun.`,
   `3. Typing me is not enough.`,
   `4. You only have one attempt.`,
   `5. S h u t   i t   o f f .`
 ];
 let cues03 = [
   ``,
-  `1. I see you still have your keyboard with you. Good.`,
-  `2. Poor frog.
-   If only you could somehow distract the needles form attacking it.`,
+  `1. I see you still have your keyboard with you.
+  Good.`,
+  `2. Poor frog. If only you could somehow
+   distract the needles form attacking it.`,
   `3. What does a compass yearn for?.`
 ];
 let cues04 = [
@@ -175,7 +178,8 @@ let cues04 = [
 ];
 let cues05 = [
   ``,
-  `1. I see you still have your keyboard with you. Good.`,
+  `1. I see you still have your keyboard with you.
+  Good.`,
   `2. We each have our own.`,
   `3. Our point of origin, where we derive from.`,
   `4. It is neither father nor mother.`,
@@ -188,7 +192,7 @@ let lights = [];
 let numLights = 20;
 
 // States
-let state = `level03`        // Title, Instructions, Intro, Level01, Level02, Level03, Level04, Level05, PLay (User plays Melody)
+let state = `level02`        // Title, Instructions, Intro, Level01, Level02, Level03, Level04, Level05, PLay (User plays Melody)
                              // Fail (User looses), Pass (User passes level withouth solving it), Success (Achieved Voice or Script),  Ending01, Ending02.
 
 // Load Fonts
@@ -314,7 +318,7 @@ function setup() {
    let x = random(0, width);
    let y = random(0, height);
    // Avoid overlapping between Frog and Compass(es)
-   while(dist(x, y, frog.x, frog.y) < frog.height){
+   while(dist(x, y, frog.x, frog.y) < 3*frog.height/2){
      x = random(0, width);
      y = random(0, height);
    }
@@ -418,7 +422,7 @@ function setup() {
   tipsTables.push(tipsTable01);
   // TipsTable Lv02
   x = width/4;
-  y = height/2;
+  y = 2*height/5;
   tipsTable02 = new TipsTable(x, y, cues02);
   tipsTables.push(tipsTable02);
   // TipsTable Lv03
@@ -1046,6 +1050,14 @@ if(keyCode === 13){
     timer = timerIntro;
   }
 }
+else if (keyCode === 32){
+  // TipsTable(s)
+  tipsTable01.keyPressed();
+  tipsTable02.keyPressed();
+  tipsTable03.keyPressed();
+  tipsTable04.keyPressed();
+  tipsTable05.keyPressed();
+}
 
 if (state === `level03`){
   for (let i = 0; i < compasses.length; i++){
@@ -1055,12 +1067,7 @@ if (state === `level03`){
   }
 }
 
-// TipsTable(s)
-tipsTable01.keyPressed();
-tipsTable02.keyPressed();
-tipsTable03.keyPressed();
-tipsTable04.keyPressed();
-tipsTable05.keyPressed();
+
 
 }
 

@@ -5,23 +5,37 @@ class Eye {
     this.positionX = positionX;    // Distinguishing from this.x, which only applies to pupil
     this.positionY = positionY;    // Distinguishing from this.x, which only applies to pupil
     this.size = 170;
-    this.pupilSize = 60;
-    this.vx = 4;
-    this.vy = 4;
+    this.vx = 0;
+    this.vy = 0;
     this.maxSpeed = 6;
     this.wonderTime = 0;
+    this.stillTime = 0;
+    this.moving = true;
 
   }
 
   move(){
-    this.x = this.x + this.vx;
-    this.y = this.y + this.vy;
+    if (this.moving){
+      let direction = random(0, 1);
+      if (direction < 0.15){
+        this.vx = random(-this.maxSpeed, this.maxSpeed);
+        this.vy = random(-this.maxSpeed, this.maxSpeed);
+      }
+      this.x = this.x + this.vx;
+      this.y = this.y + this.vy;
 
-    let direction = random(0, 1);
-    if (direction < 0.15){
-      this.vx = random(-this.maxSpeed, this.maxSpeed);
-      this.vy = random(-this.maxSpeed, this.maxSpeed);
+      // Time Pupil spends darting around
+      this.dartingTime++;
     }
+    else{
+      // Eye stills for 2 secs before going back to wondering around
+      this.stillTime ++;
+      if(this.stillTime > 2*60){
+        this.moving = true;
+        this.stillTime = 0;
+      }
+    }
+
   }
 
   restrict(){
@@ -34,16 +48,16 @@ class Eye {
     }
 
   focus(lv02){
-    // Time Pupil spends darting around
-    this.dartingTime++;
 
     // Recenter Pupil via Mic Input
     if (lv02 > 0.1){
       this.dartingTime = 0;
       this.x = this.positionX;
       this.y = this.positionY;
+      this.moving = false;
 
     }
+
     if (this.dartingTime > 4*60){
       state = `fail`;
       oscillator02.stop();
@@ -53,6 +67,7 @@ class Eye {
 
 
   }
+
 
   display(){
 
@@ -72,7 +87,7 @@ class Eye {
     // Blue-Green Pupil
     push();
     fill(58, 255, 220);
-    ellipse(this.x, this.y, this.pupilSize);
+    ellipse(this.x, this.y, 6*this.size/17);
     pop();
 
     // Gloden Pupil Ring
@@ -80,7 +95,7 @@ class Eye {
     noFill();
     stroke(255, 204, 0);
     strokeWeight(2);
-    ellipse(this.x, this.y, this.pupilSize/3);
+    ellipse(this.x, this.y, 2*this.size/17);
     pop();
 
   }
