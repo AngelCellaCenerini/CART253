@@ -3,12 +3,15 @@ class Light {
     this.x = x;
     this.y = y;
     this.size = size;
+    this.maxSize = 2000;
+    this.growth = 4;
     this.vx = 0;
     this.vy = 0;
     this.speed = 1.8;
-    this.r = 250;
-    this.g = 250;
-    this.b = 250;
+    this.r = 240;
+    this.g = 240;
+    this.b = 240;
+    this.explosionTime = 0;
   }
 
   move(){

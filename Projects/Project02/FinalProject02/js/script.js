@@ -215,11 +215,12 @@ let cues05 = [
   `5. Not plural.`
 ];
 
-
 // PLay
 // Lights
+let lights = [];
+let numLights = 18;
 let atmosphericLights = [];
-let numAtmosphericLights = 20;
+let numAtmosphericLights = 25;
 let chimingLights = [];
 let numChimingLights = 6;
 // Melody
@@ -251,7 +252,7 @@ let won = false;
 // Lights
 // States
 timer = timerLevel;
-let state = `level03`        // Title, Instructions, Intro, Level01, Level02, Level03, Level04, Level05, PLay (User plays Melody)
+let state = `play`        // Title, Instructions, Intro, Level01, Level02, Level03, Level04, Level05, PLay (User plays Melody)
                           // Fail (User looses), Pass (User passes level withouth solving it), Success (Achieved Voice or Script),  Ending01, Ending02.
 
 // Load Fonts
@@ -295,7 +296,15 @@ function setup() {
   y = height/2;
   let widthF = windowWidth;
   let heightF = windowHeight;
-  fading = new Fading(x, y, width, height);
+  fading = new Fading(x, y, widthF, heightF);
+  // Atmospheric Lights  - ALso in Ending02
+  for(let i = 0; i < numAtmosphericLights; i++){
+    let x =  width/2;
+    let y = 2*height/5;
+    let size = random(5, 35);
+    let atmosphericLight = new Light(x, y, size);
+    atmosphericLights.push(atmosphericLight);
+  }
 
 
   // Level01
@@ -516,14 +525,12 @@ function setup() {
 
   // Play
   // Atmospheric Lights  - ALso in Ending02
-  for(let i = 0; i < numAtmosphericLights; i++){
-    let x =  width/2;
-    let y = 2*height/5;
-    // let x = random(0, width);
-    // let y = random(0, height);
-    let size = random(5, 35);
-    let atmosphericLight = new Light(x, y, size);
-    atmosphericLights.push(atmosphericLight);
+  for(let i = 0; i < numLights; i++){
+    let x = random(0, width);
+    let y = random(0, height);
+    let size = random(5, 30);
+    let light = new Light(x, y, size);
+    lights.push(light);
   }
 
   // Chiming Lights
@@ -543,16 +550,6 @@ function setup() {
 
   // Melody
   synthM = new p5.PolySynth();
-
-
-  // Ending02
-  // Atmospheric Lights  - ALso in Ending02
-  // for(let i = 0; i < numAtmosphericLights; i++){
-  //
-  //   let size = random(5, 50);
-  //   let atmosphericLight = new AtmosphericLight(x, y, size);
-  //   atmosphericLights.push(atmosphericLight);
-  // }
 
 }
 
@@ -821,14 +818,11 @@ function draw() {
   currentState = `playing`;
 
   //  Atmospheric Lights
-  for (let i = 0; i < atmosphericLights.length; i ++){
-    let atmosphericLight = atmosphericLights[i];
-    let x = random(0, width);
-    let y = random(0, height);
-    let size = random(5, 30);
-    atmosphericLight.move();
-    atmosphericLight.wrap();
-    atmosphericLight.display();
+  for (let i = 0; i < lights.length; i ++){
+    let light = lights[i];
+    light.move();
+    light.wrap();
+    light.display();
   }
   //  Chiming Lights
   for (let i = 0; i < chimingLights.length; i ++){
@@ -886,7 +880,7 @@ function draw() {
   // Achieved Script Shred
   else if ( state === `successS`){
     // Reset Timer
-    // timer = 0;
+    timer = 0;
 
     textSuccessScript();
 
