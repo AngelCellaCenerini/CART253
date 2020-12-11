@@ -184,8 +184,10 @@ let cues02 = [
   `2. I stand to your right
   when you gaze at the rising sun.`,
   `3. Typing me is not enough.`,
-  `4. You only have one attempt.`,
-  `5. S h u t   i t   o f f .`
+  `4. Y o u   n e e d  t o
+  s h u t   i t   o f f .`,
+  `5. Remember what stands to your right.`,
+  `6. You only have one attempt.`
 ];
 let cues03 = [
   ``,
@@ -1007,6 +1009,8 @@ function textInstructions(){
     Certain levels require your microphone input, therefore choose wisely whether
     or not to allow the web page access to your audio :)
     Remember, all levels are timed.
+
+    WARNING: Flashing Lights Warning for Level02.
 
     For your own safety, please keep the volume on the medium-lower end.
     Or blast the volume bar up and enjoy bleeding ears; it is your choice, after all.
