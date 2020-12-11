@@ -21,6 +21,11 @@ class TypeWord05{
      // Restore Input for next Levels
      this.currentInput = ``;
      purpleBunny.active = true;
+     oscillator05.start();
+     if (interval05 !== undefined) {
+      clearInterval(interval05, 500);
+      interval05 = undefined;
+     }
      // Freez Arrows
      for (let i = 0; i < arrows.length; i++){
        let arrow = arrows[i];

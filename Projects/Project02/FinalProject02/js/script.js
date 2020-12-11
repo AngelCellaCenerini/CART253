@@ -24,7 +24,7 @@ let myFontB;
 // Timers
 let timer = 0;
 let timerIntro = 10;
-let timerLevel = 30;
+let timerLevel = 10;
 
 // Title
 // Madeleine Logo/Icon
@@ -906,7 +906,7 @@ function draw() {
     voice.wrap();
     voice.display();
 
-    oscillator05.stop();
+    // oscillator05.stop();
 
     // // Store Voice
     // collectedVoices.push(collectedVoice);
@@ -1165,6 +1165,7 @@ function adhereToScript(){
         for(let i = 0; i < correctKeySequence.length; i ++){
           if(insertedKeys[i] !== correctKeySequence[i]){
            state = `fail`;
+           insertedKeys.length = 0;
            melodySFX.stop();
           }
           else {
@@ -1173,7 +1174,7 @@ function adhereToScript(){
                 melodySFX.play(1);
               }
               else{
-                setTimeout(switchToEnding01, 6000);
+                setTimeout(switchToEnding01, 5000);
               }
             }
            }
@@ -1185,15 +1186,17 @@ function adhereToScript(){
            for(let i = 0; i < correctKeySequence2.length; i ++){
              if(insertedKeys2[i] !== correctKeySequence2[i]){
               state = `fail`;
-              melodySFX.stop();
+              insertedKeys2.length = 0;
+              // insertedKeys2 = [];
+              // melodySFX.stop();
               }
               else {
-               setTimeout(switchToEnding01, 6000);
+                setTimeout(switchToEnding01, 5000);
+                }
               }
             }
       }
     }
-  }
 //
 
 
@@ -1395,8 +1398,10 @@ function resetLevel(){
   }
   else if(currentState === `playing`){
     state = `play`;
-    insertedKeys = [];
-    insertedKeys2 = [];
+    insertedKeys.length = 0;
+    insertedKeys2.length = 0;
+    // adhereToScript();
+    // determineEnding();
 }
 }
 
@@ -1415,6 +1420,7 @@ function nextLevel(){
     state = `level03`;
     // Start Timer
     timer = timerLevel;
+    frog.switchTime = 0;
     // Soundtrack
     if (interval03 === undefined) {
      interval03 = setInterval(playNextNote, 500);
@@ -1442,6 +1448,8 @@ function nextLevel(){
   }
   else if (nextState === `playMelody`){
     state = `play`;
+    insertedKeys.length = 0;
+    insertedKeys2.length = 0;
 
   }
 }
@@ -1464,17 +1472,16 @@ function determineEnding(){
     won = false;
   }
 }
+//
 
+
+// Ending01
 function switchToEnding01(){
   state = `ending01`;
   if (intervalHeartbeat === undefined) {
    intervalHeartbeat = setInterval(playNextNote, 900);
   }
 }
-//
-
-
-// Ending01
 // Switch to Title Screen
 function switchToTitle(){
 state = `title`;
@@ -1597,12 +1604,14 @@ function keyPressed(){
 if (state === `play`){
 
   // Store User Input
-  if (!incomplete){
-      insertedKeys.push(keyCode);
-  }
-  else{
-      insertedKeys2.push(keyCode);
-  }
+
+    if (!incomplete){
+        insertedKeys.push(keyCode);
+    }
+    else{
+        insertedKeys2.push(keyCode);
+    }
+
 
 
   for (let i = 0; i < chimingLights.length; i ++){

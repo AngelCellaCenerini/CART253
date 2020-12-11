@@ -53,7 +53,7 @@ keyPressed(){
 }
 
 keyTyped(){
-  if (keyCode !== 13 && keyCode !== 32){
+  if (keyCode !== 13 && keyCode !== 32 && keyCode !== 82){
       if (state === `level02`){
           this.currentInput += key;
       }

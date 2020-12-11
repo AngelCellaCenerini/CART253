@@ -21,6 +21,7 @@ class Compass{
       this.chase(frog);
       this.impact(frog);
       this.withdraw(frog, lv03);
+
     }
     else{
       this.delayTime ++;
@@ -81,11 +82,10 @@ class Compass{
     if(dist(this.x, this.y, frog.x, frog.y) < frog.size/2){
       if(frog.size > 3*frog.maxSize/5){
         frog.wounded = true;
-        this.switchTime = 0;
+        this.switchTime++;;
       }
     }
     if (frog.wounded){
-      this.switchTime++;
       if(this.switchTime > 3*60){
         state = `fail`;
         if (interval03 !== undefined){
