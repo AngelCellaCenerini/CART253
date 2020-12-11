@@ -28,6 +28,7 @@ As promised in the Proposal, all assets, except for the infamous Melody, have be
 In my defense, it's math).
 
 The only exception, as mentioned, is the .mp3 file melody, which plays the small masterpiece that is "A Nostalgic Dream", by Peter Gundry.
+Although I did slightly modify the original version to make the sound fit better the mood of my program.
 Initially, I had planned to experiment around with p5.sound and create my own 'melody', although the results were...questionable. I guarantee I am doing everyone's ears a favor here.
 
 
