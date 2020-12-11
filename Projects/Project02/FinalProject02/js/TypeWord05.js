@@ -26,7 +26,6 @@ class TypeWord05{
        let arrow = arrows[i];
            arrow.active = false;   // done here instead of main script because putting both PurpleBunny and Arrow (Array) as parameters was giving me issues
      }
-     oscillator05.start();
      }
      else {
        return false;

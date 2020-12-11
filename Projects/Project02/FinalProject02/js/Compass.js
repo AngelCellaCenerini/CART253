@@ -87,8 +87,11 @@ class Compass{
       this.switchTime++;
       if(this.switchTime > 3*60){
         state = `fail`;
-        clearInterval(interval03);
-        interval03 = undefined;
+        if (interval03 !== undefined){
+          clearInterval(interval03);
+          interval03 = undefined;
+        }
+          // this.switchTime = 0;
       }
     }
 
@@ -142,15 +145,6 @@ class Compass{
 
   }
 
-  switchToEnding(){
-    // // this.delayTime ++;
-    // if (this.delayTime > 3*60){
-    //   state = `successV`;
-    //   clearInterval(interval03);
-    //   interval03 = undefined;
-    // }
-
-  }
 
 
   display(){

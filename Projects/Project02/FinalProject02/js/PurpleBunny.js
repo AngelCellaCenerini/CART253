@@ -101,7 +101,7 @@ class PurpleBunny{
     if(this.delayedSwitchTime > 2*60){
       state = `successV`;
       oscillator05.stop();
-      this.delayedSwitchTime = 0;
+      // this.delayedSwitchTime = 0;
     }
   }
 

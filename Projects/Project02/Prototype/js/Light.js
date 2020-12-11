@@ -4,7 +4,7 @@ class Light {
     this.y = y;
     this.originalSize = undefined;
     this.size = undefined;
-    this.growth = 20;
+    // this.growth = 20;
     this.vx = 0;
     this.vy = 0;
     this.speed = undefined;
@@ -60,7 +60,7 @@ class Light {
 
   keyPressed(){
     if((keyCode === this.keyCode) && (state === `simulation`)){
-      this.size = this.size + this.growth;
+      this.size ++;
       this.timer = 1;
     }
   }

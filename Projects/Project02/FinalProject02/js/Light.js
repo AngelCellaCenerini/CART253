@@ -49,16 +49,13 @@ class Light {
 
     this.explosionTime++;
 
-    if(this.explosionTime > 12*60){
+    if(this.explosionTime > 19*60){
     this.size = this.size + this.growth;
     }
     if(this.size > this.maxSize){
       this.growth = 0;
       state = `title`;
-      if (intervalHeartbeat !== undefined) {
-        clearInterval(intervalHeartbeat);
-        intervalHeartbeat = undefined;
-      }
+      melodySFX.stop();
     }
   }
 

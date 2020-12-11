@@ -24,7 +24,7 @@ let myFontB;
 // Timers
 let timer = 0;
 let timerIntro = 10;
-let timerLevel = 60;
+let timerLevel = 15;
 
 // Title
 // Madeleine Logo/Icon
@@ -143,16 +143,19 @@ let oscillator05;
 // Guessing/Typing Word
 let typeWord05;
 // Check User Accomplishments
-let incomplete;
+let incomplete = true;
 
 
 // All Levels
 // Collected Items
 let collectedItems = [];
-let collectedScriptShreds = [];
-let collectedScriptShred;
-let collectedVoices = [];
-let collectedVoice;
+// let collectedScriptShreds = [];
+// let collectedVoices = [];
+let collectedScriptShred01 = false;
+let collectedScriptShred02 = false;
+let collectedVoice01 = false;
+let collectedVoice02 = false;
+let collectedVoice03 = false;
 
 // State Status (necessary since same Fail/Pass/Success states are being used for all levels)
 let currentState;
@@ -162,7 +165,6 @@ let nextState;
 let mic;
 
 // TipsTable(s)
-let tipsTables = [];  // for "deactivating" TipsTable when not in a level
 let tipsTable01;
 let tipsTable02;
 let tipsTable03;
@@ -217,6 +219,7 @@ let cues05 = [
 
 // PLay
 // Lights
+let voice;
 let lights = [];
 let numLights = 18;
 let atmosphericLights = [];
@@ -224,41 +227,62 @@ let numAtmosphericLights = 25;
 let chimingLights = [];
 let numChimingLights = 6;
 // Melody
-let melody;
-let synthM;
-let sequences = {
-  g: [`D4`, `F4`,`A5`,`G4`],
-  f: [`F4`, `E4`,`C4`,`D4`],
-  h: [`D4`, `F4`,`A5`,`D5`, `D5`, `Db5`,`D5`,`A6`],
-  t: [`A6`,`G#5`,`A6`, `Bb6`,`A6`,`G5`,`E6`, `Db6`, `A5`],
-  c: [`A3`,`D2`],  // sx
-  b: [`F4`],
-  v: [`E4`, `F4`, `G4`, `A5`],
-  r: [`E4`, `C4`],
-  d: [`D4`]
-};
+// MP3 Files - Splitted Melody
+let melody01SFX;
+let melody02SFX;
+let melody03SFX;
+let melody04SFX;
+let melody05SFX;
+let melody06SFX;
+let melody07SFX;
+let melody08SFX;
+let melody09SFX;
+let melody10SFX;
+let melodySFX;
+// Script
+let script = {
+  x: 0,
+  y: 0,
+  width: 300,
+  height: 600
+}
+
 // Assembling "Melody" aka a Set Sequence of Keys for User to follow
-let correctKeySequence = [65,65, 87, 83, 68, 68, 87, 83, 68, 68, 65, 83, 87];
-let correctKeySequence2 = [65,65, 87, 83, 68, 68, 87];
+let correctKeySequence = [87, 68, 65, 83, 88, 67, 70, 86, 69, 81];
+let correctKeySequence2 = [87, 68, 65, 83, 88];
 let insertedKeys = [];
+let insertedKeys2 = [];
 
 
 // Establish Ending
-let won = false;
+let won;
 
 
 
 // Ending02
 // Lights
 // States
-timer = timerLevel;
-let state = `play`        // Title, Instructions, Intro, Level01, Level02, Level03, Level04, Level05, PLay (User plays Melody)
+let state = `title`        // Title, Instructions, Intro, Level01, Level02, Level03, Level04, Level05, PLay (User plays Melody)
                           // Fail (User looses), Pass (User passes level withouth solving it), Success (Achieved Voice or Script),  Ending01, Ending02.
 
 // Load Fonts
 function preload(){
+  // Fonts
   myFontA = loadFont('assets/AnonymousPro-Regular.otf');
   myFontB = loadFont('assets/BigShouldersStencilDisplay-Regular.otf');
+
+  // MP3 Files
+  melody01SFX = loadSound('assets/sounds/1.mp3');
+  melody02SFX = loadSound('assets/sounds/2.mp3');
+  melody03SFX = loadSound('assets/sounds/3.mp3');
+  melody04SFX = loadSound('assets/sounds/4.mp3');
+  melody05SFX = loadSound('assets/sounds/5.mp3');
+  melody06SFX = loadSound('assets/sounds/6.mp3');
+  melody07SFX = loadSound('assets/sounds/7.mp3');
+  melody08SFX = loadSound('assets/sounds/8.mp3');
+  melody09SFX = loadSound('assets/sounds/9.mp3');
+  melody10SFX = loadSound('assets/sounds/10.mp3');
+  melodySFX = loadSound('assets/sounds/melody.mp3');
 }
 
 
@@ -291,20 +315,13 @@ function setup() {
   x = width/2;
   y = height/2;
   mirror = new Mirror(x, y);   // also used in Ending01, Ending02
+
   // Fading Effect
   x = width/2;
   y = height/2;
   let widthF = windowWidth;
   let heightF = windowHeight;
   fading = new Fading(x, y, widthF, heightF);
-  // Atmospheric Lights  - ALso in Ending02
-  for(let i = 0; i < numAtmosphericLights; i++){
-    let x =  width/2;
-    let y = 2*height/5;
-    let size = random(5, 35);
-    let atmosphericLight = new Light(x, y, size);
-    atmosphericLights.push(atmosphericLight);
-  }
 
 
   // Level01
@@ -486,27 +503,23 @@ function setup() {
   x = width/2;
   y = height/2;
   tipsTable01 = new TipsTable(x, y, cues01);
-  tipsTables.push(tipsTable01);
+
   // TipsTable Lv02
   x = width/4;
   y = 2*height/5;
   tipsTable02 = new TipsTable(x, y, cues02);
-  tipsTables.push(tipsTable02);
   // TipsTable Lv03
   x = width/2;
   y = height/2;
   tipsTable03 = new TipsTable(x, y, cues03);
-  tipsTables.push(tipsTable03);
   // TipsTable Lv04
   x = width/2;
   y = height/2;
   tipsTable04 = new TipsTable(x, y, cues04);
-  tipsTables.push(tipsTable04);
   // TipsTable Lv05
   x = width/2;
   y = height/2;
   tipsTable05 = new TipsTable(x, y, cues05);
-  tipsTables.push(tipsTable05);
 
   // Type Word
   // Level01
@@ -538,18 +551,25 @@ function setup() {
     let x = random(0, width);
     let y = random(0, height);
     let size = random(30, 60);
-    let chimingLight = new ChimingLight(x, y, size);
+    let chimingLight = new ChimingLight(x, y, size, melody01SFX, melody02SFX, melody03SFX, melody04SFX, melody05SFX, melody06SFX, melody07SFX, melody08SFX, melody09SFX, melody10SFX);
     chimingLights.push(chimingLight);
   }
 
-  // Melody (Script + Playing)
-  x = width/8;
-  y = height/2;
-  // let notes = //defined in class
-  melody = new Melody(x, y, sequences, insertedKeys, correctKeySequence, incomplete);
+  // Success
+  x = width/2;
+  y = 2*height/5;
+  let size = random(5, 30);
+  voice = new Light(x, y, size);
 
-  // Melody
-  synthM = new p5.PolySynth();
+  // Ending02
+  // Atmospheric Lights
+  for(let i = 0; i < numAtmosphericLights; i++){
+    let x =  width/2;
+    let y = 2*height/5;
+    let size = random(5, 35);
+    let atmosphericLight = new Light(x, y, size);
+    atmosphericLights.push(atmosphericLight);
+  }
 
 }
 
@@ -565,23 +585,11 @@ function draw() {
     titleText();
     madeleine.display();
 
-    // Make sure User cannot trigger TipsTable outside Levels
-    for(let i = 0; i < tipsTables.length; i ++){
-      let tipsTable = tipsTables[i];
-      tipsTable.active = false;
-    }
-
   }
 
   // Instructions
   else if ( state === `instructions`){
     textInstructions();
-
-    // Make sure User cannot trigger TipsTable outside Levels
-    for(let i = 0; i < tipsTables.length; i ++){
-      let tipsTable = tipsTables[i];
-      tipsTable.active = false;
-    }
   }
 
   // Intro
@@ -595,12 +603,6 @@ function draw() {
     // Fading Effect
     fading.fade();
     fading.display();
-
-    // Make sure User cannot trigger TipsTable outside Levels
-    for(let i = 0; i < tipsTables.length; i ++){
-      let tipsTable = tipsTables[i];
-      tipsTable.active = false;
-    }
 
   }
 
@@ -711,7 +713,6 @@ function draw() {
     for (let i = 0; i < compasses.length; i++){
       let compass = compasses[i];
       compass.update(frog, lv03);
-      compass.switchToEnding();
     }
 
     // TipsTable
@@ -739,8 +740,11 @@ function draw() {
           let otherMoon = moons[j];
           if(otherMoon !== moon && !otherMoon.active){
              state = `fail`;
+             if (interval04 !== undefined){
                clearInterval(interval04);
                interval04 = undefined;
+             }
+             oscillator04.stop();
            }
          }
        }
@@ -810,40 +814,45 @@ function draw() {
     // Check Collected Items
     checkUserAccomplishments();
 
+    // Establish Ending
+    determineEnding();
+
   }
 
   // Play
   else if ( state === `play`){
 
-  currentState = `playing`;
 
-  //  Atmospheric Lights
-  for (let i = 0; i < lights.length; i ++){
-    let light = lights[i];
-    light.move();
-    light.wrap();
-    light.display();
+
+    currentState = `playing`;
+
+    //  Atmospheric Lights
+    for (let i = 0; i < lights.length; i ++){
+      let light = lights[i];
+      light.move();
+      light.wrap();
+      light.display();
   }
-  //  Chiming Lights
-  for (let i = 0; i < chimingLights.length; i ++){
-    let chimingLight = chimingLights[i];
-    chimingLight.move();
-    chimingLight.wrap();
-    chimingLight.grow();
-    chimingLight.returnOriginalSize();
-    chimingLight.display();
-  }
+    //  Chiming Lights
+    for (let i = 0; i < chimingLights.length; i ++){
+      let chimingLight = chimingLights[i];
+      chimingLight.move();
+      chimingLight.wrap();
+      chimingLight.growthDuration();
+      chimingLight.display();
+    }
 
-  // Display "Script"
-  melody.display(incomplete);
+    // Display "Script"
+    displayScript();
 
-  // Establish Ending
-  determineEnding();
+    // Check if User follows script
+    adhereToScript();
 
   }
 
   // Fail
   else if ( state === `fail`){
+
     textFail();
   }
 
@@ -852,6 +861,37 @@ function draw() {
     // Reset Timer
     timer = 0;
     textPass();
+
+    if (currentState === `firstLevel`){
+      if (interval01 !== undefined){
+         clearInterval(interval01);
+         interval01 = undefined;
+      }
+    }
+    if (currentState === `secondLevel`){
+      oscillator02.stop();
+      oscillator202.stop();
+    }
+    if (currentState === `thirdLevel`){
+      if (interval03 !== undefined){
+         clearInterval(interval03);
+         interval03 = undefined;
+      }
+    }
+    if (currentState === `fourthLevel`){
+      if (interval04 !== undefined){
+         clearInterval(interval04);
+         interval04 = undefined;
+      }
+    }
+    if (currentState === `fifthLevel`){
+      if (interval05 !== undefined){
+         clearInterval(interval05);
+         interval05 = undefined;
+      }
+    }
+
+
   }
 
   // Success
@@ -862,19 +902,15 @@ function draw() {
 
     textSuccessVoice();
 
-    // Display Single Light
-    atmosphericLights.length = 1;
-    // atmosphericLights.x = width/2;
-    // atmosphericLights.y = 2*height/5;
-    for (let i = 0; i < atmosphericLights.length; i++){
-      let atmosphericLight = atmosphericLights[i];
-      atmosphericLight.move();
-      atmosphericLight.display();
-    }
+    voice.move();
+    voice.wrap();
+    voice.display();
 
-    // Store Voice
-    collectedVoices.push(collectedVoice);
-    collectedItems.push(collectedVoice);
+    oscillator05.stop();
+
+    // // Store Voice
+    // collectedVoices.push(collectedVoice);
+    // collectedItems.push(collectedVoice);
 
   }
   // Achieved Script Shred
@@ -885,8 +921,8 @@ function draw() {
     textSuccessScript();
 
     // Store Voice
-    collectedScriptShreds.push(collectedScriptShred);
-    collectedItems.push(collectedVoice);
+    // collectedScriptShreds.push(collectedScriptShred);
+    // collectedItems.push(collectedScriptShred);
 
   }
 
@@ -898,7 +934,7 @@ function draw() {
     mirror.tremble();
     mirror.display();
     // Go back to Title Screen
-    setTimeout(switchToTitle, 8000);
+    setTimeout(switchToTitle, 9000);
   }
 
   // Ending02
@@ -914,6 +950,7 @@ function draw() {
     for (let i = 0; i < atmosphericLights.length; i++){
       let atmosphericLight = atmosphericLights[i];
       atmosphericLight.move();
+      atmosphericLight.wrap();
       atmosphericLight.explode();
       atmosphericLight.display();
 
@@ -1090,6 +1127,84 @@ function whiteFrame(){
 }
 //
 
+
+// PLay
+function displayScript(){
+  // Display Script
+  script.x = width/8;
+  script.y = height/2;
+
+  push();
+  fill(255, 255, 255, 70);
+  rect(script.x, script.y, script.width, script.height);
+  fill(255);
+  text(`Follow the script:
+
+  W
+  D
+  A
+  S
+  X`, script.x, script.y - script.height/6);
+  if(!incomplete){
+    text(`
+    C
+    F
+    V
+    E
+    Q`, script.x, script.y + script.height/9);
+    pop();
+  }
+}
+
+function adhereToScript(){
+  // Check if User is following Script (Key Sequence stored in Array)
+  // Depending on how many items User collected, they will be able to play half or the entire melody.
+  if (!incomplete){
+    // User collected more than 4 Items
+    if (insertedKeys.length === correctKeySequence.length){
+        for(let i = 0; i < correctKeySequence.length; i ++){
+          if(insertedKeys[i] !== correctKeySequence[i]){
+           state = `fail`;
+           melodySFX.stop();
+          }
+          else {
+
+            if (won){
+              state = `ending02`;
+              melodySFX.play(1);
+            }
+            else{
+              setTimeout(switchToEnding01, 6000);
+            }
+
+           }
+         }
+       }
+     }
+     // User collected less than 4 Items
+     else{
+       if (insertedKeys2.length === correctKeySequence2.length){
+           for(let i = 0; i < correctKeySequence2.length; i ++){
+             if(insertedKeys2[i] !== correctKeySequence2[i]){
+              state = `fail`;
+              melodySFX.stop();
+             }
+             else {
+               if (won){
+                 state = `ending02`;
+                 melodySFX.play(1);
+               }
+               else{
+                 setTimeout(switchToEnding01, 6000);
+                 }
+               }
+              }
+          }
+        }
+}
+//
+
+
 // Fail
 function textFail(){
   // White Text
@@ -1098,7 +1213,7 @@ function textFail(){
   textSize(40);
   text(`Yikes. Try again?`, width/2, height/3);
   textSize(20);
-  text(`Press R to retry.`, width/2, 2*height/3);
+  text(`Press R to reset the level.`, width/2, 2*height/3);
   pop();
 }
 //
@@ -1149,6 +1264,13 @@ function resetLevel(){
   // Reset Level
   if(currentState === `firstLevel`){
     state = `level01`;
+
+    // Reset Timer
+    timer = timerLevel;
+
+    // Make sure TipsTable is not active
+    tipsTable01.active = false;
+
     // Restore Creature(s)
     for(let i = 0; i < creatures.length; i++){
       let creature = creatures[i];
@@ -1160,28 +1282,40 @@ function resetLevel(){
       creature.ay = 0;
       creature.active = true;
     }
-      // creature.ay = 0;
-      // // Reset Mic Input + Gravity Force
-      // lv01 = mic.getLevel();
-      // liftAmount = map(lv01, 0, 1, - 1, -15);
-      // gravityForce = 0.002;
+
+    // Soundtrack
+    if (interval01 === undefined) {
+     interval01 = setInterval(playNextNote, 500);
+    }
+
     // Deleting any Typed Input
     typeWord01.currentInput = ``;
   }
   else if(currentState === `secondLevel`){
     state = `level02`;
+
+    // Reset Timer
+    timer = timerLevel;
+
+    // Make sure TipsTable is not active
+    tipsTable02.active = false;
+
     // Soundtracks
     oscillator02.start();
     oscillator202.start();
 
-      // Deleting any Typed Input
-      typeWord02.currentInput = ``;
-
-
+    // Deleting any Typed Input
+    typeWord02.currentInput = ``;
 
   }
   else if(currentState === `thirdLevel`){
     state = `level03`;
+
+    // Reset Timer
+    timer = timerLevel;
+
+    // Make sure TipsTable is not active
+    tipsTable03.active = false;
 
     // Soundtrack
     if (interval03 === undefined) {
@@ -1205,6 +1339,7 @@ function resetLevel(){
      compass.size = random(70, 160);
      compass.stallingTime = 0;
      compass.switchTime = 0;
+     compass.delayTime = 0;
    }
    // Restore Frog
    frog.wounded = false;
@@ -1212,6 +1347,12 @@ function resetLevel(){
 }
   else if(currentState === `fourthLevel`){
     state = `level04`;
+
+    // Reset Timer
+    timer = timerLevel;
+
+    // Make sure TipsTable is not active
+    tipsTable04.active = false;
 
     // Restore Soundtrack
     if (interval04 !== undefined){
@@ -1234,6 +1375,13 @@ function resetLevel(){
   }
   else if(currentState === `fifthLevel`){
     state = `level05`;
+
+    // Reset Timer
+    timer = timerLevel;
+
+    // Make sure TipsTable is not active
+    tipsTable05.active = false;
+
     // Restore Yellow Bunny
     yellowBunny.x = width/6;
     yellowBunny.y= height/3;
@@ -1244,6 +1392,11 @@ function resetLevel(){
       arrow.y = random(3*height/2, height);
     }
 
+    // Restore Soundtrack
+    if (interval05 === undefined) {
+      interval05 = setInterval(playNextNote, 500);
+    }
+
     // Deleting any Typed Input
     typeWord05.currentInput = ``;
 
@@ -1251,7 +1404,8 @@ function resetLevel(){
   else if(currentState === `playing`){
     state = `play`;
     insertedKeys = [];
-  }
+    insertedKeys2 = [];
+}
 }
 
 // After passing/surpassing Level
@@ -1279,9 +1433,11 @@ function nextLevel(){
     // Start Timer
     timer = timerLevel;
     // // Soundtrack
-    // if (interval04 === undefined) {
-    //   interval04 = setInterval(playNextNote, 500);
-    // }
+    if (interval04 !== undefined){
+     clearInterval(interval04);
+     interval04 = undefined;
+    }
+
   }
   else if (nextState === `level5`){
     state = `level05`;
@@ -1300,10 +1456,7 @@ function nextLevel(){
 
 function checkUserAccomplishments(){
   //Check if User is missing pieces
-  if(collectedScriptShreds.lenght < 2){
-    incomplete = true;
-  }
-  else{
+  if((collectedScriptShred01 === true) && (collectedScriptShred02 === true)){
     incomplete = false;
   }
 }
@@ -1312,11 +1465,21 @@ function checkUserAccomplishments(){
 // Determine Ending
 function determineEnding(){
   // Choose Ending (01 or 02) considering items collected by User
-  if (collectedItems.length >= 4){
-    won = true;
-  }
-  else{
+   if (let i = 0; i < collectedItems.length; i ++){
+    let collectedItem = collectedItems[i];
+    if (collectedItems.length >= 4){
+      won = true;
+    }
+    else{
     won = false;
+  }
+}
+}
+
+function switchToEnding01(){
+  state = `ending01`;
+  if (intervalHeartbeat === undefined) {
+   intervalHeartbeat = setInterval(playNextNote, 900);
   }
 }
 //
@@ -1349,7 +1512,7 @@ function playRandomNote(){
 function playNextNote() {
 
   // Intro, Ending01, Ending02
-  if (state === `intro` || state === `ending01` || state === `ending02`){
+  if (state === `intro` || state === `ending01`){
     // Play notes
     let noteHeartbeat = notesHeartbeat[currentNoteHeartbeat];
     heartrate = heartrate + volume;
@@ -1358,15 +1521,6 @@ function playNextNote() {
     currentNoteHeartbeat = currentNoteHeartbeat + 1;
     if (currentNoteHeartbeat === notesHeartbeat.length) {
       currentNoteHeartbeat = 0;
-    }
-
-    if (state === `ending01`){
-      heartrate = 0.8;
-      heartrate = heartrate - volume;
-    }
-
-    if (state === `ending02`){
-      volume = 0.8;
     }
   }
 
@@ -1433,24 +1587,39 @@ function guessWord(){
 // p5 Events
 function keyPressed(){
 
-typeWord01.keyPressed();
-typeWord02.keyPressed();
-typeWord05.keyPressed();
+  if (state === `level01`){
+    typeWord01.keyPressed();
+  }
+  else if (state === `level02`){
+    typeWord02.keyPressed();
+  }
+  else if (state === `level05`){
+    typeWord05.keyPressed();
+  }
+
+  if (state === `level03`){
+    for (let i = 0; i < compasses.length; i++){
+      let compass = compasses[i];
+      compass.keyPressed();
+    }
+  }
+
 
 if (state === `play`){
 
-  // // Orange Lights react to Keyboard Input
-  // for (let i = 0; i < chimingLights.length; i ++){
-  // let chimingLight = chimingLights[i];
-  // melody.keyPressed(chimingLight);
-  // }
-  melody.keyPressed(chimingLights);
+  // Store User Input
+  if (!incomplete){
+      insertedKeys.push(keyCode);
+  }
+  else{
+      insertedKeys2.push(keyCode);
+  }
 
-  // Store keys pressed by User
-  insertedKeys.push(keyCode);
 
-  // Check if User follows Script
-  melody.adhereToScript(incomplete);
+  for (let i = 0; i < chimingLights.length; i ++){
+    let chimingLight = chimingLights[i];
+    chimingLight.keyPressed();
+  }
 }
 
 if(keyCode === 13){
@@ -1470,11 +1639,22 @@ if(keyCode === 13){
 }
 else if (keyCode === 32){   // User presses SPACEBAR
   // TipsTable(s)
-  tipsTable01.keyPressed();
-  tipsTable02.keyPressed();
-  tipsTable03.keyPressed();
-  tipsTable04.keyPressed();
-  tipsTable05.keyPressed();
+  if (state === `level01`){
+    tipsTable01.keyPressed();
+  }
+  else if(state === `level02`){
+    tipsTable02.keyPressed();
+  }
+  else if (state === `level03`){
+    tipsTable03.keyPressed();
+  }
+  else if (state === `level04`){
+    tipsTable04.keyPressed();
+  }
+  else if (state === `level05`){
+    tipsTable05.keyPressed();
+  }
+
 }
 else if (keyCode === 82){  // User presses R to Reset Level
   if( state === `fail`){
@@ -1482,19 +1662,20 @@ else if (keyCode === 82){  // User presses R to Reset Level
   }
 }
 
-if (state === `level03`){
-  for (let i = 0; i < compasses.length; i++){
-    let compass = compasses[i];
-    compass.keyPressed();
-    compass.switchToEnding();
-  }
-}
+
 }
 
 function keyTyped() {
-  typeWord01.keyTyped();
-  typeWord02.keyTyped();
-  typeWord05.keyTyped();
+  if (state === `level01`){
+    typeWord01.keyTyped();
+  }
+  else if(state === `level02`){
+    typeWord02.keyTyped();
+  }
+  else if(state === `level05`){
+    typeWord05.keyTyped();
+  }
+
 }
 
 function mousePressed() {
@@ -1532,8 +1713,10 @@ function mousePressed() {
           if(otherFish !== fish){
             otherFish.target = fish;
             fish.speed = 0;  // targeted fish frezzes (cretaes better experience this way)
-            clearInterval(interval04);
-            interval04 = undefined;
+            if (interval04 !== undefined){
+              clearInterval(interval04);
+              interval04 = undefined;
+            }
             oscillator04.start();
           }
         }
@@ -1543,11 +1726,21 @@ function mousePressed() {
   }
 
   // TipsTable(s)
-  tipsTable01.mousePressed();
-  tipsTable02.mousePressed();
-  tipsTable03.mousePressed();
-  tipsTable04.mousePressed();
-  tipsTable05.mousePressed();
+  if (state === `level01`){
+    tipsTable01.mousePressed();
+  }
+  else if(state === `level02`){
+    tipsTable02.mousePressed();
+  }
+  else if (state === `level03`){
+    tipsTable03.mousePressed();
+  }
+  else if (state === `level04`){
+    tipsTable04.mousePressed();
+  }
+  else if (state === `level05`){
+    tipsTable05.mousePressed();
+  }
 
 }
 //

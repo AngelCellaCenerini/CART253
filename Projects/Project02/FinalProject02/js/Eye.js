@@ -28,7 +28,7 @@ class Eye {
     else{
       // Eye stills for 2 secs before going back to wondering around
       this.stillTime ++;
-      if(this.stillTime > 2*60){
+      if(this.stillTime > 3*60){
         this.moving = true;
         this.stillTime = 0;
       }
