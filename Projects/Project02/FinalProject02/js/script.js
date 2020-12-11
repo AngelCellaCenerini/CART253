@@ -24,7 +24,7 @@ let myFontB;
 // Timers
 let timer = 0;
 let timerIntro = 10;
-let timerLevel = 40;
+let timerLevel = 50;
 
 // Title
 // Madeleine Logo/Icon
