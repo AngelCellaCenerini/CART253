@@ -15,7 +15,7 @@ The program develops into five levels, each guarding hidden enigmas. The User ca
 survive the challenge or solve the puzzle and surpass the level, thus achieving a collectable item (either a Voice or a Script Shred).
 Depending on how well the User performs, in the end they will be able to play a melody, concluding this experience.
 
-Further technical and conceptual details are provided in the README.md file.
+Further technical and conceptual details are provided in the README.md file (information regarding assets included).
 **************************************************/
 // Fonts
 let myFontA;
@@ -24,7 +24,7 @@ let myFontB;
 // Timers
 let timer = 0;
 let timerIntro = 10;
-let timerLevel = 10;
+let timerLevel = 40;
 
 // Title
 // Madeleine Logo/Icon
@@ -148,9 +148,6 @@ let incomplete = true;
 
 // All Levels
 // Collected Items
-let collectedItems = [];
-// let collectedScriptShreds = [];
-// let collectedVoices = [];
 let collectedScriptShred01 = false;
 let collectedScriptShred02 = false;
 let collectedVoice01 = false;
@@ -223,7 +220,7 @@ let voice;
 let lights = [];
 let numLights = 18;
 let atmosphericLights = [];
-let numAtmosphericLights = 25;
+let numAtmosphericLights = 30;
 let chimingLights = [];
 let numChimingLights = 6;
 // Melody
@@ -258,12 +255,11 @@ let insertedKeys2 = [];
 let won;
 
 
-
 // Ending02
 // Lights
 // States
 let state = `title`        // Title, Instructions, Intro, Level01, Level02, Level03, Level04, Level05, PLay (User plays Melody)
-                          // Fail (User looses), Pass (User passes level withouth solving it), Success (Achieved Voice or Script),  Ending01, Ending02.
+                          // Fail (User looses), Pass (User passes level withouth solving puzzle), Success (Achieved Voice or Script),  Ending01, Ending02.
 
 // Load Fonts
 function preload(){
@@ -271,7 +267,7 @@ function preload(){
   myFontA = loadFont('assets/AnonymousPro-Regular.otf');
   myFontB = loadFont('assets/BigShouldersStencilDisplay-Regular.otf');
 
-  // MP3 Files
+  // MP3 Files - credits in README.md
   melody01SFX = loadSound('assets/sounds/1.mp3');
   melody02SFX = loadSound('assets/sounds/2.mp3');
   melody03SFX = loadSound('assets/sounds/3.mp3');
@@ -288,7 +284,7 @@ function preload(){
 
 // setup()
 //
-// Description o3 setup() goes here.
+// Basic Settings, Class(es), p5.sound matters.
 function setup() {
   createCanvas(windowWidth, windowHeight);
   // Graphics
@@ -566,7 +562,7 @@ function setup() {
   for(let i = 0; i < numAtmosphericLights; i++){
     let x =  width/2;
     let y = 2*height/5;
-    let size = random(5, 35);
+    let size = random(5, 50);
     let atmosphericLight = new Light(x, y, size);
     atmosphericLights.push(atmosphericLight);
   }
@@ -575,7 +571,7 @@ function setup() {
 
 // draw()
 //
-// Description of draw() goes here.
+// Setting Up States.
 function draw() {
 
   background(0); // black
@@ -583,6 +579,7 @@ function draw() {
   // Title
   if ( state === `title`){
     titleText();
+    // "Madeleine" Icon (it's very abstract)
     madeleine.display();
 
   }
@@ -595,7 +592,7 @@ function draw() {
   // Intro
   else if ( state === `intro`){
 
-    // Countdown
+    // Countdown - 10 sec
     countdown();
 
     // Mirror
@@ -612,7 +609,7 @@ function draw() {
     currentState = `firstLevel`;
     nextState = `level2`;
 
-    // // Countdown
+    // // Countdown - 45 sec each Level
     countdown();
 
     // Mic Input Lifts Creatures
@@ -734,7 +731,7 @@ function draw() {
       let moon = moons[i];
       moon.display(moon);
       moon.move();
-      // Check if both Moons have been "eaten" >> Switching State
+      // Check if both Moons have been "eaten" >> Switching to Fail State
       if(!moon.active){
         for(let j = 0; j < moons.length; j++){
           let otherMoon = moons[j];
@@ -822,8 +819,6 @@ function draw() {
   // Play
   else if ( state === `play`){
 
-
-
     currentState = `playing`;
 
     //  Atmospheric Lights
@@ -862,6 +857,7 @@ function draw() {
     timer = 0;
     textPass();
 
+    // Make sure sounds (of any kind) are not playing
     if (currentState === `firstLevel`){
       if (interval01 !== undefined){
          clearInterval(interval01);
@@ -890,8 +886,6 @@ function draw() {
          interval05 = undefined;
       }
     }
-
-
   }
 
   // Success
@@ -906,12 +900,6 @@ function draw() {
     voice.wrap();
     voice.display();
 
-    // oscillator05.stop();
-
-    // // Store Voice
-    // collectedVoices.push(collectedVoice);
-    // collectedItems.push(collectedVoice);
-
   }
   // Achieved Script Shred
   else if ( state === `successS`){
@@ -919,10 +907,6 @@ function draw() {
     timer = 0;
 
     textSuccessScript();
-
-    // Store Voice
-    // collectedScriptShreds.push(collectedScriptShred);
-    // collectedItems.push(collectedScriptShred);
 
   }
 
@@ -953,7 +937,6 @@ function draw() {
       atmosphericLight.wrap();
       atmosphericLight.explode();
       atmosphericLight.display();
-
     }
   }
 
@@ -1130,7 +1113,7 @@ function whiteFrame(){
 
 // PLay
 function displayScript(){
-  // Display Script
+  // Display "Script"
   script.x = width/8;
   script.y = height/2;
 
@@ -1145,7 +1128,7 @@ function displayScript(){
   A
   S
   X`, script.x, script.y - script.height/6);
-  if(!incomplete){
+  if(!incomplete){  // User has collected both Script Shreds
     text(`
     C
     F
@@ -1174,7 +1157,10 @@ function adhereToScript(){
                 melodySFX.play(1);
               }
               else{
-                setTimeout(switchToEnding01, 5000);
+                state = `ending01`;
+                if (intervalHeartbeat === undefined) {
+                 intervalHeartbeat = setInterval(playNextNote, 900);
+                }
               }
             }
            }
@@ -1187,16 +1173,17 @@ function adhereToScript(){
              if(insertedKeys2[i] !== correctKeySequence2[i]){
               state = `fail`;
               insertedKeys2.length = 0;
-              // insertedKeys2 = [];
-              // melodySFX.stop();
               }
               else {
-                setTimeout(switchToEnding01, 5000);
+                state = `ending01`;
+                if (intervalHeartbeat === undefined) {
+                 intervalHeartbeat = setInterval(playNextNote, 900);
                 }
-              }
-            }
+                }
+             }
       }
-    }
+     }
+}
 //
 
 
@@ -1241,7 +1228,7 @@ function textSuccessVoice(){
 }
 
 function textSuccessScript(){
-  // Achieved Script
+  // Achieved Script Shred
   // White Text
   push();
   fill(255);
@@ -1263,7 +1250,7 @@ function resetLevel(){
     // Reset Timer
     timer = timerLevel;
 
-    // Make sure TipsTable is not active
+    // Make sure TipsTable is not active before level starts
     tipsTable01.active = false;
 
     // Restore Creature(s)
@@ -1400,8 +1387,6 @@ function resetLevel(){
     state = `play`;
     insertedKeys.length = 0;
     insertedKeys2.length = 0;
-    // adhereToScript();
-    // determineEnding();
 }
 }
 
@@ -1420,7 +1405,11 @@ function nextLevel(){
     state = `level03`;
     // Start Timer
     timer = timerLevel;
-    frog.switchTime = 0;
+    for(let i = 0; i < compasses.length; i++){
+      let compass = compasses[i];
+      compass.switchTime = 0;
+    }
+
     // Soundtrack
     if (interval03 === undefined) {
      interval03 = setInterval(playNextNote, 500);
@@ -1455,7 +1444,7 @@ function nextLevel(){
 }
 
 function checkUserAccomplishments(){
-  //Check if User is missing pieces
+  //Check if User is missing Script Shreds (2 total)
   if((collectedScriptShred01 === true) && (collectedScriptShred02 === true)){
     incomplete = false;
   }
@@ -1474,14 +1463,6 @@ function determineEnding(){
 }
 //
 
-
-// Ending01
-function switchToEnding01(){
-  state = `ending01`;
-  if (intervalHeartbeat === undefined) {
-   intervalHeartbeat = setInterval(playNextNote, 900);
-  }
-}
 // Switch to Title Screen
 function switchToTitle(){
 state = `title`;
@@ -1583,6 +1564,7 @@ function guessWord(){
 // p5 Events
 function keyPressed(){
 
+  // Type/Guess Word
   if (state === `level01`){
     typeWord01.keyPressed();
   }
@@ -1604,24 +1586,22 @@ function keyPressed(){
 if (state === `play`){
 
   // Store User Input
+  if (!incomplete){
+      insertedKeys.push(keyCode);
+  }    else{
+      insertedKeys2.push(keyCode);
+  }
 
-    if (!incomplete){
-        insertedKeys.push(keyCode);
-    }
-    else{
-        insertedKeys2.push(keyCode);
-    }
-
-
-
+  // Chiming Lights
   for (let i = 0; i < chimingLights.length; i ++){
     let chimingLight = chimingLights[i];
     chimingLight.keyPressed();
   }
 }
 
+// User presses ENTER
 if(keyCode === 13){
-  if(state === `title`){    // User presses ENTER
+  if(state === `title`){
     state = `instructions`;
   }
   else if (state === `instructions`){
@@ -1660,10 +1640,10 @@ else if (keyCode === 82){  // User presses R to Reset Level
   }
 }
 
-
 }
 
 function keyTyped() {
+  // Type/diplay pressed key
   if (state === `level01`){
     typeWord01.keyTyped();
   }
@@ -1723,7 +1703,7 @@ function mousePressed() {
     }
   }
 
-  // TipsTable(s)
+  // TipsTable(s) - all Levels
   if (state === `level01`){
     tipsTable01.mousePressed();
   }

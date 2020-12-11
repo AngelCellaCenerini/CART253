@@ -7,6 +7,8 @@ class Madeleine{
   }
 
   display(){
+
+    // "Madeleine" Icon
     push();
     stroke(0);
     strokeWeight(4);
@@ -15,7 +17,6 @@ class Madeleine{
     ellipse(this.x - 2*this.width/5, this.y, this.width, 27*this.height/31);
     ellipse(this.x + 2*this.width/5, this.y, this.width, 27*this.height/31);
     ellipse(this.x, this.y, this.width, this.height);
-    // Lights
     stroke(255);
     noFill();
     ellipse(this.x - 2*this.width, this.y, this.height/10)
@@ -24,4 +25,5 @@ class Madeleine{
     ellipse(this.x + 2*this.width, this.y, this.height/10)
     pop();
   }
+  
 }

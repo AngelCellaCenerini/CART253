@@ -102,7 +102,6 @@ class PurpleBunny{
       state = `successV`;
       collectedVoice03 = true;
       oscillator05.stop();
-      // this.delayedSwitchTime = 0;
     }
   }
 

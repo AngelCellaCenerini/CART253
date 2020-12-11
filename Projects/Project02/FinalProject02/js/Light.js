@@ -3,7 +3,7 @@ class Light {
     this.x = x;
     this.y = y;
     this.size = size;
-    this.maxSize = 2000;
+    this.maxSize = 1800;
     this.growth = 4;
     this.vx = 0;
     this.vy = 0;
@@ -49,7 +49,7 @@ class Light {
 
     this.explosionTime++;
 
-    if(this.explosionTime > 19*60){
+    if(this.explosionTime > 29*60){
     this.size = this.size + this.growth;
     }
     if(this.size > this.maxSize){

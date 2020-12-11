@@ -16,7 +16,6 @@ class Frog{
     this.height = 210;
     this.wounded = false;  // Cheek is wounded by Needles
 
-
   }
 
   grow(){

@@ -30,6 +30,7 @@ class ChimingLight extends Light {
   }
 
   keyPressed(){
+    // Based on pressed key, play set of notes (.mp3 files)
     if(keyCode === 87 || keyCode === 83 || keyCode === 65 || keyCode === 68 || keyCode === 70 || keyCode === 69 || keyCode === 81 || keyCode === 86 || keyCode === 88 || keyCode === 67 ){
 
       if (keyCode === 87){
