@@ -12,9 +12,12 @@ Really, it could be everything, or nothing at all. It probably makes little sens
 Mostly, I'd say it's my final project for CART253 Fall 2020.
 
 CODING:
+This program is an assembling of all minor programs (mainly concerning different levels), which can be found in the Projects/Project02/Drafts Folder. GitHub here will explicitly indicate which specific folder the lines are being taken from.
 I have passive-aggressively tested out the program several times, and I de-bugged all errors I encountered. However, I wouldn't be surprised if I missed some; apologies in advance.
 
-A quick note on the program itself: I am aware that some things could be better structured and that perfection is a never-ending process, though I am quite satisfied with the final result.
+Two quick notes on the program itself:
+1.I am aware that some things could be better structured and that perfection is a never-ending process, though I am quite satisfied with the final result.
+2.Depending on the screen one is displaying the program on, the dimensions (eg: x, y, size) vary. I really hope it doesn't come out distorted or re-dimensioned!
 
 Notably, I had -embarrassingly- major issues with collectedItems/Voices/ScriptShreds array(GitHub will testify to that) and decided to use variables/if-statements instead. Not ideal, though it does the job?
 
