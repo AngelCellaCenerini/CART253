@@ -67,6 +67,7 @@ class Fish{
        this.target.active = false;
        if(this.target !== this.moon && this.target !== this.wave){
          state = `successS`;
+         collectedScriptShred02 = true;
          oscillator04.stop();
        }
        this.eatingTime = 0;

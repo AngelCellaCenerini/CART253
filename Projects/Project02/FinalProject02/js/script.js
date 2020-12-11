@@ -24,7 +24,7 @@ let myFontB;
 // Timers
 let timer = 0;
 let timerIntro = 10;
-let timerLevel = 15;
+let timerLevel = 30;
 
 // Title
 // Madeleine Logo/Icon
@@ -1160,7 +1160,7 @@ function adhereToScript(){
   // Check if User is following Script (Key Sequence stored in Array)
   // Depending on how many items User collected, they will be able to play half or the entire melody.
   if (!incomplete){
-    // User collected more than 4 Items
+    // User collects all items
     if (insertedKeys.length === correctKeySequence.length){
         for(let i = 0; i < correctKeySequence.length; i ++){
           if(insertedKeys[i] !== correctKeySequence[i]){
@@ -1168,40 +1168,32 @@ function adhereToScript(){
            melodySFX.stop();
           }
           else {
-
-            if (won){
-              state = `ending02`;
-              melodySFX.play(1);
+              if(won){
+                state = `ending02`;
+                melodySFX.play(1);
+              }
+              else{
+                setTimeout(switchToEnding01, 6000);
+              }
             }
-            else{
-              setTimeout(switchToEnding01, 6000);
-            }
-
            }
          }
        }
-     }
-     // User collected less than 4 Items
+     // User doesn't collect all Items
      else{
        if (insertedKeys2.length === correctKeySequence2.length){
            for(let i = 0; i < correctKeySequence2.length; i ++){
              if(insertedKeys2[i] !== correctKeySequence2[i]){
               state = `fail`;
               melodySFX.stop();
-             }
-             else {
-               if (won){
-                 state = `ending02`;
-                 melodySFX.play(1);
-               }
-               else{
-                 setTimeout(switchToEnding01, 6000);
-                 }
-               }
               }
-          }
-        }
-}
+              else {
+               setTimeout(switchToEnding01, 6000);
+              }
+            }
+      }
+    }
+  }
 //
 
 
@@ -1465,15 +1457,12 @@ function checkUserAccomplishments(){
 // Determine Ending
 function determineEnding(){
   // Choose Ending (01 or 02) considering items collected by User
-   if (let i = 0; i < collectedItems.length; i ++){
-    let collectedItem = collectedItems[i];
-    if (collectedItems.length >= 4){
+   if ((collectedVoice01 === true) && (collectedVoice02 === true) && (collectedVoice03 === true) && (collectedVoice01 === true) && (collectedScriptShred02 === true)){
       won = true;
     }
     else{
     won = false;
   }
-}
 }
 
 function switchToEnding01(){

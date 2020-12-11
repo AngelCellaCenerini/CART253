@@ -100,6 +100,7 @@ class PurpleBunny{
     // Countdown (level ends 2 secs after Purple Bunny's mouth is fully closed)
     if(this.delayedSwitchTime > 2*60){
       state = `successV`;
+      collectedVoice03 = true;
       oscillator05.stop();
       // this.delayedSwitchTime = 0;
     }

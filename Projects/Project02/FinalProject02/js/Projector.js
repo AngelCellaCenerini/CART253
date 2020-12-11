@@ -15,6 +15,7 @@ class Projector{
       if ( (d < this.height/2 || d < this.width/2) ){
         if ((this.x > width/3 ) && (this.y > 4*height/6 )){
           state = `successS`;
+          collectedScriptShred01 = true;
           oscillator02.stop();
           oscillator202.stop();
         }

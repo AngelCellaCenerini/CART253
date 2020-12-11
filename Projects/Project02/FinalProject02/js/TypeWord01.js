@@ -20,6 +20,7 @@ class TypeWord01{
      // Restore Input for next Levels
      this.currentInput = ``;
      state = `successV`;
+     collectedVoice01 = true;
      if (interval01 !== undefined) {
       clearInterval(interval01, 500);
       interval01 = undefined;

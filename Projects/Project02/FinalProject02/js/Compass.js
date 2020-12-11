@@ -26,6 +26,7 @@ class Compass{
       this.delayTime ++;
       if (this.delayTime > 4*60){
         state = `successV`;
+        collectedVoice02 = true;
         if (interval03 !== undefined){
           clearInterval(interval03);
           interval03 = undefined;
