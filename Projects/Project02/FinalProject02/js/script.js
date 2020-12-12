@@ -194,7 +194,7 @@ let cues03 = [
   `1. I see you still have your keyboard with you.
   Good.`,
   `2. Poor frog. If only you could somehow
-   distract the needles form attacking it.`,
+   distract the needles from attacking it.`,
   `3. What does a compass yearn for?`
 ];
 let cues04 = [
