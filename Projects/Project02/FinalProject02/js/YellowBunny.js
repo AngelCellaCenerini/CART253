@@ -77,9 +77,10 @@ class YellowBunny{
       }
 
       // Disappear once at the center of Purple Bunny's mouth (again, semantics)
-      if(this.x === purpleBunny.positionX){
+      let d = dist(this.x, this.y, purpleBunny.positionX, purpleBunny.positionY);
+      if(d < this.size/2 + purpleBunny.maxMouthSize/20 ){
         this.stallingTime++;
-      if (this.stallingTime > 0.6*60){
+      if (this.stallingTime > 1*60){
         this.active = false;
        }
       }
