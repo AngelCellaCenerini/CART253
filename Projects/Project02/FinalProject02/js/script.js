@@ -384,7 +384,6 @@ function setup() {
   // Soundtrack
   oscillator02 = new p5.Oscillator(0, `tan`);
   oscillator202 = new p5.Oscillator(`triangle`);
-  oscillator02.amp(0.02);
 
 
   // Level03
